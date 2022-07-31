@@ -1,42 +1,292 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="简介       计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做编码，将二进制数据映射为字符的过程就是解码。 为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。 因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典">
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.png">
+  <link rel="icon" href="/img/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Cyan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="简介计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做编码，将二进制数据映射为字符的过程就是解码。 为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。 因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录128个字符，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符集与比较规则">
 <meta property="og:url" content="https://cecilia.cool/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/index.html">
 <meta property="og:site_name" content="慕青的日记">
-<meta property="og:description" content="简介       计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做编码，将二进制数据映射为字符的过程就是解码。 为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。 因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="简介计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做编码，将二进制数据映射为字符的过程就是解码。 为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。 因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录128个字符，">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-24T08:13:45.000Z">
 <meta property="article:modified_time" content="2022-07-24T10:06:56.531Z">
 <meta property="article:author" content="Cyan">
 <meta property="article:tag" content="MySQL">
-<meta name="twitter:card" content="summary"><title>字符集与比较规则 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  assistSearch: undefined,
-  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
-  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
-  postWidget: {"endText":true},
-  nightMode: {"enable":true},
-  back2top: {"enable":true},
-  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
-  reward: false,
-  fancybox: false,
-  zoomImage: {"gapAside":"20px"},
-  galleryWaterfall: undefined,
-  lazyload: false,
-  pjax: undefined,
-  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
-  shortcuts: undefined,
-  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
-  sourcePath: {"js":"js","css":"css","images":"images"},
-};
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>字符集与比较规则 - 慕青的日记</title>
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">字符集与比较规则</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body">
-        <h1 id="简介"   >
-          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
-      <p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"cecilia.cool","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>南慕青</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/Page_Banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="字符集与比较规则"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Cyan
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-24 16:13" pubdate>
+          2022年7月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">字符集与比较规则</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年7月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
 <p>为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。</p>
 <p>因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录<strong>128个字符</strong>，<strong>每个字符由一个字节保存</strong>。字符<strong>a</strong>的二进制编码为<code>1100001</code>，字符<strong>b</strong>的二进制编码为<code>1100010</code>，通过比较就可以看出<code>a&gt;b</code>。</p>
 <p>需要记住几种重要的字符集：</p>
@@ -45,28 +295,28 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <li>UTF-8字符集：几乎收录各国（地区）使用的字符，并且在不断扩充。使用变长编码方式，一个字符需要使用1~4个字节</li>
 </ul>
 <p>其实UTF-8只是Unicode字符集的一种<strong>编码方案</strong>，其他的还有UTF-16（2或4字节编码一个字符），UTF-32（4字节）。</p>
-
-        <h1 id="MySQL支持的字符集与比较规则"   >
-          <a href="#MySQL支持的字符集与比较规则" class="heading-link"><i class="fas fa-link"></i></a><a href="#MySQL支持的字符集与比较规则" class="headerlink" title="MySQL支持的字符集与比较规则"></a>MySQL支持的字符集与比较规则</h1>
-      
-        <h2 id="utf8mb3和utf8mb4"   >
-          <a href="#utf8mb3和utf8mb4" class="heading-link"><i class="fas fa-link"></i></a><a href="#utf8mb3和utf8mb4" class="headerlink" title="utf8mb3和utf8mb4"></a>utf8mb3和utf8mb4</h2>
-      <p>我们平常使用的字符一般用 1~3 个字节就可以表示，在MySQL中，<strong>字符集表示一个字符所用的最大字节数会影响系统存储和性能</strong>（比如一条记录中变长数据的存储，之后的文章会讲到）。</p>
+<h1 id="MySQL支持的字符集与比较规则"><a href="#MySQL支持的字符集与比较规则" class="headerlink" title="MySQL支持的字符集与比较规则"></a>MySQL支持的字符集与比较规则</h1><h2 id="utf8mb3和utf8mb4"><a href="#utf8mb3和utf8mb4" class="headerlink" title="utf8mb3和utf8mb4"></a>utf8mb3和utf8mb4</h2><p>我们平常使用的字符一般用 1~3 个字节就可以表示，在MySQL中，<strong>字符集表示一个字符所用的最大字节数会影响系统存储和性能</strong>（比如一条记录中变长数据的存储，之后的文章会讲到）。</p>
 <p>总之，你需要记住的是UTF-8使用 1-4 个字节存储方式有点浪费，所以就有了utf8mb3。</p>
 <ul>
 <li>utf8mb3：阉割版的UTF-8字符集，使用1~3个字节表示一个字符。</li>
 <li>utf8mb4：就是UTF-8字符集，使用1~4个字节。</li>
 </ul>
 <p>在MySQL中，<strong>utf8是utf8mb3的别名</strong>。同时，在MySQL8.0中，utf8mb4被极大优化，成为了默认的字符集。</p>
-
-        <h2 id="字符集的查看"   >
-          <a href="#字符集的查看" class="heading-link"><i class="fas fa-link"></i></a><a href="#字符集的查看" class="headerlink" title="字符集的查看"></a>字符集的查看</h2>
-      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show charset;</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| Charset  | Description                     | Default collation   | Maxlen |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |</span><br><span class="line">| dec8     | DEC West European               | dec8_swedish_ci     |      1 |</span><br><span class="line">| cp850    | DOS West European               | cp850_general_ci    |      1 |</span><br><span class="line">| hp8      | HP West European                | hp8_english_ci      |      1 |</span><br><span class="line">| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br></pre></td></tr></table></div></figure>
+<h2 id="字符集的查看"><a href="#字符集的查看" class="headerlink" title="字符集的查看"></a>字符集的查看</h2><figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; show charset;
++----------+---------------------------------+---------------------+--------+
+| Charset  | Description                     | Default collation   | Maxlen |
++----------+---------------------------------+---------------------+--------+
+| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |
+| dec8     | DEC West European               | dec8_swedish_ci     |      1 |
+| cp850    | DOS West European               | cp850_general_ci    |      1 |
+| hp8      | HP West European                | hp8_english_ci      |      1 |
+| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |
++----------+---------------------------------+---------------------+--------+</code></pre></div></figure>
 
 <p>命令 <code>show (character set | charset) [like 匹配模式];</code> （<code>[]</code>里的内容可以省略）</p>
 <p><code>Maxlen</code>表示该字符集最多需要几个字节表示一个字符。</p>
 <p>​																				<strong>表1  常用字符集与Maxlen</strong> </p>
-<div class="table-container"><table>
+<table>
 <thead>
 <tr>
 <th align="center">Charset</th>
@@ -97,14 +347,46 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <td align="center">utf8mb4</td>
 <td align="center">4</td>
 </tr>
-</tbody></table></div>
+</tbody></table>
 <p><code>Default collation</code>表示默认的比较规则，<strong>一个字符集可能对应多种比较规则</strong>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show collation like &#x27;utf8\_%&#x27;;</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| Collation                | Charset | Id  | Default | Compiled | Sortlen |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| utf8_general_ci          | utf8    |  33 | Yes     | Yes      |       1 |</span><br><span class="line">| utf8_bin                 | utf8    |  83 |         | Yes      |       1 |</span><br><span class="line">| utf8_unicode_ci          | utf8    | 192 |         | Yes      |       8 |</span><br><span class="line">| utf8_icelandic_ci        | utf8    | 193 |         | Yes      |       8 |</span><br><span class="line">| utf8_latvian_ci          | utf8    | 194 |         | Yes      |       8 |</span><br><span class="line">| utf8_romanian_ci         | utf8    | 195 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovenian_ci        | utf8    | 196 |         | Yes      |       8 |</span><br><span class="line">| utf8_polish_ci           | utf8    | 197 |         | Yes      |       8 |</span><br><span class="line">| utf8_estonian_ci         | utf8    | 198 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish_ci          | utf8    | 199 |         | Yes      |       8 |</span><br><span class="line">| utf8_swedish_ci          | utf8    | 200 |         | Yes      |       8 |</span><br><span class="line">| utf8_turkish_ci          | utf8    | 201 |         | Yes      |       8 |</span><br><span class="line">| utf8_czech_ci            | utf8    | 202 |         | Yes      |       8 |</span><br><span class="line">| utf8_danish_ci           | utf8    | 203 |         | Yes      |       8 |</span><br><span class="line">| utf8_lithuanian_ci       | utf8    | 204 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovak_ci           | utf8    | 205 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish2_ci         | utf8    | 206 |         | Yes      |       8 |</span><br><span class="line">| utf8_roman_ci            | utf8    | 207 |         | Yes      |       8 |</span><br><span class="line">| utf8_persian_ci          | utf8    | 208 |         | Yes      |       8 |</span><br><span class="line">| utf8_esperanto_ci        | utf8    | 209 |         | Yes      |       8 |</span><br><span class="line">| utf8_hungarian_ci        | utf8    | 210 |         | Yes      |       8 |</span><br><span class="line">| utf8_sinhala_ci          | utf8    | 211 |         | Yes      |       8 |</span><br><span class="line">| utf8_german2_ci          | utf8    | 212 |         | Yes      |       8 |</span><br><span class="line">| utf8_croatian_ci         | utf8    | 213 |         | Yes      |       8 |</span><br><span class="line">| utf8_unicode_520_ci      | utf8    | 214 |         | Yes      |       8 |</span><br><span class="line">| utf8_vietnamese_ci       | utf8    | 215 |         | Yes      |       8 |</span><br><span class="line">| utf8_general_mysql500_ci | utf8    | 223 |         | Yes      |       1 |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">27 rows in set (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; show collation like &#39;utf8\_%&#39;;
++--------------------------+---------+-----+---------+----------+---------+
+| Collation                | Charset | Id  | Default | Compiled | Sortlen |
++--------------------------+---------+-----+---------+----------+---------+
+| utf8_general_ci          | utf8    |  33 | Yes     | Yes      |       1 |
+| utf8_bin                 | utf8    |  83 |         | Yes      |       1 |
+| utf8_unicode_ci          | utf8    | 192 |         | Yes      |       8 |
+| utf8_icelandic_ci        | utf8    | 193 |         | Yes      |       8 |
+| utf8_latvian_ci          | utf8    | 194 |         | Yes      |       8 |
+| utf8_romanian_ci         | utf8    | 195 |         | Yes      |       8 |
+| utf8_slovenian_ci        | utf8    | 196 |         | Yes      |       8 |
+| utf8_polish_ci           | utf8    | 197 |         | Yes      |       8 |
+| utf8_estonian_ci         | utf8    | 198 |         | Yes      |       8 |
+| utf8_spanish_ci          | utf8    | 199 |         | Yes      |       8 |
+| utf8_swedish_ci          | utf8    | 200 |         | Yes      |       8 |
+| utf8_turkish_ci          | utf8    | 201 |         | Yes      |       8 |
+| utf8_czech_ci            | utf8    | 202 |         | Yes      |       8 |
+| utf8_danish_ci           | utf8    | 203 |         | Yes      |       8 |
+| utf8_lithuanian_ci       | utf8    | 204 |         | Yes      |       8 |
+| utf8_slovak_ci           | utf8    | 205 |         | Yes      |       8 |
+| utf8_spanish2_ci         | utf8    | 206 |         | Yes      |       8 |
+| utf8_roman_ci            | utf8    | 207 |         | Yes      |       8 |
+| utf8_persian_ci          | utf8    | 208 |         | Yes      |       8 |
+| utf8_esperanto_ci        | utf8    | 209 |         | Yes      |       8 |
+| utf8_hungarian_ci        | utf8    | 210 |         | Yes      |       8 |
+| utf8_sinhala_ci          | utf8    | 211 |         | Yes      |       8 |
+| utf8_german2_ci          | utf8    | 212 |         | Yes      |       8 |
+| utf8_croatian_ci         | utf8    | 213 |         | Yes      |       8 |
+| utf8_unicode_520_ci      | utf8    | 214 |         | Yes      |       8 |
+| utf8_vietnamese_ci       | utf8    | 215 |         | Yes      |       8 |
+| utf8_general_mysql500_ci | utf8    | 223 |         | Yes      |       1 |
++--------------------------+---------+-----+---------+----------+---------+
+27 rows in set (0.00 sec)</code></pre></div></figure>
 
 <p>命令：<code>show collation [like 匹配模式];</code> </p>
 <p>从命名中可以看出有些与地域有关系，如<code>utf8_spanish_ci</code>是西班牙语的比较规则，<code>utf8_polish_ci</code>则是波兰语的比较规则。</p>
 <p>​																	<strong>表2  比较规则后缀英文释义及描述</strong> </p>
-<div class="table-container"><table>
+<table>
 <thead>
 <tr>
 <th align="center">后缀</th>
@@ -137,17 +419,11 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <td align="center">binary</td>
 <td align="center">以二进制方式比较</td>
 </tr>
-</tbody></table></div>
-
-        <h1 id="应用"   >
-          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用" class="headerlink" title="应用"></a>应用</h1>
-      <p>MySQL有四个级别的字符集和比较规则，分别是服务器级别，数据库级别，表级别，列级别。下面解释如何设置和查看不同级别的字符集和比较规则。</p>
-
-        <h3 id="服务器级别"   >
-          <a href="#服务器级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#服务器级别" class="headerlink" title="服务器级别"></a>服务器级别</h3>
-      <p>MySQL提供两个变量来表示服务器级别的字符集和比较规则。</p>
+</tbody></table>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>MySQL有四个级别的字符集和比较规则，分别是服务器级别，数据库级别，表级别，列级别。下面解释如何设置和查看不同级别的字符集和比较规则。</p>
+<h3 id="服务器级别"><a href="#服务器级别" class="headerlink" title="服务器级别"></a>服务器级别</h3><p>MySQL提供两个变量来表示服务器级别的字符集和比较规则。</p>
 <p>​																			<strong>表3  服务器对应的系统变量</strong></p>
-<div class="table-container"><table>
+<table>
 <thead>
 <tr>
 <th align="center">系统变量</th>
@@ -162,20 +438,30 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <td align="center">collation_server</td>
 <td align="center">服务器级别的比较规则</td>
 </tr>
-</tbody></table></div>
+</tbody></table>
 <p>相关命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; show variables like &#39;%_server&#39;;
++----------------------+-------------------+
+| Variable_name        | Value             |
++----------------------+-------------------+
+| character_set_server | latin1            |
+| collation_server     | latin1_swedish_ci |
++----------------------+-------------------+
+2 rows in set, 1 warning (0.00 sec)</code></pre></div></figure>
 
 <p>如果想要修改这两个系统变量，需要通过启动选项或者使用set语句修改 <code>set global/session varName = value</code>（如果看不懂命令，之后的文章会提到<code>global/session</code>）</p>
-
-        <h3 id="数据库级别"   >
-          <a href="#数据库级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据库级别" class="headerlink" title="数据库级别"></a>数据库级别</h3>
-      <p>字符集和比较规则在创建和修改数据库时可以指定该数据库的字符集和比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br><span class="line">	</span><br><span class="line">alter database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br></pre></td></tr></table></div></figure>
+<h3 id="数据库级别"><a href="#数据库级别" class="headerlink" title="数据库级别"></a>数据库级别</h3><p>字符集和比较规则在创建和修改数据库时可以指定该数据库的字符集和比较规则</p>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">create database 数据库名
+	[[default] character set 字符集名称]
+	[[default] collation 比较规则名称]
+	
+alter database 数据库名
+	[[default] character set 字符集名称]
+	[[default] collation 比较规则名称]</code></pre></div></figure>
 
 <p>数据库级别也有两个系统变量，当我们使用<code>use</code>语句选择一个数据库时，这两个系统变量的值就是该数据库的字符集和比较规则。<strong>如果没有选择数据库，它们的值和服务器级别的系统变量值相同</strong>。</p>
 <p>​																				<strong>表4  数据库对应的系统变量</strong> </p>
-<div class="table-container"><table>
+<table>
 <thead>
 <tr>
 <th align="center">系统变量</th>
@@ -190,26 +476,76 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <td align="center">collation_databased</td>
 <td align="center">当前数据库的比较规则</td>
 </tr>
-</tbody></table></div>
+</tbody></table>
 <p>我们不能通过修改这两个系统变量的值来改变当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database test;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use test;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%_database&#x27;;</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| Variable_name          | Value             |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| character_set_database | latin1            |</span><br><span class="line">| collation_database     | latin1_swedish_ci |</span><br><span class="line">| skip_show_database     | OFF               |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">3 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; show variables like &#39;%_server&#39;;
++----------------------+-------------------+
+| Variable_name        | Value             |
++----------------------+-------------------+
+| character_set_server | latin1            |
+| collation_server     | latin1_swedish_ci |
++----------------------+-------------------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql&gt; create database test;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; use test;
+Database changed
+
+mysql&gt; show variables like &#39;%_database&#39;;
++------------------------+-------------------+
+| Variable_name          | Value             |
++------------------------+-------------------+
+| character_set_database | latin1            |
+| collation_database     | latin1_swedish_ci |
+| skip_show_database     | OFF               |
++------------------------+-------------------+
+3 rows in set, 1 warning (0.00 sec)</code></pre></div></figure>
 
 <p>可以看到，如果<strong>在创建数据库时没有指定字符集和比较规则，就会使用服务器级别的字符集和比较规则</strong>。</p>
+<h3 id="表级别"><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h3><p>表级别和数据库级别差不多，都是在创建，修改表时可以修改表的字符集和比较规则，如果没有在创建表时指明其字符集和比较规则，就会使用当前数据库的字符集和比较规则。</p>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">create table t(
+	col varchar(10)
+) character set utf8,collate utf8_general_ci;
 
-        <h3 id="表级别"   >
-          <a href="#表级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h3>
-      <p>表级别和数据库级别差不多，都是在创建，修改表时可以修改表的字符集和比较规则，如果没有在创建表时指明其字符集和比较规则，就会使用当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table t(</span><br><span class="line">	col varchar(10)</span><br><span class="line">) character set utf8,collate utf8_general_ci;</span><br><span class="line"></span><br><span class="line">alter table t character set utf8;</span><br></pre></td></tr></table></div></figure>
+alter table t character set utf8;</code></pre></div></figure>
 
 <p>表查看比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 使用\G是将输出结果旋转90度输出，方便观看</span><br><span class="line">mysql&gt; show table status from test like &#x27;t&#x27; \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: t</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 0</span><br><span class="line"> Avg_row_length: 0</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: NULL</span><br><span class="line">    Create_time: 2022-07-24 17:44:59</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8_general_ci #比较规则</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">ERROR:</span><br><span class="line">No query specified</span><br></pre></td></tr></table></div></figure>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql"># 使用\G是将输出结果旋转90度输出，方便观看
+mysql&gt; show table status from test like &#39;t&#39; \G;
+*************************** 1. row ***************************
+           Name: t
+         Engine: InnoDB
+        Version: 10
+     Row_format: Dynamic
+           Rows: 0
+ Avg_row_length: 0
+    Data_length: 16384
+Max_data_length: 0
+   Index_length: 0
+      Data_free: 0
+ Auto_increment: NULL
+    Create_time: 2022-07-24 17:44:59
+    Update_time: NULL
+     Check_time: NULL
+      Collation: utf8_general_ci #比较规则
+       Checksum: NULL
+ Create_options:
+        Comment:
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified</code></pre></div></figure>
 
 <p>可以看到，表<code>t</code>的比较规则为<code>utf8_general_ci</code>，则字符集为 <code>utf8</code>（为什么知道比较规则之后就知道了字符集，请继续看）。</p>
+<h3 id="列级别"><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h3><p>同一个表中，不同列也可以有不同的比较规则。</p>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">create table 表名(
+	列名 字符串类型 [character set 字符集名称] [collate 比较规则名称],
+    其他列....
+);
 
-        <h3 id="列级别"   >
-          <a href="#列级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h3>
-      <p>同一个表中，不同列也可以有不同的比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(</span><br><span class="line">	列名 字符串类型 [character set 字符集名称] [collate 比较规则名称],</span><br><span class="line">    其他列....</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table 表名 modify 列名 [character set 字符集名称] [collate 比较规则名称];</span><br></pre></td></tr></table></div></figure>
+alter table 表名 modify 列名 [character set 字符集名称] [collate 比较规则名称];</code></pre></div></figure>
 
 
 
@@ -219,29 +555,329 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <li>只修改比较规则，则字符集会变为比较规则对应的字符集。</li>
 </ul>
 <p>如果想要同时修改字符集和比较规则，他们两个一定要适配，比如下列命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table t character set utf8 collate utf8mb4_general_ci;</span><br><span class="line">ERROR 1253 (42000): COLLATION &#x27;utf8mb4_general_ci&#x27; is not valid for CHARACTER SET &#x27;utf8&#x27;</span><br></pre></td></tr></table></div></figure>
+<figure><div class="code-wrapper"><pre class="language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; alter table t character set utf8 collate utf8mb4_general_ci;
+ERROR 1253 (42000): COLLATION &#39;utf8mb4_general_ci&#39; is not valid for CHARACTER SET &#39;utf8&#39;</code></pre></div></figure>
 
 <p>报错信息为比较规则<code>utf8mb4_general_ci</code>对于字符集<code>utf8</code>是无效的，所以，我们知道了一个表的比较规则，一般也就知道了其字符集。</p>
-
-        <h1 id="引用"   >
-          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
-      <blockquote>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><blockquote>
 <p>本文总结于《从根上理解MySQL》第三章p32-p43，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
 </blockquote>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">https://cecilia.cool/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/MySQL/">MySQL</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/07/25/Database/MySQL/InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E8%AE%B0%E5%BD%95/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">InnoDB行格式存储记录</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/07/21/Java/%E5%B9%B6%E5%8F%91/LockSupport/"><span class="paginator-prev__text">LockSupport</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">
-          简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E6%94%AF%E6%8C%81%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99"><span class="toc-number">2.</span> <span class="toc-text">
-          MySQL支持的字符集与比较规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#utf8mb3%E5%92%8Cutf8mb4"><span class="toc-number">2.1.</span> <span class="toc-text">
-          utf8mb3和utf8mb4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E9%9B%86%E7%9A%84%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.2.</span> <span class="toc-text">
-          字符集的查看</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">
-          应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BA%A7%E5%88%AB"><span class="toc-number">3.0.1.</span> <span class="toc-text">
-          服务器级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BA%A7%E5%88%AB"><span class="toc-number">3.0.2.</span> <span class="toc-text">
-          数据库级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E7%BA%A7%E5%88%AB"><span class="toc-number">3.0.3.</span> <span class="toc-text">
-          表级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E7%BA%A7%E5%88%AB"><span class="toc-number">3.0.4.</span> <span class="toc-text">
-          列级别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">
-          引用</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v6.2.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script><script>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>字符集与比较规则</div>
+      <div>https://cecilia.cool/2022/07/24/Database/MySQL/字符集与比较规则/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Cyan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月24日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/25/Database/MySQL/InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E8%AE%B0%E5%BD%95/" title="InnoDB行格式存储记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">InnoDB行格式存储记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/21/Java/%E5%B9%B6%E5%8F%91/LockSupport/" title="LockSupport">
+                        <span class="hidden-mobile">LockSupport</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
                 preloadRatio: 1,
                 processImages: null,
             };
-        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

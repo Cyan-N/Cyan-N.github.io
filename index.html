@@ -225,6 +225,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/08/01/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/" target="_self">
+          处理用户输入
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/01/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/" target="_self">
+        <div>
+          简介我们之前只是讲了脚本如何输出，也就是echo，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。 位置参数我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。 $0是程序名，$1~$9是第1~9个参数，超过9时，就要使用$&amp;#123;&amp;#125;，比如$&amp;#123;10&amp;#125;，这样，就允许在运行时加入任意个参数。 cyan@cyan-vi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-01 22:44" pubdate>
+              2022-08-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shell/">#shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/08/01/Shell/%E6%9E%84%E5%BB%BA%E5%9F%BA%E6%9C%AC%E8%84%9A%E6%9C%AC(2)/" target="_self">
           构建基本脚本(2)
         </a>
@@ -563,67 +603,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2022-07-28 09:42" pubdate>
               2022-07-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Database/" class="category-chain-item">Database</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">#MySQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/26/Database/MySQL/InnoDB%E9%A1%B5%E7%BB%93%E6%9E%84/" target="_self">
-          InnoDB页结构
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/26/Database/MySQL/InnoDB%E9%A1%B5%E7%BB%93%E6%9E%84/" target="_self">
-        <div>
-          前言之前说过，页是InnoDB管理磁盘空间的基本单位，一个页的大小基本上是16KB。MySQL规定一页至少存两条记录。我们从客户端写入表中的记录会被存在页中，其实还有一种记录，它存在于B+树的非叶子节点的页中，其头信息中的record_type&#x3D;1。 目前你只需理解，页中存储的记录要么是我们从客户端写入的真实的记录record_type&#x3D;0。这样的页称为索引页；另一个是B+树非叶子节点的目录项记录
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-26 10:49" pubdate>
-              2022-07-26
             </time>
           </div>
         

@@ -16,22 +16,22 @@
   <meta name="author" content="Cyan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="创建函数格式 # 格式1 function name &amp;#123; 	commands &amp;#125;  # 格式2,更推荐使用 name() &amp;#123; 	commands &amp;#125;  # 使用时只需要使用函数名即可--name  默认情况下，函数退出状态码是函数中最后一条命令返回的退出状态码，函数执行结束后，可以用标准变量$?来确定函数退出状态码。 # return语句 fun() &amp;#1">
+    <meta name="description" content="简介sed编辑器被称作流编辑器(stream editor)，流编辑器会在编辑器处理数据之前基于预先提供的一组数据规则来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。 sed编辑器处理事务：  一次从输入中读取一行数据。 根据提供的编辑器命令匹配数据。 按照命令修改流中的数据。 将新的数据输出到STDOUT。  sed将所有命令与一行数据匹配完毕后，读取下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数">
-<meta property="og:url" content="https://cecilia.cool/2022/08/04/Shell/%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:title" content="sed编辑器基础">
+<meta property="og:url" content="https://cecilia.cool/2022/08/04/Shell/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="慕青的日记">
-<meta property="og:description" content="创建函数格式 # 格式1 function name &amp;#123; 	commands &amp;#125;  # 格式2,更推荐使用 name() &amp;#123; 	commands &amp;#125;  # 使用时只需要使用函数名即可--name  默认情况下，函数退出状态码是函数中最后一条命令返回的退出状态码，函数执行结束后，可以用标准变量$?来确定函数退出状态码。 # return语句 fun() &amp;#1">
+<meta property="og:description" content="简介sed编辑器被称作流编辑器(stream editor)，流编辑器会在编辑器处理数据之前基于预先提供的一组数据规则来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。 sed编辑器处理事务：  一次从输入中读取一行数据。 根据提供的编辑器命令匹配数据。 按照命令修改流中的数据。 将新的数据输出到STDOUT。  sed将所有命令与一行数据匹配完毕后，读取下">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-03T16:46:24.000Z">
-<meta property="article:modified_time" content="2022-08-03T17:33:03.586Z">
+<meta property="article:published_time" content="2022-08-04T15:27:23.000Z">
+<meta property="article:modified_time" content="2022-08-04T17:02:13.016Z">
 <meta property="article:author" content="Cyan">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>函数 - 慕青的日记</title>
+  <title>sed编辑器基础 - 慕青的日记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="函数"></span>
+            <span id="subtitle" data-typed-text="sed编辑器基础"></span>
           
         </div>
 
@@ -212,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-04 00:46" pubdate>
-          2022年8月4日 凌晨
+        <time datetime="2022-08-04 23:27" pubdate>
+          2022年8月4日 晚上
         </time>
       </span>
     
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          3.3k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          19 分钟
+          28 分钟
         
       </span>
     
@@ -277,12 +277,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">函数</h1>
+            <h1 style="display: none">sed编辑器基础</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月4日 凌晨
+                    本文最后更新于：2022年8月5日 凌晨
                   
                 
               </p>
@@ -290,136 +290,179 @@
             
               <div class="markdown-body">
                 
-                <h1 id="创建函数"><a href="#创建函数" class="headerlink" title="创建函数"></a>创建函数</h1><p>格式</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 格式1</span>
-<span class="token keyword">function</span> <span class="token function-name function">name</span> <span class="token punctuation">&#123;</span>
-	commands
-<span class="token punctuation">&#125;</span>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>sed</code>编辑器被称作<strong>流编辑器</strong>(<code>stream editor</code>)，流编辑器会在编辑器处理数据之前基于预先提供的一组<strong>数据规则</strong>来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。</p>
+<p><code>sed</code>编辑器处理事务：</p>
+<ol>
+<li>一次从输入中读取一行数据。</li>
+<li>根据提供的编辑器命令匹配数据。</li>
+<li>按照命令修改流中的数据。</li>
+<li>将新的数据输出到<code>STDOUT</code>。</li>
+</ol>
+<p><code>sed</code>将所有命令与一行数据匹配完毕后，读取下一行数据并重复该过程，处理完所有数据，终止。</p>
+<h1 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h1><p>格式：<code>sed options script file</code>。</p>
+<p>为了更好理解，举个例子。</p>
+<p>先创建一个数据文件<code>data</code>，其中包含**6行’cat’**。然后我们希望将’cat’替换为’dog’。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> <span class="token string">'s/cat/dog/'</span> data
+dog
+dog
+dog
+dog
+dog
+dog
 
-<span class="token comment"># 格式2,更推荐使用</span>
-<span class="token function-name function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	commands
-<span class="token punctuation">&#125;</span>
+<span class="token comment"># ‘s/cat/dog/’是后者替换前者</span>
+<span class="token comment"># 此次命令没有使用选项，scirpt就是's/cat/dog' file就是data</span></code></pre></div></figure>
 
-<span class="token comment"># 使用时只需要使用函数名即可--name</span></code></pre></div></figure>
+<p><code>sed</code>命令非常快。处理一行显示一行，但是<code>sed</code>并不会修改文件原始数据，只是将结果传给<code>STDOUT</code>而已，当然，也可以重定向。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'s/cat/big cat/'</span> data <span class="token operator">></span> result</code></pre></div></figure>
 
-<p>默认情况下，函数退出状态码是函数中最后一条命令返回的退出状态码，函数执行结束后，可以用标准变量<code>$?</code>来确定函数退出状态码。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># return语句</span>
-<span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token builtin class-name">read</span> -p <span class="token string">"please input the value:"</span> value
-    <span class="token builtin class-name">return</span> <span class="token variable">$value</span>
-<span class="token punctuation">&#125;</span></code></pre></div></figure>
+<p><code>sed</code>可以执行多个命令，使用<code>-e</code>选项，多个命令分号隔开，并且分号紧靠上一个命令</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -e <span class="token string">'s/brown/green/; s/dog/cat/'</span> data
 
-<p>退出状态码在<code>0~255</code>，否则就会返回错误值</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment"># 或者是这样，shell一旦发现封尾的单引号，就会执行命令</span>
+<span class="token function">sed</span> -e <span class="token string">'
+> s/brown/green
+> s/fox/cat
+> '</span> data</code></pre></div></figure>
 
-<span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token string">'abc'</span> <span class="token comment"># 会报错：line 5: return: abc: numeric argument required</span>
-    <span class="token builtin class-name">return</span> <span class="token variable">$var</span>
-<span class="token punctuation">&#125;</span>
-fun
-<span class="token comment"># 如果中间有其他命令，$?就会被置0</span>
-<span class="token builtin class-name">echo</span> <span class="token variable">$?</span></code></pre></div></figure>
+<p>如果要执行的命令太多，可以放在文件中，使用<code>-f</code>选项，该选项会在处理输入时，将文件中指定的命令添加到已有的命令中。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -f script.sed data
+<span class="token comment"># 为避免混淆，一般将sed的命令文件后缀写为.sed</span>
 
-<p>当然，如果希望从函数那得到一个任意对象，就像强类型语言那样<code>return</code>语句返回值可以用变量接收</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token number">10</span>
-<span class="token builtin class-name">echo</span> $<span class="token punctuation">[</span><span class="token variable">$value</span>*2<span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span>
-<span class="token assign-left variable">reslut</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span>fun<span class="token variable">`</span></span> <span class="token comment">#或者是$(fun)</span></code></pre></div></figure>
+<span class="token comment"># 例子</span>
+cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> command.sed
+s/cat/dog/
+s/Jack/Mark/
 
-<p>如此可以获得任何类型的函数输出，并将其保存在变量中。</p>
-<h1 id="函数中使用变量"><a href="#函数中使用变量" class="headerlink" title="函数中使用变量"></a>函数中使用变量</h1><p><strong>传参：</strong></p>
+cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> data
+<span class="token function">cat</span> Jack
+<span class="token function">cat</span> Jack
+<span class="token function">cat</span> Jack
+<span class="token function">cat</span> Jack
+<span class="token function">cat</span> Jack
+
+cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> -f command.sed data
+dog Mark
+dog Mark
+dog Mark
+dog Mark
+dog Mark</code></pre></div></figure>
+
+<p>关于<code>s</code>替换命令，还有其他选项</p>
 <ul>
-<li><code>bash shell</code> 会将函数当成一个小型脚本来对待，也就是说，可以传递参数，如同脚本一样。</li>
-<li>如同脚本一样，对于传入参数，依旧是使用<code>$0,$1...</code>，<code>$#</code>是传入参数数量。<code>value=$(fun 10 15)</code>,参数直接写在后面即可。</li>
-<li>由于函数使用特殊参数环境变量作为自己的参数值，因此他无法直接获取脚本在命令行获取的参数值。</li>
+<li><code>sed &#39;s/cat/dog/&#39; data</code>只会替换每行第一处<code>cat</code>。如果想在第<code>n</code>处替换，<code>s/cat/dog/n&#39;</code>。</li>
+<li><code>g</code>选项，所有匹配到的标记都会被替换。</li>
+<li><code>p</code>选项，文本原先行内容替换后要打印出来：<code>sed -n &#39;s/cat/dog/p&#39; data</code>,一般和<code>-n</code>配合使用，<code>-n</code>禁止<code>sed</code>输出，配合<code>p</code>使用，就只会打印含有标记的文本。</li>
+<li><code>w file</code>,将替换的结果写到文件中：<code>sed &#39;s/cat/dog/w aim.txt&#39; data</code>。</li>
 </ul>
-<p><strong>处理变量：</strong></p>
-<p>比较麻烦的就是变量的作用域。默认情况下，<strong>定义的变量都是全局变量</strong>，函数外定义的变量，函数内部也可以正常使用。函数内定义的变量函数外也可以使用。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> <span class="token string">'s/cat/dog/w test_data'</span> data
+dog Jack
+dog Jack
+dog Jack
+dog Jack
+dog Jack
+cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> test_data
+dog Jack
+dog Jack
+dog Jack
+dog Jack
+dog Jack</code></pre></div></figure>
 
-<span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token number">10</span>
-    <span class="token builtin class-name">return</span> <span class="token variable">$var</span>
+<p>有时候，<code>/</code>使用起来比较么发，可以使用<code>!</code>来代替：<code>s!cat!dog!</code>。</p>
+<h1 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h1><p>可以指定命令对某些特定的行数进行处理，<code>sed</code>编辑器的行寻址有两种形式：</p>
+<ul>
+<li>数字表示行区间</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1.对单行指定修改</span>
+<span class="token function">sed</span> <span class="token string">'2s/cat/dog/'</span> data
+
+<span class="token comment"># 2.对行区间进行执行修改</span>
+<span class="token function">sed</span> <span class="token string">'2,5s/cat/dog'</span> data <span class="token comment"># 2~5行被修改</span>
+
+<span class="token comment"># 3.美元符号$</span>
+<span class="token function">sed</span> <span class="token string">'2,$s/cat/dog/'</span> data   <span class="token comment"># 对2行及以下的数据执行命令</span></code></pre></div></figure>
+
+<ul>
+<li>文本模式来过滤出行，<code>/pattern/command</code>。比如修改用户<code>cyan</code>的默认<code>shell</code>。匹配模式十分类似<code>grep</code>，固定文本作用有限，最常用的是使用正则表达式。 匹配模式十分类似grep，固定文本作用有限，最常用的是使用正则表达式。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">grep</span> cyan /etc/passwd
+cyan:x:1000:1000:cyan,,,:/home/cyan:/bin/bash
+<span class="token variable">$sed</span> <span class="token string">'/cyan/s/bash/csh/'</span> /etc/psswd</code></pre></div></figure>
+
+<ul>
+<li>当有多条命令时候。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">address <span class="token punctuation">&#123;</span> <span class="token comment">#多条命令时，需要用&#123;&#125;来限定作用域</span>
+        command1
+        command2
 <span class="token punctuation">&#125;</span>
-fun
-<span class="token builtin class-name">echo</span> <span class="token variable">$var</span></code></pre></div></figure>
-<p>函数内部使用的任何变量都可以被声明成局部变量，只需要加上<code>local</code>关键字即可。</p>
-<p><code>local temp=$[$value + 2]</code>,在函数内使用<code>temp</code>，不会影响主体脚本的<code>temp</code>的值。</p>
-<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">arr</span><span class="token operator">=</span><span class="token punctuation">(</span>one two three<span class="token punctuation">)</span></code></pre></div></figure>
-
-<p>直接<code>$arr</code>只会显示<code>one</code>，使用格式为：<code>$&#123;arr[1]&#125;</code>,一次性全部显示，就是<code>$&#123;arr[*]&#125;</code>。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-
-<span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token builtin class-name">local</span> <span class="token assign-left variable">arr</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1,2</span>,3,4<span class="token punctuation">)</span>
-    <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$&#123;arr<span class="token punctuation">[</span>*<span class="token punctuation">]</span>&#125;</span>
-    <span class="token keyword">do</span>
-        <span class="token builtin class-name">echo</span> -n <span class="token variable">$i</span>
-   <span class="token keyword">done</span>
-   <span class="token builtin class-name">echo</span>
-<span class="token punctuation">&#125;</span>
-fun
-
-<span class="token comment">#结果：1,2,3,4</span></code></pre></div></figure>
+<span class="token comment"># 例</span>
+<span class="token function">sed</span> <span class="token string">'2&#123;
+> commands    
+&#125;'</span> data.txt</code></pre></div></figure>
 
 
 
-<h1 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h1><p>总有一些方法，我在很多脚本文件中都会使用，为了避免每个脚本文件都写一次，<code>bash shell</code>允许创建函数库文件，然后在多个脚本中引用。</p>
-<p>我们在运行一个脚本文件时，当前的<code>shell</code>会创建一个新的<code>shell</code>运行</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> testfile
-<span class="token comment">#!/bin/bash</span>
-<span class="token keyword">while</span> <span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token number">10</span>
-<span class="token keyword">do</span>
-        <span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token number">10</span>
-<span class="token keyword">done</span>
+<h1 id="删除与修改"><a href="#删除与修改" class="headerlink" title="删除与修改"></a>删除与修改</h1><p><code>sed</code>可以替换，也可以删除，使用<code>d</code>命令：<code>sed &#39;3d&#39; data</code>，和行寻址一起使用发挥最大作用。输出到STDOUT的结果是删除指定行之后的剩余文本。</p>
+<p>如果我希望删除某个区间的文本（使用文本匹配）</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> data
+num start
+num <span class="token number">2</span>
+num <span class="token number">3</span>
+num end
+num <span class="token number">4</span>
+num start again
+kk
+nn
 
-cyan@cyan-virtual-machine:~/Templates$ ./testfile <span class="token operator">&amp;</span>
-<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">89708</span>
+<span class="token comment"># 执行命令：sed '/start/,/end/d' data</span>
+<span class="token comment"># 结果 num 4 </span></code></pre></div></figure>
 
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">ps</span> --forest
-    PID TTY          TIME CMD
-  <span class="token number">88948</span> pts/1    00:00:00 <span class="token function">bash</span>
-  <span class="token number">89708</span> pts/1    00:00:08  <span class="token punctuation">\</span>_ testfile
-  <span class="token number">89710</span> pts/1    00:00:00  <span class="token punctuation">\</span>_ <span class="token function">ps</span></code></pre></div></figure>
+<p>一开始遇到<code>start</code>，打开删除模式，持续删除，直到遇到<code>end</code>，关闭删除模式(没遇到就一直删除）。再次遇到<code>start</code>时(<code>num start again</code>)，打开删除模式，并持续删除。</p>
+<p><code>sed</code>编辑器是不会修改原始文件的，修改的只是从<code>sed</code>编辑器的输出中消失了。</p>
+<p>至于修改行的内容，之前的<code>s</code>命令需要匹配，而<code>c</code>命令是直接修改整行内容，<code>c--change</code>。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'1c\this is changed line'</span> data.txt
+<span class="token function">sed</span> <span class="token string">'/num 1/c\this is changed line'</span> data.txt
+<span class="token function">sed</span> <span class="token string">'2,3c\this is changed line'</span> data.txt
 
-<p><code>shell</code>函数仅仅在定义它的<code>shell</code>会内有效，所以如果在<code>shell</code>命令行界面的提示符下运行库函数脚本，<code>shell</code>会创建一个新的<code>shell</code>运行。这个<code>shell</code>会重新定义库函数，当其他脚本想用时，是不能的。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token builtin class-name">test</span>
-<span class="token comment">#!/bin/bash</span>
-./funs_file
-<span class="token punctuation">..</span></code></pre></div></figure>
-
-<p>哪怕在<code>test</code>中运行<code>funs_file</code>库文件，这些库函数，也只能在运行库文件的<code>shell</code>里面才会生效。</p>
-<h2 id="source命令"><a href="#source命令" class="headerlink" title="source命令"></a>source命令</h2><p>该命令会在当前<code>shell</code>上下文执行命令，而不是创建一个新的<code>shell</code>，并且<code>source</code>命令有个快捷别名–点操作符. <code>./fun_file</code>。</p>
-<p>编写一个脚本</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> testfile
-<span class="token comment">#!/bin/bash</span>
-<span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token number">10</span></code></pre></div></figure>
-
-<p>如果不使用<code>source</code>命令，那么<code>var</code>对于当前<code>shell</code>是不可见的</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ ./testfile
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token variable">$var</span>
-</code></pre></div></figure>
-
-<p>使用之后</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">.</span> ./testfile
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token variable">$var</span>
-<span class="token number">10</span></code></pre></div></figure>
+<span class="token comment"># c命令之后用的是反斜杠\,并且没有封尾，也就是line后没有\</span>
+<span class="token comment"># 第三个使用区间修改行，并不是将区间的每一行都修改为指定行，而是用该指定行替换数据流中区间的所有文本</span></code></pre></div></figure>
 
 
 
-<h1 id="终端使用函数"><a href="#终端使用函数" class="headerlink" title="终端使用函数"></a>终端使用函数</h1><p>格式</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 格式1，分号结尾</span>
-<span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>echo <span class="token string">"ok"</span><span class="token punctuation">;</span><span class="token builtin class-name">read</span> value<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>
+<h1 id="插入和附加文本"><a href="#插入和附加文本" class="headerlink" title="插入和附加文本"></a>插入和附加文本</h1><p>插入<code>insert--i</code>:会在指定行<strong>前</strong>增加一个行，<code>echo &quot;test line 2&quot; | sed &#39;i\test line 1&#39;</code>。<br>附加<code>append--a</code>:会在指定行<strong>后</strong>增加一个行，<code>echo &quot;test line 2&quot; | sed &#39;a\test line 1&#39;</code>。</p>
+<p>如果想要附加到行尾，只需要使用美元符号：<code>sed &#39;$a\new line&#39; data</code>。<strong>个人觉得美元符号是数据流最后一行的意思</strong>。<br>要插入（附加）多行数据，需要在每行之间使用<code>\</code>：</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'1i\
+> line 1\
+> line 2
+> '</span> data</code></pre></div></figure>
 
-<span class="token comment"># 格式2</span>
-  <span class="token function-name function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token operator">></span> <span class="token builtin class-name">echo</span> <span class="token string">"adc"</span>
-<span class="token operator">></span> <span class="token punctuation">&#125;</span></code></pre></div></figure>
 
-<p>在<code>.bashrc</code>文件定义函数：函数定义放在一个特殊的位置，每次启动新<code>shell</code>都会由<code>shell</code>重新在<code>.bashrc</code>中定义的函数，甚至可以在自己写的脚本中直接使用。</p>
-<p>关于<code>.bashrc</code>，就是个启动文件，<code>shell</code>启动时会执行一下。</p>
+
+<h1 id="转换命令"><a href="#转换命令" class="headerlink" title="转换命令"></a>转换命令</h1><p><code>y</code>命令是唯一可以处理单个字符的<code>sed</code>编辑器命令  <code>[address]y/inchars/outchars/</code>。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'y/123/789/'</span> data</code></pre></div></figure>
+
+<p><code>inchars</code>的第一个字符会被映射为<code>outchars</code>的第一个字符，以此类推，直到处理完指定字符。其中，如果两者长度不一样，会报错。<br>转换命令是全局命令，无法限定只转换在特定地方出现的字符(以行为单位)，也就是<strong>一行所有的字符都要被转换</strong>。</p>
+<h1 id="打印命令"><a href="#打印命令" class="headerlink" title="打印命令"></a>打印命令</h1><p>之前使用<code>s</code>替换命令时，配合<code>-n</code>和<code>p</code>选项，打印出修改的行，还有些命令也能打印数据流信息。</p>
+<p><code>=</code>命令打印<strong>行号</strong>，<strong>行号由数据流中的换行符来决定</strong>，每出现一个换行符，sed编辑器就认为一行结束了。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'='</span> data</code></pre></div></figure>
+
+<p><code>l</code>命令可以打印出数据流中的文本和不可打印的ASCII字符(一般是标准C风格或八进制)，<code>l</code>就是<code>list</code>。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -n <span class="token string">'l'</span> data</code></pre></div></figure>
+
+
+
+<h1 id="处理文件"><a href="#处理文件" class="headerlink" title="处理文件"></a>处理文件</h1><ul>
+<li>写入文件：<code>[address]w filename</code>。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -n <span class="token string">'1,2w aim.txt'</span> data
+<span class="token comment"># 在aim.txt追加</span></code></pre></div></figure>
+
+<ul>
+<li>读取文件：<code>[address]r filename</code>。 允许将一个独立文件中的数据插入到数据流中，插入到指定行后。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'3r sources.txt'</span> data</code></pre></div></figure>
+
 
                 
               </div>
@@ -444,8 +487,8 @@ cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">ec
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>函数</div>
-      <div>https://cecilia.cool/2022/08/04/Shell/函数/</div>
+      <div>sed编辑器基础</div>
+      <div>https://cecilia.cool/2022/08/04/Shell/sed编辑器基础/</div>
     </div>
     <div class="license-meta">
       
@@ -487,18 +530,12 @@ cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">ec
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/04/Shell/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/" title="sed编辑器基础">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">sed编辑器基础</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/04/Shell/%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC/" title="控制脚本">
-                        <span class="hidden-mobile">控制脚本</span>
+                      <a href="/2022/08/04/Shell/%E5%87%BD%E6%95%B0/" title="函数">
+                        <span class="hidden-mobile">函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

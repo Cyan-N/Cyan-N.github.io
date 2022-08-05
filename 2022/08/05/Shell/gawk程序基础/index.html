@@ -16,22 +16,22 @@
   <meta name="author" content="Cyan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简介sed编辑器被称作流编辑器(stream editor)，流编辑器会在编辑器处理数据之前基于预先提供的一组数据规则来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。 sed编辑器处理事务：  一次从输入中读取一行数据。 根据提供的编辑器命令匹配数据。 按照命令修改流中的数据。 将新的数据输出到STDOUT。  sed将所有命令与一行数据匹配完毕后，读取下">
+    <meta name="description" content="简介gawk程序是Unix中原始gawk程序的GNU版本，让流编辑迈上了一个新的台阶，其作用为：  定义变量保存数据。 使用算数和字符串操作符处理数据。 使用结构化编程概念来为数据处理增加处理逻辑。 通过提取数据文件中的数据元素，将其重新排列或格式化，生成格式化报告  格式：gawk options program file。 gawk强大之处在于程序脚本，可以写脚本来读取文本行的数据，处理并显示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sed编辑器基础">
-<meta property="og:url" content="https://cecilia.cool/2022/08/04/Shell/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:title" content="gawk程序基础">
+<meta property="og:url" content="https://cecilia.cool/2022/08/05/Shell/gawk%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="慕青的日记">
-<meta property="og:description" content="简介sed编辑器被称作流编辑器(stream editor)，流编辑器会在编辑器处理数据之前基于预先提供的一组数据规则来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。 sed编辑器处理事务：  一次从输入中读取一行数据。 根据提供的编辑器命令匹配数据。 按照命令修改流中的数据。 将新的数据输出到STDOUT。  sed将所有命令与一行数据匹配完毕后，读取下">
+<meta property="og:description" content="简介gawk程序是Unix中原始gawk程序的GNU版本，让流编辑迈上了一个新的台阶，其作用为：  定义变量保存数据。 使用算数和字符串操作符处理数据。 使用结构化编程概念来为数据处理增加处理逻辑。 通过提取数据文件中的数据元素，将其重新排列或格式化，生成格式化报告  格式：gawk options program file。 gawk强大之处在于程序脚本，可以写脚本来读取文本行的数据，处理并显示">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-04T15:27:23.000Z">
-<meta property="article:modified_time" content="2022-08-05T02:19:37.891Z">
+<meta property="article:published_time" content="2022-08-05T02:29:39.000Z">
+<meta property="article:modified_time" content="2022-08-05T02:56:05.437Z">
 <meta property="article:author" content="Cyan">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>sed编辑器基础 - 慕青的日记</title>
+  <title>gawk程序基础 - 慕青的日记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="sed编辑器基础"></span>
+            <span id="subtitle" data-typed-text="gawk程序基础"></span>
           
         </div>
 
@@ -212,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-04 23:27" pubdate>
-          2022年8月4日 晚上
+        <time datetime="2022-08-05 10:29" pubdate>
+          2022年8月5日 上午
         </time>
       </span>
     
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          1.6k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          28 分钟
+          14 分钟
         
       </span>
     
@@ -277,7 +277,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">sed编辑器基础</h1>
+            <h1 style="display: none">gawk程序基础</h1>
             
               <p class="note note-info">
                 
@@ -290,178 +290,77 @@
             
               <div class="markdown-body">
                 
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>sed</code>编辑器被称作<strong>流编辑器</strong>(<code>stream editor</code>)，流编辑器会在编辑器处理数据之前基于预先提供的一组<strong>数据规则</strong>来编辑数据流。根据命令来处理数据，这些命令要么从命令行输入，要么存储在一个命令文本文件中。</p>
-<p><code>sed</code>编辑器处理事务：</p>
-<ol>
-<li>一次从输入中读取一行数据。</li>
-<li>根据提供的编辑器命令匹配数据。</li>
-<li>按照命令修改流中的数据。</li>
-<li>将新的数据输出到<code>STDOUT</code>。</li>
-</ol>
-<p><code>sed</code>将所有命令与一行数据匹配完毕后，读取下一行数据并重复该过程，处理完所有数据，终止。</p>
-<h1 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h1><p>格式：<code>sed options script file</code>。</p>
-<p>为了更好理解，举个例子。</p>
-<p>先创建一个数据文件<code>data</code>，其中包含**6行’cat’**。然后我们希望将’cat’替换为’dog’。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> <span class="token string">'s/cat/dog/'</span> data
-dog
-dog
-dog
-dog
-dog
-dog
-
-<span class="token comment"># ‘s/cat/dog/’是后者替换前者</span>
-<span class="token comment"># 此次命令没有使用选项，scirpt就是's/cat/dog' file就是data</span></code></pre></div></figure>
-
-<p><code>sed</code>命令非常快。处理一行显示一行，但是<code>sed</code>并不会修改文件原始数据，只是将结果传给<code>STDOUT</code>而已，当然，也可以重定向。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'s/cat/big cat/'</span> data <span class="token operator">></span> result</code></pre></div></figure>
-
-<p><code>sed</code>可以执行多个命令，使用<code>-e</code>选项，多个命令分号隔开，并且分号紧靠上一个命令</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -e <span class="token string">'s/brown/green/; s/dog/cat/'</span> data
-
-<span class="token comment"># 或者是这样，shell一旦发现封尾的单引号，就会执行命令</span>
-<span class="token function">sed</span> -e <span class="token string">'
-> s/brown/green
-> s/fox/cat
-> '</span> data</code></pre></div></figure>
-
-<p>如果要执行的命令太多，可以放在文件中，使用<code>-f</code>选项，该选项会在处理输入时，将文件中指定的命令添加到已有的命令中。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -f script.sed data
-<span class="token comment"># 为避免混淆，一般将sed的命令文件后缀写为.sed</span>
-
-<span class="token comment"># 例子</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> command.sed
-s/cat/dog/
-s/Jack/Mark/
-
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> data
-<span class="token function">cat</span> Jack
-<span class="token function">cat</span> Jack
-<span class="token function">cat</span> Jack
-<span class="token function">cat</span> Jack
-<span class="token function">cat</span> Jack
-
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> -f command.sed data
-dog Mark
-dog Mark
-dog Mark
-dog Mark
-dog Mark</code></pre></div></figure>
-
-<p>关于<code>s</code>替换命令，还有其他选项</p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>gawk</code>程序是<code>Unix</code>中原始<code>gawk</code>程序的<code>GNU</code>版本，让流编辑迈上了一个新的台阶，其作用为：</p>
 <ul>
-<li><code>sed &#39;s/cat/dog/&#39; data</code>只会替换每行第一处<code>cat</code>。如果想在第<code>n</code>处替换，<code>s/cat/dog/n&#39;</code>。</li>
-<li><code>g</code>选项，所有匹配到的标记都会被替换。</li>
-<li><code>p</code>选项，文本原先行内容替换后要打印出来：<code>sed -n &#39;s/cat/dog/p&#39; data</code>,一般和<code>-n</code>配合使用，<code>-n</code>禁止<code>sed</code>输出，配合<code>p</code>使用，就只会打印含有标记的文本。</li>
-<li><code>w file</code>,将替换的结果写到文件中：<code>sed &#39;s/cat/dog/w aim.txt&#39; data</code>。</li>
+<li>定义变量保存数据。</li>
+<li>使用算数和字符串操作符处理数据。</li>
+<li>使用结构化编程概念来为数据处理增加处理逻辑。</li>
+<li>通过提取数据文件中的数据元素，将其重新排列或格式化，生成格式化报告</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">sed</span> <span class="token string">'s/cat/dog/w test_data'</span> data
-dog Jack
-dog Jack
-dog Jack
-dog Jack
-dog Jack
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> test_data
-dog Jack
-dog Jack
-dog Jack
-dog Jack
-dog Jack</code></pre></div></figure>
+<p>格式：<code>gawk options program file</code>。</p>
+<p><code>gawk</code>强大之处在于程序脚本，可以写脚本来读取文本行的数据，处理并显示数据，创建任何类型的输出报告。</p>
+<p>如果你没有下载<code>gwak</code>，执行命令：<code>sudo apt install gawk</code>。</p>
+<h1 id="从命令行读取脚本程序"><a href="#从命令行读取脚本程序" class="headerlink" title="从命令行读取脚本程序"></a>从命令行读取脚本程序</h1><p><code>gawk</code>程序脚本用一对花括号定义<code>&#123;&#125;</code>,必须将脚本命令放在花括号中：</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">gawk</span> <span class="token string">'&#123;print "Hello World"&#125;'</span></code></pre></div></figure>
 
-<p>有时候，<code>/</code>使用起来比较麻烦，可以使用<code>!</code>来代替：<code>s!cat!dog!</code>。</p>
-<h1 id="使用地址"><a href="#使用地址" class="headerlink" title="使用地址"></a>使用地址</h1><p>可以指定命令对某些特定的行数进行处理，<code>sed</code>编辑器的行寻址有两种形式：</p>
+<p><code>print</code>命令会将文本打印到<code>STDOUT</code>中，由于没有在命令行中指定文件，所以输入默认是接收<code>STDIN</code>。由于该命令固定显示<code>Hello World</code>，所以不论输入什么，都只会显示这个。希望结束程序，必须表明数据流已经结束，<code>ctrl+d</code>会产生一个<code>EOF</code>字符，能够终止<code>gawk</code>。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">gawk</span> <span class="token string">'&#123;print "Hello world"&#125;'</span> testfile   
+
+<span class="token comment"># 使用文件作为输入</span>
+<span class="token comment"># 由于gawk命令行假定脚本是个单个文本字符串，所以要使用''</span></code></pre></div></figure>
+
+<p>如果要使用多命令，还是使用分号</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"this is rich"</span> <span class="token operator">|</span> <span class="token function">gawk</span> <span class="token string">'&#123;$4="Mike";print $0&#125;'</span>
+
+<span class="token comment"># 也可以分行</span>
+    <span class="token function">gawk</span> <span class="token string">'&#123;
+ > $3='</span><span class="token number">123</span><span class="token string">'
+ > print $0
+ > &#125;'</span></code></pre></div></figure>
+
+<p>这个与<code>sed</code>的多命令相似，两者的格式区别在于，<code>sed</code>的命令直接使用<code>&#39;&#39;</code>，<code>gawk</code>使用<code>&#39;&#123;&#125;&#39;</code>，如果将命令放在文件中，两者是相同的，都是使用<code>-f</code>参数，文件名为了避免混淆，也会以.<code>gawk</code>后缀命名。在<code>gawk</code>命令文件中，可以定义变量，同时，使用时不需要<code>$</code>。</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">text</span><span class="token operator">=</span><span class="token string">'213'</span>
+print text</code></pre></div></figure>
+
+
+
+<h1 id="数据字段变量"><a href="#数据字段变量" class="headerlink" title="数据字段变量"></a>数据字段变量</h1><p><code>gawk</code>会给一行中每个数据元素分配一个变量（默认数据分隔符是空格）<code>$0</code>–整行数据    <code>$n</code>–第<code>n</code>个数据</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">gawk</span> -F: <span class="token string">'&#123;print $1&#125;'</span> data      </code></pre></div></figure>
+
+<p>打印data每行第一个数据，<code>-F</code>指定分隔符，以<code>:</code>为分隔符。</p>
+<h1 id="程序脚本的运行"><a href="#程序脚本的运行" class="headerlink" title="程序脚本的运行"></a>程序脚本的运行</h1><p><code>gawk</code>允许指定程序脚本<strong>何时运行</strong>，默认情况下，<code>gawk</code>会从输入读取一行脚本，然后针对该行数据运行程序脚本，但是，有时需要在处理数据前运行脚本，有时在之后处理脚本。</p>
 <ul>
-<li>数字表示行区间</li>
+<li><code>BEGIN</code>关键字：会强制<code>gawk</code>在读取数据前执行<code>BEIGIN</code>关键字后指定的程序脚本</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1.对单行指定修改</span>
-<span class="token function">sed</span> <span class="token string">'2s/cat/dog/'</span> data
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">gawk</span> <span class="token string">'BEGIN &#123;print "hello"&#125;'</span>
+hello
+cyan@cyan-virtual-machine:~/Templates$ 
+<span class="token comment"># 因为没有其他处理数据的命令，直接退出</span></code></pre></div></figure>
 
-<span class="token comment"># 2.对行区间进行执行修改</span>
-<span class="token function">sed</span> <span class="token string">'2,5s/cat/dog'</span> data <span class="token comment"># 2~5行被修改</span>
-
-<span class="token comment"># 3.美元符号$</span>
-<span class="token function">sed</span> <span class="token string">'2,$s/cat/dog/'</span> data   <span class="token comment"># 对2行及以下的数据执行命令</span></code></pre></div></figure>
+<p><code>print</code>显示完文本后会快速退出，不等待任何数据，如果想使用正常的程序脚本中处理数据，必须使用另一个脚本区域来定义程序：</p>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">gawk</span> <span class="token string">'BEGIN &#123;print "hello"&#125;
+> &#123;print $1&#125;
+> '</span> data
+hello
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span></code></pre></div></figure>
 
 <ul>
-<li>文本模式来过滤出行，<code>/pattern/command</code>。比如修改用户<code>cyan</code>的默认<code>shell</code>。匹配模式十分类似<code>grep</code>，固定文本作用有限，最常用的是使用正则表达式。 匹配模式十分类似grep，固定文本作用有限，最常用的是使用正则表达式。</li>
+<li><code>END</code>关键字：会在读取数据(是所有数据)处理完之后，执行<code>END</code>后面的程序脚本</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">grep</span> cyan /etc/passwd
-cyan:x:1000:1000:cyan,,,:/home/cyan:/bin/bash
-<span class="token variable">$sed</span> <span class="token string">'/cyan/s/bash/csh/'</span> /etc/psswd</code></pre></div></figure>
-
-<ul>
-<li>当有多条命令时候。</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">address <span class="token punctuation">&#123;</span> <span class="token comment">#多条命令时，需要用&#123;&#125;来限定作用域</span>
-        command1
-        command2
-<span class="token punctuation">&#125;</span>
-<span class="token comment"># 例</span>
-<span class="token function">sed</span> <span class="token string">'2&#123;
-> commands    
-&#125;'</span> data.txt</code></pre></div></figure>
-
-
-
-<h1 id="删除与修改"><a href="#删除与修改" class="headerlink" title="删除与修改"></a>删除与修改</h1><p><code>sed</code>可以替换，也可以删除，使用<code>d</code>命令：<code>sed &#39;3d&#39; data</code>，和行寻址一起使用发挥最大作用。输出到STDOUT的结果是删除指定行之后的剩余文本。</p>
-<p>如果我希望删除某个区间的文本（使用文本匹配）</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> data
-num start
-num <span class="token number">2</span>
-num <span class="token number">3</span>
-num end
-num <span class="token number">4</span>
-num start again
-kk
-nn
-
-<span class="token comment"># 执行命令：sed '/start/,/end/d' data</span>
-<span class="token comment"># 结果 num 4 </span></code></pre></div></figure>
-
-<p>一开始遇到<code>start</code>，打开删除模式，持续删除，直到遇到<code>end</code>，关闭删除模式(没遇到就一直删除）。再次遇到<code>start</code>时(<code>num start again</code>)，打开删除模式，并持续删除。</p>
-<p><code>sed</code>编辑器是不会修改原始文件的，修改的只是从<code>sed</code>编辑器的输出中消失了。</p>
-<p>至于修改行的内容，之前的<code>s</code>命令需要匹配，而<code>c</code>命令是直接修改整行内容，<code>c--change</code>。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'1c\this is changed line'</span> data.txt
-<span class="token function">sed</span> <span class="token string">'/num 1/c\this is changed line'</span> data.txt
-<span class="token function">sed</span> <span class="token string">'2,3c\this is changed line'</span> data.txt
-
-<span class="token comment"># c命令之后用的是反斜杠\,并且没有封尾，也就是line后没有\</span>
-<span class="token comment"># 第三个使用区间修改行，并不是将区间的每一行都修改为指定行，而是用该指定行替换数据流中区间的所有文本</span></code></pre></div></figure>
-
-
-
-<h1 id="插入和附加文本"><a href="#插入和附加文本" class="headerlink" title="插入和附加文本"></a>插入和附加文本</h1><p>插入<code>insert--i</code>:会在指定行<strong>前</strong>增加一个行，<code>echo &quot;test line 2&quot; | sed &#39;i\test line 1&#39;</code>。<br>附加<code>append--a</code>:会在指定行<strong>后</strong>增加一个行，<code>echo &quot;test line 2&quot; | sed &#39;a\test line 1&#39;</code>。</p>
-<p>如果想要附加到行尾，只需要使用美元符号：<code>sed &#39;$a\new line&#39; data</code>。<strong>个人觉得美元符号是数据流最后一行的意思</strong>。<br>要插入（附加）多行数据，需要在每行之间使用<code>\</code>：</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'1i\
-> line 1\
-> line 2
-> '</span> data</code></pre></div></figure>
-
-
-
-<h1 id="转换命令"><a href="#转换命令" class="headerlink" title="转换命令"></a>转换命令</h1><p><code>y</code>命令是唯一可以处理单个字符的<code>sed</code>编辑器命令  <code>[address]y/inchars/outchars/</code>。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'y/123/789/'</span> data</code></pre></div></figure>
-
-<p><code>inchars</code>的第一个字符会被映射为<code>outchars</code>的第一个字符，以此类推，直到处理完指定字符。其中，如果两者长度不一样，会报错。<br>转换命令是全局命令，无法限定只转换在特定地方出现的字符(以行为单位)，也就是<strong>一行所有的字符都要被转换</strong>。</p>
-<h1 id="打印命令"><a href="#打印命令" class="headerlink" title="打印命令"></a>打印命令</h1><p>之前使用<code>s</code>替换命令时，配合<code>-n</code>和<code>p</code>选项，打印出修改的行，还有些命令也能打印数据流信息。</p>
-<p><code>=</code>命令打印<strong>行号</strong>，<strong>行号由数据流中的换行符来决定</strong>，每出现一个换行符，sed编辑器就认为一行结束了。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'='</span> data</code></pre></div></figure>
-
-<p><code>l</code>命令可以打印出数据流中的文本和不可打印的ASCII字符(一般是标准C风格或八进制)，<code>l</code>就是<code>list</code>。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -n <span class="token string">'l'</span> data</code></pre></div></figure>
-
-
-
-<h1 id="处理文件"><a href="#处理文件" class="headerlink" title="处理文件"></a>处理文件</h1><ul>
-<li>写入文件：<code>[address]w filename</code>。</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> -n <span class="token string">'1,2w aim.txt'</span> data
-<span class="token comment"># 在aim.txt追加</span></code></pre></div></figure>
-
-<ul>
-<li>读取文件：<code>[address]r filename</code>。 允许将一个独立文件中的数据插入到数据流中，插入到指定行后。</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token string">'3r sources.txt'</span> data</code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">gawk</span> <span class="token string">'BEGIN &#123;print "The data file content:"&#125;
+> &#123;print $1&#125;
+> END &#123;print "END of file"&#125;'</span> data
+The data <span class="token function">file</span> content:
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+<span class="token function">cat</span>
+END of <span class="token function">file</span></code></pre></div></figure>
 
 
                 
@@ -487,8 +386,8 @@ nn
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>sed编辑器基础</div>
-      <div>https://cecilia.cool/2022/08/04/Shell/sed编辑器基础/</div>
+      <div>gawk程序基础</div>
+      <div>https://cecilia.cool/2022/08/05/Shell/gawk程序基础/</div>
     </div>
     <div class="license-meta">
       
@@ -500,7 +399,7 @@ nn
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月4日</div>
+          <div>2022年8月5日</div>
         </div>
       
       
@@ -530,18 +429,12 @@ nn
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/05/Shell/gawk%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" title="gawk程序基础">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">gawk程序基础</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/04/Shell/%E5%87%BD%E6%95%B0/" title="函数">
-                        <span class="hidden-mobile">函数</span>
+                      <a href="/2022/08/04/Shell/sed%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80/" title="sed编辑器基础">
+                        <span class="hidden-mobile">sed编辑器基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

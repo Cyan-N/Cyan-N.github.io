@@ -1,389 +1,90 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.png">
-  <link rel="icon" href="/img/logo.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Cyan">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="前言在了解Linux的环境变量前，我们先了解一下变量。 在脚本中使用以下代码 cyan@cyan-virtual-machine:~&#x2F;Templates$ cat test #!&#x2F;bin&#x2F;bash val&#x3D;10 while echo val do         echo &quot; testing... &quot; done  #会循环打印： #val #testing...  在脚本中我们直接定义一个变量，该">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="前言       在了解Linux的环境变量前，我们先了解一下变量。 在脚本中使用以下代码 1234567891011cyan@cyan-virtual-machine:~&#x2F;Templates$ cat test#!&#x2F;bin&#x2F;bashval&#x3D;10while echo valdo        echo &quot; testing... &quot;done">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux环境变量">
 <meta property="og:url" content="https://cecilia.cool/2022/07/29/Shell/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/index.html">
 <meta property="og:site_name" content="慕青的日记">
-<meta property="og:description" content="前言在了解Linux的环境变量前，我们先了解一下变量。 在脚本中使用以下代码 cyan@cyan-virtual-machine:~&#x2F;Templates$ cat test #!&#x2F;bin&#x2F;bash val&#x3D;10 while echo val do         echo &quot; testing... &quot; done  #会循环打印： #val #testing...  在脚本中我们直接定义一个变量，该">
+<meta property="og:description" content="前言       在了解Linux的环境变量前，我们先了解一下变量。 在脚本中使用以下代码 1234567891011cyan@cyan-virtual-machine:~&#x2F;Templates$ cat test#!&#x2F;bin&#x2F;bashval&#x3D;10while echo valdo        echo &quot; testing... &quot;done">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-29T07:21:39.000Z">
 <meta property="article:modified_time" content="2022-07-29T11:38:35.422Z">
 <meta property="article:author" content="Cyan">
 <meta property="article:tag" content="shell">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>Linux环境变量 - 慕青的日记</title>
+<meta name="twitter:card" content="summary"><title>Linux环境变量 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/07/29/Shell/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"cecilia.cool","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-<meta name="generator" content="Hexo 6.2.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 100vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>南慕青</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/Page_Banner.jpg') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Linux环境变量"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-author" aria-hidden="true"></i>
-        Cyan
-      </span>
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-29 15:21" pubdate>
-          2022年7月29日 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          3.6k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          31 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Linux环境变量</h1>
-            
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：2022年7月29日 晚上
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在了解<code>Linux</code>的环境变量前，我们先了解一下变量。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux环境变量</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-29</span></span></div></header><div class="post-body">
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+      <p>在了解<code>Linux</code>的环境变量前，我们先了解一下变量。</p>
 <p>在脚本中使用以下代码</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> <span class="token builtin class-name">test</span>
-<span class="token comment">#!/bin/bash</span>
-<span class="token assign-left variable">val</span><span class="token operator">=</span><span class="token number">10</span>
-<span class="token keyword">while</span> <span class="token builtin class-name">echo</span> val
-<span class="token keyword">do</span>
-        <span class="token builtin class-name">echo</span> <span class="token string">" testing... "</span>
-<span class="token keyword">done</span>
-
-<span class="token comment">#会循环打印：</span>
-<span class="token comment">#val</span>
-<span class="token comment">#testing...</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat test</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">val=10</span><br><span class="line">while echo val</span><br><span class="line">do</span><br><span class="line">        echo &quot; testing... &quot;</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">会循环打印：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">val</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">testing...</span></span><br></pre></td></tr></table></div></figure>
 
 <p>在脚本中我们直接定义一个变量，该怎么用呢？直接在终端定义变量，此时变量是什么？</p>
-<h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><p>划分为局部和全局变量，局部变量只对创建他们的shell可见，<strong>系统环境变量基本都是大写字母</strong>，区别于普通用户的环境变量，查看全局变量可以使用命令<code>env </code>或者<code>printenv</code>。</p>
+
+        <h1 id="环境变量"   >
+          <a href="#环境变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1>
+      <p>划分为局部和全局变量，局部变量只对创建他们的shell可见，<strong>系统环境变量基本都是大写字母</strong>，区别于普通用户的环境变量，查看全局变量可以使用命令<code>env </code>或者<code>printenv</code>。</p>
 <p>查看单个变量的值：<code>printenv $HOME</code>或者<code>echo $HOME</code>。这里给出几个常见的系统环境变量</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$HOME</span>
-/home/cyan
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$PATH</span>
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$SHELL</span>
-/bin/bash</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $HOME</span><br><span class="line">/home/cyan</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $SHELL</span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></div></figure>
 
 <p>你可以把变量前面的美元符号<code>$</code>看作取值，在变量前加上<code>$</code>可以区分它到底是变量还是字符串。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$SHELL</span>
-/bin/bash
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token environment constant">SHELL</span>
-<span class="token environment constant">SHELL</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $SHELL</span><br><span class="line">/bin/bash</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo SHELL</span><br><span class="line">SHELL</span><br></pre></td></tr></table></div></figure>
 
 <p>我们要定义自己的变量，直接定义即可</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 通过cat命令查看test文件内容</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> <span class="token builtin class-name">test</span>
-<span class="token comment">#!/bin/bash</span>
-<span class="token assign-left variable">val</span><span class="token operator">=</span><span class="token number">10</span>
-<span class="token builtin class-name">echo</span> val
-
-<span class="token comment"># 自定义变量value</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token assign-left variable">value</span><span class="token operator">=</span>./test
-
-<span class="token comment">#尝试使用value来运行./test</span>
-cyan@cyan-virtual-machine:~/Templates$ value
-value: <span class="token builtin class-name">command</span> not found
-
-<span class="token comment">#尝试使用value的值来运行./test，但是打印出来的不是10，而是val</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token variable">$value</span>
-val
-
-<span class="token comment">#可见，在脚本中，变量前也需要使用$</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通过<span class="built_in">cat</span>命令查看<span class="built_in">test</span>文件内容</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat test</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">val=10</span><br><span class="line">echo val</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">自定义变量value</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ value=./test</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">尝试使用value来运行./test</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ value</span><br><span class="line">value: command not found</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">尝试使用value的值来运行./test，但是打印出来的不是10，而是val</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ $value</span><br><span class="line">val</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可见，在脚本中，变量前也需要使用$</span></span><br></pre></td></tr></table></div></figure>
 
 <p>看到这里你应该对变量有了大概的了解。<code>$</code>相当于取出变量的值，想要定义一个变量，直接定义即可。但是这里有个<strong>致命的坑</strong>，我们平时写代码，为了有较高的可读性，一般在变量和<code>=</code>以及值之间都会加上<strong>空格</strong>，但是这在终端里面是致命的错误</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ val <span class="token operator">=</span> <span class="token number">10</span>
-
-Command <span class="token string">'val'</span> not found, did you mean:
-
-  <span class="token builtin class-name">command</span> <span class="token string">'pal'</span> from deb pal <span class="token punctuation">(</span><span class="token number">0.4</span>.3-8.1build4<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'cal'</span> from deb bsdmainutils <span class="token punctuation">(</span><span class="token number">11.1</span>.2ubuntu3<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'vala'</span> from deb valac-bin <span class="token punctuation">(</span><span class="token number">0.48</span>.6-0ubuntu1<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'fal'</span> from deb dnet-progs <span class="token punctuation">(</span><span class="token number">2</span>.65build2<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'vax'</span> from deb simh <span class="token punctuation">(</span><span class="token number">3.8</span>.1-6<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'al'</span> from deb mono-devel <span class="token punctuation">(</span><span class="token number">6.8</span>.0.105+dfsg-2<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'vam'</span> from deb vim-addon-manager <span class="token punctuation">(</span><span class="token number">0.5</span>.10<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'pval'</span> from deb snacc <span class="token punctuation">(</span><span class="token number">1.3</span>.1-7build2<span class="token punctuation">)</span>
-  <span class="token builtin class-name">command</span> <span class="token string">'vl'</span> from deb atfs <span class="token punctuation">(</span><span class="token number">1</span>.4pl6-14<span class="token punctuation">)</span>
-
-Try: <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token operator">&lt;</span>deb name<span class="token operator">></span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ val = 10</span><br><span class="line"></span><br><span class="line">Command &#x27;val&#x27; not found, did you mean:</span><br><span class="line"></span><br><span class="line">  command &#x27;pal&#x27; from deb pal (0.4.3-8.1build4)</span><br><span class="line">  command &#x27;cal&#x27; from deb bsdmainutils (11.1.2ubuntu3)</span><br><span class="line">  command &#x27;vala&#x27; from deb valac-bin (0.48.6-0ubuntu1)</span><br><span class="line">  command &#x27;fal&#x27; from deb dnet-progs (2.65build2)</span><br><span class="line">  command &#x27;vax&#x27; from deb simh (3.8.1-6)</span><br><span class="line">  command &#x27;al&#x27; from deb mono-devel (6.8.0.105+dfsg-2)</span><br><span class="line">  command &#x27;vam&#x27; from deb vim-addon-manager (0.5.10)</span><br><span class="line">  command &#x27;pval&#x27; from deb snacc (1.3.1-7build2)</span><br><span class="line">  command &#x27;vl&#x27; from deb atfs (1.4pl6-14)</span><br><span class="line"></span><br><span class="line">Try: sudo apt install &lt;deb name&gt;</span><br></pre></td></tr></table></div></figure>
 
 <p>因为加上空格，<code>shell</code>（我的是<code>bash</code>）就会认为，你的<code>val</code>（变量名）是一个命令，空格后面的是该命令的参数。而<code>shell</code>没有找到<code>val</code>这个命令就会报错。</p>
 <p>其实随着之后的学习，你会越来越理解<code>Linux</code>中各种设计的巧妙，我们调用的一个又一个命令（大部分），说穿了其实是一个又一个可执行文件，如果你之前在给<code>IDEA</code>，<code>VsCode</code>这些工具配置环境变量时好好了解过到底为什么需要环境变量，那么你很清楚我刚才在说什么。</p>
 <p>对于局部环境变量，bash并没有什么指令可以单独显示，<code>set</code>命令会显示为某个特定进程设置的所有环境变量，输出时会按照字母顺序排序</p>
-<h2 id="设置用户定义变量"><a href="#设置用户定义变量" class="headerlink" title="设置用户定义变量"></a>设置用户定义变量</h2><p>上面已经讲得差不多了，这里再给出几个需要注意的点</p>
+
+        <h2 id="设置用户定义变量"   >
+          <a href="#设置用户定义变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#设置用户定义变量" class="headerlink" title="设置用户定义变量"></a>设置用户定义变量</h2>
+      <p>上面已经讲得差不多了，这里再给出几个需要注意的点</p>
 <ul>
 <li>如果变量的值中含有空格，请使用用单（双）引号，<code>val = &quot;hello world&quot;</code>。</li>
 <li>定义用户变量，请坚持使用<strong>小写</strong>字母。</li>
 <li>变量名，等号，值之间不能有空格。</li>
 </ul>
-<h2 id="设置全局环境变量"><a href="#设置全局环境变量" class="headerlink" title="设置全局环境变量"></a>设置全局环境变量</h2><p>我们之前直接创建的变量是局部变量，对其他<code>shell</code>（父子<code>shell</code>）是不可见得。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token number">10</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">bash</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token variable">$var</span>
 
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">exit</span>
-<span class="token builtin class-name">exit</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">echo</span> <span class="token variable">$var</span>
-<span class="token number">10</span></code></pre></div></figure>
+        <h2 id="设置全局环境变量"   >
+          <a href="#设置全局环境变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#设置全局环境变量" class="headerlink" title="设置全局环境变量"></a>设置全局环境变量</h2>
+      <p>我们之前直接创建的变量是局部变量，对其他<code>shell</code>（父子<code>shell</code>）是不可见得。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ var=10</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ bash</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $var</span><br><span class="line"></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ exit</span><br><span class="line">exit</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo $var</span><br><span class="line">10</span><br></pre></td></tr></table></div></figure>
 
-<p>关于父子<code>shell</code>，我不会在这篇文章过多讲解，你要是求知心切，<a target="_blank" rel="noopener" href="https://baidu.com/">传送门</a>。</p>
+<p>关于父子<code>shell</code>，我不会在这篇文章过多讲解，你要是求知心切，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://baidu.com/" >传送门</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
 <p>你现在可以这么理解，<code>bash shell</code>也是一个程序，我们打开终端时，<code>bash</code>也启动了，既然<code>bash</code>是程序，那我们在终端也可以运行<code>bash</code>，这样我们就处于<strong>子shell</strong>，<strong>父子shell</strong>使用不同的内存空间，所以在<strong>父shell</strong>创建的局部变量对<strong>子shell</strong>是不可见的。</p>
 <p>创建全局环境变量的方法：先创建局部环境变量，再导出到全局变量</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">var</span><span class="token operator">=</span><span class="token string">'global'</span>
-<span class="token builtin class-name">export</span> <span class="token string">'global'</span> <span class="token comment">#export就是导出命令，也可以直接导出：export var=global</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var=&#x27;global&#x27;</span><br><span class="line">export &#x27;global&#x27; #export就是导出命令，也可以直接导出：export var=global</span><br></pre></td></tr></table></div></figure>
 
 <p>在<strong>子shell</strong>中修改全局变量不会影响<strong>父shell</strong>中该变量的值。根据该性质，在<strong>子shell</strong>中设置全局变量是没有意义的，因为其设置的值，根本不传给父shell。</p>
-<h2 id="删除环境变量"><a href="#删除环境变量" class="headerlink" title="删除环境变量"></a>删除环境变量</h2><figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">unset</span> var</code></pre></div></figure>
+
+        <h2 id="删除环境变量"   >
+          <a href="#删除环境变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#删除环境变量" class="headerlink" title="删除环境变量"></a>删除环境变量</h2>
+      <figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset var</span><br></pre></td></tr></table></div></figure>
 
 <p>解释：</p>
 <ul>
@@ -391,351 +92,34 @@ cyan@cyan-virtual-machine:~/Templates$ <span class="token builtin class-name">ec
 <li><code>printenv</code>指定了，传入的参数就是一个环境变量（自定义变量不行），可以直接使用。</li>
 <li>在子shell中对全局变量的修改无能反映到父shell，哪怕是删除</li>
 </ul>
-<h2 id="设置PATH环境变量"><a href="#设置PATH环境变量" class="headerlink" title="设置PATH环境变量"></a>设置PATH环境变量</h2><p><code>PATH</code>环境变量定义了用于进行命令和程序查找的目录。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$PATH</span>
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code></pre></div></figure>
+
+        <h2 id="设置PATH环境变量"   >
+          <a href="#设置PATH环境变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#设置PATH环境变量" class="headerlink" title="设置PATH环境变量"></a>设置PATH环境变量</h2>
+      <p><code>PATH</code>环境变量定义了用于进行命令和程序查找的目录。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>如果命令或程序位置没有包含在<code>PATH</code>中，如果不使用路径，<code>shell</code>是没法找到并运行的。就像上一篇文章，我们必须使用<code>./test.sh</code>才能运行该文件，使用<code>test.sh</code>是不行的。</li>
 <li>短暂的修改<code>PATH</code>命令就是：<code>PATH=$PATH:.</code>，一般加<code>.</code>就是包含当前目录，当然也可以加其他路径。这种修改，在<code>exit</code>后会失效。</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看当前文件夹下文件</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">ls</span>
-new_File  <span class="token builtin class-name">test</span>  test_1.sh
-
-<span class="token comment"># 查看文件test_1.sh脚本内容--打印Hello World</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> test_1.sh
-<span class="token comment">#!/bin/bash</span>
-<span class="token builtin class-name">echo</span> <span class="token string">"Hello World"</span>
-
-<span class="token comment"># 希望直接使用这个脚本名作为命令</span>
-cyan@cyan-virtual-machine:~/Templates$ test_1.sh
-test_1.sh: <span class="token builtin class-name">command</span> not found
-
-<span class="token comment"># 将当前目录加到PATH中</span>
-cyan@cyan-virtual-machine:~/Templates$ <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:.
-
-cyan@cyan-virtual-machine:~/Templates$ test_1.sh
-Hello World</code></pre></div></figure>
-
-<p>如果你还没明白，可以参考以下这个（我觉得和我讲的差不多）<a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/24-braxhrzgczfkpwt.html">如何理解PATH</a>。如果还是不懂，真拿你没办法，就再给个 <a target="_blank" rel="noopener" href="https://baidu.com/">真正的传送门</a>。</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>关于如何持久化创建一个环境变量，这涉及到修改一些系统文件，文件权限以及<code>shell</code>进程的一些知识，之后再说吧。</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/shell/">#shell</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Linux环境变量</div>
-      <div>https://cecilia.cool/2022/07/29/Shell/Linux环境变量/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Cyan</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年7月29日</div>
-        </div>
-      
-      
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
-            
-            
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
-        </div>
-      </div>
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/07/30/Shell/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3shell/" title="深入理解shell">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入理解shell</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/07/29/Tools/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%8C%87%E5%8D%97/" title="Hexo搭建博客指南">
-                        <span class="hidden-mobile">Hexo搭建博客指南</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
-      scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-<script>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前文件夹下文件</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ls</span><br><span class="line">new_File  test  test_1.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看文件test_1.sh脚本内容--打印Hello World</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat test_1.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">echo &quot;Hello World&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">希望直接使用这个脚本名作为命令</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ test_1.sh</span><br><span class="line">test_1.sh: command not found</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将当前目录加到PATH中</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ PATH=$PATH:.</span><br><span class="line"></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ test_1.sh</span><br><span class="line">Hello World</span><br></pre></td></tr></table></div></figure>
+
+<p>如果你还没明白，可以参考以下这个（我觉得和我讲的差不多）<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.manongjc.com/detail/24-braxhrzgczfkpwt.html" >如何理解PATH</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。如果还是不懂，真拿你没办法，就再给个 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://baidu.com/" >真正的传送门</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h1 id="最后"   >
+          <a href="#最后" class="heading-link"><i class="fas fa-link"></i></a><a href="#最后" class="headerlink" title="最后"></a>最后</h1>
+      <p>关于如何持久化创建一个环境变量，这涉及到修改一些系统文件，文件权限以及<code>shell</code>进程的一些知识，之后再说吧。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/07/29/Shell/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">https://cecilia.cool/2022/07/29/Shell/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/shell/">shell</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/07/30/Shell/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3shell/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">深入理解shell</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/07/29/Tools/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%8C%87%E5%8D%97/"><span class="paginator-prev__text">Hexo搭建博客指南</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">
+          前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">
+          环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">
+          设置用户定义变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">
+          设置全局环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.3.</span> <span class="toc-text">
+          删除环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEPATH%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.</span> <span class="toc-text">
+          设置PATH环境变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text">
+          最后</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script><script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
                 preloadRatio: 1,
                 processImages: null,
             };
-        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
-</html>
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>

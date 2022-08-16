@@ -1,308 +1,48 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.png">
-  <link rel="icon" href="/img/logo.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Cyan">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="简介我们之前只是讲了脚本如何输出，也就是echo，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。 位置参数我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。 $0是程序名，$1~$9是第1~9个参数，超过9时，就要使用$&amp;#123;&amp;#125;，比如$&amp;#123;10&amp;#125;，这样，就允许在运行时加入任意个参数。 cyan@cyan-vi">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="简介       我们之前只是讲了脚本如何输出，也就是echo，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。                     位置参数       我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。 $0是程序名，$1~$9是第1~9个参数，超过9时，就要使用$&amp;#123;&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="处理用户输入">
 <meta property="og:url" content="https://cecilia.cool/2022/08/02/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/index.html">
 <meta property="og:site_name" content="慕青的日记">
-<meta property="og:description" content="简介我们之前只是讲了脚本如何输出，也就是echo，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。 位置参数我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。 $0是程序名，$1~$9是第1~9个参数，超过9时，就要使用$&amp;#123;&amp;#125;，比如$&amp;#123;10&amp;#125;，这样，就允许在运行时加入任意个参数。 cyan@cyan-vi">
+<meta property="og:description" content="简介       我们之前只是讲了脚本如何输出，也就是echo，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。                     位置参数       我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。 $0是程序名，$1~$9是第1~9个参数，超过9时，就要使用$&amp;#123;&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-02T14:44:02.000Z">
 <meta property="article:modified_time" content="2022-08-03T16:44:33.550Z">
 <meta property="article:author" content="Cyan">
 <meta property="article:tag" content="shell">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>处理用户输入 - 慕青的日记</title>
+<meta name="twitter:card" content="summary"><title>处理用户输入 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/08/02/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">处理用户输入</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-04</span></span></div></header><div class="post-body">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p>我们之前只是讲了脚本如何输出，也就是<code>echo</code>，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。</p>
 
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"cecilia.cool","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-<meta name="generator" content="Hexo 6.2.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 100vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>南慕青</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/Page_Banner.jpg') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="处理用户输入"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-author" aria-hidden="true"></i>
-        Cyan
-      </span>
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-02 22:44" pubdate>
-          2022年8月2日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          4k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          34 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">处理用户输入</h1>
-            
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：2022年8月4日 凌晨
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>我们之前只是讲了脚本如何输出，也就是<code>echo</code>，本文会讲解脚本如何处理用户的输入。同时我们会涉及到另外一些变量的讲解。</p>
-<h1 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h1><p>我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。</p>
+        <h1 id="位置参数"   >
+          <a href="#位置参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h1>
+      <p>我们之前使用过许多命令，他们有些可以接收若干个参数，这其实是通过位置参数来实现的。</p>
 <p><code>$0</code>是程序名，<code>$1~$9</code>是第<code>1~9</code>个参数，超过9时，就要使用<code>$&#123;&#125;</code>，比如<code>$&#123;10&#125;</code>，这样，就允许在运行时加入任意个参数。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> tmp.txt
-<span class="token comment">#/bin/bash</span>
-<span class="token builtin class-name">echo</span> <span class="token variable">$0</span>
-<span class="token builtin class-name">echo</span> <span class="token variable">$1</span>
-<span class="token builtin class-name">echo</span> <span class="token variable">$2</span>
-
-cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt var1 var2
-./tmp.txt
-var1
-var2</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat tmp.txt</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/bin/bash</span></span><br><span class="line">echo $0</span><br><span class="line">echo $1</span><br><span class="line">echo $2</span><br><span class="line"></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt var1 var2</span><br><span class="line">./tmp.txt</span><br><span class="line">var1</span><br><span class="line">var2</span><br></pre></td></tr></table></div></figure>
 
 <p><code>$0</code>是命令行输入的程序名，以绝对(相对)路径运行，<code>$0</code>就是绝对(相对)路径。该特性会对脚本造成不同程度的影响，所以可以使用<code>basename</code>命令，只会返回不包含路径的脚本名：<code>name=$(basename $0)</code>       ​<code>$()</code>是命令替换。<br>注：</p>
 <ul>
@@ -311,128 +51,61 @@ var2</code></pre></div></figure>
 <li>位置变量中，想要将数字使用变量代替(比如<code>$1</code>)：<code>$(!var)</code>其中var值为1,<code>$&#123;!#&#125;</code>表示最后一个参数，<code>$&#123;&#125;</code>中不能使用<code>$</code>而是使用<code>!</code>代替。</li>
 </ul>
 <p>这几个参数的使用和上述例子差不多，此处不再赘述。</p>
-<h1 id="移动变量"><a href="#移动变量" class="headerlink" title="移动变量"></a>移动变量</h1><p><code>shift</code>命令会默认将所有位置参数都向左移动一位，也就是<code>$1</code>的值变成了<code>$2</code>。<code>$0</code>的值始终不会变。使用shift是遍历位置参数的一个好方法</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash </span>
-<span class="token comment"># demonstrating the shift command </span>
-<span class="token builtin class-name">echo</span> 
-<span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">1</span> 
-<span class="token keyword">while</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token punctuation">]</span> 
-<span class="token keyword">do</span> 
- <span class="token builtin class-name">echo</span> <span class="token string">"Parameter #<span class="token variable">$count</span> = <span class="token variable">$1</span>"</span> 
- <span class="token assign-left variable">count</span><span class="token operator">=</span>$<span class="token punctuation">[</span> <span class="token variable">$count</span> + <span class="token number">1</span> <span class="token punctuation">]</span> 
- <span class="token builtin class-name">shift</span> 
-<span class="token keyword">done</span> </code></pre></div></figure>
+
+        <h1 id="移动变量"   >
+          <a href="#移动变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#移动变量" class="headerlink" title="移动变量"></a>移动变量</h1>
+      <p><code>shift</code>命令会默认将所有位置参数都向左移动一位，也就是<code>$1</code>的值变成了<code>$2</code>。<code>$0</code>的值始终不会变。使用shift是遍历位置参数的一个好方法</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">demonstrating the <span class="built_in">shift</span> <span class="built_in">command</span></span> </span><br><span class="line">echo </span><br><span class="line">count=1 </span><br><span class="line">while [ -n &quot;$1&quot; ] </span><br><span class="line">do </span><br><span class="line"> echo &quot;Parameter #$count = $1&quot; </span><br><span class="line"> count=$[ $count + 1 ] </span><br><span class="line"> shift </span><br><span class="line">done </span><br></pre></td></tr></table></div></figure>
 
 <p>也可以给shift传递一个参数，指明参数移动的距离。</p>
-<h1 id="getopt命令"><a href="#getopt命令" class="headerlink" title="getopt命令"></a>getopt命令</h1><p>说实话，这部分当时书上讲得挺让我难受的，痛苦.jpg。</p>
+
+        <h1 id="getopt命令"   >
+          <a href="#getopt命令" class="heading-link"><i class="fas fa-link"></i></a><a href="#getopt命令" class="headerlink" title="getopt命令"></a>getopt命令</h1>
+      <p>说实话，这部分当时书上讲得挺让我难受的，痛苦.jpg。</p>
 <p><code>getopt</code>命令可以接受一系列任意形式的<strong>命令行选项和参数</strong>，并将它们转换成适当的格式。说白了，该函数就是用来<strong>解析</strong>命令行选项参数的。</p>
 <p>使用：<code>getopt optstring parameters</code>。</p>
 <p><code>optstring</code>定义了命令可以接受的命令行有效的<strong>选项字母</strong>（要分析的参数），在每个需要参数值的选项字母后面加一个冒号，其参数紧跟在选项后面或者隔一个空格；如果选项字母后面加了2个冒号，则参数和选项之间不能有空格。<code>getopt</code>会基于定义的<code>optstring</code>解析提供的参数。</p>
 <p><code>paramters</code>是实际的参数列表。</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 举个例子</span>
-cyan@cyan-virtual-machine:~$ getopt ab:cd -a -b test1 -cd test2 test3
- -a -b test1 -c -d -- test2 test3</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举个例子</span></span><br><span class="line">cyan@cyan-virtual-machine:~$ getopt ab:cd -a -b test1 -cd test2 test3</span><br><span class="line"> -a -b test1 -c -d -- test2 test3</span><br></pre></td></tr></table></div></figure>
 
 <p>上面例子可以看到，<code>optstring</code>是<code>ab:cd</code>，规定了命令可以接受的有效的选项<code>a,b,c,d</code>。<code>b</code>的后面有冒号，所以<code>-b</code>选项后面必须跟一个参数，例子中是<code>test1</code>。<code>-a -b test1 -cd test2 test3</code>是<code>parameters</code>，里面出现的选项不能是<code>optstring</code>之外的选项。</p>
 <p>注意，它会自动将<code>-cd</code>选项分为两个单独的选项，并<strong>插入双破折号</strong>来分隔行中的额外参数。</p>
 <p>为了帮你更好理解这个命令，我们会写一个脚本，但是在这之前，我希望你能知道<code>set</code>命令。该命令会将位置参数设置为固定的值</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ <span class="token function">cat</span> new_File
-<span class="token comment">#!/bin/bash</span>
-<span class="token builtin class-name">echo</span> <span class="token variable">$1</span> <span class="token variable">$2</span> <span class="token variable">$3</span>
-<span class="token builtin class-name">set</span> -- 参数1 参数2 参数3
-<span class="token builtin class-name">echo</span> <span class="token variable">$1</span> <span class="token variable">$2</span> <span class="token variable">$3</span>
-
-cyan@cyan-virtual-machine:~/Templates$ ./new_File para1 para2 para3
-para1 para2 para3
-参数1 参数2 参数3
-</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">echo $1 $2 $3</span><br><span class="line">set -- 参数1 参数2 参数3</span><br><span class="line">echo $1 $2 $3</span><br><span class="line"></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ./new_File para1 para2 para3</span><br><span class="line">para1 para2 para3</span><br><span class="line">参数1 参数2 参数3</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 
 <p>现在写一个脚本</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token comment">#set -- 会将命令行参数替换成set命令的命令行值，挺重要的</span>
-<span class="token comment">#-q可以去掉报错信息，$@是得到脚本后面跟着的参数（字符串形式,同一个字符串多个单词）</span>
-<span class="token builtin class-name">set</span> -- <span class="token variable"><span class="token variable">$(</span>getopt -q ab:cd <span class="token string">"<span class="token variable">$@</span>"</span><span class="token variable">)</span></span>
-
-<span class="token keyword">while</span> <span class="token punctuation">[</span> -n <span class="token variable">$1</span> <span class="token punctuation">]</span>
-<span class="token keyword">do</span>
-    <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token keyword">in</span> 
-    -a<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Found the -a option"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    -b<span class="token punctuation">)</span> <span class="token assign-left variable">param</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$2</span>"</span>
-        <span class="token builtin class-name">echo</span> <span class="token string">"Found the -b option,with parameter value <span class="token variable">$param</span>"</span>
-        <span class="token builtin class-name">shift</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    -c<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Found the -c option"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    --<span class="token punctuation">)</span> <span class="token builtin class-name">shift</span>
-        <span class="token builtin class-name">break</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    *<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$1</span> is not an option"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    <span class="token keyword">esac</span>
-    <span class="token builtin class-name">shift</span>
-<span class="token keyword">done</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">set</span> -- 会将命令行参数替换成<span class="built_in">set</span>命令的命令行值，挺重要的</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">-q可以去掉报错信息，<span class="variable">$@</span>是得到脚本后面跟着的参数（字符串形式,同一个字符串多个单词）</span></span><br><span class="line">set -- $(getopt -q ab:cd &quot;$@&quot;)</span><br><span class="line"></span><br><span class="line">while [ -n $1 ]</span><br><span class="line">do</span><br><span class="line">    case &quot;$1&quot; in </span><br><span class="line">    -a) echo &quot;Found the -a option&quot; ;;</span><br><span class="line">    -b) param=&quot;$2&quot;</span><br><span class="line">        echo &quot;Found the -b option,with parameter value $param&quot;</span><br><span class="line">        shift ;;</span><br><span class="line">    -c) echo &quot;Found the -c option&quot; ;;</span><br><span class="line">    --) shift</span><br><span class="line">        break ;;</span><br><span class="line">    *) echo &quot;$1 is not an option&quot; ;;</span><br><span class="line">    esac</span><br><span class="line">    shift</span><br><span class="line">done</span><br></pre></td></tr></table></div></figure>
 
 <p>所以，我们平时使用的命令的选项+参数，其原理差不多就是这样的（当然不排除更复杂的）。(⊙﹏⊙)，我觉得加上这个脚本例子，你应该很明白<code>getopt</code>到底是干什么的了吧。</p>
-<h1 id="getopts命令"><a href="#getopts命令" class="headerlink" title="getopts命令"></a>getopts命令</h1><p>没错，我当时也很难受，费工夫理解<code>getopt</code>之后，又来一个。</p>
+
+        <h1 id="getopts命令"   >
+          <a href="#getopts命令" class="heading-link"><i class="fas fa-link"></i></a><a href="#getopts命令" class="headerlink" title="getopts命令"></a>getopts命令</h1>
+      <p>没错，我当时也很难受，费工夫理解<code>getopt</code>之后，又来一个。</p>
 <p>该命令内建于<code>bash shell</code>，比<code>getopt</code>多了一些扩展功能。使用格式为：<code>getopts optstring variable</code><br><strong>每次只处理命令行一个参数</strong>，处理完所有参数后，就会退出并返回一个大于0的退出码。</p>
 <ol>
 <li>如果要想<code>getiopt -q</code>那样去掉错误信息，需要在<code>optstring</code>前加上一个冒号。</li>
 <li><code>getopts</code>命令会将当前参数（选项）保存在命令行中定义的<code>variable</code>中</li>
 <li><code>getopts</code>命令会用到两个环境变量。选项如果需要一个参数值，<code>OPTARG</code>环境变量就会保存这个值。<code>OPTIND</code>环境变量保存参数列表中<code>getopts</code>正在处理的参数位置。</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-
-<span class="token builtin class-name">echo</span> <span class="token string">"OPTIND的值为:<span class="token environment constant">$OPTIND</span>"</span>
-<span class="token comment"># 根据第2点，当前选项会被保存在opt中</span>
-<span class="token keyword">while</span> <span class="token builtin class-name">getopts</span> :ab:c opt
-<span class="token keyword">do</span>
-    <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$opt</span>"</span> <span class="token keyword">in</span>
-    <span class="token comment"># 我写的是a而不是-a</span>
-        a<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Found the -a option"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-        b<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Found the -b option,with value <span class="token variable">$OPTARG</span>"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span> <span class="token comment"># 选项后的参数值</span>
-        c<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Found the -c option"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-        *<span class="token punctuation">)</span> <span class="token builtin class-name">echo</span> <span class="token string">"Unkown option:<span class="token variable">$opt</span>"</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-    <span class="token keyword">esac</span>
-    <span class="token builtin class-name">echo</span> <span class="token string">"OPTIND的值为:<span class="token environment constant">$OPTIND</span>"</span>
-<span class="token keyword">done</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo &quot;OPTIND的值为:$OPTIND&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据第2点，当前选项会被保存在opt中</span></span><br><span class="line">while getopts :ab:c opt</span><br><span class="line">do</span><br><span class="line">    case &quot;$opt&quot; in</span><br><span class="line">    # 我写的是a而不是-a</span><br><span class="line">        a) echo &quot;Found the -a option&quot; ;;</span><br><span class="line">        b) echo &quot;Found the -b option,with value $OPTARG&quot; ;; # 选项后的参数值</span><br><span class="line">        c) echo &quot;Found the -c option&quot; ;;</span><br><span class="line">        *) echo &quot;Unkown option:$opt&quot;;;</span><br><span class="line">    esac</span><br><span class="line">    echo &quot;OPTIND的值为:$OPTIND&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></div></figure>
 
 <p>如果我给的真实的参数列表为：</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt -a -btest1 -c test2 test3</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt -a -btest1 -c test2 test3</span><br></pre></td></tr></table></div></figure>
 
 <p>得到的结果就是</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token environment constant">OPTIND</span>的值为:1
-Found the -a option
-<span class="token environment constant">OPTIND</span>的值为:2
-Found the -b option,with value test1
-<span class="token environment constant">OPTIND</span>的值为:3
-Found the -c option
-<span class="token environment constant">OPTIND</span>的值为:4</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OPTIND的值为:1</span><br><span class="line">Found the -a option</span><br><span class="line">OPTIND的值为:2</span><br><span class="line">Found the -b option,with value test1</span><br><span class="line">OPTIND的值为:3</span><br><span class="line">Found the -c option</span><br><span class="line">OPTIND的值为:4</span><br></pre></td></tr></table></div></figure>
 
 <p>从该脚本中，我们看到了<code>getopts</code>如何根据两个系统变量进行参数控制的。我们不妨将脚本内容改一下</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-
-<span class="token builtin class-name">echo</span> <span class="token string">"OPTIND的值为:<span class="token environment constant">$OPTIND</span>"</span>
-<span class="token comment"># 根据第2点，当前选项会被保存在opt中</span>
-<span class="token keyword">while</span> <span class="token builtin class-name">getopts</span> :ab:c opt
-<span class="token keyword">do</span>
-   <span class="token comment"># case "$opt" in</span>
-    <span class="token comment">#    a) echo "Found the -a option" ;;</span>
-    <span class="token comment">#    b) echo "Found the -b option,with value $OPTARG" ;; # 选项后的参数值</span>
-    <span class="token comment">#    c) echo "Found the -c option" ;;</span>
-    <span class="token comment">#   *) echo "Unkown option:$opt";;</span>
-    <span class="token comment">#esac</span>
-    <span class="token builtin class-name">echo</span> <span class="token variable">$opt</span>
-    <span class="token builtin class-name">echo</span> <span class="token string">"OPTIND的值为:<span class="token environment constant">$OPTIND</span>"</span>
-<span class="token keyword">done</span></code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo &quot;OPTIND的值为:$OPTIND&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据第2点，当前选项会被保存在opt中</span></span><br><span class="line">while getopts :ab:c opt</span><br><span class="line">do</span><br><span class="line"><span class="meta prompt_">   # </span><span class="language-bash"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$opt</span>&quot;</span> <span class="keyword">in</span></span></span><br><span class="line">    #    a) echo &quot;Found the -a option&quot; ;;</span><br><span class="line">    #    b) echo &quot;Found the -b option,with value $OPTARG&quot; ;; # 选项后的参数值</span><br><span class="line">    #    c) echo &quot;Found the -c option&quot; ;;</span><br><span class="line">    #   *) echo &quot;Unkown option:$opt&quot;;;</span><br><span class="line">    #esac</span><br><span class="line">    echo $opt</span><br><span class="line">    echo &quot;OPTIND的值为:$OPTIND&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></div></figure>
 
 <p>参数列表不变</p>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash">cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt -a -btest1 -c test2 test3
-<span class="token environment constant">OPTIND</span>的值为:1
-a
-<span class="token environment constant">OPTIND</span>的值为:2
-b
-<span class="token environment constant">OPTIND</span>的值为:3
-c
-<span class="token environment constant">OPTIND</span>的值为:4</code></pre></div></figure>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ ./tmp.txt -a -btest1 -c test2 test3</span><br><span class="line">OPTIND的值为:1</span><br><span class="line">a</span><br><span class="line">OPTIND的值为:2</span><br><span class="line">b</span><br><span class="line">OPTIND的值为:3</span><br><span class="line">c</span><br><span class="line">OPTIND的值为:4</span><br></pre></td></tr></table></div></figure>
 
 <p>在<code>opt=c</code>之后还进行了一次循环，此时opt应该是到了其他参数（<code>test2,test3</code>）那里，但是不会存储相应的值，<code>opt</code>只存储选项的值。</p>
-<h1 id="read命令"><a href="#read命令" class="headerlink" title="read命令"></a>read命令</h1><p><code>read</code>命令用于获取用户输入：</p>
+
+        <h1 id="read命令"   >
+          <a href="#read命令" class="heading-link"><i class="fas fa-link"></i></a><a href="#read命令" class="headerlink" title="read命令"></a>read命令</h1>
+      <p><code>read</code>命令用于获取用户输入：</p>
 <ul>
 <li><code>read name</code>输入的数据就会保存在<code>name</code>中。</li>
 <li><code>read -p &quot;Please enter your age:&quot; age</code>， <code>-p</code>参数允许指定输入提示语句。</li>
@@ -442,337 +115,25 @@ c
 <li><code>read -n1 -p &quot;Please enter [Y/N] to continue:&quot; ans</code>，可以通过<code>-n</code>对输入长度进行限制,数字可以与选项<code>-n</code>一起使用。给的例子中并且只要按下单个字符后，不需要按回车就会继续执行。</li>
 <li><code>read -s -p &quot;Please enter the password:&quot; passwd</code>，<code>-s</code>会让输入时数据隐藏。</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token comment"># 从文件中读取，每次调用read命令就会读取一行文本，当文件没有内容时，read就会退出并返回非0退出状态码</span>
-<span class="token comment"># 文件数据传给read，最常见的就是使用cat，将结果通过管道直接传给含有read命令的while命令</span>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从文件中读取，每次调用<span class="built_in">read</span>命令就会读取一行文本，当文件没有内容时，<span class="built_in">read</span>就会退出并返回非0退出状态码</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">文件数据传给<span class="built_in">read</span>，最常见的就是使用<span class="built_in">cat</span>，将结果通过管道直接传给含有<span class="built_in">read</span>命令的<span class="keyword">while</span>命令</span></span><br><span class="line"></span><br><span class="line">count=1</span><br><span class="line">cat data.txt | while read line</span><br><span class="line">do</span><br><span class="line">    echo &quot;Line $count:$line&quot;</span><br><span class="line">    count=$[$count + 1]</span><br><span class="line">done</span><br><span class="line">echo &quot;Finished proceessign the file&quot;</span><br></pre></td></tr></table></div></figure>
 
-<span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">1</span>
-<span class="token function">cat</span> data.txt <span class="token operator">|</span> <span class="token keyword">while</span> <span class="token builtin class-name">read</span> line
-<span class="token keyword">do</span>
-    <span class="token builtin class-name">echo</span> <span class="token string">"Line <span class="token variable">$count</span>:<span class="token variable">$line</span>"</span>
-    <span class="token assign-left variable">count</span><span class="token operator">=</span>$<span class="token punctuation">[</span><span class="token variable">$count</span> + <span class="token number">1</span><span class="token punctuation">]</span>
-<span class="token keyword">done</span>
-<span class="token builtin class-name">echo</span> <span class="token string">"Finished proceessign the file"</span></code></pre></div></figure>
 
 
 
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>请多加练习。</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/shell/">#shell</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>处理用户输入</div>
-      <div>https://cecilia.cool/2022/08/02/Shell/处理用户输入/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Cyan</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年8月2日</div>
-        </div>
-      
-      
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
-            
-            
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
-        </div>
-      </div>
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/08/03/Shell/%E5%91%88%E7%8E%B0%E6%95%B0%E6%8D%AE/" title="呈现数据">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">呈现数据</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/08/01/Shell/%E6%9E%84%E5%BB%BA%E5%9F%BA%E6%9C%AC%E8%84%9A%E6%9C%AC(2)/" title="构建基本脚本(2)">
-                        <span class="hidden-mobile">构建基本脚本(2)</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
-      scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-<script>
+        <h1 id="最后"   >
+          <a href="#最后" class="heading-link"><i class="fas fa-link"></i></a><a href="#最后" class="headerlink" title="最后"></a>最后</h1>
+      <p>请多加练习。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/08/02/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/">https://cecilia.cool/2022/08/02/Shell/%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/shell/">shell</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/08/03/Shell/%E5%91%88%E7%8E%B0%E6%95%B0%E6%8D%AE/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">呈现数据</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/08/01/Shell/%E6%9E%84%E5%BB%BA%E5%9F%BA%E6%9C%AC%E8%84%9A%E6%9C%AC(2)/"><span class="paginator-prev__text">构建基本脚本(2)</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">
+          简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">
+          位置参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E5%8F%98%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">
+          移动变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopt%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">
+          getopt命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getopts%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">
+          getopts命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#read%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">
+          read命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">7.</span> <span class="toc-text">
+          最后</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script><script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
                 preloadRatio: 1,
                 processImages: null,
             };
-        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
-</html>
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>

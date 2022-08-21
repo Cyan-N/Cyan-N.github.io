@@ -30,7 +30,177 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/31/Database/MySQL/B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8/">B+树索引的使用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-31</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/01/Shell/%E6%9E%84%E5%BB%BA%E5%9F%BA%E6%9C%AC%E8%84%9A%E6%9C%AC(1)/">构建基本脚本(1)</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-01</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p>之前在<code>shell</code>快速入门中已经讲了如何构建一个脚本，我们回顾一下：</p>
+<ul>
+<li>第一行要指定shell类型<code>#!/bin/bash</code>。</li>
+<li>完成基本的脚本构建后，增加执行权限<code>chmod u+x 文件名(u是属主)</code>。</li>
+<li>要取消<code>echo</code>的换行，就要使用<code>-n</code>参数<code>echo -n &quot;abcd&quot;</code>。</li>
+<li>使用美元符号<code>$</code>来引用变量，如果想单纯使用这个符号，要加上转义符<code>\$</code>。</li>
+<li>在脚本中自行设置变量时，&#x3D;之间不能有空格，不然shell会认为是命令而不是变量<code>var=100</code>。</li>
+</ul>
+<p>本文会接着介绍其他与脚本编程相关的知识。</p>
+
+        <h1 id="命令替换"   >
+          <a href="#命令替换" class="heading-link"><i class="fas fa-link"></i></a><a href="#命令替换" class="headerlink" title="命令替换"></a>命令替换</h1>
+      <p><code>shell</code>脚本最有用的特性之一就是可以<strong>从命令输出中提取信息</strong>，请<code>get</code>关键词，<strong>命令输出</strong>和<strong>提取信息</strong>。</p>
+<p>该特性有两种实现方式：</p>
+<ul>
+<li>使用反引号（就是<code>Tab</code>键上面那个）</li>
+</ul>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">date</span>命令可以得到当前时间cyan@cyan-virtual-machine:~/Templates$ <span class="built_in">cat</span> new_File</span></span><br><span class="line">214391248</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line">214391248</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo `date` &gt; new_File</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line">2022年 08月 01日 星期一 10:42:33 CST</span><br><span class="line">cyan@cyan-virtual-machine:~$ var=`date`</span><br><span class="line">cyan@cyan-virtual-machine:~$ echo $var</span><br><span class="line">2022年 08月 01日 星期一 10:21:55 CST</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>使用<code>$()</code>，有些<code>shell</code>不支持这种</li>
+</ul>
+<p>	</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ var=$(date)</span><br><span class="line">cyan@cyan-virtual-machine:~$ echo $var</span><br><span class="line">2022年 08月 01日 星期一 10:23:19 CST</span><br></pre></td></tr></table></div></figure>
+
+<p>命令替换会创建一个子<code>shell</code>来运行对应命令，子<code>shell</code>是由运行脚本的<code>shell</code>创建的一个独立的子<code>shell</code>。因此，该子<code>shell</code>所执行的命令是无法使用脚本中所创建的变量的。在命令行提示符下使用路径.&#x2F;来运行命令，也会创建子<code>shell</code></p>
+<p>关于<code>date</code>命令，你如果希望得到自己希望的格式化结果</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ date +%y-%m-%d\ %H:%M:%S</span><br><span class="line">22-08-01 10:25:33</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="重定向"   >
+          <a href="#重定向" class="heading-link"><i class="fas fa-link"></i></a><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1>
+      <p>从这里开始，你就算接触流这个东西了，输入流输出流，<strong>重定向就是对流的方向重新定义</strong>（你现在可以这么理解）。</p>
+
+        <h2 id="标准输出重定向"   >
+          <a href="#标准输出重定向" class="heading-link"><i class="fas fa-link"></i></a><a href="#标准输出重定向" class="headerlink" title="标准输出重定向"></a>标准输出重定向</h2>
+      <p>举一个例子，<code>echo</code>将数据打印到屏幕上（标准输出流），那么我们可以对<code>echo</code>的流的方向重新<strong>指向</strong></p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line">214391248</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line">214391248</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ echo `date` &gt; new_File</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ cat new_File</span><br><span class="line">2022年 08月 01日 星期一 10:42:33 CST</span><br></pre></td></tr></table></div></figure>
+
+<p>从上面代码可以看到，<code>echo</code>通过<code>&gt;</code>符号，将输出重定向到<code>new_File</code>这个文件里面了。并且<strong>先清空文件原本内容</strong>。</p>
+<p><code>command &gt;&gt; outputfile</code>  是追加模式。</p>
+
+        <h2 id="标准输入重定向"   >
+          <a href="#标准输入重定向" class="heading-link"><i class="fas fa-link"></i></a><a href="#标准输入重定向" class="headerlink" title="标准输入重定向"></a>标准输入重定向</h2>
+      <p>将文件内容重定向到命令：<code>command &lt; inputfile</code></p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">wc</span>命令可以对数据文本进行计数：文本行数  文本字数  文本字节数</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ wc &lt; new_File</span><br><span class="line"> 1  6 43</span><br></pre></td></tr></table></div></figure>
+
+<p>这里有个需要注意的地方就是，<code>&lt;</code>是改变标准输出（屏幕），<code>&gt;</code>是改变标准输入（键盘）。<strong>重定向不是代替参数，而是改变标准输入输出</strong>。</p>
+<p>比如以下命令就不行</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &lt; new_File</span><br></pre></td></tr></table></div></figure>
+
+<p><code>echo</code>的使用格式是<code>echo 参数</code>，重定向不能替代参数。</p>
+<p><code>wc</code>后面接收的可以是标准输入</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ wc</span><br><span class="line">line1</span><br><span class="line">line2</span><br><span class="line">      2       2      12 # 使用ctrl+d结束命令并统计</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h2 id="内联重定向"   >
+          <a href="#内联重定向" class="heading-link"><i class="fas fa-link"></i></a><a href="#内联重定向" class="headerlink" title="内联重定向"></a>内联重定向</h2>
+      <blockquote>
+<p>可以参考：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38156104/article/details/110375889" >https://blog.csdn.net/qq_38156104/article/details/110375889</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<p>替换文件为文本，数据流向命令：<code>command &lt;&lt; 特殊字符</code></p>
+<p>数据的开始和结束文本标记要一致。本质就是将开始符和结束符之间的数据传给命令</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ wc &lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">123</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">4142</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">EOF</span></span><br><span class="line">2 2 9</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="管道"   >
+          <a href="#管道" class="heading-link"><i class="fas fa-link"></i></a><a href="#管道" class="headerlink" title="管道"></a>管道</h1>
+      <p>一个命令的<strong>标准输出</strong>作为另一个命令的标准输入</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa &gt; rpm.list</span><br><span class="line">sort &lt; rpm.list</span><br></pre></td></tr></table></div></figure>
+
+<p><code>rpm</code>命令通过<code>RedHat</code>包管理系统(<code>RPM</code>)对系统上安装的软件包进行管理。配合<code>-qa</code>选项使用时，会生成已安装包的列表，尽管不会排序。(虽然我在终端执行上面两个命令没啥反应)</p>
+<p>重定向在命令之间数据传输比较繁琐，使用管道 <code>|</code> 解决。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command | command</span><br></pre></td></tr></table></div></figure>
+
+<p>为了更好了解管道，我写了一个<code>c</code>程序，文件为<code>test.c</code>。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">start</span>,<span class="title">end</span>;</span></span><br><span class="line">        <span class="type">int</span> fd = open(<span class="string">&quot;./tmp&quot;</span>,O_RDONLY);</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="type">char</span> bf[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(i;i &lt; <span class="number">10</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">                gettimeofday(&amp;start,<span class="literal">NULL</span>);</span><br><span class="line">                read(fd,bf,<span class="number">10</span>);</span><br><span class="line">                gettimeofday(&amp;end,<span class="literal">NULL</span>);</span><br><span class="line">                <span class="comment">//printf(&quot;%s&quot;,bf);</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,end.tv_usec - start.tv_usec);</span><br><span class="line">        &#125;</span><br><span class="line">        close(fd);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>在<code>linux</code>中可以用<code>cat</code>查看，如果在后面接上<code>sort</code>命令</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.c | sort</span><br></pre></td></tr></table></div></figure>
+
+<p>其输出结果为</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">        <span class="type">char</span> bf[<span class="number">10</span>];</span><br><span class="line">        close(fd);</span><br><span class="line">        <span class="keyword">for</span>(i;i &lt; <span class="number">10</span>;i++)</span><br><span class="line">                gettimeofday(&amp;end,<span class="literal">NULL</span>);</span><br><span class="line">                gettimeofday(&amp;start,<span class="literal">NULL</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line">        <span class="type">int</span> fd = open(<span class="string">&quot;./tmp&quot;</span>,O_RDONLY);</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">                <span class="title function_">printf</span><span class="params">(<span class="string">&quot;%d&quot;</span>,end.tv_usec - start.tv_usec)</span>;</span><br><span class="line">                <span class="comment">//printf(&quot;%s&quot;,bf);</span></span><br><span class="line">                read(fd,bf,<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">start</span>,<span class="title">end</span>;</span></span><br></pre></td></tr></table></div></figure>
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/31/Shell/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">Linux文件权限</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-31</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="Linux安全性"   >
+          <a href="#Linux安全性" class="heading-link"><i class="fas fa-link"></i></a><a href="#Linux安全性" class="headerlink" title="Linux安全性"></a>Linux安全性</h1>
+      <p><code>Linux</code>安全系统核心是用户账户，用户账户通过创建用户时分配的用户<code>ID(UID)</code>来跟踪。<code>/etc/password</code>文件将用户的登录名匹配到对应的<code>UID</code>的值<br><code>root</code>账户是<code>Linux</code>管理员，固定分配给的<code>UID</code>是0。<code>Linux</code>会为各种各样的功能创建不同的用户账户，这些账户不是真正的用户，而是系统账户，是系统上运行各种服务进程访问资源用的特殊账户。所有运行在后台的服务都需要用一个系统用户账户登录到Linux系统上！！<strong>在意识到安全问题之前</strong>，许多服务都用<code>root</code>登陆，如果其中一个服务被攻陷，<code>root</code>权限就会被入侵。</p>
+<p><code>/etc/shadow</code>文件，该文件记录各个账户之间密码记录。该文件只有<code>root</code>才有权限操作，所以如果我们不是<code>root</code>用户登录，就需要使用<code>sudo</code>命令。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ sudo cat /etc/shadow</span><br><span class="line">[sudo] password for cyan:</span><br><span class="line">root:!:18999:0:99999:7:::</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">其他信息就不展示了</span></span><br></pre></td></tr></table></div></figure>
+
+<p>每一行就是一个用户，分为九个字段，分别是:<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/sherlockmj/article/details/106786520" >参考文章传送门</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<ul>
+<li>与<code>/etc/passwd</code>文件中对应的登录名。</li>
+<li><strong>加密后</strong>的密码，也就是说，你不能直接看到这个密码。</li>
+<li>自上次修改密码后过去的天数，上面的<code>root</code>是18999，就是从1970.1.1不断累加得到的时间，可以使用命令 <code>date -d &quot;1970-01-01 18999 days&quot;</code>查看具体时间。</li>
+<li>最小修改时间间隔，该字段规定了从第 3 字段（最后一次修改密码的日期）起，<strong>多长时间之内不能修改密码</strong>。如果是 0，则密码可以随时修改；如果是 10，则代表密码修改后 10 <strong>天</strong>之内不能再次修改密码。</li>
+<li>密码有效期，默认值为 99999，也就是273年。</li>
+<li>密码需要变更前的警告天数，当账户密码有效期快到时，系统会发出警告信息给此账户，提醒用户 “再过 n 天你的密码就要过期了，请尽快重新设置你的密码！”。</li>
+<li>密码过期后的宽限天数，过期后，在宽限天数内还是可以登录。</li>
+<li>账号失效时间，该字段通常被使用在具有收费服务的系统中。</li>
+<li>最后一个，保留，还没有使用。</li>
+</ul>
+
+        <h1 id="添加新用户"   >
+          <a href="#添加新用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#添加新用户" class="headerlink" title="添加新用户"></a>添加新用户</h1>
+      <p>使用<code>useradd</code>命令，可以一次性创建新用户账户及设置用户<code>HOME</code>目录结构。<code>useradd</code>命令使用系统默认值以及命令行参数设置用户账户。</p>
+<p>系统默认值被设置在<code>/etc/default/useradd</code>，可以使用<code>useradd -D</code>检查默认值</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ useradd -D</span><br><span class="line">GROUP=100		# 新用户被添加到GID=100的公共组</span><br><span class="line">HOME=/home		# 新的home目录位于/home/loginname</span><br><span class="line">INACTIVE=-1		# 密码过期后不会被禁用</span><br><span class="line">EXPIRE=			# 未设置过期日期</span><br><span class="line">SHELL=/bin/sh</span><br><span class="line">SKEL=/etc/skel	# 将/etc/skel目录下内容复制到用户的home下</span><br><span class="line">CREATE_MAIL_SPOOL=no	# 是否为该用户在mail目录下创建一个接受邮件的文件</span><br></pre></td></tr></table></div></figure>
+
+<p>上述的系统默认值是可以更改的，在<code>useradd</code>时，加入参数进行更改</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-b  default_home    # 更改默认的创建用户HOME目录的位置</span><br><span class="line">-e  expirtion_date  # 更改默认的新账户的过期日期</span><br><span class="line">-f  inactive        # 更改默认的新用户从密码过期到账户被禁用的天数</span><br><span class="line">-g  group           # 更改默认的组名称或GID</span><br><span class="line">-s  shell           # 更改默认登录shell</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="删除用户"   >
+          <a href="#删除用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h1>
+      <p><code>userdel</code>命令，默认情况下只会删除<code>/etc/passwd</code>文件中的用户信息，而不会删除系统中属于该账户的任何文件，<code>userdel -r</code>会删除用户的HOME目录以及邮件目录。</p>
+
+        <h1 id="修改用户"   >
+          <a href="#修改用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h1>
+      <p><code>usermod,chsh,chfn,chage</code>这几个指令要用到再自己百度，平时用不到，隔不了多久就会忘记。</p>
+
+        <h1 id="Linux组"   >
+          <a href="#Linux组" class="heading-link"><i class="fas fa-link"></i></a><a href="#Linux组" class="headerlink" title="Linux组"></a>Linux组</h1>
+      <p>linux通过将具有相同特性的用户划归为一个组，可以大大简化用户的管理，方便用户之间文件的共享。任何一个用户都至少属于一个组，这个组称为初始组，可以同时属于多个附加组。用户不仅拥有初始组的权限，还拥有附加组的权限。</p>
+<p>在<code>/etc/group</code>文件中，包含系统上用到的每个组的信息，4个字段：<strong>组名:组密码:GID:属于该组的用户列表</strong></p>
+<p>用户列表中某些组没有列出用户，并不代表没有成员，只是加入了成员，不会出现在该文件中。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建组</span></span><br><span class="line">groupadd 组名</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">后期将成员加入到指定组</span></span><br><span class="line">usermod -G 组名 成员名</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="文件权限"   >
+          <a href="#文件权限" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h1>
+      <p>在本系列第一篇文章中，为了运行一个新建脚本，需要使用<code>chmod u+x 文件名</code>。查看一个文件，我们可以使用<code>ll</code></p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll</span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x  2 cyan cyan 4096 7月  30 19:09 ./</span><br><span class="line">drwxr-xr-x 21 cyan cyan 4096 7月  30 19:09 ../</span><br><span class="line">-rw-rw-r--  1 cyan cyan    0 7月  28 15:50 new_File</span><br><span class="line">-rwxrw-r--  1 cyan cyan   49 7月  30 19:09 test*</span><br><span class="line">-rwxrw-r--  1 cyan cyan   31 7月  29 16:18 test_1.sh*</span><br></pre></td></tr></table></div></figure>
+
+<p>得到的结果中，第一位有些是<code>d</code>，有些是<code>-</code>。第一个代表了文件(-)&#x2F;目录(d)&#x2F;链接(l)&#x2F;字符型设备(c)&#x2F;块设备(b)&#x2F;网络设备(n)。</p>
+<p>后面一共是9位，每3位为一个部分（分别表示rwx），这<strong>三个部分</strong>依次属于<strong>文件属主（创建文件的用户）</strong>，<strong>属组成员</strong>，<strong>其他用户</strong>权限。</p>
+<p>目录或者文件一开始创建时，会授予默认权限，默认权限与<code>umask</code>值有关。三个用户权限（<strong>三个部分</strong>）各自占用一个八进制位（0-7），一个部分的权限从<code>&#39;---&#39;</code>到<code>&#39;rwx&#39;</code>在八进制位中表示为<code>0-7</code>，如<code>rw-</code>就是6。三个部分合在一个，就是<code>000-777</code>，也就是<code>---------到rwxrwxrwx</code>。</p>
+<p><code>umask</code>命令用于<strong>设置</strong>创建文件或是目录的<strong>默认权限</strong>，我们先在终端输入<code>umask</code>命令</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ umask</span><br><span class="line">0002</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">你的终端可能会输出0022，我好像是在环境文件做过持久化更改（有点记不清了）</span></span><br></pre></td></tr></table></div></figure>
+
+<p>第一位是一个关于特殊权限的位，可以暂时不管。后面三个与默认权限有关。</p>
+<p>对于文件而言，默认的最大权限就是<code>666</code>，也就是<code>rw-rw-rw-</code>，目录的默认最大权限是<code>777</code>。如果你学过计算机网络，你会知道<strong>掩码</strong>这个东西。这里就是，最大默认权限<strong>减去</strong>掩码就会得到文件（目录）创建时赋予的权限。</p>
+<p>比如我的掩码<code>umask=0002</code>，那么创建文件时，<code>666-002=664</code>，得到的权限就是<code>rw-rw-r--</code></p>
+<p>验证一下</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ touch tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rw-rw-r-- 1 cyan cyan 0 7月  31 21:30 tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ umask</span><br><span class="line">0002</span><br></pre></td></tr></table></div></figure>
+
+<p>这里有一篇<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.51cto.com/u_15127673/2803517" >文章</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>参考。</p>
+
+        <h1 id="更改权限"   >
+          <a href="#更改权限" class="heading-link"><i class="fas fa-link"></i></a><a href="#更改权限" class="headerlink" title="更改权限"></a>更改权限</h1>
+      <p>通过<code>chmod</code>命令，可以修改文件的权限</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">chmod</span> 3位八进制权限码 文件名</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ chmod 777 tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rwxrwxrwx 1 cyan cyan 0 7月  31 21:30 tmp.txt*</span><br></pre></td></tr></table></div></figure>
+
+<p>如果你只是想改变某一部分（属主，组内用户，其他用户）的权限，可以使用</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x 文件名 # 属主增加执行权限</span><br><span class="line">chmod g-rx 文件名 # 组内用户减少</span><br><span class="line">chmod o=rwx 文件名 # 其他用户的权限为rwx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举例</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ chmod g-rx tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rwx-w-rwx 1 cyan cyan 0 7月  31 21:30 tmp.txt*</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">说明</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">u:表示用户(属主)  g:表示组  o:表示其他  a:表示所有</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">+:增加  -:减少  =:赋值</span></span><br></pre></td></tr></table></div></figure>
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/31/Database/MySQL/B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8/">B+树索引的使用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-31</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="简介"   >
           <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
       <p>本文主要讲解索引的具体工作原理以及代价，如何正确的建立索引才能使查询变快。在阅读本文前，请一定保证对之前更新的内容（B+树索引）理解明白。</p>
@@ -567,7 +737,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
       <blockquote>
 <p>本文总结于《从根上理解MySQL》第五章p72-p89，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/25/Java/%E5%B9%B6%E5%8F%91/JUC_%E5%8E%9F%E5%AD%90%E7%B1%BB(1)_CAS%E4%B8%8EUnsafe/">J.U.C原子类(1)--CAS与Unsafe</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-09</span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/25/Java/%E5%B9%B6%E5%8F%91/JUC_%E5%8E%9F%E5%AD%90%E7%B1%BB1-CAS%E4%B8%8EUnsafe/">J.U.C原子类(1)--CAS与Unsafe</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-09</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="线程安全的实现方法"   >
           <a href="#线程安全的实现方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h1>
       
@@ -631,376 +801,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/thread/java-thread-x-juc-AtomicInteger.html" >https://pdai.tech/md/java/thread/java-thread-x-juc-AtomicInteger.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html" >https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/25/Database/MySQL/InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E8%AE%B0%E5%BD%95/">InnoDB行格式存储记录</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-25</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="前言"   >
-          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
-      <p>MySQL服务器中负责对表中数据进行读取和写入工作的部分是<strong>存储引擎</strong>，而服务器支持不同类型的存储引擎，如InnoDB，MyISAM，MEMORY等。<strong>真实数据在不同存储引擎的存放格式可能不同</strong>。因为InnoDB现在是MySQL默认的存储引擎，所以会介绍其相关特性。</p>
-<p>在MySQL中，表中的一行数据被称为一条记录，记录保存在页中，页组成B+树，通过二分查找迅速找到记录。如果你还看不太懂，也没太大关系，这句话只是想告诉你InnoDB存储数据的本质。</p>
-
-        <h1 id="InnoDB页"   >
-          <a href="#InnoDB页" class="heading-link"><i class="fas fa-link"></i></a><a href="#InnoDB页" class="headerlink" title="InnoDB页"></a>InnoDB页</h1>
-      <p>数据库会频繁发生数据的读取和写入，这就像操作系统的文件系统一样，会发生大量的与磁盘的交互。但是从磁盘中直接读写数据非常慢，也就是说数据库不可能每次读写数据都直接和磁盘交互，所以就将数据分为若干个页，<strong>以页作为磁盘与内存之间交互的基本单位</strong>，其实页的本质也就是一个固定大小的内存。</p>
-<p>InnoDB中的页大小一般是16KB，也就是说，一次从磁盘中读取的数据最少是16KB，每次将内存中的数据刷新到磁盘中最少也是16KB。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;innodb_page_size&#x27;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| innodb_page_size | 16384 |</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"># 16 * 1024 = 16384</span><br><span class="line">#该系统变量不能在服务器运行时修改。</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h1 id="InnoDB行格式"   >
-          <a href="#InnoDB行格式" class="heading-link"><i class="fas fa-link"></i></a><a href="#InnoDB行格式" class="headerlink" title="InnoDB行格式"></a>InnoDB行格式</h1>
-      <p><strong>一条记录的存放格式被称为为行格式或者记录格式</strong>，InnoDB目前有四种行格式：<code>COMPACT</code>，<code>REDUNDANT</code>，<code>DYNAMIC</code>，<code>COMPRESSED</code>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 指定行格式</span><br><span class="line">create table 表名 (列信息) row_format=行格式名</span><br><span class="line">alter table 表名 row_format=行格式</span><br></pre></td></tr></table></div></figure>
-
-
-        <h2 id="COMPACT行格式"   >
-          <a href="#COMPACT行格式" class="heading-link"><i class="fas fa-link"></i></a><a href="#COMPACT行格式" class="headerlink" title="COMPACT行格式"></a>COMPACT行格式</h2>
-      <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s3.bmp.ovh/imgs/2022/07/25/49b544009f43872c.png" alt="image-20220725103902849"></p>
-
-        <h3 id="变长字段长度列表"   >
-          <a href="#变长字段长度列表" class="heading-link"><i class="fas fa-link"></i></a><a href="#变长字段长度列表" class="headerlink" title="变长字段长度列表"></a>变长字段长度列表</h3>
-      <p>我们先创建一个表，用于之后的示例讲解</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table record_format_demo (</span><br><span class="line">	t1 varchar(10),</span><br><span class="line">    t2 varchar(256),</span><br><span class="line">    t3 varchar(20) not null</span><br><span class="line">) character set = ascii row_format = COMPACT;</span><br></pre></td></tr></table></div></figure>
-
-<p>变长字段指的就是varchar(10)这种，不能预先确定存储的数据的大小。在InnoDB读取数据时，如果是一个确定大小的数据，那么就能根据其大小确定偏移量从而读取出正确的数据，但是变长数据是不确定的，所以就需要保存这个变长字段（不为NULL）的长度，来告诉InnoDB这个数据的大小。</p>
-<p>所以变长字段占用的存储空间分为两部分：</p>
-<ul>
-<li>真正的数据内容</li>
-<li>该数据占用的字节数</li>
-</ul>
-<p>在COMPACT行格式中，所有变长字段的真实数据占用字节数都存放在记录的开头位置(十六进制，各字段长度之间没有空格)，从而形成一个变长字段长度列表。各字段占用<strong>字节数</strong>按列的顺序逆序存放，是逆序存放！</p>
-<p>有时用于表示长度的数据，需要占据不止一个字节。比如某一变长字段占字节<code>n=700</code>,那么就需要用到多个字节来表示<code>n</code>，<strong>因为一个字节哪怕加上符号位也表示不了n</strong>。关于使用几个字节，InnoDB有属于自己的规则，此处引入<code>W，M，L</code>三个符号：</p>
-<ul>
-<li><p>W：假设某个<strong>字符集</strong>中最多需要<code>W</code>字节表示一个字符(也就是<code>show charset;</code> 中的<code>MaxLen</code>列)</p>
-</li>
-<li><p>M：对于变长类型<code>VARCHAR(M)</code>来说，这种类型表示能存储最多<strong>M个字符</strong>(是字符，不是字节)，所以该类型最多能存储<code>M*W</code>个字节</p>
-</li>
-<li><p>L：该变长字段<strong>实际存储</strong>的字符数占用的字节数是L</p>
-</li>
-</ul>
-<p>InnoDB在读取记录变长字段长度列表时，<strong>会先查看表结构</strong>，如果某个字段允许存储最大字节数<code>M*W&lt;=255</code>，就认为只是用1字节表示真实数据占用的字节数。</p>
-<p>如果<code>M*W &gt; 255</code>:</p>
-<ul>
-<li>若<code>L &lt;= 127</code> 使用1字节</li>
-<li>若<code>L &gt; 127</code>  使用2字节</li>
-</ul>
-<blockquote>
-<p>255是1个字节（无符号整型）能表示的最大数，即8位全为1，2^8-1&#x3D;255。</p>
-<p>127是1个字节（有符号整型）能表示的最大数，即最高位0，其他7位为1，2^7-1&#x3D;127</p>
-</blockquote>
-<p>该规则主要就是用于区分长度列表中，当<code>M*W &gt; 255</code>时，一个字节到底是一个单独的字段长度**（L &lt;&#x3D; 127）**，还是半个字段长度**（L &gt; 127)**。设计者使用该字节的第一个二进制位作为标志位：如果该字节的第一个位是0，该字节就是一个单独的字段长度，这也就是0~127的第一位都是0。如果第一位为1，那么该字节就是半个字段长度。</p>
-<blockquote>
-<p>其实可以设定，只要M*W &gt; 255 就使用两个字节存储变长字段长度。之所以分的这么细，是想要节省空间，设计者的良苦用心可见一斑</p>
-</blockquote>
-<p>如果某个字段占用字节特别多，InnoDB可能会把该字段的值的一部分数据存放到<strong>溢出页</strong>中，变长度列表只记录留在本页中的数据长度，<br>所以<strong>2字节表示变长字段长度是完全足够的</strong>。同时，长度列表只有在<strong>有必要存在时</strong>，才会存在（存在不为NULL的变长字段）</p>
-<p>对于<code>CHAR(M)</code>而言，如果使用的<strong>字符集</strong>是变长编码字符集，那么该属性也会被加入到变长列表中，并且长度为<code>M*W</code>(该字符集的MaxLen&#x3D;W)。</p>
-
-        <h3 id="NULL值列表"   >
-          <a href="#NULL值列表" class="heading-link"><i class="fas fa-link"></i></a><a href="#NULL值列表" class="headerlink" title="NULL值列表"></a>NULL值列表</h3>
-      <p>COMPACT把一条记录的值为NULL的统一管理起来，存储到NULL列表中。处理过程：</p>
-<ul>
-<li>统计表中允许储存NULL的列有哪些(比如主键和NOT NULL会被排除)</li>
-<li>如果表中所有列都不能存储NULL，那么NULL值列表也就不存在。否则将每个允许存储NULL的列对应一个二进制位，位按照列的顺序<strong>逆序</strong>排列，位值为1时，代表该列的值为NULL</li>
-<li>MySQL规定NULL列表必须用整数个字节的位表示，不足高位补0</li>
-</ul>
-<blockquote>
-<p>为什么是逆序之后会提到，先不要着急。</p>
-</blockquote>
-
-        <h3 id="记录头信息"   >
-          <a href="#记录头信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#记录头信息" class="headerlink" title="记录头信息"></a>记录头信息</h3>
-      <p>记录头信息由固定的5个字节（40bit）组成，用于描述记录的一些信息</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s3.bmp.ovh/imgs/2022/07/25/75ddfe7a3d59a65d.png" alt="image-20220725112044762"></p>
-<p>​																												各二进制位的详细信息</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">名称</th>
-<th align="center"></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">预留位1</td>
-<td align="center">没有使用</td>
-</tr>
-<tr>
-<td align="center">预留位2</td>
-<td align="center">没有使用</td>
-</tr>
-<tr>
-<td align="center">deleted_flag</td>
-<td align="center">标记该记录是否被删除</td>
-</tr>
-<tr>
-<td align="center">min_rec_flag</td>
-<td align="center">B+树的每层非叶子节点中最小目录项记录会添加该标记</td>
-</tr>
-<tr>
-<td align="center">n_owned</td>
-<td align="center">页面中记录会被分为多个组，每个组最大的那个记录作为“大哥”，“大哥“的该标志位会记录组中记录条数</td>
-</tr>
-<tr>
-<td align="center">heap_no</td>
-<td align="center">当前记录在页面堆中的相对位置，记录紧密排列的结构称为堆，前面的记录该值小，后面的值更大</td>
-</tr>
-<tr>
-<td align="center">record_type</td>
-<td align="center">当前记录类型，0–普通记录，1–B+树非叶子节点的目录项记录，2–Infimum，3–supremum</td>
-</tr>
-<tr>
-<td align="center">next_record</td>
-<td align="center">表示下一条记录的相对位置</td>
-</tr>
-</tbody></table></div>
-<p>这么多，看不懂无所谓，现在记不住无所谓。</p>
-<p>解释：</p>
-<ul>
-<li>deleted_flag中，0表示没有删除，1表示已经删除。尽管一条记录被标志为删除，但是并不会马上从表中移除，<strong>这是避免移除后要重新排列其他记录，造成性能损耗</strong>。所以这些被标志删除的记录，会组成一个垃圾链表，这些空间又被称为可重用空间，如我新插入的记录，垃圾链表中某一个节点（记录）放得下，就会将新纪录覆盖的那条被标志为删除的记录。</li>
-<li>next_record向我们表明记录会被排列成链表，链表是个好东西。</li>
-<li>record_type表示记录的四种类型，在目前知晓的查询算法中，二分查找已非常优秀的，所以在MySQL中大量使用了二分查找。那么就涉及到记录之间的大小比较，一般是通过键值比较大小。规定<code>record_type=2</code>的记录是所有记录中最小的，<code>record_type=3</code>的记录是所有记录中最大的。这两个记录实际不存储任何真实数据，但是它们分别是记录链表中的起点和终点，非常重要。<code>record_type=1</code>暂时不需要知道。之后会讲解</li>
-</ul>
-
-        <h3 id="记录的真实数据"   >
-          <a href="#记录的真实数据" class="heading-link"><i class="fas fa-link"></i></a><a href="#记录的真实数据" class="headerlink" title="记录的真实数据"></a>记录的真实数据</h3>
-      <p>我需要提醒一下，标题中的记录都是名词，不是动词。</p>
-<p>对于表来说，记录的真实数据除了我们自己设定的数据（比如<code>name=&#39;cyan&#39;</code>之类的），MySQL还会为每个记录默认地添加一些列(也称为<strong>隐藏列</strong>)。</p>
-<p>​														MySQL为每个记录默认添加的列</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">列名</th>
-<th align="center">是否必需</th>
-<th align="center">占用空间</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">row_id</td>
-<td align="center">非必需</td>
-<td align="center">6字节</td>
-<td align="center">行ID，唯一标识一条记录</td>
-</tr>
-<tr>
-<td align="center">trx_id</td>
-<td align="center">必需</td>
-<td align="center">6字节</td>
-<td align="center">事务ID</td>
-</tr>
-<tr>
-<td align="center">roll_pointer</td>
-<td align="center">必需</td>
-<td align="center">7字节</td>
-<td align="center">回滚指针，形成版本链</td>
-</tr>
-</tbody></table></div>
-<p>其实上述列名都是大写！并且这三列数据位于额外信息和真实数据中间</p>
-<p>解释：</p>
-<ul>
-<li>row_id是唯一表示一条记录。如果在创建表时没有指定主键或者没有<strong>不能为NULL的唯一属性</strong>，反正就是，没有一个属性能够唯一表示一条记录，那么row_id就会被添加。</li>
-<li>trx_id与事务有关，暂时不需要了解</li>
-<li>roll_pointer是回滚指针，为了方便大家理解，这里不那么准确的讲，MySQL支持回滚操作，也就是说我们改动一条记录后，如果想要回滚到上一个版本，就需要保存上一个版本的数据，那么roll_pointer就是指向上一个版本（改动前）的内存。</li>
-</ul>
-
-        <h1 id="引用"   >
-          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
-      <blockquote>
-<p>本文总结于《从根上理解MySQL》第四章p55-p63，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
-</blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">字符集与比较规则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="简介"   >
-          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
-      <p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
-<p>为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。</p>
-<p>因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录<strong>128个字符</strong>，<strong>每个字符由一个字节保存</strong>。字符<strong>a</strong>的二进制编码为<code>1100001</code>，字符<strong>b</strong>的二进制编码为<code>1100010</code>，通过比较就可以看出<code>a&gt;b</code>。</p>
-<p>需要记住几种重要的字符集：</p>
-<ul>
-<li>GBK字符集：在字符范围上对GB2312字符集进行扩充，编码方式兼容GB2312字符集。记住其应用广泛即可</li>
-<li>UTF-8字符集：几乎收录各国（地区）使用的字符，并且在不断扩充。使用变长编码方式，一个字符需要使用1~4个字节</li>
-</ul>
-<p>其实UTF-8只是Unicode字符集的一种<strong>编码方案</strong>，其他的还有UTF-16（2或4字节编码一个字符），UTF-32（4字节）。</p>
-
-        <h1 id="MySQL支持的字符集与比较规则"   >
-          <a href="#MySQL支持的字符集与比较规则" class="heading-link"><i class="fas fa-link"></i></a><a href="#MySQL支持的字符集与比较规则" class="headerlink" title="MySQL支持的字符集与比较规则"></a>MySQL支持的字符集与比较规则</h1>
-      
-        <h2 id="utf8mb3和utf8mb4"   >
-          <a href="#utf8mb3和utf8mb4" class="heading-link"><i class="fas fa-link"></i></a><a href="#utf8mb3和utf8mb4" class="headerlink" title="utf8mb3和utf8mb4"></a>utf8mb3和utf8mb4</h2>
-      <p>我们平常使用的字符一般用 1~3 个字节就可以表示，在MySQL中，<strong>字符集表示一个字符所用的最大字节数会影响系统存储和性能</strong>（比如一条记录中变长数据的存储，之后的文章会讲到）。</p>
-<p>总之，你需要记住的是UTF-8使用 1-4 个字节存储方式有点浪费，所以就有了utf8mb3。</p>
-<ul>
-<li>utf8mb3：阉割版的UTF-8字符集，使用1~3个字节表示一个字符。</li>
-<li>utf8mb4：就是UTF-8字符集，使用1~4个字节。</li>
-</ul>
-<p>在MySQL中，<strong>utf8是utf8mb3的别名</strong>。同时，在MySQL8.0中，utf8mb4被极大优化，成为了默认的字符集。</p>
-
-        <h2 id="字符集的查看"   >
-          <a href="#字符集的查看" class="heading-link"><i class="fas fa-link"></i></a><a href="#字符集的查看" class="headerlink" title="字符集的查看"></a>字符集的查看</h2>
-      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show charset;</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| Charset  | Description                     | Default collation   | Maxlen |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |</span><br><span class="line">| dec8     | DEC West European               | dec8_swedish_ci     |      1 |</span><br><span class="line">| cp850    | DOS West European               | cp850_general_ci    |      1 |</span><br><span class="line">| hp8      | HP West European                | hp8_english_ci      |      1 |</span><br><span class="line">| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br></pre></td></tr></table></div></figure>
-
-<p>命令 <code>show (character set | charset) [like 匹配模式];</code> （<code>[]</code>里的内容可以省略）</p>
-<p><code>Maxlen</code>表示该字符集最多需要几个字节表示一个字符。</p>
-<p>​																				<strong>表1  常用字符集与Maxlen</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">Charset</th>
-<th align="center">Maxlen</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ascii</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">latin1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">gb2312</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">gbk</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">utf8</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">utf8mb4</td>
-<td align="center">4</td>
-</tr>
-</tbody></table></div>
-<p><code>Default collation</code>表示默认的比较规则，<strong>一个字符集可能对应多种比较规则</strong>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show collation like &#x27;utf8\_%&#x27;;</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| Collation                | Charset | Id  | Default | Compiled | Sortlen |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| utf8_general_ci          | utf8    |  33 | Yes     | Yes      |       1 |</span><br><span class="line">| utf8_bin                 | utf8    |  83 |         | Yes      |       1 |</span><br><span class="line">| utf8_unicode_ci          | utf8    | 192 |         | Yes      |       8 |</span><br><span class="line">| utf8_icelandic_ci        | utf8    | 193 |         | Yes      |       8 |</span><br><span class="line">| utf8_latvian_ci          | utf8    | 194 |         | Yes      |       8 |</span><br><span class="line">| utf8_romanian_ci         | utf8    | 195 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovenian_ci        | utf8    | 196 |         | Yes      |       8 |</span><br><span class="line">| utf8_polish_ci           | utf8    | 197 |         | Yes      |       8 |</span><br><span class="line">| utf8_estonian_ci         | utf8    | 198 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish_ci          | utf8    | 199 |         | Yes      |       8 |</span><br><span class="line">| utf8_swedish_ci          | utf8    | 200 |         | Yes      |       8 |</span><br><span class="line">| utf8_turkish_ci          | utf8    | 201 |         | Yes      |       8 |</span><br><span class="line">| utf8_czech_ci            | utf8    | 202 |         | Yes      |       8 |</span><br><span class="line">| utf8_danish_ci           | utf8    | 203 |         | Yes      |       8 |</span><br><span class="line">| utf8_lithuanian_ci       | utf8    | 204 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovak_ci           | utf8    | 205 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish2_ci         | utf8    | 206 |         | Yes      |       8 |</span><br><span class="line">| utf8_roman_ci            | utf8    | 207 |         | Yes      |       8 |</span><br><span class="line">| utf8_persian_ci          | utf8    | 208 |         | Yes      |       8 |</span><br><span class="line">| utf8_esperanto_ci        | utf8    | 209 |         | Yes      |       8 |</span><br><span class="line">| utf8_hungarian_ci        | utf8    | 210 |         | Yes      |       8 |</span><br><span class="line">| utf8_sinhala_ci          | utf8    | 211 |         | Yes      |       8 |</span><br><span class="line">| utf8_german2_ci          | utf8    | 212 |         | Yes      |       8 |</span><br><span class="line">| utf8_croatian_ci         | utf8    | 213 |         | Yes      |       8 |</span><br><span class="line">| utf8_unicode_520_ci      | utf8    | 214 |         | Yes      |       8 |</span><br><span class="line">| utf8_vietnamese_ci       | utf8    | 215 |         | Yes      |       8 |</span><br><span class="line">| utf8_general_mysql500_ci | utf8    | 223 |         | Yes      |       1 |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">27 rows in set (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>命令：<code>show collation [like 匹配模式];</code> </p>
-<p>从命名中可以看出有些与地域有关系，如<code>utf8_spanish_ci</code>是西班牙语的比较规则，<code>utf8_polish_ci</code>则是波兰语的比较规则。</p>
-<p>​																	<strong>表2  比较规则后缀英文释义及描述</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">后缀</th>
-<th align="center">英文释义</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">_ai</td>
-<td align="center">accent insensitive</td>
-<td align="center">不区分重音</td>
-</tr>
-<tr>
-<td align="center">_as</td>
-<td align="center">accent sensitive</td>
-<td align="center">区分重音</td>
-</tr>
-<tr>
-<td align="center">_ci</td>
-<td align="center">case insensitive</td>
-<td align="center">不区分大小写</td>
-</tr>
-<tr>
-<td align="center">_cs</td>
-<td align="center">case(大小写) sensitive</td>
-<td align="center">区分大小写</td>
-</tr>
-<tr>
-<td align="center">_bin</td>
-<td align="center">binary</td>
-<td align="center">以二进制方式比较</td>
-</tr>
-</tbody></table></div>
-
-        <h1 id="应用"   >
-          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用" class="headerlink" title="应用"></a>应用</h1>
-      <p>MySQL有四个级别的字符集和比较规则，分别是服务器级别，数据库级别，表级别，列级别。下面解释如何设置和查看不同级别的字符集和比较规则。</p>
-
-        <h3 id="服务器级别"   >
-          <a href="#服务器级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#服务器级别" class="headerlink" title="服务器级别"></a>服务器级别</h3>
-      <p>MySQL提供两个变量来表示服务器级别的字符集和比较规则。</p>
-<p>​																			<strong>表3  服务器对应的系统变量</strong></p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">系统变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">character_set_server</td>
-<td align="center">服务器级别的字符集</td>
-</tr>
-<tr>
-<td align="center">collation_server</td>
-<td align="center">服务器级别的比较规则</td>
-</tr>
-</tbody></table></div>
-<p>相关命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>如果想要修改这两个系统变量，需要通过启动选项或者使用set语句修改 <code>set global/session varName = value</code>（如果看不懂命令，之后的文章会提到<code>global/session</code>）</p>
-
-        <h3 id="数据库级别"   >
-          <a href="#数据库级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据库级别" class="headerlink" title="数据库级别"></a>数据库级别</h3>
-      <p>字符集和比较规则在创建和修改数据库时可以指定该数据库的字符集和比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br><span class="line">	</span><br><span class="line">alter database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br></pre></td></tr></table></div></figure>
-
-<p>数据库级别也有两个系统变量，当我们使用<code>use</code>语句选择一个数据库时，这两个系统变量的值就是该数据库的字符集和比较规则。<strong>如果没有选择数据库，它们的值和服务器级别的系统变量值相同</strong>。</p>
-<p>​																				<strong>表4  数据库对应的系统变量</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">系统变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">character_set_database</td>
-<td align="center">当前数据库的字符集</td>
-</tr>
-<tr>
-<td align="center">collation_databased</td>
-<td align="center">当前数据库的比较规则</td>
-</tr>
-</tbody></table></div>
-<p>我们不能通过修改这两个系统变量的值来改变当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database test;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use test;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%_database&#x27;;</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| Variable_name          | Value             |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| character_set_database | latin1            |</span><br><span class="line">| collation_database     | latin1_swedish_ci |</span><br><span class="line">| skip_show_database     | OFF               |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">3 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>可以看到，如果<strong>在创建数据库时没有指定字符集和比较规则，就会使用服务器级别的字符集和比较规则</strong>。</p>
-
-        <h3 id="表级别"   >
-          <a href="#表级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h3>
-      <p>表级别和数据库级别差不多，都是在创建，修改表时可以修改表的字符集和比较规则，如果没有在创建表时指明其字符集和比较规则，就会使用当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table t(</span><br><span class="line">	col varchar(10)</span><br><span class="line">) character set utf8,collate utf8_general_ci;</span><br><span class="line"></span><br><span class="line">alter table t character set utf8;</span><br></pre></td></tr></table></div></figure>
-
-<p>表查看比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 使用\G是将输出结果旋转90度输出，方便观看</span><br><span class="line">mysql&gt; show table status from test like &#x27;t&#x27; \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: t</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 0</span><br><span class="line"> Avg_row_length: 0</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: NULL</span><br><span class="line">    Create_time: 2022-07-24 17:44:59</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8_general_ci #比较规则</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">ERROR:</span><br><span class="line">No query specified</span><br></pre></td></tr></table></div></figure>
-
-<p>可以看到，表<code>t</code>的比较规则为<code>utf8_general_ci</code>，则字符集为 <code>utf8</code>（为什么知道比较规则之后就知道了字符集，请继续看）。</p>
-
-        <h3 id="列级别"   >
-          <a href="#列级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h3>
-      <p>同一个表中，不同列也可以有不同的比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(</span><br><span class="line">	列名 字符串类型 [character set 字符集名称] [collate 比较规则名称],</span><br><span class="line">    其他列....</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table 表名 modify 列名 [character set 字符集名称] [collate 比较规则名称];</span><br></pre></td></tr></table></div></figure>
-
-
-
-<p>需要注意的是，<strong>对于任何一个级别</strong>，存在两条修改规则：</p>
-<ul>
-<li>只修改字符集，则比较规则将会变为修改后的字符集默认的比较规则。</li>
-<li>只修改比较规则，则字符集会变为比较规则对应的字符集。</li>
-</ul>
-<p>如果想要同时修改字符集和比较规则，他们两个一定要适配，比如下列命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table t character set utf8 collate utf8mb4_general_ci;</span><br><span class="line">ERROR 1253 (42000): COLLATION &#x27;utf8mb4_general_ci&#x27; is not valid for CHARACTER SET &#x27;utf8&#x27;</span><br></pre></td></tr></table></div></figure>
-
-<p>报错信息为比较规则<code>utf8mb4_general_ci</code>对于字符集<code>utf8</code>是无效的，所以，我们知道了一个表的比较规则，一般也就知道了其字符集。</p>
-
-        <h1 id="引用"   >
-          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
-      <blockquote>
-<p>本文总结于《从根上理解MySQL》第三章p32-p43，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script><script>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">34</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script><script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
                 preloadRatio: 1,

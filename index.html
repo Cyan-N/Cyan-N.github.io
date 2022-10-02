@@ -30,7 +30,73 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(2)-HashMap/">Java集合(2)--HashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-02</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(3)-LinkedHashMap/">Java集合3-LinkedHashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-02</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p><code>LinkedHashSet</code>也是用了适配器模式，对<code>LinkedHashMap</code>进行包装，所以本文主要分析<code>LinkedHashMap</code>。</p>
+<p>从名字上可以看出容器是<em>Linked list</em>和<em>HashMap</em>的混合体，<strong>可以将<em>LinkedHashMap</em>看作采用<em>linked list</em>增强的<em>HashMap</em></strong>。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedHashMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">HashMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>LinkedHashMap</code>是<code>HashMap</code>的直接子类，它的区别在于在<code>HashMap</code>的基础上采用双向链表将所有的数据节点都链接起来了，就是为了<strong>保证元素的迭代顺序和插入顺序相同</strong>。</p>
+<p>还有个好处就是集合迭代时不需要遍历整个<code>table</code>，逮着双向链表的<code>header</code>遍历即可。</p>
+<blockquote>
+<p><code>LinkedHashMap</code>为了性能，是非同步的，多线程下需要手动同步</p>
+</blockquote>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 也可以打包成同步的</span></span><br><span class="line"><span class="type">Map</span> <span class="variable">m</span> <span class="operator">=</span> Collections.synchronizedMap(<span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>(...));</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="方法剖析"   >
+          <a href="#方法剖析" class="heading-link"><i class="fas fa-link"></i></a><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h1>
+      <blockquote>
+<p><code>get</code>方法和<code>HashMap</code>里的没什么区别，不多说。</p>
+</blockquote>
+
+        <h2 id="put"   >
+          <a href="#put" class="heading-link"><i class="fas fa-link"></i></a><a href="#put" class="headerlink" title="put()"></a>put()</h2>
+      <p>插入分为两部分：</p>
+<ul>
+<li>将元素插入<code>table</code>中，如果有哈希冲突，头插法插入到头部。</li>
+<li>将元素插入双向链表中，链表尾部。</li>
+</ul>
+<p>其实就是在<code>HashMap</code>上加入链表的引用的修改。</p>
+<p><code>LinkedHashMap</code>使用的节点是<code>Entrty</code>，该类继承了<code>HashMap</code>的<code>Node</code>类。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Entry</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">HashMap</span>.Node&lt;K,V&gt; &#123;</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    Entry(<span class="type">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="built_in">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h2 id="remove"   >
+          <a href="#remove" class="heading-link"><i class="fas fa-link"></i></a><a href="#remove" class="headerlink" title="remove()"></a>remove()</h2>
+      <p>删除也有两部分：</p>
+<ul>
+<li>将元素从<code>table</code>中删除。</li>
+<li>将元素从双向链表中删除。</li>
+</ul>
+
+        <h1 id="经典用法"   >
+          <a href="#经典用法" class="heading-link"><i class="fas fa-link"></i></a><a href="#经典用法" class="headerlink" title="经典用法"></a>经典用法</h1>
+      <p>实现FIFO替换策略的缓存，<code>LinkedHashMap</code>有一个方法，作用是告诉Map删除最老的<code>Entry</code>，也就是最早插入Map的Entry。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>每次插入新元素时<code>LinkedHashMap</code>都会询问该函数是否要删除最老的元素，</p>
+<blockquote>
+<p><code>LinkedHashMap</code>并没有重写<code>put</code>方法，而是重写的<code>newNode</code>方法，因为<code>newNode</code>就是将要插入的键值对插放到新创建的节点中，在创建节点后马上将其加入到双向链表中即可。</p>
+</blockquote>
+<p>只要在子类中重载该方法，当元素个数超过一定数量时让<code>removeEldestEntry</code>返回<code>true</code>，就能实现一个固定大小的FIFO策略的缓存。其实我们写个子类继承<code>LinkedList</code>并重写一下<code>add</code>方法也是可以实现的，只是说，是哟个<code>LinkedHashMap</code>更加方便。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 一个固定大小的FIFO替换策略的缓存 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FIFOCache</span>&lt;K, V&gt; <span class="keyword">extends</span> <span class="title class_">LinkedHashMap</span>&lt;K, V&gt;&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> cacheSize;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FIFOCache</span><span class="params">(<span class="type">int</span> cacheSize)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.cacheSize = cacheSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当Entry个数超过cacheSize时，删除最老的Entry</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> size() &gt; cacheSize;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-LinkedHashMap&amp;LinkedHashSet.html" >https://pdai.tech/md/java/collection/java-map-LinkedHashMap&amp;LinkedHashSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/u014203449/article/details/80194704" >https://blog.csdn.net/u014203449/article/details/80194704</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(2)-HashMap/">Java集合(2)--HashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-02</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="前言"   >
           <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
       <p>关于这些集合的讲解，作者默认读者都知道该如何使用，所以不会从最基础的开始讲起，会直接跳过什么是映射关系，哈希值等概念的讲解。对于源码的解析也是最主要使用的那些方法。</p>
@@ -54,6 +120,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 </blockquote>
 <ul>
 <li><code>modCount</code>：集合只要可以使用迭代器，都需要<code>modCount</code>来记录修改次数。</li>
+<li>实现<code>Map</code>接口：允许<code>key</code>和<code>value</code>都是<code>null</code>。</li>
 </ul>
 
         <h1 id="核心方法"   >
@@ -96,7 +163,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 
         <h1 id="HashSet"   >
           <a href="#HashSet" class="heading-link"><i class="fas fa-link"></i></a><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h1>
-      <p><code>HashSet</code>使用了装饰者模式，对<code>HashMap</code>进行了简单的包装，对<code>HashSet</code>的函数调用都会转换成合适的<code>HashMap</code>方法。这里提一下，不需要过多赘述。</p>
+      <p><code>HashSet</code>使用了适配器模式，对<code>HashMap</code>进行了简单的包装，对<code>HashSet</code>的函数调用都会转换成合适的<code>HashMap</code>方法。这里提一下，不需要过多赘述。</p>
 <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HashSet是对HashMap的简单包装</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;<span class="comment">//HashSet里面有一个HashMap</span></span><br><span class="line">    <span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">PRESENT</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">()</span> &#123;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;<span class="comment">//简单的方法转换</span></span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 
@@ -107,6 +174,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
       <blockquote>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-HashMap&amp;HashSet.html" >https://pdai.tech/md/java/collection/java-map-HashMap&amp;HashSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/syy4rz#b2b51e41" >https://www.yuque.com/qingkongxiaguang/javase/syy4rz#b2b51e41</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/6-HashSet%20and%20HashMap.md#get" >https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/6-HashSet%20and%20HashMap.md#get</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/01/Java/%E5%B9%B6%E5%8F%91/Java%E5%85%B3%E9%94%AE%E5%AD%97-volatile/">Java关键字volitale</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-01</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="volatile关键字"   >
@@ -782,114 +850,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-03-basic2.html" >https://pdai.tech/md/devops/docker/docker-03-basic2.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/21/Docker/Docker(2)-%E9%95%9C%E5%83%8F%E5%9F%BA%E7%A1%80/">Docker(2)--镜像基础</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-21</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="hello-world"   >
-          <a href="#hello-world" class="heading-link"><i class="fas fa-link"></i></a><a href="#hello-world" class="headerlink" title="hello-world"></a>hello-world</h1>
-      <p>要使用那些容器，首先需要拉取镜像到本地仓库，然后再运行</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拉取hello-world</span></span><br><span class="line">docker pull hello-world:latest</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看本地仓库的镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在容器中运行hello-world实例</span></span><br><span class="line">docker run (--name=XXX) hello-world</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>拉取指定版本的镜像：<code>docker pull 名称:版本</code>，默认是最新版本。run命令hi自动给容器分配名称，也可以使用唯一名称指定。</p>
-</blockquote>
-<p>如果没有调整docker的镜像源，那么docker就是从<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://hub.docker.com/" >Docker Hub</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>拉取的镜像到本地仓库。也可直接使用<code>run</code>来运行实例，如果本地仓库没有这个实例，那么就会从远端拉取镜像到仓库中。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/21/6378a12818c5974f.jpg"></p>
-<blockquote>
-<p><code>docker images</code>的结果有一列是ID，如果希望删除一个镜像：<code>docker rmi -f  &lt;ID&gt;</code>。</p>
-</blockquote>
-<p>Docker允许在容器内运行应用程序：<code>docker run</code>。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run centos:latest /bin/echo &quot;Hello world&quot;</span><br></pre></td></tr></table></div></figure>
-
-<p>如果本地仓库没有centos的镜像，那么就会先拉取centos镜像。看一下参数的含义：</p>
-<ul>
-<li><p><code>docker</code>: Docker 的二进制执行文件。</p>
-</li>
-<li><p><code>run</code>: 与前面的 docker 组合来运行一个容器。</p>
-</li>
-<li><p><code>ubuntu:latest</code> 指定要运行的镜像，Docker 首先从本地主机上查找镜像是否存在，如果不存在，Docker 就会从镜像仓库 Docker Hub 下载公共镜像。</p>
-</li>
-<li><p><code>/bin/echo &quot;Hello world&quot;</code>: 在启动的容器里执行的命令</p>
-</li>
-</ul>
-<blockquote>
-<p>吐槽：我这拉取centos镜像文件好慢。。。</p>
-</blockquote>
-<p>如果我们只是想创建容器而不是去运行</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker create hello-world</span><br></pre></td></tr></table></div></figure>
-
-<p>如果想要查看<strong>所有容器</strong>（不论是否运行）</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">linux的ps是查看进程</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">不加-a就只能查看运行的容器</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></div></figure>
-
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/21/7bcf577b1cbd289f.jpg"></p>
-<p>想要停止或者删除容器，就需要使用ID或者NAMES来指定容器，关于容器的相关操作：</p>
-<ul>
-<li><p>删除容器：<code>docker rm &lt;容器名/ID&gt;</code>。</p>
-</li>
-<li><p>停止容器：<code>docker stop &lt;XXX&gt;</code>。</p>
-</li>
-<li><p>运行停止的容器：<code>docker start &lt;XXX&gt;</code>。因为有些容器是执行完后马上停止，而不是像服务器那样阻塞从而一直保持运行状态。</p>
-</li>
-<li><p>重启容器：<code>docker restart &lt;XXX&gt;</code>。</p>
-</li>
-<li><p>停止后自动删除：<code>docker run --rm &lt;XXX&gt;</code>。</p>
-</li>
-</ul>
-<p>在指定ID时，可以不用将ID完整打出来，只要前面一部分能够<strong>唯一标识</strong>该容器即可。</p>
-<blockquote>
-<p>该部分通过hello-world的例子讲解了一些命令和容器操作</p>
-</blockquote>
-
-        <h1 id="镜像结构"   >
-          <a href="#镜像结构" class="heading-link"><i class="fas fa-link"></i></a><a href="#镜像结构" class="headerlink" title="镜像结构"></a>镜像结构</h1>
-      <p>先回顾一下镜像，容器与仓库的关系，这是官网的图：</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/21/8ef2d678187a6499.jpg"></p>
-<p>可以看到，容器的建立（实例化）依赖于镜像，项目打包需要一个基本的操作系统环境，这样才能在操作系统中安装依赖，这种基本的系统镜像，叫做<strong>base镜像</strong>。一般base镜像就是各个Linux操作系统的发行版。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果你执行过上面的centos的hello world</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">就不需要再执行该语句</span></span><br><span class="line">docker pull centos</span><br></pre></td></tr></table></div></figure>
-
-<p>这就是centos的base镜像，<strong>base镜像省去了内核</strong>，内存很小。<img src="https://s3.bmp.ovh/imgs/2022/09/21/2ccdcf9b038c620c.png"></p>
-
-        <h2 id="base镜像机制"   >
-          <a href="#base镜像机制" class="heading-link"><i class="fas fa-link"></i></a><a href="#base镜像机制" class="headerlink" title="base镜像机制"></a>base镜像机制</h2>
-      <p><strong>Linux操作系统</strong>有内核空间和用户空间组成，这里需要了解两个文件系统：</p>
-<ul>
-<li>bootfs包含BootLoader和Linux内核，在内核启动后，bootfs会自动卸载。</li>
-<li>rootfs包含系统常见目录结构，包括<code>/dev</code>，<code>/bin</code>等以及一些基本的文件和命令。</li>
-</ul>
-<p><strong>base镜像底层会直接使用宿主主机的内核</strong>，而rootfs可以在不同容器中运行多种不同的版本，所以实际上base镜像只包含CentOS的rootfs。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">uname</span>查看内核版本</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></div></figure>
-
-<p>因此，Docker能够同时模拟多种Linux操作系统环境。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动base镜像</span></span><br><span class="line">docker run -it centos</span><br></pre></td></tr></table></div></figure>
-
-<p>参数<code>-it</code>进行启动，其中<code>-i</code>表示在容器上打开一个标准输入（STDIN）接口，<code>-t</code>表示分配一个伪tty设备，可以支持终端登录（理解为伪终端），一般这两个是一起使用，否则base容器启动后就自动停止了。</p>
-<blockquote>
-<p>两个合起来的意思就是会弹出一个可以标准输入的终端提示符。</p>
-</blockquote>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/21/e0ad3e663ad0fd3e.jpg"></p>
-<p>使用<code>exit</code>退出后（<strong>CTRL+D也可以</strong>），容器也会停止，再次启动时，<strong>需要加上<code>-i</code>参数才能输入进行交互，否则就是后台运行</strong>。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start -i &lt;容器ID&gt;</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h2 id="安装镜像"   >
-          <a href="#安装镜像" class="heading-link"><i class="fas fa-link"></i></a><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2>
-      <p>前面提到为什么需要一个基本的操作系统，基于base镜像，我们可以在这基础上安装各种软件，使用分层结构，每安装一个软件，就在base镜像上叠加上去。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/21/2600c8683f6fa6f4.jpg"></p>
-<p><strong>所有的镜像会叠起来组成一个统一的文件系统，如果不同层中存在相同位置的文件，那么上层的会覆盖掉下层的文件，最终我们看到的是一个叠加之后的文件系统。</strong>当需要修改容器中的文件时，实际上并不会对镜像进行直接修改，而是在最顶上的容器层（最上面一般称为容器层，下面都是镜像层）进行修改。</p>
-<p>各个操作如下：</p>
-<ul>
-<li><p>文件读取：要读取一个文件，Docker会<strong>最上层往下</strong>依次寻找，找到后则打开文件。</p>
-</li>
-<li><p>文件创建和修改：创建新文件会直接添加到容器层中，修改文件会从上往下依次寻找各个镜像中的文件，如果找到，则将其复制到容器层，再进行修改。</p>
-</li>
-<li><p>删除文件：删除文件也会从上往下依次寻找各个镜像中的文件，一旦找到，并不会直接删除镜像中的文件，而是在容器层标记这个删除操作。</p>
-</li>
-</ul>
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-02-basic.html" >https://pdai.tech/md/devops/docker/docker-02-basic.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#a327ddf2" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#a327ddf2</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">67</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">68</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

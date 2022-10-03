@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="前言       首先，TreeMap与哈希没有任何关系，其次，哈希和Map也不是一回事，请不要先入为主。Map只是一个键值对的数据结构，哈希是将对象计算哈希码的一种算法。TreeMap只是通过红黑树将键值对存起来，一方面实现了二叉搜索树的排序性，另一方面维护了整棵树的平衡性，防止树退化为链表增大查询&#x2F;插入的时间复杂度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合(4)-TreeMap">
+<meta property="og:url" content="https://cecilia.cool/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/index.html">
+<meta property="og:site_name" content="慕青的日记">
+<meta property="og:description" content="前言       首先，TreeMap与哈希没有任何关系，其次，哈希和Map也不是一回事，请不要先入为主。Map只是一个键值对的数据结构，哈希是将对象计算哈希码的一种算法。TreeMap只是通过红黑树将键值对存起来，一方面实现了二叉搜索树的排序性，另一方面维护了整棵树的平衡性，防止树退化为链表增大查询&#x2F;插入的时间复杂度。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/03/a6778fc1ccf85111.jpg">
+<meta property="article:published_time" content="2022-10-03T13:55:25.000Z">
+<meta property="article:modified_time" content="2022-10-03T16:05:12.212Z">
+<meta property="article:author" content="Cyan">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/10/03/a6778fc1ccf85111.jpg"><title>Java集合(4)-TreeMap | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Java集合(4)-TreeMap</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-04</span></span></div></header><div class="post-body">
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+      <p>首先，<code>TreeMap</code>与哈希没有任何关系，其次，哈希和Map也不是一回事，请不要先入为主。Map只是一个键值对的数据结构，哈希是将对象计算哈希码的一种算法。<code>TreeMap</code>只是通过红黑树将键值对存起来，一方面实现了二叉搜索树的排序性，另一方面维护了整棵树的平衡性，防止树退化为链表增大查询&#x2F;插入的时间复杂度。</p>
+
+        <h1 id="排序方式"   >
+          <a href="#排序方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#排序方式" class="headerlink" title="排序方式"></a>排序方式</h1>
+      <p><code>TreeMap</code>对插入数据实现了排序，如果是自定义数据，要么该类实现<code>Comparable</code>接口，要么TreeMap在构造方法中传入<code>Comparator</code>接口。</p>
+
+        <h2 id="Comparable"   >
+          <a href="#Comparable" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2>
+      <p>以<code>Student</code>类来说明，继承<code>Comparable</code>并重写<code>compareTo()</code>方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Student&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> id;<span class="comment">// 为了简单，就写一个id属性,并设为public方便获取</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(<span class="type">int</span> id)</span> &#123;<span class="built_in">this</span>.id = id;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对比方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Student o)</span> &#123;</span><br><span class="line">        <span class="comment">// 按照id从小到大排序</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.id - o.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>在<code>CompareTo()</code>中，是传入的对象和当前对象进行对比：</p>
+<ul>
+<li>如果对比大于0，降序排序。</li>
+<li>如果对比小于0，升序。</li>
+</ul>
+<blockquote>
+<p>其实记住当前对象-传入对象就是升序，反之则降序。</p>
+</blockquote>
+
+        <h2 id="Comparator"   >
+          <a href="#Comparator" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparator" class="headerlink" title="Comparator"></a>Comparator</h2>
+      <p>通过外部类的方式进行编写，对于<code>Comparator</code>接口的传入也可以用<code>Lambda</code>表达式</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list,<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Student o1,Student o2)</span> &#123;</span><br><span class="line">        <span class="comment">// 第一个参数 - 第二个参数：升序</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)(o1.id - o2.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以传入Lambda表达式</span></span><br><span class="line">Collections.sort(list,(Student o1,Student <span class="number">02</span>) -&gt; o1.id - o2.id);</span><br></pre></td></tr></table></div></figure>
+
+<p>我们看一下<code>TreeMap</code>的部分属性和构造方法：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableMap</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="built_in">super</span> K&gt; comparator;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 传入一个Comparator接口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">()</span> &#123;comparator = <span class="literal">null</span>;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> K&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.comparator = comparator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果没有传入<code>Comparator</code>接口实现，那么传入的<code>Key</code>必须实现<code>Comparable</code>。</p>
+<blockquote>
+<p><code>TreeMap</code>底层用红黑树，红黑树近似平衡，最长路径不超过最短路径的2倍。</p>
+</blockquote>
+
+        <h1 id="TreeMap"   >
+          <a href="#TreeMap" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h1>
+      <p><code>TreeMap</code>的UML类图：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/03/a6778fc1ccf85111.jpg"></p>
+<p>因为底层使用了红黑树，所以节点就是<code>Entry</code>，记录了左右节点和父节点指针，以及节点颜色。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Entry</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; left;</span><br><span class="line">    Entry&lt;K,V&gt; right;</span><br><span class="line">    Entry&lt;K,V&gt; parent;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">color</span> <span class="operator">=</span> BLACK;</span><br><span class="line">	<span class="comment">// 构造方法，此处不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>关于红黑树，详细的实现，也就是节点如何变色，如何左旋右旋来维持近似平衡，可以看《算法导论》，本文不会详细去讲，作者曾经也自己看着书写过红黑树，当成C++期末作业交上去了，但是过了两三天又忘了，这玩意吧，看个人兴趣吧，hhhhhh。</p>
+</blockquote>
+
+        <h2 id="put"   >
+          <a href="#put" class="heading-link"><i class="fas fa-link"></i></a><a href="#put" class="headerlink" title="put()"></a>put()</h2>
+      <p>直接给出<code>put</code>的执行流程：</p>
+<ul>
+<li>判断当前根节点为null，那么插入的第一个元素就是根节点。</li>
+<li>如果存在根节点，判断插入元素在左侧还是右侧，如果对比为0，说明当前元素存在于<code>TreeMap</code>中，将其覆盖：<strong>在TreeMap中，不会存在重复元素</strong>。</li>
+<li>找到插入位置，插入。</li>
+<li>节点变色和旋转操作。</li>
+</ul>
+<blockquote>
+<p>代码太长了，要看源码自己打开IDEA查看。从<code>put</code>流程也可知，时间复杂度为<em>logN</em>。</p>
+</blockquote>
+
+        <h2 id="get"   >
+          <a href="#get" class="heading-link"><i class="fas fa-link"></i></a><a href="#get" class="headerlink" title="get()"></a>get()</h2>
+      <p>也就是不断地对比，在红黑树中查找节点。</p>
+
+        <h1 id="TreeSet"   >
+          <a href="#TreeSet" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h1>
+      <p>这个就是对TreeMap进行了简单包装，不过多讲解</p>
+<blockquote>
+<p>额，其实关于<code>TreeMap</code>的详解应该是对红黑树的详解，但是我真的不想写，啊啊啊啊啊，以后有时间就单独写一篇博客解释一下红黑树，顺便放一个源码模板方便各位使用（等我想起了再说吧）。</p>
+</blockquote>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51192504/article/details/109775797" >https://blog.csdn.net/weixin_51192504/article/details/109775797</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html" >https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/">https://cecilia.cool/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(3)-LinkedHashMap/"><span class="paginator-prev__text">Java集合3-LinkedHashMap</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">
+          前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">
+          排序方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparable"><span class="toc-number">2.1.</span> <span class="toc-text">
+          Comparable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparator"><span class="toc-number">2.2.</span> <span class="toc-text">
+          Comparator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TreeMap"><span class="toc-number">3.</span> <span class="toc-text">
+          TreeMap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#put"><span class="toc-number">3.1.</span> <span class="toc-text">
+          put()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#get"><span class="toc-number">3.2.</span> <span class="toc-text">
+          get()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TreeSet"><span class="toc-number">4.</span> <span class="toc-text">
+          TreeSet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">69</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

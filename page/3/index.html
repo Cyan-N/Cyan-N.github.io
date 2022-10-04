@@ -30,7 +30,68 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/04/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B(5)-AIO%E5%9F%BA%E6%9C%AC%E8%AF%A6%E8%A7%A3/">网络编程(5)--AIO基本详解</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/05/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B(0)-Socket%E5%85%A5%E9%97%A8/">网络编程(0)--Socket详解</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-06</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p>该部分之所以为0，是因为在之后<code>NIO</code>，<code>AIO</code>的学习都会大量用到<code>Socket</code>的知识，所以为了更好的让读者阅读下去，这里开始对<code>Socket</code>做出一点补充。</p>
+<p>客户端与服务器连接之后，通过对<code>Socket</code>对象的写入和读取进行通信。</p>
+<p>连接过程：</p>
+<ul>
+<li>服务器实例化一个 <code>ServerSocket</code> 对象，表示通过服务器上的端口通信。</li>
+<li>服务器调用 <code>ServerSocket</code> 类的 <code>accept() </code>方法，该方法将一直等待，直到客户端连接到服务器上给定的端口。</li>
+<li>服务器正在等待时，一个客户端实例化一个 <code>Socket</code> 对象，指定服务器名称和端口号来请求连接。</li>
+<li><code>Socket</code> 类的构造函数试图将客户端连接到指定的服务器和端口号。如果通信被建立，则在客户端创建一个 <code>Socket</code> 对象能够与服务器进行通信。</li>
+<li>在服务器端，<code>accept() </code>方法返回服务器上一个新的 <code>socket</code> 引用，该 <code>socket</code> 连接到客户端的 <code>socket</code>。</li>
+</ul>
+<p><code>TCP</code>是双向通信协议，服务器和客户端可以同时互相发消息。<strong>客户端的Socket的输出流就是服务端的输入流，客户端的输入流就是服务端的输出流</strong>。</p>
+
+        <h1 id="相关实现类"   >
+          <a href="#相关实现类" class="heading-link"><i class="fas fa-link"></i></a><a href="#相关实现类" class="headerlink" title="相关实现类"></a>相关实现类</h1>
+      
+        <h2 id="ServerSocket类"   >
+          <a href="#ServerSocket类" class="heading-link"><i class="fas fa-link"></i></a><a href="#ServerSocket类" class="headerlink" title="ServerSocket类"></a>ServerSocket类</h2>
+      <p>服务器应用程序通过该类获取端口（构造函数传入端口），并且监听客户端请求。</p>
+<p>构造方法</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 其他三个构造方法，从右至左依次减少一个参数</span></span><br><span class="line"><span class="comment">// 使用指定的端口、侦听 backlog 和要绑定到的本地 IP 地址创建服务器。</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ServerSocket</span><span class="params">(<span class="type">int</span> port, <span class="type">int</span> backlog, InetAddress address)</span> <span class="keyword">throws</span> IOException</span><br></pre></td></tr></table></div></figure>
+
+<p>相关方法</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取该Socket监听的端口</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getLocalPort</span><span class="params">()</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 侦听并接受到此套接字的连接</span></span><br><span class="line"><span class="keyword">public</span> Socket <span class="title function_">accpet</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 将ServerSocket绑定到特定地址(IP地址和端口号)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">bind</span><span class="params">(SocketAddress host,<span class="type">int</span> backlog)</span></span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h2 id="Socket类"   >
+          <a href="#Socket类" class="heading-link"><i class="fas fa-link"></i></a><a href="#Socket类" class="headerlink" title="Socket类"></a>Socket类</h2>
+      <p>客户端和服务端通信使用的套接字，客户端要获取一个<code>Socket</code>直接实例化，服务端通过<code>accept</code>方法返回值。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连接到指定主机的指定端口号上</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Socket</span><span class="params">(String host, <span class="type">int</span> port)</span> </span><br><span class="line">    </span><br><span class="line"><span class="comment">// 连接到指定IP地址的指定端口号</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Socket</span><span class="params">(InetAddress host, <span class="type">int</span> port)</span></span><br></pre></td></tr></table></div></figure>
+
+<p>当 <code>Socket</code> 构造方法返回，并没有简单的实例化了一个 <code>Socket</code> 对象，它实际上会尝试连接到指定的服务器和端口。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将此套接字连接到服务器，并指定一个超时值。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">connect</span><span class="params">(SocketAddress host, <span class="type">int</span> timeout)</span> <span class="keyword">throws</span> IOException</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回套接字连接的地址。</span></span><br><span class="line"><span class="keyword">public</span> InetAddress <span class="title function_">getInetAddress</span><span class="params">()</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 返回套接字连接的远程端口，本地端口是getLocalPort</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPort</span><span class="params">()</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 获取输入/输出流</span></span><br><span class="line"><span class="keyword">public</span> OutputStream <span class="title function_">getOutpurStream</span><span class="params">()</span>;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h2 id="InetAddress类"   >
+          <a href="#InetAddress类" class="heading-link"><i class="fas fa-link"></i></a><a href="#InetAddress类" class="headerlink" title="InetAddress类"></a>InetAddress类</h2>
+      <p>该类表示互联网协议（IP），该类的核心方法，直接在IDE里面打出<code>get</code>即可。</p>
+
+        <h1 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a href="#示例" class="headerlink" title="示例"></a>示例</h1>
+      <p>客户端代码</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">8888</span>);</span><br><span class="line">        <span class="comment">// 输出流，发送数据给服务端</span></span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> socket.getOutputStream();</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">        out.write(s.getBytes());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 其实也可以是输入流，无非就是接收来自服务器的数据</span></span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>服务端代码</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8888</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> socket.getInputStream();</span><br><span class="line">        <span class="type">byte</span>[] arr = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">20</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 也可以用其他借助装饰者类实现更多功能的类</span></span><br><span class="line">        in.read(arr);</span><br><span class="line">        server.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>其实服务端应该是<code>while</code>循环不断获取客户端传过来的连接。我们看到客户端和服务端可以传输数据，这也是IO流，比如服务端要获取客户端传过来的数据，就需要调用<code>read</code>方法，如果客户端那边数据没准备好，就会一直阻塞在这里。</p>
+<p>客户端是一样的道理。既然存在阻塞，那么在设计的时候就存在同步异步问题，也就是之后涉及的NIO，AIO等知识。</p>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p>菜鸟教程：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.runoob.com/java/java-networking.html" >https://www.runoob.com/java/java-networking.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/04/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B(5)-AIO%E5%9F%BA%E6%9C%AC%E8%AF%A6%E8%A7%A3/">网络编程(5)--AIO基本详解</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="简介"   >
           <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
       <p>前面三种IO模型：阻塞式同步，非阻塞式同步，多路复用都是采用的应用主动询问操作系统。也就导致他们都会在执行<code>read</code>函数中阻塞住。</p>
@@ -871,95 +932,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p>并发编程网：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ifeve.com/java-io-%E4%B9%8B-inputstream%E6%BA%90%E7%A0%81/" >http://ifeve.com/java-io-%E4%B9%8B-inputstream%E6%BA%90%E7%A0%81/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>stackoverflow：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/53754387/java-read-vs-readnbytes-of-the-inputstream-instance" >https://stackoverflow.com/questions/53754387/java-read-vs-readnbytes-of-the-inputstream-instance</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/26/Java/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/IO(1)-%E5%88%86%E7%B1%BB/">Java IO(1)--分类</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="前言"   >
-          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
-      <p>为了分类方便和知识的连贯性，这里就将IO的部分（关于文件流的操作）也放到网络编程的<code>Tags</code>里面。真正的网络编程大概就是从<code>Socket</code>那一块开始讲解，接着就是缓冲区，通道以及NIO的各种详解。</p>
-
-        <h1 id="传输方式"   >
-          <a href="#传输方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h1>
-      <p>分为字节流和字符流：<code>字节</code>是个计算机看的，<code>字符</code>才是给人看的。</p>
-<p>字节流主要是<code>InputStream</code>和<code>OutputStream</code>派生出来的一些列类。字符流主要<code>Reader</code>和<code>Writer</code>派生出来的类。</p>
-
-        <h2 id="字节流和字符流区别"   >
-          <a href="#字节流和字符流区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#字节流和字符流区别" class="headerlink" title="字节流和字符流区别"></a>字节流和字符流区别</h2>
-      <ul>
-<li><p>字节流读取单个字节，字符流读取单个字符(一个字符根据编码的不同，对应的字节也不同，如 UTF-8 编码中文汉字是 3 个字节，GBK编码中文汉字是 2 个字节。)</p>
-</li>
-<li><p>字节流用来处理二进制文件(图片、MP3、视频文件)，字符流用来处理文本文件(可以看做是特殊的二进制文件，使用了某种编码，人可以阅读)。</p>
-</li>
-</ul>
-
-        <h2 id="编码与解码"   >
-          <a href="#编码与解码" class="heading-link"><i class="fas fa-link"></i></a><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h2>
-      <p>编码是将字符转为字节，解码是将字节组合成字符。编码和解码过程使用不同的编码方式那么就出现了乱码。</p>
-<p>Java 使用双字节编码 UTF-16be，这不是指 Java 只支持这一种编码方式，而是说 char 这种类型使用 UTF-16be 进行编码。char 类型占 16 位，也就是两个字节，Java 使用这种双字节编码是为了让一个中文或者一个英文都能使用一个 char 来存储。</p>
-
-        <h1 id="数据操作"   >
-          <a href="#数据操作" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1>
-      <p>分类大致看下表</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">类别</th>
-<th align="center">对应类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">文件</td>
-<td align="center">FileInputStream,FileOutputStream,FileReader,FileWriter</td>
-</tr>
-<tr>
-<td align="center">数组</td>
-<td align="center">ByteArrayInputStream,ByteArrayOutputStream,CharArrayReader、CharArrayWriter</td>
-</tr>
-<tr>
-<td align="center">管道</td>
-<td align="center">PipedInputStream、PipedOutputStream、PipedReader、PipedWriter</td>
-</tr>
-<tr>
-<td align="center">基本数据类型</td>
-<td align="center">DataInputStream、DataOutputStream</td>
-</tr>
-<tr>
-<td align="center">缓冲</td>
-<td align="center">BufferedInputStream、BufferedOutputStream、BufferedReader、BufferedWriter</td>
-</tr>
-<tr>
-<td align="center">打印</td>
-<td align="center">PrintStream、PrintWriter</td>
-</tr>
-<tr>
-<td align="center">对象序列化反序列化</td>
-<td align="center">ObjectInputStream、ObjectOutputStream</td>
-</tr>
-<tr>
-<td align="center">转换</td>
-<td align="center">InputStreamReader、OutputStreamWriter</td>
-</tr>
-</tbody></table></div>
-
-        <h1 id="设计模式"   >
-          <a href="#设计模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1>
-      <p><code>IO</code>使用了<a href="https://cecilia.cool/2022/08/24/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E8%A3%85%E9%A5%B0/">装饰者模式</a>，以<code>InputStream</code>为例：</p>
-<ul>
-<li><p><code>InputStream</code>是抽象组件。</p>
-</li>
-<li><p><code>FileInputStream</code>是<code>InputStream</code>子类，为具体组件，提供字节流的输入操作。</p>
-</li>
-<li><p><code>FilterInputStream</code>属于抽象装饰者，提供额外功能</p>
-</li>
-</ul>
-<p><img src="https://s3.bmp.ovh/imgs/2022/08/26/f54be56eb22c08b8.jpg" alt="IO使用装饰者模式"></p>
-<p>实例化一个具有缓存功能的字节流对象时，只需要在 <code>FileInputStream</code> 对象上再套一层 <code>BufferedInputStream</code> 对象即可。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath);</span><br><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bufferedInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(fileInputStream);</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/io/java-io-basic-category.html" >https://pdai.tech/md/java/io/java-io-basic-category.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">69</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">70</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

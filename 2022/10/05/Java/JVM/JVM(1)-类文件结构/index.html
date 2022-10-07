@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="类文件结构       计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。  Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。 JVM也不再只支持Java，由此衍生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM(1)--类文件结构">
+<meta property="og:url" content="https://cecilia.cool/2022/10/05/Java/JVM/JVM(1)-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="慕青的日记">
+<meta property="og:description" content="类文件结构       计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。  Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。 JVM也不再只支持Java，由此衍生">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/06/227b1ae28c54688f.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/06/995affe6c346a8aa.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/06/8f19ae55706ab1c2.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/05/868070b026d6842b.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/07/d412705d408b4988.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/07/175494f35c4a5e2e.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/07/a82c68d88210068a.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/07/f8a119d3fd7bb199.jpg">
+<meta property="article:published_time" content="2022-10-05T15:29:47.000Z">
+<meta property="article:modified_time" content="2022-10-07T08:08:50.994Z">
+<meta property="article:author" content="Cyan">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/10/06/227b1ae28c54688f.jpg"><title>JVM(1)--类文件结构 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/10/05/Java/JVM/JVM(1)-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">JVM(1)--类文件结构</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-07</span></span></div></header><div class="post-body">
+        <h1 id="类文件结构"   >
+          <a href="#类文件结构" class="heading-link"><i class="fas fa-link"></i></a><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h1>
+      <p>计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。</p>
+<ul>
+<li>Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。</li>
+<li>JVM也不再只支持Java，由此衍生出了许多基于JVM的编程语言，如Groovy, Scala, Koltin等等。</li>
+</ul>
+<blockquote>
+<p>许多开发语言支持将源代码编译为<code>.class</code>字节码文件格式，以便交给JVM运行</p>
+</blockquote>
+
+        <h2 id="类文件信息"   >
+          <a href="#类文件信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#类文件信息" class="headerlink" title="类文件信息"></a>类文件信息</h2>
+      <p>先写一个例子：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> m;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">inc</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>编译生成<code>Test.class</code>文件。</p>
+<blockquote>
+<p>下载WinHex软件，以十六进制格式查看字节码文件（将编译好的<code>class</code>文件拖进去），每一位都是4个bit</p>
+</blockquote>
+<p>呈现出来的是酱紫的：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/227b1ae28c54688f.jpg"></p>
+<p>但是winHex我这打开总是有些毛病，所以选择另一个工具（IEDA插件）查看十六进制字节码：</p>
+<ul>
+<li>安装插件：Binary&#x2F;hexadecimal editor。</li>
+<li>右键class文件，选择Open As Binary。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/995affe6c346a8aa.jpg"></p>
+<p>有时直接查看16进制的结果不方便，为了能够方便查看字节码信息，需要安装另一个插件：</p>
+<ul>
+<li>安装插件：jclasslib Bytecode Viewer。</li>
+<li>选中要查看的java文件（不是class文件），点击view（视图），再点击<code>show Bytecode with jclasslib</code>。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/8f19ae55706ab1c2.jpg"></p>
+<ul>
+<li>这样查看字节码文件中的常量池什么的就非常方便。</li>
+</ul>
+<p>对于类文件信息，需要知道的部分如下图：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/05/868070b026d6842b.jpg"></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ClassFile &#123;</span><br><span class="line">    u4             magic; <span class="comment">//Class 文件的标志</span></span><br><span class="line">    u2             minor_version;<span class="comment">//Class 的小版本号</span></span><br><span class="line">    u2             major_version;<span class="comment">//Class 的大版本号</span></span><br><span class="line">    u2             constant_pool_count;<span class="comment">//常量池的数量</span></span><br><span class="line">    cp_info        constant_pool[constant_pool_count-<span class="number">1</span>];<span class="comment">//常量池</span></span><br><span class="line">    u2             access_flags;<span class="comment">//Class 的访问标记</span></span><br><span class="line">    u2             this_class;<span class="comment">//当前类</span></span><br><span class="line">    u2             super_class;<span class="comment">//父类</span></span><br><span class="line">    u2             interfaces_count;<span class="comment">//接口</span></span><br><span class="line">    u2             interfaces[interfaces_count];<span class="comment">//一个类可以实现多个接口</span></span><br><span class="line">    u2             fields_count;<span class="comment">//Class 文件的字段属性</span></span><br><span class="line">    field_info     fields[fields_count];<span class="comment">//一个类会可以有个字段</span></span><br><span class="line">    u2             methods_count;<span class="comment">//Class 文件的方法数量</span></span><br><span class="line">    method_info    methods[methods_count];<span class="comment">//一个类可以有个多个方法</span></span><br><span class="line">    u2             attributes_count;<span class="comment">//此类的属性表中的属性数</span></span><br><span class="line">    attribute_info attributes[attributes_count];<span class="comment">//属性表集合</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h3 id="魔数与版本"   >
+          <a href="#魔数与版本" class="heading-link"><i class="fas fa-link"></i></a><a href="#魔数与版本" class="headerlink" title="魔数与版本"></a>魔数与版本</h3>
+      <p>字节码文件前4个字节（32bit）组成了魔数，魔数机制检验该文件是否是JVM可以直接运行的字节码文件。字节码文件的魔数为：<strong>CAFFBABE</strong>。</p>
+<p>魔数后面的4个字节存储的是字节码文件的版本号，前两个是次要版本号（现在基本不用了），后两个是主要版本号，将16进制换算成10进制之后，得到的可以参照：52代表JDK8编译的字节码文件（51是JDK7，53是JDK9）。</p>
+
+        <h3 id="常量池"   >
+          <a href="#常量池" class="heading-link"><i class="fas fa-link"></i></a><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h3>
+      <p><code>Constant pool</code>意为常量池，可以理解为<code>Class</code>文件中的资源仓库，是程序运行一些需要用到的常量数据，主要存放<strong>字面量</strong>和<strong>符号引用</strong>。字面量类似于Java中的常量概念，如文本字符串，<code>final</code>常量等。</p>
+<p>符号引用属于编译原理的概念：</p>
+<ul>
+<li>类和接口的全限定名</li>
+<li>字段的名称和描述符</li>
+<li>方法的名称和描述符</li>
+</ul>
+<p>常量的数量不是确定的，所以在<strong>最开始的位置</strong>会存放常量池中<strong>常量的数量</strong>（是从1开始计算的，不是0，比如18，翻译为10进制就是24，所以实际上有23个常量）。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             constant_pool_count;<span class="comment">//常量池的数量</span></span><br><span class="line">cp_info        constant_pool[constant_pool_count-<span class="number">1</span>];<span class="comment">//常量池</span></span><br></pre></td></tr></table></div></figure>
+
+<p>每一项常量池里面的数据都是一个表，都是以_info结尾的（通过插件查看即可），有14种表。</p>
+
+        <h3 id="访问标志"   >
+          <a href="#访问标志" class="heading-link"><i class="fas fa-link"></i></a><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3>
+      <p>两个字节，代表访问标志，用于识别一些类或者接口层次的访问信息，包括：Class是类还是接口，是否为 public 或者 abstract 类型，如果是类的话是否声明为 final 等等。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/d412705d408b4988.jpg"></p>
+<p>反编译一下<code>Test.class</code>文件查看访问标志：</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-p -private 显示所有类和成员</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-v -verbose 输出附加信息</span></span><br><span class="line">javap -verbose -p Test.class</span><br></pre></td></tr></table></div></figure>
+
+<p>对于结果为：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/175494f35c4a5e2e.jpg"></p>
+
+        <h3 id="类索引和接口索引集合"   >
+          <a href="#类索引和接口索引集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#类索引和接口索引集合" class="headerlink" title="类索引和接口索引集合"></a>类索引和接口索引集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">u2             this_class;<span class="comment">//当前类</span></span><br><span class="line">u2             super_class;<span class="comment">//父类</span></span><br><span class="line">u2             interfaces_count;<span class="comment">//接口</span></span><br><span class="line">u2             interfaces[interfaces_count];<span class="comment">//一个雷可以实现多个接口</span></span><br></pre></td></tr></table></div></figure>
+
+<p>在访问标志的反编译图中也可以看到<strong>当前类索引</strong>，<strong>父类索引</strong>，<strong>接口索引</strong>。</p>
+<p><strong>类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名，由于 Java 语言的单继承，所以父类索引只有一个，除了 <code>java.lang.Object</code> 之外，所有的 java 类都有父类，因此除了 <code>java.lang.Object</code> 外，所有 Java 类的父类索引都不为 0。</strong></p>
+<p><strong>接口索引集合用来描述这个类实现了那些接口，这些被实现的接口将按<code>implents</code>(如果这个类本身是接口的话则是<code>extends</code>) 后的接口顺序从左到右排列在接口索引集合中。</strong></p>
+
+        <h3 id="字段表集合"   >
+          <a href="#字段表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             fields_count;<span class="comment">//Class 文件的字段的个数</span></span><br><span class="line">field_info     fields[fields_count];<span class="comment">//一个类会可以有个字段</span></span><br></pre></td></tr></table></div></figure>
+
+<p>用于描述接口或类中声明的变量。不包括方法内部的局部变量。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/a82c68d88210068a.jpg"></p>
+<ul>
+<li><strong>access_flags:</strong> 字段的作用域（<code>public</code> ,<code>private</code>,<code>protected</code>修饰符），是实例变量还是类变量（<code>static</code>修饰符）,可否被序列化（transient 修饰符）,可变性（final）,可见性（volatile 修饰符，是否强制从主内存读写），各个修饰符都是布尔值，要么有某个修饰符，要么没有，适合使用标志位来表示。</li>
+<li><strong>name_index:</strong> 对<strong>常量池</strong>的引用，表示的字段的名称；</li>
+<li><strong>descriptor_index:</strong> 对常量池的引用，表示字段和方法的描述符；&#x2F;&#x2F;</li>
+<li><strong>attributes_count:</strong> 一个字段还会拥有一些额外的属性，attributes_count 存放属性的个数；</li>
+<li><strong>attributes[attributes_count]:</strong> 存放具体属性具体内容。</li>
+</ul>
+
+        <h3 id="方法表集合"   >
+          <a href="#方法表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             methods_count;<span class="comment">//Class 文件的方法的数量</span></span><br><span class="line">method_info    methods[methods_count];<span class="comment">//一个类可以有个多个方法</span></span><br></pre></td></tr></table></div></figure>
+
+<p>Class 文件存储格式中对方法的描述与对字段的描述几乎采用了完全一致的方式。方法表（<code>method_info</code>）的结构如同字段表一样，依次包括了访问标志、名称索引、描述符索引、属性表集合几项（所以参照上图<code>field_info</code>）。</p>
+<p>得到的结果（这里只看方法那部分）：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Chapter1.Test();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: (<span class="number">0x0001</span>) ACC_PUBLIC				<span class="comment">// 这就是access_flag取值</span></span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: invokespecial #<span class="number">1</span>                <span class="comment">// Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">         <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: getfield      #<span class="number">2</span>                <span class="comment">// Field m:I</span></span><br><span class="line">         <span class="number">4</span>: iconst_1</span><br><span class="line">         <span class="number">5</span>: iadd</span><br><span class="line">         <span class="number">6</span>: ireturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">6</span>: <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>其中<code>access_flag</code>取值为：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/f8a119d3fd7bb199.jpg"></p>
+<blockquote>
+<p>因为<code>volatile</code>修饰符和<code>transient</code>修饰符不可以修饰方法，所以方法表的访问标志中没有这两个对应的标志，但是增加了<code>synchronized</code>、<code>native</code>、<code>abstract</code>等关键字修饰方法，所以也就多了这些关键字对应的标志。</p>
+</blockquote>
+<p>code内的主要属性为:</p>
+<ul>
+<li><strong>stack</strong>： 最大操作数栈，JVM运行时会根据这个值来分配栈帧(Frame)中的操作栈深度,此处为1<strong>（递归？）</strong></li>
+<li><strong>locals</strong>：局部变量所需的存储空间，单位为Slot, Slot是虚拟机为局部变量分配内存时所使用的最小单位，为4个字节大小。方法参数(包括实例方法中的隐藏参数this)，显示异常处理器的参数(try catch中的catch块所定义的异常)，方法体中定义的局部变量都需要使用<strong>局部变量表</strong>来存放。值得一提的是，locals的大小并不一定等于所有局部变量所占的Slot之和，因为局部变量中的Slot是可以重用的。</li>
+<li><strong>args_size</strong>：方法参数的个数，这里是1，因为每个实例方法都会有一个隐藏参数this</li>
+<li><strong>attribute_info</strong>: 方法体内容，0,1,4为字节码”行号”，该段代码的意思是将第一个引用类型本地变量推送至栈顶，然后执行该类型的实例方法，也就是常量池存放的第一个变量，也就是注释里的<code>java/lang/Object.&quot;&quot;:()V</code>, 然后执行返回语句，结束方法。</li>
+<li><strong>LineNumberTable</strong>：该属性的作用是描述源码行号与字节码行号(字节码偏移量)之间的对应关系。可以使用 -g:none 或-g:lines选项来取消或要求生成这项信息，如果选择不生成LineNumberTable，当程序运行异常时将无法获取到发生异常的源码行号，也无法按照源码的行数来调试程序。</li>
+</ul>
+<p>有时还会出现这个：</p>
+<ul>
+<li><strong>LocalVariableTable</strong>：该属性的作用是描述帧栈中局部变量与源码中定义的变量之间的关系。可以使用 -g:none 或 -g:vars来取消或生成这项信息，如果没有生成这项信息，那么当别人引用这个方法时，将无法获取到参数名称，取而代之的是arg0, arg1这样的占位符。 start 表示该局部变量在哪一行开始可见，length表示可见行数，Slot代表所在帧栈位置，Name是变量名称，然后是类型签名。</li>
+</ul>
+
+        <h3 id="属性表集合"   >
+          <a href="#属性表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             attributes_count;<span class="comment">//此类的属性表中的属性数</span></span><br><span class="line">attribute_info attributes[attributes_count];<span class="comment">//属性表集合</span></span><br></pre></td></tr></table></div></figure>
+
+<p>用于描述某些场景专有的信息。</p>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485250&idx=2&sn=33793bcce3f2ff31b83cf2f9c32df153&chksm=cea24889f9d5c19fa3e2b7d4f59762b59e6cd9e5e6564fe73c6993bd06e08bddd40cc0f3cba0&scene=0&xtrack=1&key=49cd1e59990c3d1f207865d32759f1ff2ae7fdf676f3b0a02ba49906a5af3ccdbd73e43bbe31515866f9748388c78cb9e4406d880eaf2d51afcf32168f3ad271769cc1c93cbfb0135046210b41d7d036&ascene=1&uin=MjMxMDk4NDI3&devicetype=Windows+7&version=62060739&lang=zh_CN&pass_ticket=J0+LnrNgEFouK4etBnwg1HUabsFw7ji5W1fiSveug54=" >谈谈Java类文件结构</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html" >https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://coolshell.cn/articles/9229.html" >https://coolshell.cn/articles/9229.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/luanlouis/article/details/39960815" >https://blog.csdn.net/luanlouis/article/details/39960815</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>《实战 Java 虚拟机》</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-class.html" >https://pdai.tech/md/java/jvm/java-jvm-class.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/keopmg" >https://www.yuque.com/qingkongxiaguang/javase/keopmg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/10/05/Java/JVM/JVM(1)-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">https://cecilia.cool/2022/10/05/Java/JVM/JVM(1)-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/JVM/">JVM</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/10/04/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(5)-WeakHashMap/"><span class="paginator-prev__text">Java集合(5)--WeakHashMap</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">
+          类文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">1.1.</span> <span class="toc-text">
+          类文件信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AD%94%E6%95%B0%E4%B8%8E%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+          魔数与版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">1.1.2.</span> <span class="toc-text">
+          常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%A0%87%E5%BF%97"><span class="toc-number">1.1.3.</span> <span class="toc-text">
+          访问标志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%B4%A2%E5%BC%95%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88"><span class="toc-number">1.1.4.</span> <span class="toc-text">
+          类索引和接口索引集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E8%A1%A8%E9%9B%86%E5%90%88"><span class="toc-number">1.1.5.</span> <span class="toc-text">
+          字段表集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%A1%A8%E9%9B%86%E5%90%88"><span class="toc-number">1.1.6.</span> <span class="toc-text">
+          方法表集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E8%A1%A8%E9%9B%86%E5%90%88"><span class="toc-number">1.1.7.</span> <span class="toc-text">
+          属性表集合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">71</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

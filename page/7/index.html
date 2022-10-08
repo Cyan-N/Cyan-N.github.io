@@ -30,7 +30,97 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/30/Shell/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3shell/">深入理解shell</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-30</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/31/Shell/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">Linux文件权限</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-31</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="Linux安全性"   >
+          <a href="#Linux安全性" class="heading-link"><i class="fas fa-link"></i></a><a href="#Linux安全性" class="headerlink" title="Linux安全性"></a>Linux安全性</h1>
+      <p><code>Linux</code>安全系统核心是用户账户，用户账户通过创建用户时分配的用户<code>ID(UID)</code>来跟踪。<code>/etc/password</code>文件将用户的登录名匹配到对应的<code>UID</code>的值<br><code>root</code>账户是<code>Linux</code>管理员，固定分配给的<code>UID</code>是0。<code>Linux</code>会为各种各样的功能创建不同的用户账户，这些账户不是真正的用户，而是系统账户，是系统上运行各种服务进程访问资源用的特殊账户。所有运行在后台的服务都需要用一个系统用户账户登录到Linux系统上！！<strong>在意识到安全问题之前</strong>，许多服务都用<code>root</code>登陆，如果其中一个服务被攻陷，<code>root</code>权限就会被入侵。</p>
+<p><code>/etc/shadow</code>文件，该文件记录各个账户之间密码记录。该文件只有<code>root</code>才有权限操作，所以如果我们不是<code>root</code>用户登录，就需要使用<code>sudo</code>命令。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ sudo cat /etc/shadow</span><br><span class="line">[sudo] password for cyan:</span><br><span class="line">root:!:18999:0:99999:7:::</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">其他信息就不展示了</span></span><br></pre></td></tr></table></div></figure>
+
+<p>每一行就是一个用户，分为九个字段，分别是:<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/sherlockmj/article/details/106786520" >参考文章传送门</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<ul>
+<li>与<code>/etc/passwd</code>文件中对应的登录名。</li>
+<li><strong>加密后</strong>的密码，也就是说，你不能直接看到这个密码。</li>
+<li>自上次修改密码后过去的天数，上面的<code>root</code>是18999，就是从1970.1.1不断累加得到的时间，可以使用命令 <code>date -d &quot;1970-01-01 18999 days&quot;</code>查看具体时间。</li>
+<li>最小修改时间间隔，该字段规定了从第 3 字段（最后一次修改密码的日期）起，<strong>多长时间之内不能修改密码</strong>。如果是 0，则密码可以随时修改；如果是 10，则代表密码修改后 10 <strong>天</strong>之内不能再次修改密码。</li>
+<li>密码有效期，默认值为 99999，也就是273年。</li>
+<li>密码需要变更前的警告天数，当账户密码有效期快到时，系统会发出警告信息给此账户，提醒用户 “再过 n 天你的密码就要过期了，请尽快重新设置你的密码！”。</li>
+<li>密码过期后的宽限天数，过期后，在宽限天数内还是可以登录。</li>
+<li>账号失效时间，该字段通常被使用在具有收费服务的系统中。</li>
+<li>最后一个，保留，还没有使用。</li>
+</ul>
+
+        <h1 id="添加新用户"   >
+          <a href="#添加新用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#添加新用户" class="headerlink" title="添加新用户"></a>添加新用户</h1>
+      <p>使用<code>useradd</code>命令，可以一次性创建新用户账户及设置用户<code>HOME</code>目录结构。<code>useradd</code>命令使用系统默认值以及命令行参数设置用户账户。</p>
+<p>系统默认值被设置在<code>/etc/default/useradd</code>，可以使用<code>useradd -D</code>检查默认值</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~$ useradd -D</span><br><span class="line">GROUP=100		# 新用户被添加到GID=100的公共组</span><br><span class="line">HOME=/home		# 新的home目录位于/home/loginname</span><br><span class="line">INACTIVE=-1		# 密码过期后不会被禁用</span><br><span class="line">EXPIRE=			# 未设置过期日期</span><br><span class="line">SHELL=/bin/sh</span><br><span class="line">SKEL=/etc/skel	# 将/etc/skel目录下内容复制到用户的home下</span><br><span class="line">CREATE_MAIL_SPOOL=no	# 是否为该用户在mail目录下创建一个接受邮件的文件</span><br></pre></td></tr></table></div></figure>
+
+<p>上述的系统默认值是可以更改的，在<code>useradd</code>时，加入参数进行更改</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-b  default_home    # 更改默认的创建用户HOME目录的位置</span><br><span class="line">-e  expirtion_date  # 更改默认的新账户的过期日期</span><br><span class="line">-f  inactive        # 更改默认的新用户从密码过期到账户被禁用的天数</span><br><span class="line">-g  group           # 更改默认的组名称或GID</span><br><span class="line">-s  shell           # 更改默认登录shell</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="删除用户"   >
+          <a href="#删除用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h1>
+      <p><code>userdel</code>命令，默认情况下只会删除<code>/etc/passwd</code>文件中的用户信息，而不会删除系统中属于该账户的任何文件，<code>userdel -r</code>会删除用户的HOME目录以及邮件目录。</p>
+
+        <h1 id="修改用户"   >
+          <a href="#修改用户" class="heading-link"><i class="fas fa-link"></i></a><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h1>
+      <p><code>usermod,chsh,chfn,chage</code>这几个指令要用到再自己百度，平时用不到，隔不了多久就会忘记。</p>
+
+        <h1 id="Linux组"   >
+          <a href="#Linux组" class="heading-link"><i class="fas fa-link"></i></a><a href="#Linux组" class="headerlink" title="Linux组"></a>Linux组</h1>
+      <p>linux通过将具有相同特性的用户划归为一个组，可以大大简化用户的管理，方便用户之间文件的共享。任何一个用户都至少属于一个组，这个组称为初始组，可以同时属于多个附加组。用户不仅拥有初始组的权限，还拥有附加组的权限。</p>
+<p>在<code>/etc/group</code>文件中，包含系统上用到的每个组的信息，4个字段：<strong>组名:组密码:GID:属于该组的用户列表</strong></p>
+<p>用户列表中某些组没有列出用户，并不代表没有成员，只是加入了成员，不会出现在该文件中。</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建组</span></span><br><span class="line">groupadd 组名</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">后期将成员加入到指定组</span></span><br><span class="line">usermod -G 组名 成员名</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="文件权限"   >
+          <a href="#文件权限" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h1>
+      <p>在本系列第一篇文章中，为了运行一个新建脚本，需要使用<code>chmod u+x 文件名</code>。查看一个文件，我们可以使用<code>ll</code></p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll</span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x  2 cyan cyan 4096 7月  30 19:09 ./</span><br><span class="line">drwxr-xr-x 21 cyan cyan 4096 7月  30 19:09 ../</span><br><span class="line">-rw-rw-r--  1 cyan cyan    0 7月  28 15:50 new_File</span><br><span class="line">-rwxrw-r--  1 cyan cyan   49 7月  30 19:09 test*</span><br><span class="line">-rwxrw-r--  1 cyan cyan   31 7月  29 16:18 test_1.sh*</span><br></pre></td></tr></table></div></figure>
+
+<p>得到的结果中，第一位有些是<code>d</code>，有些是<code>-</code>。第一个代表了文件(-)&#x2F;目录(d)&#x2F;链接(l)&#x2F;字符型设备(c)&#x2F;块设备(b)&#x2F;网络设备(n)。</p>
+<p>后面一共是9位，每3位为一个部分（分别表示rwx），这<strong>三个部分</strong>依次属于<strong>文件属主（创建文件的用户）</strong>，<strong>属组成员</strong>，<strong>其他用户</strong>权限。</p>
+<p>目录或者文件一开始创建时，会授予默认权限，默认权限与<code>umask</code>值有关。三个用户权限（<strong>三个部分</strong>）各自占用一个八进制位（0-7），一个部分的权限从<code>&#39;---&#39;</code>到<code>&#39;rwx&#39;</code>在八进制位中表示为<code>0-7</code>，如<code>rw-</code>就是6。三个部分合在一个，就是<code>000-777</code>，也就是<code>---------到rwxrwxrwx</code>。</p>
+<p><code>umask</code>命令用于<strong>设置</strong>创建文件或是目录的<strong>默认权限</strong>，我们先在终端输入<code>umask</code>命令</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ umask</span><br><span class="line">0002</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">你的终端可能会输出0022，我好像是在环境文件做过持久化更改（有点记不清了）</span></span><br></pre></td></tr></table></div></figure>
+
+<p>第一位是一个关于特殊权限的位，可以暂时不管。后面三个与默认权限有关。</p>
+<p>对于文件而言，默认的最大权限就是<code>666</code>，也就是<code>rw-rw-rw-</code>，目录的默认最大权限是<code>777</code>。如果你学过计算机网络，你会知道<strong>掩码</strong>这个东西。这里就是，最大默认权限<strong>减去</strong>掩码就会得到文件（目录）创建时赋予的权限。</p>
+<p>比如我的掩码<code>umask=0002</code>，那么创建文件时，<code>666-002=664</code>，得到的权限就是<code>rw-rw-r--</code></p>
+<p>验证一下</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cyan@cyan-virtual-machine:~/Templates$ touch tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rw-rw-r-- 1 cyan cyan 0 7月  31 21:30 tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ umask</span><br><span class="line">0002</span><br></pre></td></tr></table></div></figure>
+
+<p>这里有一篇<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.51cto.com/u_15127673/2803517" >文章</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>参考。</p>
+
+        <h1 id="更改权限"   >
+          <a href="#更改权限" class="heading-link"><i class="fas fa-link"></i></a><a href="#更改权限" class="headerlink" title="更改权限"></a>更改权限</h1>
+      <p>通过<code>chmod</code>命令，可以修改文件的权限</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">chmod</span> 3位八进制权限码 文件名</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ chmod 777 tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rwxrwxrwx 1 cyan cyan 0 7月  31 21:30 tmp.txt*</span><br></pre></td></tr></table></div></figure>
+
+<p>如果你只是想改变某一部分（属主，组内用户，其他用户）的权限，可以使用</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x 文件名 # 属主增加执行权限</span><br><span class="line">chmod g-rx 文件名 # 组内用户减少</span><br><span class="line">chmod o=rwx 文件名 # 其他用户的权限为rwx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举例</span></span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ chmod g-rx tmp.txt</span><br><span class="line">cyan@cyan-virtual-machine:~/Templates$ ll tmp.txt</span><br><span class="line">-rwx-w-rwx 1 cyan cyan 0 7月  31 21:30 tmp.txt*</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">说明</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">u:表示用户(属主)  g:表示组  o:表示其他  a:表示所有</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">+:增加  -:减少  =:赋值</span></span><br></pre></td></tr></table></div></figure>
+
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/31/Database/MySQL/B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8/">B+树索引的使用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-31</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-31</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p>本文主要讲解索引的具体工作原理以及代价，如何正确的建立索引才能使查询变快。在阅读本文前，请一定保证对之前更新的内容（B+树索引）理解明白。</p>
+<p>现在我们先创建一个表，之后方便举例</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">create table single_table (</span><br><span class="line">    id int not null auto_increment</span><br><span class="line">    key1 varchar(100),</span><br><span class="line">    key2 int</span><br><span class="line">    key3 varchar(100),</span><br><span class="line">    key_part1 varchar(100),</span><br><span class="line">    key_part2 varchar(100),</span><br><span class="line">    key_part3 varchar(100),</span><br><span class="line">    common_field varchar(100),</span><br><span class="line">    primary key(id),</span><br><span class="line">    key idx_key1(key1),</span><br><span class="line">    unique key uk_key2(key2),</span><br><span class="line">    key idx_key3(key3),</span><br><span class="line">    key idx_key_part(key_part1,key_part2,key_part3)</span><br><span class="line">) engine=InnoDB character set=utf8; </span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="简化B-树示意图"   >
+          <a href="#简化B-树示意图" class="heading-link"><i class="fas fa-link"></i></a><a href="#简化B-树示意图" class="headerlink" title="简化B+树示意图"></a>简化B+树示意图</h1>
+      <p>我们知道，B+树的非叶子节点是目录项，它是为了定位下一层节点，直到在叶子节点找到对应的记录。其查询算法的本质还是在每个页中使用<strong>二分查找</strong>找到下一层对应的页。那么我们不如将B+树直接简化，只剩下叶子节点。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/30/Shell/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3shell/">深入理解shell</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-30</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="简介"   >
           <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
       <p>以下是维基百科对<code>shell</code>的定义</p>
@@ -792,261 +882,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
       <blockquote>
 <p>本文总结于《从根上理解MySQL》第四章p55-p63，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">字符集与比较规则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="简介"   >
-          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
-      <p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
-<p>为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。</p>
-<p>因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录<strong>128个字符</strong>，<strong>每个字符由一个字节保存</strong>。字符<strong>a</strong>的二进制编码为<code>1100001</code>，字符<strong>b</strong>的二进制编码为<code>1100010</code>，通过比较就可以看出<code>a&gt;b</code>。</p>
-<p>需要记住几种重要的字符集：</p>
-<ul>
-<li>GBK字符集：在字符范围上对GB2312字符集进行扩充，编码方式兼容GB2312字符集。记住其应用广泛即可</li>
-<li>UTF-8字符集：几乎收录各国（地区）使用的字符，并且在不断扩充。使用变长编码方式，一个字符需要使用1~4个字节</li>
-</ul>
-<p>其实UTF-8只是Unicode字符集的一种<strong>编码方案</strong>，其他的还有UTF-16（2或4字节编码一个字符），UTF-32（4字节）。</p>
-
-        <h1 id="MySQL支持的字符集与比较规则"   >
-          <a href="#MySQL支持的字符集与比较规则" class="heading-link"><i class="fas fa-link"></i></a><a href="#MySQL支持的字符集与比较规则" class="headerlink" title="MySQL支持的字符集与比较规则"></a>MySQL支持的字符集与比较规则</h1>
-      
-        <h2 id="utf8mb3和utf8mb4"   >
-          <a href="#utf8mb3和utf8mb4" class="heading-link"><i class="fas fa-link"></i></a><a href="#utf8mb3和utf8mb4" class="headerlink" title="utf8mb3和utf8mb4"></a>utf8mb3和utf8mb4</h2>
-      <p>我们平常使用的字符一般用 1~3 个字节就可以表示，在MySQL中，<strong>字符集表示一个字符所用的最大字节数会影响系统存储和性能</strong>（比如一条记录中变长数据的存储，之后的文章会讲到）。</p>
-<p>总之，你需要记住的是UTF-8使用 1-4 个字节存储方式有点浪费，所以就有了utf8mb3。</p>
-<ul>
-<li>utf8mb3：阉割版的UTF-8字符集，使用1~3个字节表示一个字符。</li>
-<li>utf8mb4：就是UTF-8字符集，使用1~4个字节。</li>
-</ul>
-<p>在MySQL中，<strong>utf8是utf8mb3的别名</strong>。同时，在MySQL8.0中，utf8mb4被极大优化，成为了默认的字符集。</p>
-
-        <h2 id="字符集的查看"   >
-          <a href="#字符集的查看" class="heading-link"><i class="fas fa-link"></i></a><a href="#字符集的查看" class="headerlink" title="字符集的查看"></a>字符集的查看</h2>
-      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show charset;</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| Charset  | Description                     | Default collation   | Maxlen |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |</span><br><span class="line">| dec8     | DEC West European               | dec8_swedish_ci     |      1 |</span><br><span class="line">| cp850    | DOS West European               | cp850_general_ci    |      1 |</span><br><span class="line">| hp8      | HP West European                | hp8_english_ci      |      1 |</span><br><span class="line">| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br></pre></td></tr></table></div></figure>
-
-<p>命令 <code>show (character set | charset) [like 匹配模式];</code> （<code>[]</code>里的内容可以省略）</p>
-<p><code>Maxlen</code>表示该字符集最多需要几个字节表示一个字符。</p>
-<p>​																				<strong>表1  常用字符集与Maxlen</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">Charset</th>
-<th align="center">Maxlen</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ascii</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">latin1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">gb2312</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">gbk</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">utf8</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">utf8mb4</td>
-<td align="center">4</td>
-</tr>
-</tbody></table></div>
-<p><code>Default collation</code>表示默认的比较规则，<strong>一个字符集可能对应多种比较规则</strong>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show collation like &#x27;utf8\_%&#x27;;</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| Collation                | Charset | Id  | Default | Compiled | Sortlen |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| utf8_general_ci          | utf8    |  33 | Yes     | Yes      |       1 |</span><br><span class="line">| utf8_bin                 | utf8    |  83 |         | Yes      |       1 |</span><br><span class="line">| utf8_unicode_ci          | utf8    | 192 |         | Yes      |       8 |</span><br><span class="line">| utf8_icelandic_ci        | utf8    | 193 |         | Yes      |       8 |</span><br><span class="line">| utf8_latvian_ci          | utf8    | 194 |         | Yes      |       8 |</span><br><span class="line">| utf8_romanian_ci         | utf8    | 195 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovenian_ci        | utf8    | 196 |         | Yes      |       8 |</span><br><span class="line">| utf8_polish_ci           | utf8    | 197 |         | Yes      |       8 |</span><br><span class="line">| utf8_estonian_ci         | utf8    | 198 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish_ci          | utf8    | 199 |         | Yes      |       8 |</span><br><span class="line">| utf8_swedish_ci          | utf8    | 200 |         | Yes      |       8 |</span><br><span class="line">| utf8_turkish_ci          | utf8    | 201 |         | Yes      |       8 |</span><br><span class="line">| utf8_czech_ci            | utf8    | 202 |         | Yes      |       8 |</span><br><span class="line">| utf8_danish_ci           | utf8    | 203 |         | Yes      |       8 |</span><br><span class="line">| utf8_lithuanian_ci       | utf8    | 204 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovak_ci           | utf8    | 205 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish2_ci         | utf8    | 206 |         | Yes      |       8 |</span><br><span class="line">| utf8_roman_ci            | utf8    | 207 |         | Yes      |       8 |</span><br><span class="line">| utf8_persian_ci          | utf8    | 208 |         | Yes      |       8 |</span><br><span class="line">| utf8_esperanto_ci        | utf8    | 209 |         | Yes      |       8 |</span><br><span class="line">| utf8_hungarian_ci        | utf8    | 210 |         | Yes      |       8 |</span><br><span class="line">| utf8_sinhala_ci          | utf8    | 211 |         | Yes      |       8 |</span><br><span class="line">| utf8_german2_ci          | utf8    | 212 |         | Yes      |       8 |</span><br><span class="line">| utf8_croatian_ci         | utf8    | 213 |         | Yes      |       8 |</span><br><span class="line">| utf8_unicode_520_ci      | utf8    | 214 |         | Yes      |       8 |</span><br><span class="line">| utf8_vietnamese_ci       | utf8    | 215 |         | Yes      |       8 |</span><br><span class="line">| utf8_general_mysql500_ci | utf8    | 223 |         | Yes      |       1 |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">27 rows in set (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>命令：<code>show collation [like 匹配模式];</code> </p>
-<p>从命名中可以看出有些与地域有关系，如<code>utf8_spanish_ci</code>是西班牙语的比较规则，<code>utf8_polish_ci</code>则是波兰语的比较规则。</p>
-<p>​																	<strong>表2  比较规则后缀英文释义及描述</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">后缀</th>
-<th align="center">英文释义</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">_ai</td>
-<td align="center">accent insensitive</td>
-<td align="center">不区分重音</td>
-</tr>
-<tr>
-<td align="center">_as</td>
-<td align="center">accent sensitive</td>
-<td align="center">区分重音</td>
-</tr>
-<tr>
-<td align="center">_ci</td>
-<td align="center">case insensitive</td>
-<td align="center">不区分大小写</td>
-</tr>
-<tr>
-<td align="center">_cs</td>
-<td align="center">case(大小写) sensitive</td>
-<td align="center">区分大小写</td>
-</tr>
-<tr>
-<td align="center">_bin</td>
-<td align="center">binary</td>
-<td align="center">以二进制方式比较</td>
-</tr>
-</tbody></table></div>
-
-        <h1 id="应用"   >
-          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用" class="headerlink" title="应用"></a>应用</h1>
-      <p>MySQL有四个级别的字符集和比较规则，分别是服务器级别，数据库级别，表级别，列级别。下面解释如何设置和查看不同级别的字符集和比较规则。</p>
-
-        <h3 id="服务器级别"   >
-          <a href="#服务器级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#服务器级别" class="headerlink" title="服务器级别"></a>服务器级别</h3>
-      <p>MySQL提供两个变量来表示服务器级别的字符集和比较规则。</p>
-<p>​																			<strong>表3  服务器对应的系统变量</strong></p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">系统变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">character_set_server</td>
-<td align="center">服务器级别的字符集</td>
-</tr>
-<tr>
-<td align="center">collation_server</td>
-<td align="center">服务器级别的比较规则</td>
-</tr>
-</tbody></table></div>
-<p>相关命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>如果想要修改这两个系统变量，需要通过启动选项或者使用set语句修改 <code>set global/session varName = value</code>（如果看不懂命令，之后的文章会提到<code>global/session</code>）</p>
-
-        <h3 id="数据库级别"   >
-          <a href="#数据库级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据库级别" class="headerlink" title="数据库级别"></a>数据库级别</h3>
-      <p>字符集和比较规则在创建和修改数据库时可以指定该数据库的字符集和比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br><span class="line">	</span><br><span class="line">alter database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br></pre></td></tr></table></div></figure>
-
-<p>数据库级别也有两个系统变量，当我们使用<code>use</code>语句选择一个数据库时，这两个系统变量的值就是该数据库的字符集和比较规则。<strong>如果没有选择数据库，它们的值和服务器级别的系统变量值相同</strong>。</p>
-<p>​																				<strong>表4  数据库对应的系统变量</strong> </p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th align="center">系统变量</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">character_set_database</td>
-<td align="center">当前数据库的字符集</td>
-</tr>
-<tr>
-<td align="center">collation_databased</td>
-<td align="center">当前数据库的比较规则</td>
-</tr>
-</tbody></table></div>
-<p>我们不能通过修改这两个系统变量的值来改变当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database test;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use test;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%_database&#x27;;</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| Variable_name          | Value             |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| character_set_database | latin1            |</span><br><span class="line">| collation_database     | latin1_swedish_ci |</span><br><span class="line">| skip_show_database     | OFF               |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">3 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
-
-<p>可以看到，如果<strong>在创建数据库时没有指定字符集和比较规则，就会使用服务器级别的字符集和比较规则</strong>。</p>
-
-        <h3 id="表级别"   >
-          <a href="#表级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h3>
-      <p>表级别和数据库级别差不多，都是在创建，修改表时可以修改表的字符集和比较规则，如果没有在创建表时指明其字符集和比较规则，就会使用当前数据库的字符集和比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table t(</span><br><span class="line">	col varchar(10)</span><br><span class="line">) character set utf8,collate utf8_general_ci;</span><br><span class="line"></span><br><span class="line">alter table t character set utf8;</span><br></pre></td></tr></table></div></figure>
-
-<p>表查看比较规则</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 使用\G是将输出结果旋转90度输出，方便观看</span><br><span class="line">mysql&gt; show table status from test like &#x27;t&#x27; \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: t</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 0</span><br><span class="line"> Avg_row_length: 0</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: NULL</span><br><span class="line">    Create_time: 2022-07-24 17:44:59</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8_general_ci #比较规则</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">ERROR:</span><br><span class="line">No query specified</span><br></pre></td></tr></table></div></figure>
-
-<p>可以看到，表<code>t</code>的比较规则为<code>utf8_general_ci</code>，则字符集为 <code>utf8</code>（为什么知道比较规则之后就知道了字符集，请继续看）。</p>
-
-        <h3 id="列级别"   >
-          <a href="#列级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h3>
-      <p>同一个表中，不同列也可以有不同的比较规则。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(</span><br><span class="line">	列名 字符串类型 [character set 字符集名称] [collate 比较规则名称],</span><br><span class="line">    其他列....</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table 表名 modify 列名 [character set 字符集名称] [collate 比较规则名称];</span><br></pre></td></tr></table></div></figure>
-
-
-
-<p>需要注意的是，<strong>对于任何一个级别</strong>，存在两条修改规则：</p>
-<ul>
-<li>只修改字符集，则比较规则将会变为修改后的字符集默认的比较规则。</li>
-<li>只修改比较规则，则字符集会变为比较规则对应的字符集。</li>
-</ul>
-<p>如果想要同时修改字符集和比较规则，他们两个一定要适配，比如下列命令</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table t character set utf8 collate utf8mb4_general_ci;</span><br><span class="line">ERROR 1253 (42000): COLLATION &#x27;utf8mb4_general_ci&#x27; is not valid for CHARACTER SET &#x27;utf8&#x27;</span><br></pre></td></tr></table></div></figure>
-
-<p>报错信息为比较规则<code>utf8mb4_general_ci</code>对于字符集<code>utf8</code>是无效的，所以，我们知道了一个表的比较规则，一般也就知道了其字符集。</p>
-
-        <h1 id="引用"   >
-          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
-      <blockquote>
-<p>本文总结于《从根上理解MySQL》第三章p32-p43，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
-</blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/21/Java/%E5%B9%B6%E5%8F%91/JUC_locks1-LockSupport/">J.U.C.locks(1)--LockSupport</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-17</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="源码分析"   >
-          <a href="#源码分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1>
-      
-        <h2 id="实例字段"   >
-          <a href="#实例字段" class="heading-link"><i class="fas fa-link"></i></a><a href="#实例字段" class="headerlink" title="实例字段"></a>实例字段</h2>
-      <p>静态变量保存Thread指定的字段的内存偏移量</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LockSupport</span> &#123;</span><br><span class="line">    <span class="comment">// Hotspot implementation via intrinsics API</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.Unsafe UNSAFE;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//下面属性都是获取内存偏移地址</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> parkBlockerOffset;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> SEED;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> PROBE;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> SECONDARY;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            UNSAFE = sun.misc.Unsafe.getUnsafe();</span><br><span class="line">            Class&lt;?&gt; tk = Thread.class;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//获取Thread的指定字段的内存偏移地址</span></span><br><span class="line">            parkBlockerOffset = UNSAFE.objectFieldOffset</span><br><span class="line">                (tk.getDeclaredField(<span class="string">&quot;parkBlocker&quot;</span>));</span><br><span class="line">            SEED = UNSAFE.objectFieldOffset</span><br><span class="line">                (tk.getDeclaredField(<span class="string">&quot;threadLocalRandomSeed&quot;</span>));</span><br><span class="line">            PROBE = UNSAFE.objectFieldOffset</span><br><span class="line">                (tk.getDeclaredField(<span class="string">&quot;threadLocalRandomProbe&quot;</span>));</span><br><span class="line">            SECONDARY = UNSAFE.objectFieldOffset</span><br><span class="line">                (tk.getDeclaredField(<span class="string">&quot;threadLocalRandomSecondarySeed&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(ex); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p>LockSupport的构造方法被private修饰，不能在外部实例化。</p>
-
-        <h2 id="重要函数"   >
-          <a href="#重要函数" class="heading-link"><i class="fas fa-link"></i></a><a href="#重要函数" class="headerlink" title="重要函数"></a>重要函数</h2>
-      
-        <h3 id="park-x2F-unpark"   >
-          <a href="#park-x2F-unpark" class="heading-link"><i class="fas fa-link"></i></a><a href="#park-x2F-unpark" class="headerlink" title="park&#x2F;unpark"></a>park&#x2F;unpark</h3>
-      <p>从源码可知，LockSupport的park和unpark都是基于sun.misc.Unsafe实现，sun.misc.Unsafe对于这两个函数相关的定义为</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">park</span><span class="params">(<span class="type">boolean</span> isAbsolute, <span class="type">long</span> time)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">unpark</span><span class="params">(Thread thread)</span>;</span><br></pre></td></tr></table></div></figure>
-
-<p>park中的第一个参数isAbsolute，表示第二个参数是绝对时间（isAbsolute&#x3D;&#x3D;true）还是相对时间（false），绝对时间的单位是毫秒，相对时间的单位是纳秒，其本质都是传入一个long的字段。</p>
-<p>简单地说，park的作用就是让一个线程进入等待队列，当time是0时，就是无限等待，直到其他线程调用unpark。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, IllegalAccessException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Unsafe构造方法私有，不能被实例化，通过反射获得对象</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> Unsafe.class.getDeclaredField(<span class="string">&quot;theUnsafe&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">Unsafe</span> <span class="variable">unsafe</span> <span class="operator">=</span> (Unsafe) f.get(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//绝对时间，单位为毫秒</span></span><br><span class="line">       <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;park绝对时间测试，单位毫秒&quot;</span>);</span><br><span class="line">            unsafe.park(<span class="literal">true</span>,System.currentTimeMillis()+<span class="number">3000</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;绝对时间测试结束&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;park相对时间测试，单位纳秒&quot;</span>);</span><br><span class="line">            unsafe.park(<span class="literal">false</span>,<span class="number">300000000L</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;相对时间测试结束&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p><code>park</code>函数有两个重载版本。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">park</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">park</span><span class="params">(Object blocker)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">park</span><span class="params">(Object blocker)</span> &#123;</span><br><span class="line">    <span class="comment">// 获取当前线程</span></span><br><span class="line">    <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">    <span class="comment">// 设置Blocker</span></span><br><span class="line">    setBlocker(t, blocker);</span><br><span class="line">    <span class="comment">// 获取许可</span></span><br><span class="line">    UNSAFE.park(<span class="literal">false</span>, <span class="number">0L</span>);</span><br><span class="line">    <span class="comment">// 重新可运行后再此设置Blocker</span></span><br><span class="line">    setBlocker(t, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setBlocker</span><span class="params">(Thread t, Object arg)</span> &#123;</span><br><span class="line">    <span class="comment">// 设置线程t的parkBlocker字段的值为arg</span></span><br><span class="line">    UNSAFE.putObject(t, parkBlockerOffset, arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p>第二次<code>setBlocker</code>时，是其他线程调用了<code>unpark</code>后，该线程从<code>park</code>中恢复，将线程中的<code>parkBlocker</code>字段重新置为<code>null</code>。在<code>setBlocker</code>中，传入的第二个参数就是<code>LockSupport</code>静态代码块中，通过<code>Unsafe</code>获得的<code>parkBlocker</code>在<code>Thread</code>中的地址偏移量。</p>
-<p><code>LockSupport</code>还有其他函数，此处稍微列举一下。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">parkNanos</span><span class="params">(Object blocker, <span class="type">long</span> nanos)</span> &#123;...&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">parkUntil</span><span class="params">(Object blocker, <span class="type">long</span> deadline)</span> &#123;...&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h1 id="基本使用"   >
-          <a href="#基本使用" class="heading-link"><i class="fas fa-link"></i></a><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1>
-      <p><code>LockSupport.park()</code>和<code>LockSupport.unpark()</code>用于指定线程的等待和唤醒</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.LockSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        Thread.currentThread().setName(<span class="string">&quot;main线程&quot;</span>);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;线程开始运行...&quot;</span>);</span><br><span class="line">                LockSupport.park();<span class="comment">//线程进入阻塞</span></span><br><span class="line">                System.out.println(<span class="string">&quot;线程阻塞结束...&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        t.setName(<span class="string">&quot;t线程&quot;</span>);</span><br><span class="line">        t.start();</span><br><span class="line"></span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">2</span>);<span class="comment">//主线程先休眠两秒，保证另一个线程一定先执行LockSupport.park()</span></span><br><span class="line">        LockSupport.unpark(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p>在<code>main</code>函数中的<code>LockSupport.unpark()</code>一行代码打断点，选择下栏的Debug-&gt;Layout setting-&gt;Frames查看t线程的状态（WAIT）</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/24/576db05114ca5c7d.png" alt="image-20220724125734871"></p>
-
-        <h1 id="深入理解"   >
-          <a href="#深入理解" class="heading-link"><i class="fas fa-link"></i></a><a href="#深入理解" class="headerlink" title="深入理解"></a>深入理解</h1>
-      
-        <h2 id="Object-wait-和Condition-await-的区别"   >
-          <a href="#Object-wait-和Condition-await-的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#Object-wait-和Condition-await-的区别" class="headerlink" title="Object.wait()和Condition.await()的区别"></a>Object.wait()和Condition.await()的区别</h2>
-      <p><code>Object.wait()</code>和<code>Condition.await()</code>的原理是基本一致的，不同的是<code>Condition.await()</code>底层是调用<code>LockSupport.park()</code>来实现阻塞当前线程的。</p>
-<p>实际上，它在阻塞当前线程之前还干了两件事，一是把当前线程添加到条件队列中，二是“完全”释放锁，也就是让<code>state</code>状态变量变为0，然后才是调用<code>LockSupport.park()</code>阻塞当前线程。</p>
-
-        <h2 id="关于park的点"   >
-          <a href="#关于park的点" class="heading-link"><i class="fas fa-link"></i></a><a href="#关于park的点" class="headerlink" title="关于park的点"></a>关于park的点</h2>
-      <ul>
-<li><code>park</code>不会释放锁资源。</li>
-<li><code>park</code>可以被<code>interrupt</code>打断，但是不需要处理<code>InterruptedException</code>异常。</li>
-<li><code>LockSupport.park()</code>底层是调用的<code>Unsafe</code>的<code>native</code>方法。</li>
-</ul>
-
-        <h1 id="参考文章"   >
-          <a href="#参考文章" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1>
-      <blockquote>
-<p>Java全栈知识体系：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/thread/java-thread-x-lock-LockSupport.html" >https://pdai.tech/md/java/thread/java-thread-x-lock-LockSupport.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">71</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">73</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="类的生命周期        加载、验证、准备和初始化这四个阶段发生的顺序是确定的，而解析阶段则不一定，它在某些情况下可以在初始化阶段之后开始，这是为了支持Java语言的运行时绑定(也成为动态绑定或晚期绑定)。  这些阶段知识按顺序开始，并不是按顺序结束，这些阶段往往互相交叉混合进行，再一个阶段执行过程中调用或激活另一个阶段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM(3)--类加载机制">
+<meta property="og:url" content="https://cecilia.cool/2022/10/09/Java/JVM/JVM(3)-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="慕青的日记">
+<meta property="og:description" content="类的生命周期        加载、验证、准备和初始化这四个阶段发生的顺序是确定的，而解析阶段则不一定，它在某些情况下可以在初始化阶段之后开始，这是为了支持Java语言的运行时绑定(也成为动态绑定或晚期绑定)。  这些阶段知识按顺序开始，并不是按顺序结束，这些阶段往往互相交叉混合进行，再一个阶段执行过程中调用或激活另一个阶段。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/09/167570c48203f9c9.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/09/842b5cd01faa5b42.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/09/f122fdb91f027a3f.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/09/28f0a77b42aeafb5.jpg">
+<meta property="article:published_time" content="2022-10-09T04:39:46.000Z">
+<meta property="article:modified_time" content="2022-10-09T07:11:08.031Z">
+<meta property="article:author" content="Cyan">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/10/09/167570c48203f9c9.jpg"><title>JVM(3)--类加载机制 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/10/09/Java/JVM/JVM(3)-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">JVM(3)--类加载机制</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-09</span></span></div></header><div class="post-body">
+        <h1 id="类的生命周期"   >
+          <a href="#类的生命周期" class="heading-link"><i class="fas fa-link"></i></a><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h1>
+      <p><img src="https://s3.bmp.ovh/imgs/2022/10/09/167570c48203f9c9.jpg"></p>
+<p><code>加载</code>、<code>验证</code>、<code>准备</code>和<code>初始化</code>这四个阶段发生的顺序是确定的，而<code>解析</code>阶段则不一定，它在某些情况下可以在初始化阶段之后开始，这是为了支持Java语言的运行时绑定(也成为动态绑定或晚期绑定)。</p>
+<blockquote>
+<p>这些阶段知识按顺序开始，并不是按顺序结束，这些阶段往往互相交叉混合进行，再一个阶段执行过程中调用或激活另一个阶段。</p>
+</blockquote>
+
+        <h1 id="类的加载"   >
+          <a href="#类的加载" class="heading-link"><i class="fas fa-link"></i></a><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h1>
+      <p>首先介绍几个概念：</p>
+<ul>
+<li>方法区：JVM实例内部，类型信息被存储在方法区的内存逻辑区中。类型信息是由类加载时从类文件中提取出来的。方法区又叫做静态区，被所有线程共享，方法区包含所有<code>class</code>和<code>static</code>。静态<strong>常量</strong>存放在方法区的常量区中，这之后会讲解。</li>
+</ul>
+<p>加载阶段虚拟机需要完成：</p>
+<ul>
+<li>通过类的全限定名（从方法区）来获取其定义的二进制字节流。</li>
+<li>字节流代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在Java堆中生成代表这个类的<code>java.lang.Class</code>对象，作为对方法区中这些数据的访问入口。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/09/842b5cd01faa5b42.jpg"></p>
+<p>类加载器不需要等待某个类首次主动使用时在加载，JVM允许预料某个类需要使用时主动加载。在<strong>预加载</strong>中遇到.class文件缺失或存在错误，类加载器必须在程序<strong>首次主动使用</strong>该类时才会报错误–LinkageError。</p>
+
+        <h1 id="连接"   >
+          <a href="#连接" class="heading-link"><i class="fas fa-link"></i></a><a href="#连接" class="headerlink" title="连接"></a>连接</h1>
+      
+        <h2 id="验证"   >
+          <a href="#验证" class="heading-link"><i class="fas fa-link"></i></a><a href="#验证" class="headerlink" title="验证"></a>验证</h2>
+      <p>确保被加载的类的正确性，也就是Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全。</p>
+<blockquote>
+<p>如果使用纯Java代码编写的类，编译出来的class文件是相对安全的。但是.class文件并不只是由Java源码编译而来，哪怕用键盘输入01并将文件后缀改为.class都可以，所以验证非常有必要。</p>
+</blockquote>
+<p>验证阶段的检验动作：</p>
+<ul>
+<li><strong>文件格式验证</strong>：验证字节流是否符合Class文件格式的规范。（魔数，主次版本，常量的tag标志等）</li>
+<li><strong>元数据验证</strong>：对字节码描述的信息进行语义分析。（该类是否继承不可继承的final类，是否覆盖父类的final字段等）</li>
+<li><strong>字节码验证</strong>：通过数据流和控制流分析，确定程序语义是合法的，符合逻辑的。</li>
+<li><strong>符号引用验证</strong>：确保解析动作能正确执行。</li>
+</ul>
+<blockquote>
+<p>验证阶段是非常重要的，但不是必须的，它对程序运行期没有影响，如果所引用的类经过反复验证，那么可以考虑采用<code>-Xverifynone</code>参数来关闭大部分的类验证措施，以缩短虚拟机类加载的时间。</p>
+</blockquote>
+
+        <h2 id="准备"   >
+          <a href="#准备" class="heading-link"><i class="fas fa-link"></i></a><a href="#准备" class="headerlink" title="准备"></a>准备</h2>
+      <p>正式为类变量分配内存并设置类变量<strong>初始值</strong>的阶段，<strong>这些内存都将在方法区中分配</strong>。</p>
+<ul>
+<li>内存分配的仅包括静态变量，<strong>不包括</strong>实例变量。<strong>实例变量是在对象实例化时随着对象一块分配在Java堆中</strong>。</li>
+<li>初始值：<code>0,0L,null,false</code>等。</li>
+</ul>
+<p>比如某个类由以下语句：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p>在准备阶段只会赋值0，将<code>value</code>赋值为3的<code>put static</code>指令存放于<code>&lt;clinit()&gt;</code>方法中。所以初始化阶段才会赋值为3。</p>
+<p><code>&lt;clinit&gt;</code>方法是类加载的<strong>初始化</strong>过程中，编译器按语句在源文件中出现的顺序，依次自动收集类中的静态变量的赋值动作和静态代码块中的语句合并产生<code>&lt;clinit&gt;</code>方法。并且 <code>&lt;clinit&gt;()</code> 不需要显式调用父类（接口除外，接口不需要调用父接口的初始化方法，只有使用到父接口中的静态变量时才需要调用）的初始化方法 <code>&lt;clinit&gt;()</code>，虚拟机会保证在子类的 <code>&lt;clinit&gt;()</code> 方法执行之前，父类的 <code>&lt;clinit&gt;()</code> 方法已经执行完毕。</p>
+<p>随便写个类：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> a ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>编译后通过<code>jclasslib</code>插件查看：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/09/f122fdb91f027a3f.jpg"></p>
+<blockquote>
+<p>当 int 取值 -128~127 时，JVM 采用 <code>bipush</code> 指令将常量压入栈中。</p>
+</blockquote>
+<p>还需要注意几点：</p>
+<ul>
+<li>对于同时被<code>static</code>和<code>final</code>修饰的常量，必须在声明的时候就为其显式地赋值，否则编译时不通过；只被final修饰的常量则既可以在声明时显式地为其赋值，也可以在类初始化时显式地为其赋值。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>此时编译会报错：<strong>java: 变量 tmp 未在默认构造器中初始化</strong>。</p>
+<p>必须在构造器中将<code>final</code>变量初始化：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Test</span><span class="params">(<span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.k = k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>同时被<code>static</code>和<code>final</code>修饰的常量，类会为它生成<code>ConstantValue</code>属性，在准备阶段JVM就会根据<code>ConstantValue</code>的设置将变量赋值。</li>
+</ul>
+
+        <h2 id="解析"   >
+          <a href="#解析" class="heading-link"><i class="fas fa-link"></i></a><a href="#解析" class="headerlink" title="解析"></a>解析</h2>
+      <p>JVM将常量池内的符号引用替换为直接引用的过程，解析动作主要针对<code>类</code>或<code>接口</code>、<code>字段</code>、<code>类方法</code>、<code>接口方法</code>、<code>方法类型</code>、<code>方法句柄</code>和<code>调用点</code>限定符7类符号引用进行。符号引用就是一组符号来描述目标，可以是任何字面量。</p>
+<p><code>直接引用</code>就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。</p>
+
+        <h2 id="初始化"   >
+          <a href="#初始化" class="heading-link"><i class="fas fa-link"></i></a><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2>
+      <p>初始化，为类的静态变量赋予正确的初始值，JVM负责对类进行初始化，主要对类变量进行初始化。</p>
+<blockquote>
+<p>也就是<code>&lt;clinit&gt;</code>方法。</p>
+</blockquote>
+<p><strong>类初始化时机</strong>: 只有当对类的主动使用的时候才会导致类的初始化，类的主动使用包括以下六种:</p>
+<ul>
+<li><p>创建类的实例，也就是new的方式</p>
+</li>
+<li><p>访问某个类或接口的静态变量，或者对该静态变量赋值</p>
+</li>
+<li><p>调用类的静态方法（也经常和第二点合并在一起）</p>
+</li>
+<li><p>反射(如Class.forName(“com.pdai.jvm.Test”))</p>
+</li>
+<li><p>初始化某个类的子类，则其父类也会被初始化</p>
+</li>
+<li><p>Java虚拟机启动时被标明为启动类的类(Java Test)，直接使用java.exe命令来运行某个主类</p>
+</li>
+</ul>
+<p>只有这六种是主动使用，其他的都是被动使用，被动使用不会初始化。被动引用的例子可以看这篇<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/zhangliangzi/article/details/51319033" >博客</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h3 id="注意"   >
+          <a href="#注意" class="heading-link"><i class="fas fa-link"></i></a><a href="#注意" class="headerlink" title="注意"></a>注意</h3>
+      <p>关于访问类的静态变量，一定要注意这里写的是<strong>变量，变量，变量</strong>（重要的是强调三遍）。<code>static final int a = 10;</code>是<strong>常量，常量，常量</strong>。访问<code>a</code>不会让类被加载。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(Test.str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>写一下<code>Test</code>类：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我被初始化了！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;都看到这里了，不给个三连+关注吗？&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>先编译一下，看一下<code>Main.class</code>的内容：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Main</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;都看到这里了，不给个三连+关注吗？&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>字节码文件中，将<code>Test.str</code>直接替换成了字符串，那么执行时和<code>Test</code>也就没有任何关系了，自然也不会实例化<code>Test</code>。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/09/28f0a77b42aeafb5.jpg"></p>
+<blockquote>
+<p>当 int 取值 -2147483648~2147483647 时，JVM 采用 <code>ldc</code> 指令将常量压入栈中。</p>
+</blockquote>
+
+        <h2 id="卸载"   >
+          <a href="#卸载" class="heading-link"><i class="fas fa-link"></i></a><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2>
+      <p>JVM将结束生命周期的几种情况：</p>
+<ul>
+<li>执行了System.exit()方法</li>
+<li>程序正常执行结束</li>
+<li>程序在执行过程中遇到了异常或错误而异常终止</li>
+<li>由于操作系统出现错误而导致Java虚拟机进程终止</li>
+</ul>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/zhangliangzi/article/details/51319033" >https://blog.csdn.net/zhangliangzi/article/details/51319033</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-classload.html" >https://pdai.tech/md/java/jvm/java-jvm-classload.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/keopmg#ddafc876" >https://www.yuque.com/qingkongxiaguang/javase/keopmg#ddafc876</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/wangguoning/p/6109377.html" >https://www.cnblogs.com/wangguoning/p/6109377.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>《深入理解Java虚拟机》第三版</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/czwbig/p/11155555.html" >https://www.cnblogs.com/czwbig/p/11155555.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/10/09/Java/JVM/JVM(3)-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">https://cecilia.cool/2022/10/09/Java/JVM/JVM(3)-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/JVM/">JVM</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/10/10/Java/JVM/JVM(4)-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">JVM(4)--类加载器</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/10/08/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%AE%BF%E9%97%AE%E8%80%85/"><span class="paginator-prev__text">行为型--访问者</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">
+          类的生命周期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">
+          类的加载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">
+          连接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">3.1.</span> <span class="toc-text">
+          验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text">
+          准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-number">3.3.</span> <span class="toc-text">
+          解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.4.</span> <span class="toc-text">
+          初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">3.4.1.</span> <span class="toc-text">
+          注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">3.5.</span> <span class="toc-text">
+          卸载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">75</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

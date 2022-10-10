@@ -30,7 +30,245 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">字符集与比较规则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/25/Java/%E5%B9%B6%E5%8F%91/JUC_%E5%8E%9F%E5%AD%90%E7%B1%BB1-CAS%E4%B8%8EUnsafe/">J.U.C原子类(1)--CAS与Unsafe</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-09</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="线程安全的实现方法"   >
+          <a href="#线程安全的实现方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h1>
+      
+        <h2 id="互斥同步"   >
+          <a href="#互斥同步" class="heading-link"><i class="fas fa-link"></i></a><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h2>
+      <p>使用<code>synchronized</code>和<code>ReentrantLock</code> </p>
+
+        <h2 id="非阻塞同步"   >
+          <a href="#非阻塞同步" class="heading-link"><i class="fas fa-link"></i></a><a href="#非阻塞同步" class="headerlink" title="非阻塞同步"></a>非阻塞同步</h2>
+      <p>互斥同步最主要的问题是<strong>线程阻塞和唤醒所带来的性能问题</strong>，因此这种同步也称为阻塞同步。</p>
+<p>互斥同步属于一种悲观的并发策略，总是认为只要不去做正确的同步措施，那就肯定会出现问题。无论共享数据是否真的会出现竞争，它都要进行加锁(这里讨论的是概念模型，实际上虚拟机会优化掉很大一部分不必要的加锁)、用户态核心态转换、维护锁计数器和检查是否有被阻塞的线程需要唤醒等操作。</p>
+
+        <h3 id="AtomicInteger"   >
+          <a href="#AtomicInteger" class="heading-link"><i class="fas fa-link"></i></a><a href="#AtomicInteger" class="headerlink" title="AtomicInteger"></a>AtomicInteger</h3>
+      <p>该类是整数原子类，其中很多方法都使用了Unsafe类的CAS操作，以<code>incrementAndGet()</code>为例</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AtomicInteger类的increment()方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">incrementAndGet</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="built_in">this</span>, valueOffset, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Unsafe类的getAndInt(Object var1,long var2,int var4)方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">getAndAddInt</span><span class="params">(Object var1, <span class="type">long</span> var2, <span class="type">int</span> var4)</span> &#123;</span><br><span class="line">    <span class="comment">//var1指示对象内存地址，var2指示该字段相对对象内存地址的偏移，var4是要加的数值</span></span><br><span class="line">    <span class="type">int</span> var5;<span class="comment">//step1</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">//通过var1,var2拿到旧值,step2</span></span><br><span class="line">        var5 = <span class="built_in">this</span>.getIntVolatile(var1, var2);</span><br><span class="line">    &#125; <span class="keyword">while</span>(!<span class="built_in">this</span>.compareAndSwapInt(var1, var2, var5, var5 + var4));</span><br><span class="line">	<span class="comment">//进行CAS操作，比较期望的旧值var5和当前内存的值是否相同。进行相加操作</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> var5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>上述代码中，<code>step1</code>和<code>step2</code>以及<code>step2-&gt;step3</code>过程都可能出现并发问题，有可能<code>step2</code>拿到<code>var5</code>之后，那片内存的值又被修改，于是<code>while</code>条件中的CAS操作返回<code>false</code>，继续循环，不断冲突检测，直到将数加到内存中。</p>
+
+        <h2 id="无同步方案"   >
+          <a href="#无同步方案" class="heading-link"><i class="fas fa-link"></i></a><a href="#无同步方案" class="headerlink" title="无同步方案"></a>无同步方案</h2>
+      <p>涉及线程池，暂不加讲解</p>
+
+        <h1 id="CAS"   >
+          <a href="#CAS" class="heading-link"><i class="fas fa-link"></i></a><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h1>
+      <p>我们希望在并发的过程中，先进行操作，如果没有其他线程争用共享数据，那么操作就成功了，否则就采取补偿措施。这种<strong>基于冲突检测的乐观的操作</strong>许多实现都不需要将线程阻塞，因此这种同步操作称为非阻塞同步。</p>
+<p><strong>乐观锁</strong>需要操作和冲突检测这两个步骤具备原子性，这里的原子性不能够使用互斥同步来保证，只能靠<strong>硬件</strong>来完成。硬件支持的原子性操作最典型的是: <strong>比较并交换</strong>(<code>Compare-and-Swap，CAS</code>)。<code>CAS</code> 指令需要有 3 个操作数，分别是内存地址 <code>V</code>、旧的预期值 <code>A</code> 和新值 <code>B</code>。当执行操作时，只有当 <code>V</code> 的值等于 <code>A</code>，才将 <code>V</code> 的值更新为 <code>B</code>。</p>
+<p>因为<code>CAS</code>操作时原子性的，所以多线程并发使用<code>CAS</code>更新数据时不用锁。类似<code>sql</code>中的条件更新一样：<code>update set id=3 from table where id=2</code>。因为单条<code>sql</code>执行具有原子性，如果有多个线程同时执行此<code>sql</code>语句，只有一条能更新成功（就是最后一个执行的那个）。</p>
+<p><code>CAS</code>方式为乐观锁，<code>synchronized</code>为悲观锁。因此使用 <code>CAS</code> 解决并发问题通常情况下性能更优。</p>
+<p>在应用方面，比如<code>Unsafe</code>类，<code>AtomicInteger</code>类等，之后会一 一讲解。</p>
+<p>问题：</p>
+<ul>
+<li><code>ABA</code>问题，如果一个变量初次读取的时候是 <code>A</code> 值，它的值被改成了 <code>B</code>，后来又被改回为 ·，那 <code>CAS</code> 操作就会误认为它从来没有被改变过。<code>J.U.C</code> 包提供了一个带有标记的原子引用类 <code>AtomicStampedReference</code> 来解决这个问题，它可以通过控制变量值的<strong>版本</strong>来保证 <code>CAS</code> 的正确性。在变量前加上版本号，每次变量更新的时候把版本加1，那么<code>A-&gt;B-&gt;A</code>就会变成<code>1A-&gt;2B-&gt;3A</code>，从前是比较期望的旧值和当前值，现在多比较一个版本号（<code>compareAndSet</code>方法），更新时两个一起更新。<strong>大部分情况下 ABA 问题不会影响程序并发的正确性</strong>，如果需要解决 ABA 问题，<strong>改用传统的互斥同步可能会比原子类更高效</strong>。</li>
+<li>不断循环其实就是自旋，自旋<code>CAS</code>如果长时间不成功，会给<code>CPU</code>带来非常大的执行开销。</li>
+<li>只能保证一个共享变量的原子操作，多了就可以用锁。</li>
+</ul>
+
+        <h1 id="Unsafe类详解"   >
+          <a href="#Unsafe类详解" class="heading-link"><i class="fas fa-link"></i></a><a href="#Unsafe类详解" class="headerlink" title="Unsafe类详解"></a>Unsafe类详解</h1>
+      <p>Unsafe是位于<code>sun.misc</code>包下的一个类，主要提供一些用于执行<strong>低级别</strong>、<strong>不安全</strong>操作的方法，如直接访问系统内存资源、自主管理内存资源等，这些方法在提升Java运行效率、增强Java语言底层资源操作能力方面起到了很大的作用。但由于Unsafe类使Java语言拥有了类似C语言指针一样操作内存空间的能力，这无疑也增加了程序发生相关指针问题的风险。在程序中过度、不正确使用Unsafe类会使得程序出错的概率变大，使得Java这种安全的语言变得不再“安全”，因此对Unsafe的使用一定要慎重。</p>
+<p>该类的构造方法是私有的，只有通过反射才能拿到其实例化对象</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//Unsafe构造方法私有，不能被实例化，通过反射获得对象</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> Unsafe.class.getDeclaredField(<span class="string">&quot;theUnsafe&quot;</span>);</span><br><span class="line">    f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">    <span class="type">Unsafe</span> <span class="variable">unsafe</span> <span class="operator">=</span> (Unsafe) f.get(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Unsafe类提供的API大致可分为：内存操作，CAS，Class相关，对象操作，线程调度，系统信息获取，内存屏障，数组操作。</p>
+<p>通过查看源码，其实Unsafe只提供三种CAS方法</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//paramObject1:int字段所在的对象，paramLong：该字段在该对象中的偏移量，paramObject2：期望的旧值，paramObject3：要更新的值</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="type">boolean</span> <span class="title function_">compareAndSwapObject</span><span class="params">(Object paramObject1, <span class="type">long</span> paramLong, Object paramObject2, Object paramObject3)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="type">boolean</span> <span class="title function_">compareAndSwapInt</span><span class="params">(Object paramObject, <span class="type">long</span> paramLong, <span class="type">int</span> paramInt1, <span class="type">int</span> paramInt2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="type">boolean</span> <span class="title function_">compareAndSwapLong</span><span class="params">(Object paramObject, <span class="type">long</span> paramLong1, <span class="type">long</span> paramLong2, <span class="type">long</span> paramLong3)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p>这几个都是<code>native</code>方法，由C++代码实现，都位于<code>unsafe.cpp</code>文件中</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UNSAFE_ENTRY</span>(jboolean, <span class="built_in">Unsafe_CompareAndSwapInt</span>(JNIEnv *env, jobject unsafe, jobject obj, jlong offset, jint e, jint x))</span><br><span class="line">  <span class="comment">//之前的代码展示我们看到，CAS函数是放在while循环中的，也就是说，返回值是一个布尔值。</span></span><br><span class="line">  <span class="built_in">UnsafeWrapper</span>(<span class="string">&quot;Unsafe_CompareAndSwapInt&quot;</span>);</span><br><span class="line">  oop p = JNIHandles::<span class="built_in">resolve</span>(obj);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//该函数要更新的是一个jint,所以要先根据对象引用+偏移量得到其地址，也就是对应的指针</span></span><br><span class="line">  jint* addr = (jint *) <span class="built_in">index_oop_from_field_offset_long</span>(p, offset);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//很明显，Atomic::cmpxhg才是进行CAS操作（比较+替换）的那一步，x是即将更新的值，e是期望的旧值</span></span><br><span class="line">  <span class="keyword">return</span> (jint)(Atomic::<span class="built_in">cmpxchg</span>(x, addr, e)) == e;</span><br><span class="line">UNSAFE_END</span><br></pre></td></tr></table></div></figure>
+
+<p>当然，Unsafe类还提供了许多硬件级别的操作</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取给定的 paramField 的内存地址偏移量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">long</span> <span class="title function_">staticFieldOffset</span><span class="params">(Field paramField)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分配内存</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">long</span> <span class="title function_">allocateMemory</span><span class="params">(<span class="type">long</span> paramLong)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩充内存</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">long</span> <span class="title function_">reallocateMemory</span><span class="params">(<span class="type">long</span> paramLong1, <span class="type">long</span> paramLong2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 释放内存</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">freeMemory</span><span class="params">(<span class="type">long</span> paramLong)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取数组第一个元素的偏移地址</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span> <span class="title function_">arrayBaseOffset</span><span class="params">(Class paramClass)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>关于Unsafe类的更多知识，可以参考美团技术团队的文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html" >Java魔法类：Unsafe应用解析</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+</blockquote>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/thread/java-thread-x-juc-AtomicInteger.html" >https://pdai.tech/md/java/thread/java-thread-x-juc-AtomicInteger.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html" >https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/25/Database/MySQL/InnoDB%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E8%AE%B0%E5%BD%95/">InnoDB行格式存储记录</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-25</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+      <p>MySQL服务器中负责对表中数据进行读取和写入工作的部分是<strong>存储引擎</strong>，而服务器支持不同类型的存储引擎，如InnoDB，MyISAM，MEMORY等。<strong>真实数据在不同存储引擎的存放格式可能不同</strong>。因为InnoDB现在是MySQL默认的存储引擎，所以会介绍其相关特性。</p>
+<p>在MySQL中，表中的一行数据被称为一条记录，记录保存在页中，页组成B+树，通过二分查找迅速找到记录。如果你还看不太懂，也没太大关系，这句话只是想告诉你InnoDB存储数据的本质。</p>
+
+        <h1 id="InnoDB页"   >
+          <a href="#InnoDB页" class="heading-link"><i class="fas fa-link"></i></a><a href="#InnoDB页" class="headerlink" title="InnoDB页"></a>InnoDB页</h1>
+      <p>数据库会频繁发生数据的读取和写入，这就像操作系统的文件系统一样，会发生大量的与磁盘的交互。但是从磁盘中直接读写数据非常慢，也就是说数据库不可能每次读写数据都直接和磁盘交互，所以就将数据分为若干个页，<strong>以页作为磁盘与内存之间交互的基本单位</strong>，其实页的本质也就是一个固定大小的内存。</p>
+<p>InnoDB中的页大小一般是16KB，也就是说，一次从磁盘中读取的数据最少是16KB，每次将内存中的数据刷新到磁盘中最少也是16KB。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;innodb_page_size&#x27;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| innodb_page_size | 16384 |</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"># 16 * 1024 = 16384</span><br><span class="line">#该系统变量不能在服务器运行时修改。</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="InnoDB行格式"   >
+          <a href="#InnoDB行格式" class="heading-link"><i class="fas fa-link"></i></a><a href="#InnoDB行格式" class="headerlink" title="InnoDB行格式"></a>InnoDB行格式</h1>
+      <p><strong>一条记录的存放格式被称为为行格式或者记录格式</strong>，InnoDB目前有四种行格式：<code>COMPACT</code>，<code>REDUNDANT</code>，<code>DYNAMIC</code>，<code>COMPRESSED</code>。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 指定行格式</span><br><span class="line">create table 表名 (列信息) row_format=行格式名</span><br><span class="line">alter table 表名 row_format=行格式</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="COMPACT行格式"   >
+          <a href="#COMPACT行格式" class="heading-link"><i class="fas fa-link"></i></a><a href="#COMPACT行格式" class="headerlink" title="COMPACT行格式"></a>COMPACT行格式</h2>
+      <p><img src="https://s3.bmp.ovh/imgs/2022/07/25/49b544009f43872c.png" alt="image-20220725103902849"></p>
+
+        <h3 id="变长字段长度列表"   >
+          <a href="#变长字段长度列表" class="heading-link"><i class="fas fa-link"></i></a><a href="#变长字段长度列表" class="headerlink" title="变长字段长度列表"></a>变长字段长度列表</h3>
+      <p>我们先创建一个表，用于之后的示例讲解</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table record_format_demo (</span><br><span class="line">	t1 varchar(10),</span><br><span class="line">    t2 varchar(256),</span><br><span class="line">    t3 varchar(20) not null</span><br><span class="line">) character set = ascii row_format = COMPACT;</span><br></pre></td></tr></table></div></figure>
+
+<p>变长字段指的就是varchar(10)这种，不能预先确定存储的数据的大小。在InnoDB读取数据时，如果是一个确定大小的数据，那么就能根据其大小确定偏移量从而读取出正确的数据，但是变长数据是不确定的，所以就需要保存这个变长字段（不为NULL）的长度，来告诉InnoDB这个数据的大小。</p>
+<p>所以变长字段占用的存储空间分为两部分：</p>
+<ul>
+<li>真正的数据内容</li>
+<li>该数据占用的字节数</li>
+</ul>
+<p>在COMPACT行格式中，所有变长字段的真实数据占用字节数都存放在记录的开头位置(十六进制，各字段长度之间没有空格)，从而形成一个变长字段长度列表。各字段占用<strong>字节数</strong>按列的顺序逆序存放，是逆序存放！</p>
+<p>有时用于表示长度的数据，需要占据不止一个字节。比如某一变长字段占字节<code>n=700</code>,那么就需要用到多个字节来表示<code>n</code>，<strong>因为一个字节哪怕加上符号位也表示不了n</strong>。关于使用几个字节，InnoDB有属于自己的规则，此处引入<code>W，M，L</code>三个符号：</p>
+<ul>
+<li><p>W：假设某个<strong>字符集</strong>中最多需要<code>W</code>字节表示一个字符(也就是<code>show charset;</code> 中的<code>MaxLen</code>列)</p>
+</li>
+<li><p>M：对于变长类型<code>VARCHAR(M)</code>来说，这种类型表示能存储最多<strong>M个字符</strong>(是字符，不是字节)，所以该类型最多能存储<code>M*W</code>个字节</p>
+</li>
+<li><p>L：该变长字段<strong>实际存储</strong>的字符数占用的字节数是L</p>
+</li>
+</ul>
+<p>InnoDB在读取记录变长字段长度列表时，<strong>会先查看表结构</strong>，如果某个字段允许存储最大字节数<code>M*W&lt;=255</code>，就认为只是用1字节表示真实数据占用的字节数。</p>
+<p>如果<code>M*W &gt; 255</code>:</p>
+<ul>
+<li>若<code>L &lt;= 127</code> 使用1字节</li>
+<li>若<code>L &gt; 127</code>  使用2字节</li>
+</ul>
+<blockquote>
+<p>255是1个字节（无符号整型）能表示的最大数，即8位全为1，2^8-1&#x3D;255。</p>
+<p>127是1个字节（有符号整型）能表示的最大数，即最高位0，其他7位为1，2^7-1&#x3D;127</p>
+</blockquote>
+<p>该规则主要就是用于区分长度列表中，当<code>M*W &gt; 255</code>时，一个字节到底是一个单独的字段长度**（L &lt;&#x3D; 127）**，还是半个字段长度**（L &gt; 127)**。设计者使用该字节的第一个二进制位作为标志位：如果该字节的第一个位是0，该字节就是一个单独的字段长度，这也就是0~127的第一位都是0。如果第一位为1，那么该字节就是半个字段长度。</p>
+<blockquote>
+<p>其实可以设定，只要M*W &gt; 255 就使用两个字节存储变长字段长度。之所以分的这么细，是想要节省空间，设计者的良苦用心可见一斑</p>
+</blockquote>
+<p>如果某个字段占用字节特别多，InnoDB可能会把该字段的值的一部分数据存放到<strong>溢出页</strong>中，变长度列表只记录留在本页中的数据长度，<br>所以<strong>2字节表示变长字段长度是完全足够的</strong>。同时，长度列表只有在<strong>有必要存在时</strong>，才会存在（存在不为NULL的变长字段）</p>
+<p>对于<code>CHAR(M)</code>而言，如果使用的<strong>字符集</strong>是变长编码字符集，那么该属性也会被加入到变长列表中，并且长度为<code>M*W</code>(该字符集的MaxLen&#x3D;W)。</p>
+
+        <h3 id="NULL值列表"   >
+          <a href="#NULL值列表" class="heading-link"><i class="fas fa-link"></i></a><a href="#NULL值列表" class="headerlink" title="NULL值列表"></a>NULL值列表</h3>
+      <p>COMPACT把一条记录的值为NULL的统一管理起来，存储到NULL列表中。处理过程：</p>
+<ul>
+<li>统计表中允许储存NULL的列有哪些(比如主键和NOT NULL会被排除)</li>
+<li>如果表中所有列都不能存储NULL，那么NULL值列表也就不存在。否则将每个允许存储NULL的列对应一个二进制位，位按照列的顺序<strong>逆序</strong>排列，位值为1时，代表该列的值为NULL</li>
+<li>MySQL规定NULL列表必须用整数个字节的位表示，不足高位补0</li>
+</ul>
+<blockquote>
+<p>为什么是逆序之后会提到，先不要着急。</p>
+</blockquote>
+
+        <h3 id="记录头信息"   >
+          <a href="#记录头信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#记录头信息" class="headerlink" title="记录头信息"></a>记录头信息</h3>
+      <p>记录头信息由固定的5个字节（40bit）组成，用于描述记录的一些信息</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/25/75ddfe7a3d59a65d.png" alt="image-20220725112044762"></p>
+<p>​																												各二进制位的详细信息</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">预留位1</td>
+<td align="center">没有使用</td>
+</tr>
+<tr>
+<td align="center">预留位2</td>
+<td align="center">没有使用</td>
+</tr>
+<tr>
+<td align="center">deleted_flag</td>
+<td align="center">标记该记录是否被删除</td>
+</tr>
+<tr>
+<td align="center">min_rec_flag</td>
+<td align="center">B+树的每层非叶子节点中最小目录项记录会添加该标记</td>
+</tr>
+<tr>
+<td align="center">n_owned</td>
+<td align="center">页面中记录会被分为多个组，每个组最大的那个记录作为“大哥”，“大哥“的该标志位会记录组中记录条数</td>
+</tr>
+<tr>
+<td align="center">heap_no</td>
+<td align="center">当前记录在页面堆中的相对位置，记录紧密排列的结构称为堆，前面的记录该值小，后面的值更大</td>
+</tr>
+<tr>
+<td align="center">record_type</td>
+<td align="center">当前记录类型，0–普通记录，1–B+树非叶子节点的目录项记录，2–Infimum，3–supremum</td>
+</tr>
+<tr>
+<td align="center">next_record</td>
+<td align="center">表示下一条记录的相对位置</td>
+</tr>
+</tbody></table></div>
+<p>这么多，看不懂无所谓，现在记不住无所谓。</p>
+<p>解释：</p>
+<ul>
+<li>deleted_flag中，0表示没有删除，1表示已经删除。尽管一条记录被标志为删除，但是并不会马上从表中移除，<strong>这是避免移除后要重新排列其他记录，造成性能损耗</strong>。所以这些被标志删除的记录，会组成一个垃圾链表，这些空间又被称为可重用空间，如我新插入的记录，垃圾链表中某一个节点（记录）放得下，就会将新纪录覆盖的那条被标志为删除的记录。</li>
+<li>next_record向我们表明记录会被排列成链表，链表是个好东西。</li>
+<li>record_type表示记录的四种类型，在目前知晓的查询算法中，二分查找已非常优秀的，所以在MySQL中大量使用了二分查找。那么就涉及到记录之间的大小比较，一般是通过键值比较大小。规定<code>record_type=2</code>的记录是所有记录中最小的，<code>record_type=3</code>的记录是所有记录中最大的。这两个记录实际不存储任何真实数据，但是它们分别是记录链表中的起点和终点，非常重要。<code>record_type=1</code>暂时不需要知道。之后会讲解</li>
+</ul>
+
+        <h3 id="记录的真实数据"   >
+          <a href="#记录的真实数据" class="heading-link"><i class="fas fa-link"></i></a><a href="#记录的真实数据" class="headerlink" title="记录的真实数据"></a>记录的真实数据</h3>
+      <p>我需要提醒一下，标题中的记录都是名词，不是动词。</p>
+<p>对于表来说，记录的真实数据除了我们自己设定的数据（比如<code>name=&#39;cyan&#39;</code>之类的），MySQL还会为每个记录默认地添加一些列(也称为<strong>隐藏列</strong>)。</p>
+<p>​														MySQL为每个记录默认添加的列</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">列名</th>
+<th align="center">是否必需</th>
+<th align="center">占用空间</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">row_id</td>
+<td align="center">非必需</td>
+<td align="center">6字节</td>
+<td align="center">行ID，唯一标识一条记录</td>
+</tr>
+<tr>
+<td align="center">trx_id</td>
+<td align="center">必需</td>
+<td align="center">6字节</td>
+<td align="center">事务ID</td>
+</tr>
+<tr>
+<td align="center">roll_pointer</td>
+<td align="center">必需</td>
+<td align="center">7字节</td>
+<td align="center">回滚指针，形成版本链</td>
+</tr>
+</tbody></table></div>
+<p>其实上述列名都是大写！并且这三列数据位于额外信息和真实数据中间</p>
+<p>解释：</p>
+<ul>
+<li>row_id是唯一表示一条记录。如果在创建表时没有指定主键或者没有<strong>不能为NULL的唯一属性</strong>，反正就是，没有一个属性能够唯一表示一条记录，那么row_id就会被添加。</li>
+<li>trx_id与事务有关，暂时不需要了解</li>
+<li>roll_pointer是回滚指针，为了方便大家理解，这里不那么准确的讲，MySQL支持回滚操作，也就是说我们改动一条记录后，如果想要回滚到上一个版本，就需要保存上一个版本的数据，那么roll_pointer就是指向上一个版本（改动前）的内存。</li>
+</ul>
+
+        <h1 id="引用"   >
+          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
+      <blockquote>
+<p>本文总结于《从根上理解MySQL》第四章p55-p63，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">字符集与比较规则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="简介"   >
           <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
       <p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
@@ -310,4 +548,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
       <blockquote>
 <p>冰河《深入理解高并发编程》第一版</p>
 </blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/7/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">73</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/7/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">75</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

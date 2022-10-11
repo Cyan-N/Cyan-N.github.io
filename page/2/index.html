@@ -30,7 +30,85 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/01/Java/%E5%B9%B6%E5%8F%91/Java%E5%85%B3%E9%94%AE%E5%AD%97-volatile/">Java关键字volitale</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-01</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(2)-HashMap/">Java集合(2)--HashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-04</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+      <p>关于这些集合的讲解，作者默认读者都知道该如何使用，所以不会从最基础的开始讲起，会直接跳过什么是映射关系，哈希值等概念的讲解。对于源码的解析也是最主要使用的那些方法。</p>
+
+        <h1 id="一些概念"   >
+          <a href="#一些概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1>
+      <ul>
+<li>负载因子：集合容量都有上限，如果加入集合的数量超过一定允许值，集合就会扩容。负载因子就是衡量当前情况是否需要进行扩容的标准。</li>
+</ul>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果数据占用率达到75%，就会扩容，扩容会重新计算哈希值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>红黑树：一种数据结构，在<code>HashMap</code>里面查询效率是<em>logN</em>，整棵树在插入数据时始终保持近似平衡（不是真的平衡）。JDK1.8后就用红黑树代替<code>HashMap</code>里面的长度超过8的冲突链表了。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/02/760aca61cab61cfc.jpg"></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">LinkedHashMap</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><code>TreeNode</code>就是为了实现红黑树而设计的内部类。</p>
+<blockquote>
+<p><code>HashMap</code>的初始容量是否应该设的比较大，在JDK1.7以前，HashMap用的是冲突链表，HashMap在迭代时，需要遍历整个数组和冲突链表。如果迭代频繁的话，就不宜将初始大小设的过大。</p>
+</blockquote>
+<ul>
+<li><code>modCount</code>：集合只要可以使用迭代器，都需要<code>modCount</code>来记录修改次数。</li>
+<li>实现<code>Map</code>接口：允许<code>key</code>和<code>value</code>都是<code>null</code>。</li>
+</ul>
+
+        <h1 id="核心方法"   >
+          <a href="#核心方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h1>
+      <p>有时会将Java7的方法拿出来和Java8作比较。</p>
+<p>在Java7使用Entry代表数据节点，Java8使用Node，基本没有区别，都是<code>key</code>，<code>value</code>，<code>hash</code>，<code>next</code>四个属性。<code>Node</code>只能适用于链表，<code>TreeNode</code>用于红黑树。</p>
+
+        <h2 id="put"   >
+          <a href="#put" class="heading-link"><i class="fas fa-link"></i></a><a href="#put" class="headerlink" title="put()"></a>put()</h2>
+      <blockquote>
+<p><code>put</code>方法重点也是在于得到哈希值，然后就是处理一下<strong>扩容</strong>，<strong>哈希冲突</strong>，<strong>链表转化红黑树</strong>等问题。</p>
+</blockquote>
+<p>Java7是先扩容再插入值，Java8是先插入值再扩容。第一次<code>put</code>需要初始化一下<code>table</code>数组（从<code>null</code>初始化到默认容量16或者自定义容量），才能加入数据。</p>
+<p>需要注意的是，如果两次使用<code>put</code>时，加入的<code>key</code>都是相同的，那么第二次的<code>value</code>应该覆盖第一次的，所以在<code>put</code>时也应该考虑到这一点，<strong>发生哈希冲突应该首先检查Key是不是相同的再进行下一步操作</strong>。</p>
+<p>重点讲一下扩容操作：扩容时需要重新<code>hash</code>，并不是说要重新调用<code>hash</code>这个函数，<code>Node(TreeNode)</code>节点之前就保存了<code>hash</code>值的。</p>
+<p>如果<code>hash</code>值超过了容量<code>cap</code>，需要取余操作，因为<code>cap</code>都是2的指数，所以<code>cap-1</code>（最大下标）的低位就全是1，取余操作就可以为：<code>hash &amp; (cap - 1)</code>。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/02/d1b17259fca6ec00.jpg"></p>
+<p>所以一条冲突链表上的数据节点的哈希值并不一定都是相同的，可能是取余后才导致下标相同。所以在重新哈希的过程中，就需要对冲突链表拆分为两条链表，一条链表是哈希值本来就是当前下标，另一个是哈希值被取余了的（这条链表上也并不是哈希值都相同，只是取余后值都相同，5和7被2取余值也相同嘛）。</p>
+<p>因为每次扩容都是容量乘2，所以后一条链表的新下标就是<code>i+cap</code>。</p>
+<blockquote>
+<p><code>i&lt;cap，(i+cap) % 2cap = i+cap</code>。</p>
+</blockquote>
+
+        <h2 id="get"   >
+          <a href="#get" class="heading-link"><i class="fas fa-link"></i></a><a href="#get" class="headerlink" title="get()"></a>get()</h2>
+      <blockquote>
+<p><code>get</code>方法内部最重要的就是<code>hash()</code>得到其哈希值，然后再通过<code>equals()</code>找到对应的值。</p>
+</blockquote>
+<p>理解了<code>put</code>的机制和哈希值取余原理后，<code>get</code>分析就比较简单了。</p>
+<ul>
+<li><p>计算 key 的 hash 值，根据 hash 值找到对应数组下标: hash &amp; (length-1)。</p>
+</li>
+<li><p>判断数组该位置处的元素是否刚好就是我们要找的，如果不是，走第三步。</p>
+</li>
+<li><p>判断该元素类型是否是 TreeNode，如果是，用红黑树的方法取数据，如果不是，走第四步。</p>
+</li>
+<li><p>遍历链表，直到找到相等(&#x3D;&#x3D;或equals)的 key。</p>
+</li>
+</ul>
+
+        <h1 id="HashSet"   >
+          <a href="#HashSet" class="heading-link"><i class="fas fa-link"></i></a><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h1>
+      <p><code>HashSet</code>使用了适配器模式，对<code>HashMap</code>进行了简单的包装，对<code>HashSet</code>的函数调用都会转换成合适的<code>HashMap</code>方法。这里提一下，不需要过多赘述。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HashSet是对HashMap的简单包装</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">&#123;</span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;<span class="comment">//HashSet里面有一个HashMap</span></span><br><span class="line">    <span class="comment">// Dummy value to associate with an Object in the backing Map</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">PRESENT</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">()</span> &#123;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;<span class="comment">//简单的方法转换</span></span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-HashMap&amp;HashSet.html" >https://pdai.tech/md/java/collection/java-map-HashMap&amp;HashSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/syy4rz#b2b51e41" >https://www.yuque.com/qingkongxiaguang/javase/syy4rz#b2b51e41</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/6-HashSet%20and%20HashMap.md#get" >https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/6-HashSet%20and%20HashMap.md#get</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/01/Java/%E5%B9%B6%E5%8F%91/Java%E5%85%B3%E9%94%AE%E5%AD%97-volatile/">Java关键字volitale</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-01</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="volatile关键字"   >
           <a href="#volatile关键字" class="heading-link"><i class="fas fa-link"></i></a><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h1>
       <p>并发存在的问题主要是可见性，原子性，有序性。原子性可以通过<code>synchronized</code>实现同步，可见性，有序性通过<code>volatile</code>解决。</p>
@@ -815,116 +893,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-02-basic.html" >https://pdai.tech/md/devops/docker/docker-02-basic.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#a327ddf2" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#a327ddf2</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/20/Docker/Docker(1)-%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/">Docker(1)--容器技术入门</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="虚拟化技术"   >
-          <a href="#虚拟化技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h1>
-      <p>Virtualization是一种资源管理技术，将计算机各种实体资源（服务器，内存，网络）予以抽象，打破实体结构间不可切割的障碍，使用户可以更好的方式利用资源。从而实现在同一主机上运行多个系统或应用。</p>
-<p>软件虚拟化技术是利用软件技术，在现有的物理平台上实现对物理平台访问的截获和模拟。有些软件虚拟化技术需要依赖硬件支持，比如：VMware，KVM。</p>
-<p>Docker就是软件虚拟化，软件虚拟化分为好几类，Docker实际是操作系统层虚拟化。<strong>操作系统级虚拟化也被称为容器化</strong>，它允许多个相互隔离的用户空间实例存在，这些用户空间实例也被<strong>容器</strong>。</p>
-<blockquote>
-<p>普通的进程可以看到计算机所有资源而容器只能看到分配给该容器的资源</p>
-</blockquote>
-<p>实现操作系统虚拟化需要用到<strong>Namespace</strong>及<strong>cgroups</strong>技术。</p>
-<p>因为不是主要讲解虚拟化技术的底层实现，所以详细可以看这篇文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/1602990" >操作系统级虚拟化概述</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
-
-        <h2 id="Docker虚拟化"   >
-          <a href="#Docker虚拟化" class="heading-link"><i class="fas fa-link"></i></a><a href="#Docker虚拟化" class="headerlink" title="Docker虚拟化"></a>Docker虚拟化</h2>
-      <p>Docker是一个开源的应用容器引擎，它让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到安装了任何 Linux 发行版本的机器上。Docker是直接运行在宿主操作系统之上的一个容器（操作系统级别的虚拟化），<strong>所有容器用的都是宿主操作系统的内核</strong>。</p>
-<p>Docker能快速搭建开发环境，并且每个容器相互隔离：我们只需要将这些环境打包成镜像，到需要在服务器上部署时，可以直接下载镜像实现一键部署。</p>
-
-        <h2 id="Docker与虚拟机区别"   >
-          <a href="#Docker与虚拟机区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#Docker与虚拟机区别" class="headerlink" title="Docker与虚拟机区别"></a>Docker与虚拟机区别</h2>
-      <p><img src="https://s3.bmp.ovh/imgs/2022/09/20/204f57e058964113.jpg"></p>
-<p><strong>虚拟机</strong></p>
-<ul>
-<li>基础设施（Infrastructure）：个人电脑，服务器，云主机。</li>
-<li>主操作系统（Host Operating System）：基础设施上运行的MacOS，Windows或者某个Linux发行版。</li>
-<li>虚拟机管理系统（Hypervisor）：利用Hypervisor，可以在主操作系统之上运行多个不同的从操作系统。类型1的Hypervisor有支持MacOS的HyperKit，支持Windows的Hyper-V以及支持Linux的KVM。类型2的Hypervisor有VirtualBox和VMWare。</li>
-<li><strong>操作系统（Guest Operating System）</strong>：假设你需要运行3个相互隔离的应用，则需要使用Hypervisor启动3个从操作系统，也就是3个虚拟机。这些虚拟机都非常大，也许有700MB，这就意味着它们将占用2.1GB的磁盘空间。更糟糕的是，它们还会消耗很多CPU和内存。</li>
-<li>各种依赖：每一个从操作系统都需要安装许多依赖。如果你的的应用需要连接PostgreSQL的话，则需要安装libpq-dev；如果你使用Ruby的话，应该需要安装gems；如果使用其他编程语言，比如Python或者Node.js，都会需要安装对应的依赖库。</li>
-</ul>
-<p><strong>Docker容器</strong></p>
-<ul>
-<li>主操作系统（Host Operating System）：所有主流的Linux发行版都可以运行Docker。对于MacOS和Windows，也有一些办法”运行”Docker。</li>
-<li>Docker守护进程（Docker Daemon）：Docker守护进程取代了Hypervisor，它是运行在操作系统之上的后台进程，<strong>负责管理Docker容器</strong>。</li>
-<li>各种依赖。对于Docker，<strong>应用的所有依赖都打包在Docker镜像中，Docker容器是基于Docker镜像创建的</strong>。</li>
-<li>应用。应用的源代码与它的依赖都打包在Docker镜像中，不同的应用需要不同的Docker镜像。不同的应用运行在不同的Docker容器中，它们是相互隔离的。</li>
-</ul>
-<blockquote>
-<p>Docker守护进程可以直接与主操作系统进行通信，为各个Docker容器分配资源；它还可以将容器与主操作系统隔离，并将各个容器互相隔离。</p>
-</blockquote>
-
-        <h1 id="Docker架构"   >
-          <a href="#Docker架构" class="heading-link"><i class="fas fa-link"></i></a><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h1>
-      <p>Docker是C&#x2F;S架构，通过远程API来管理和创建容器。</p>
-<p>客户端：客户端通过命令行或者其他工具使用Docker SDK和Docker守护进程通信。</p>
-<p>主机：物理或虚拟机器，用于执行Docker守护进程和容器。</p>
-<p>其他的基本概念：</p>
-<ul>
-<li><p><strong>镜像（Image）</strong>：Docker 镜像（Image），就相当于是一个 root 文件系统。</p>
-</li>
-<li><p><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
-</li>
-<li><p><strong>仓库（Repository）</strong>：仓库可看着一个代码控制中心，用来保存镜像。</p>
-</li>
-</ul>
-
-        <h1 id="Docker安装"   >
-          <a href="#Docker安装" class="heading-link"><i class="fas fa-link"></i></a><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1>
-      <blockquote>
-<p>我使用的系统是Ubuntu 20.04.3版本</p>
-</blockquote>
-<p>先安装一些工具</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ca-certificates curl gnupg lsb-release</span><br></pre></td></tr></table></div></figure>
-
-<p>再安装官方的GPG key：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/apt/keyrings</span><br><span class="line"></span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></div></figure>
-
-<p>将Docker的库添加到apt资源列表中：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></div></figure>
-
-<p>更新apt：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></div></figure>
-
-<p>安装Docker CE版本</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker-ce</span><br></pre></td></tr></table></div></figure>
-
-<p>等待安装后，查看Docker版本</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker --version</span><br></pre></td></tr></table></div></figure>
-
-<p>但是我们使用了sudo命令（因为当前用户使用权限可能不足），所以需要将当前用户加入到Docker组里面</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker &lt;用户名&gt;</span><br></pre></td></tr></table></div></figure>
-
-<p>退出ssh终端，重新连接即可生效。</p>
-<p>我们可以先看一下Docker这个组</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里把提示符部分也写出来是为了展示一下我的用户名</span></span><br><span class="line">cyan@cyan-virtual-machine:~$ cat /etc/group</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">最后一排：docker:x:998:cyan</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">我已经执行过usermod命令了，所以docker组有cyan这个用户</span></span><br></pre></td></tr></table></div></figure>
-
-<p>关于详细的Linux组的知识，你可以参考这篇文章：<a href="https://cecilia.cool/2022/07/31/Shell/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">Linux文件权限</a>。</p>
-<blockquote>
-<p>如果加入组后权限依然不够，执行：<code>newgrp docker</code>。newgrp命令是登入群组。</p>
-</blockquote>
-<p>前文提到Docker架构（C&#x2F;S），现在部署Nginx服务器</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d -p 80:80 nginx</span><br></pre></td></tr></table></div></figure>
-
-<p>会从镜像仓库里面下载对应的镜像，下载完成后就在后台运行了</p>
-<blockquote>
-<p>在浏览器的url中输入虚拟机IP，就能看到Nginx启动了</p>
-</blockquote>
-<p>该命令流程：</p>
-<ol>
-<li>Docker客户端将操作发送给服务端，告诉服务端我们要运行nginx这个镜像。</li>
-<li>Docker服务端先看看本地有没有这个镜像，发现没有。</li>
-<li>接着只能从公共仓库Docker Hub去查找下载镜像了。</li>
-<li>下载完成，镜像成功保存到本地。</li>
-<li>Docker<strong>服务端加载Nginx镜像</strong>，启动容器开始正常运行。</li>
-</ol>
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-01-docker-vm.html" >https://pdai.tech/md/devops/docker/docker-01-docker-vm.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/1602990" >https://my.oschina.net/kelvinxupt/blog/1602990</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/jie-fang/p/10279629.html" >https://www.cnblogs.com/jie-fang/p/10279629.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">76</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">77</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

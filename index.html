@@ -30,7 +30,134 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/12/Java/JVM/JVM(7)-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">JVM(6)--内存模型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-12</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/13/Java/JVM/JVM(8)-%E5%AF%B9%E8%B1%A1%E5%AD%98%E6%B4%BB%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">JVM(8)--对象存活与垃圾回收</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-14</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="对象存活算法"   >
+          <a href="#对象存活算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#对象存活算法" class="headerlink" title="对象存活算法"></a>对象存活算法</h1>
+      <blockquote>
+<p>尽量以简短精炼的语言讲解，唔，所见即所达。</p>
+</blockquote>
+
+        <h2 id="引用计数算法"   >
+          <a href="#引用计数算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h2>
+      <p>给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。</p>
+<p>两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收。</p>
+<p>正因为循环引用的存在，因此 Java 虚拟机不使用引用计数算法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReferenceCountingGC</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">Object</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ReferenceCountingGC</span> <span class="variable">objectA</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReferenceCountingGC</span>();</span><br><span class="line">        <span class="type">ReferenceCountingGC</span> <span class="variable">objectB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReferenceCountingGC</span>();</span><br><span class="line">        objectA.instance = objectB;</span><br><span class="line">        objectB.instance = objectA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h2 id="可达性分析算法"   >
+          <a href="#可达性分析算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h2>
+      <p>通过GC Roots作为起始点进行搜索，能够达到的对象都是存活的，不可达的对象可被回收。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/13/b793a432c31cfc5a.jpg"></p>
+<p>GC Roots一般包含：</p>
+<ul>
+<li><a href="https://cecilia.cool/2022/10/10/Java/JVM/JVM(5)-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B9%8B%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89/#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88">虚拟机栈</a>中引用的对象（每个线程都有一个虚拟机栈）。</li>
+<li><a href="https://cecilia.cool/2022/10/10/Java/JVM/JVM(5)-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B9%8B%E7%BA%BF%E7%A8%8B%E7%A7%81%E6%9C%89/#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88">本地方法栈</a>中引用的对象（调用native方法）。</li>
+<li><a href="https://cecilia.cool/2022/10/11/Java/JVM/JVM(6)-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB/#%E6%96%B9%E6%B3%95%E5%8C%BA">方法区</a>中类静态属性，常量引用的对象（方法区其实就是heap老年代后面那个，又叫元数据区，永久代）。</li>
+<li>被添加了锁的对象</li>
+<li>虚拟机内部需要用到的对象。</li>
+</ul>
+<p>一旦已经存在的根节点不满足存在的条件时，那么根节点与对象之间的连接将被断开。此时虽然对象1仍存在对其他对象的引用，但是由于其没有任何根节点引用，所以此对象即可被判定为不再使用。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/13/1622fa539ace74ea.jpg"></p>
+
+        <h2 id="方法区回收"   >
+          <a href="#方法区回收" class="heading-link"><i class="fas fa-link"></i></a><a href="#方法区回收" class="headerlink" title="方法区回收"></a>方法区回收</h2>
+      <blockquote>
+<p>方法区主要存放永久代对象，其回收率很低，因此在方法区主要是对常量池的回收和对类的卸载</p>
+</blockquote>
+<p>大量使用反射，动态代理，CGLib等框架，这类频繁定义ClassLoader的场景都需要虚拟机具备类卸载功能，以保证不会出现内存溢出。</p>
+<p>类卸载条件很多，需要满足以下三个条件，并且满足了也不一定会被卸载：</p>
+<ul>
+<li><p>该类所有实例都被回收</p>
+</li>
+<li><p>加载该类的<code>ClassLoader</code>已经被回收</p>
+</li>
+<li><p>该类对象的Class对象没有在任何地方被引用，也就无法在任何地方通过反射访问该类方法。</p>
+</li>
+</ul>
+
+        <h2 id="finalize"   >
+          <a href="#finalize" class="heading-link"><i class="fas fa-link"></i></a><a href="#finalize" class="headerlink" title="finalize()"></a>finalize()</h2>
+      <p><code>finalize()</code> 类似 C++ 的析构函数，用来做关闭外部资源等工作。但是 try-finally 等方式可以做的更好，并且该方法运行代价高昂，不确定性大，无法保证各个对象的调用顺序，<strong>因此最好不要使用</strong>。</p>
+<p>当一个对象可被回收时，如果需要执行该对象的 finalize() 方法，那么就有可能通过在该方法中让对象重新被引用，从而实现自救。<strong>自救只能进行一次</strong>，如果回收的对象之前调用了 finalize() 方法自救，后面回收时不会调用 <code>finalize()</code> 方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该方法在Object类中</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable &#123; &#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="引用类型"   >
+          <a href="#引用类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1>
+      <p>这个在<code>WeakHashMap</code>中讲过，相关<a href="https://cecilia.cool/2022/10/04/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(5)-WeakHashMap/">链接</a>。</p>
+
+        <h1 id="垃圾回收"   >
+          <a href="#垃圾回收" class="heading-link"><i class="fas fa-link"></i></a><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1>
+      
+        <h2 id="标记-清除"   >
+          <a href="#标记-清除" class="heading-link"><i class="fas fa-link"></i></a><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h2>
+      <p><img src="https://s3.bmp.ovh/imgs/2022/10/14/6e2c2f6a36068e2f.jpg"></p>
+<p>单纯清理掉未被标记的对象：标记和清除过程效率不高，但是会产生大量不连续的内存碎片。</p>
+
+        <h2 id="标记-整理"   >
+          <a href="#标记-整理" class="heading-link"><i class="fas fa-link"></i></a><a href="#标记-整理" class="headerlink" title="标记-整理"></a>标记-整理</h2>
+      <p><img src="https://s3.bmp.ovh/imgs/2022/10/14/e25babeccdf54b47.jpg"></p>
+<p>让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</p>
+
+        <h2 id="复制"   >
+          <a href="#复制" class="heading-link"><i class="fas fa-link"></i></a><a href="#复制" class="headerlink" title="复制"></a>复制</h2>
+      <p><img src="https://s3.bmp.ovh/imgs/2022/10/14/ea3a84203595777f.jpg"></p>
+<p>有没有想起堆区中的两个幸存者区，尽管这不是，这种复制的缺点是只是用了内存的一半，现在的JVM都采用这种收集算法回收新生代，而不是将新生代划分为大小相等的两块，而是分为一块较大的Eden空间和两块较小的Survivor空间，每次使用Eden空间和其中一块Survivor。</p>
+<p>HotSpot 虚拟机的 Eden 和 Survivor 的大小比例默认为 <strong>8:1</strong>，保证了内存的利用率达到 90%。如果每次回收有多于 10% 的对象存活，<strong>那么一块 Survivor 空间就不够用了，此时需要依赖于老年代进行分配担保，也就是借用老年代的空间存储放不下的对象</strong>（这就是空间分配担保机制）。</p>
+<p>先看一下垃圾收集类别：</p>
+<ul>
+<li><p>Minor GC  -  次要垃圾回收，主要进行新生代区域的垃圾收集。 </p>
+</li>
+<li><ul>
+<li>触发条件：新生代的Eden区容量已满时。</li>
+</ul>
+</li>
+<li><p>Major GC  -  主要垃圾回收，主要进行老年代的垃圾收集。</p>
+</li>
+<li><p>Full GC    -   完全垃圾回收，对整个Java堆内存和方法区进行垃圾回收。 </p>
+</li>
+<li><ul>
+<li>触发条件1：每次晋升到老年代的对象平均大小大于老年代剩余空间</li>
+</ul>
+</li>
+<li><ul>
+<li>触发条件2：Minor GC后存活的对象超过了老年代剩余空间</li>
+</ul>
+</li>
+<li><ul>
+<li>触发条件3：永久代内存不足（JDK8之前）</li>
+</ul>
+</li>
+<li><ul>
+<li>触发条件4：手动调用<code>System.gc()</code>方法</li>
+</ul>
+</li>
+</ul>
+<p><strong>详细的空间分配担保</strong>：</p>
+<p>当新生代无法容纳更多的的对象时，可以把新生代中的对象移动到老年代中，这样新生代就腾出了空间来容纳更多的对象。</p>
+<p>如果老年代也装不下，首先会判断一下之前的每次垃圾回收进入老年代的平均大小是否小于当前老年代的剩余空间，如果小于，那么说明也许可以放得下（不过也仅仅是也许，依然有可能放不下，因为判断的实际上只是平均值，万一这一次突然非常大呢），否则，会先来一次Full GC，进行一次大规模垃圾回收，来尝试腾出空间，再次判断老年代是否有空间存放，要是还是装不下，直接抛出OOM错误，摆烂。</p>
+
+        <h2 id="分代收集"   >
+          <a href="#分代收集" class="heading-link"><i class="fas fa-link"></i></a><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h2>
+      <p>现在的商业虚拟机采用分代收集算法，它根据对象存活周期将内存划分为几块，不同块采用适当的收集算法。</p>
+<p>一般将堆分为新生代和老年代。</p>
+<ul>
+<li>新生代使用: 复制算法</li>
+<li>老年代使用: 标记 - 清除 或者 标记 - 整理 算法</li>
+</ul>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-gc.html" >https://pdai.tech/md/java/jvm/java-jvm-gc.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/hla7hr#ccb10fe4" >https://www.yuque.com/qingkongxiaguang/javase/hla7hr#ccb10fe4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/12/Java/JVM/JVM(7)-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">JVM(7)--内存模型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-13</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="引入"   >
           <a href="#引入" class="heading-link"><i class="fas fa-link"></i></a><a href="#引入" class="headerlink" title="引入"></a>引入</h1>
       <blockquote>
@@ -1166,81 +1293,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/shkstart/article/details/107019371?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-107019371-blog-106545340.pc_relevant_multi_platform_whitelistv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-107019371-blog-106545340.pc_relevant_multi_platform_whitelistv4&utm_relevant_index=3" >一文带你了解WeakHashMap</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>.</p>
 <p>这篇讲得可以：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33774883/article/details/89613271" >https://blog.csdn.net/weixin_33774883/article/details/89613271</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/">Java集合(4)-TreeMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-04</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="前言"   >
-          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
-      <p>首先，<code>TreeMap</code>与哈希没有任何关系，其次，哈希和Map也不是一回事，请不要先入为主。Map只是一个键值对的数据结构，哈希是将对象计算哈希码的一种算法。<code>TreeMap</code>只是通过红黑树将键值对存起来，一方面实现了二叉搜索树的排序性，另一方面维护了整棵树的平衡性，防止树退化为链表增大查询&#x2F;插入的时间复杂度。</p>
-
-        <h1 id="排序方式"   >
-          <a href="#排序方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#排序方式" class="headerlink" title="排序方式"></a>排序方式</h1>
-      <p><code>TreeMap</code>对插入数据实现了排序，如果是自定义数据，要么该类实现<code>Comparable</code>接口，要么TreeMap在构造方法中传入<code>Comparator</code>接口。</p>
-
-        <h2 id="Comparable"   >
-          <a href="#Comparable" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2>
-      <p>以<code>Student</code>类来说明，继承<code>Comparable</code>并重写<code>compareTo()</code>方法。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Student&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> id;<span class="comment">// 为了简单，就写一个id属性,并设为public方便获取</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(<span class="type">int</span> id)</span> &#123;<span class="built_in">this</span>.id = id;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对比方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Student o)</span> &#123;</span><br><span class="line">        <span class="comment">// 按照id从小到大排序</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.id - o.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p>在<code>CompareTo()</code>中，是传入的对象和当前对象进行对比：</p>
-<ul>
-<li>如果对比大于0，降序排序。</li>
-<li>如果对比小于0，升序。</li>
-</ul>
-<blockquote>
-<p>其实记住当前对象-传入对象就是升序，反之则降序。</p>
-</blockquote>
-
-        <h2 id="Comparator"   >
-          <a href="#Comparator" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparator" class="headerlink" title="Comparator"></a>Comparator</h2>
-      <p>通过外部类的方式进行编写，对于<code>Comparator</code>接口的传入也可以用<code>Lambda</code>表达式</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list,<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Student o1,Student o2)</span> &#123;</span><br><span class="line">        <span class="comment">// 第一个参数 - 第二个参数：升序</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)(o1.id - o2.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以传入Lambda表达式</span></span><br><span class="line">Collections.sort(list,(Student o1,Student <span class="number">02</span>) -&gt; o1.id - o2.id);</span><br></pre></td></tr></table></div></figure>
-
-<p>我们看一下<code>TreeMap</code>的部分属性和构造方法：</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableMap</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="built_in">super</span> K&gt; comparator;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 传入一个Comparator接口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">()</span> &#123;comparator = <span class="literal">null</span>;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> K&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.comparator = comparator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<p>如果没有传入<code>Comparator</code>接口实现，那么传入的<code>Key</code>必须实现<code>Comparable</code>。</p>
-<blockquote>
-<p><code>TreeMap</code>底层用红黑树，红黑树近似平衡，最长路径不超过最短路径的2倍。</p>
-</blockquote>
-
-        <h1 id="TreeMap"   >
-          <a href="#TreeMap" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h1>
-      <p><code>TreeMap</code>的UML类图：</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/10/03/a6778fc1ccf85111.jpg"></p>
-<p>因为底层使用了红黑树，所以节点就是<code>Entry</code>，记录了左右节点和父节点指针，以及节点颜色。</p>
-<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Entry</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; left;</span><br><span class="line">    Entry&lt;K,V&gt; right;</span><br><span class="line">    Entry&lt;K,V&gt; parent;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">color</span> <span class="operator">=</span> BLACK;</span><br><span class="line">	<span class="comment">// 构造方法，此处不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>关于红黑树，详细的实现，也就是节点如何变色，如何左旋右旋来维持近似平衡，可以看《算法导论》，本文不会详细去讲，作者曾经也自己看着书写过红黑树，当成C++期末作业交上去了，但是过了两三天又忘了，这玩意吧，看个人兴趣吧，hhhhhh。</p>
-</blockquote>
-
-        <h2 id="put"   >
-          <a href="#put" class="heading-link"><i class="fas fa-link"></i></a><a href="#put" class="headerlink" title="put()"></a>put()</h2>
-      <p>直接给出<code>put</code>的执行流程：</p>
-<ul>
-<li>判断当前根节点为null，那么插入的第一个元素就是根节点。</li>
-<li>如果存在根节点，判断插入元素在左侧还是右侧，如果对比为0，说明当前元素存在于<code>TreeMap</code>中，将其覆盖：<strong>在TreeMap中，不会存在重复元素</strong>。</li>
-<li>找到插入位置，插入。</li>
-<li>节点变色和旋转操作。</li>
-</ul>
-<blockquote>
-<p>代码太长了，要看源码自己打开IDEA查看。从<code>put</code>流程也可知，时间复杂度为<em>logN</em>。</p>
-</blockquote>
-
-        <h2 id="get"   >
-          <a href="#get" class="heading-link"><i class="fas fa-link"></i></a><a href="#get" class="headerlink" title="get()"></a>get()</h2>
-      <p>也就是不断地对比，在红黑树中查找节点。</p>
-
-        <h1 id="TreeSet"   >
-          <a href="#TreeSet" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h1>
-      <p>这个就是对TreeMap进行了简单包装，不过多讲解</p>
-<blockquote>
-<p>额，其实关于<code>TreeMap</code>的详解应该是对红黑树的详解，但是我真的不想写，啊啊啊啊啊，以后有时间就单独写一篇博客解释一下红黑树，顺便放一个源码模板方便各位使用（等我想起了再说吧）。</p>
-</blockquote>
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51192504/article/details/109775797" >https://blog.csdn.net/weixin_51192504/article/details/109775797</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html" >https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">78</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">79</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

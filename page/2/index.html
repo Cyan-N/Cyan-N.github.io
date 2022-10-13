@@ -30,7 +30,84 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(3)-LinkedHashMap/">Java集合3-LinkedHashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-02</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/03/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(4)-TreeMap/">Java集合(4)-TreeMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-04</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言" class="headerlink" title="前言"></a>前言</h1>
+      <p>首先，<code>TreeMap</code>与哈希没有任何关系，其次，哈希和Map也不是一回事，请不要先入为主。Map只是一个键值对的数据结构，哈希是将对象计算哈希码的一种算法。<code>TreeMap</code>只是通过红黑树将键值对存起来，一方面实现了二叉搜索树的排序性，另一方面维护了整棵树的平衡性，防止树退化为链表增大查询&#x2F;插入的时间复杂度。</p>
+
+        <h1 id="排序方式"   >
+          <a href="#排序方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#排序方式" class="headerlink" title="排序方式"></a>排序方式</h1>
+      <p><code>TreeMap</code>对插入数据实现了排序，如果是自定义数据，要么该类实现<code>Comparable</code>接口，要么TreeMap在构造方法中传入<code>Comparator</code>接口。</p>
+
+        <h2 id="Comparable"   >
+          <a href="#Comparable" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2>
+      <p>以<code>Student</code>类来说明，继承<code>Comparable</code>并重写<code>compareTo()</code>方法。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Student&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> id;<span class="comment">// 为了简单，就写一个id属性,并设为public方便获取</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(<span class="type">int</span> id)</span> &#123;<span class="built_in">this</span>.id = id;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对比方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Student o)</span> &#123;</span><br><span class="line">        <span class="comment">// 按照id从小到大排序</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.id - o.id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>在<code>CompareTo()</code>中，是传入的对象和当前对象进行对比：</p>
+<ul>
+<li>如果对比大于0，降序排序。</li>
+<li>如果对比小于0，升序。</li>
+</ul>
+<blockquote>
+<p>其实记住当前对象-传入对象就是升序，反之则降序。</p>
+</blockquote>
+
+        <h2 id="Comparator"   >
+          <a href="#Comparator" class="heading-link"><i class="fas fa-link"></i></a><a href="#Comparator" class="headerlink" title="Comparator"></a>Comparator</h2>
+      <p>通过外部类的方式进行编写，对于<code>Comparator</code>接口的传入也可以用<code>Lambda</code>表达式</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list,<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Student o1,Student o2)</span> &#123;</span><br><span class="line">        <span class="comment">// 第一个参数 - 第二个参数：升序</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)(o1.id - o2.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以传入Lambda表达式</span></span><br><span class="line">Collections.sort(list,(Student o1,Student <span class="number">02</span>) -&gt; o1.id - o2.id);</span><br></pre></td></tr></table></div></figure>
+
+<p>我们看一下<code>TreeMap</code>的部分属性和构造方法：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableMap</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="built_in">super</span> K&gt; comparator;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 传入一个Comparator接口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">()</span> &#123;comparator = <span class="literal">null</span>;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> K&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.comparator = comparator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果没有传入<code>Comparator</code>接口实现，那么传入的<code>Key</code>必须实现<code>Comparable</code>。</p>
+<blockquote>
+<p><code>TreeMap</code>底层用红黑树，红黑树近似平衡，最长路径不超过最短路径的2倍。</p>
+</blockquote>
+
+        <h1 id="TreeMap"   >
+          <a href="#TreeMap" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h1>
+      <p><code>TreeMap</code>的UML类图：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/03/a6778fc1ccf85111.jpg"></p>
+<p>因为底层使用了红黑树，所以节点就是<code>Entry</code>，记录了左右节点和父节点指针，以及节点颜色。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Entry</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; left;</span><br><span class="line">    Entry&lt;K,V&gt; right;</span><br><span class="line">    Entry&lt;K,V&gt; parent;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">color</span> <span class="operator">=</span> BLACK;</span><br><span class="line">	<span class="comment">// 构造方法，此处不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>关于红黑树，详细的实现，也就是节点如何变色，如何左旋右旋来维持近似平衡，可以看《算法导论》，本文不会详细去讲，作者曾经也自己看着书写过红黑树，当成C++期末作业交上去了，但是过了两三天又忘了，这玩意吧，看个人兴趣吧，hhhhhh。</p>
+</blockquote>
+
+        <h2 id="put"   >
+          <a href="#put" class="heading-link"><i class="fas fa-link"></i></a><a href="#put" class="headerlink" title="put()"></a>put()</h2>
+      <p>直接给出<code>put</code>的执行流程：</p>
+<ul>
+<li>判断当前根节点为null，那么插入的第一个元素就是根节点。</li>
+<li>如果存在根节点，判断插入元素在左侧还是右侧，如果对比为0，说明当前元素存在于<code>TreeMap</code>中，将其覆盖：<strong>在TreeMap中，不会存在重复元素</strong>。</li>
+<li>找到插入位置，插入。</li>
+<li>节点变色和旋转操作。</li>
+</ul>
+<blockquote>
+<p>代码太长了，要看源码自己打开IDEA查看。从<code>put</code>流程也可知，时间复杂度为<em>logN</em>。</p>
+</blockquote>
+
+        <h2 id="get"   >
+          <a href="#get" class="heading-link"><i class="fas fa-link"></i></a><a href="#get" class="headerlink" title="get()"></a>get()</h2>
+      <p>也就是不断地对比，在红黑树中查找节点。</p>
+
+        <h1 id="TreeSet"   >
+          <a href="#TreeSet" class="heading-link"><i class="fas fa-link"></i></a><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h1>
+      <p>这个就是对TreeMap进行了简单包装，不过多讲解</p>
+<blockquote>
+<p>额，其实关于<code>TreeMap</code>的详解应该是对红黑树的详解，但是我真的不想写，啊啊啊啊啊，以后有时间就单独写一篇博客解释一下红黑树，顺便放一个源码模板方便各位使用（等我想起了再说吧）。</p>
+</blockquote>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51192504/article/details/109775797" >https://blog.csdn.net/weixin_51192504/article/details/109775797</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html" >https://pdai.tech/md/java/collection/java-map-TreeMap&amp;TreeSet.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/02/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(3)-LinkedHashMap/">Java集合3-LinkedHashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-02</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="简介"   >
           <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
       <p><code>LinkedHashSet</code>也是用了适配器模式，对<code>LinkedHashMap</code>进行包装，所以本文主要分析<code>LinkedHashMap</code>。</p>
@@ -781,72 +858,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p>netstat命令：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-netstat.html?ivk_sa=1024320u" >https://www.runoob.com/linux/linux-comm-netstat.html?ivk_sa=1024320u</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>Java全栈知识体系：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-03-basic-web-app.html" >https://pdai.tech/md/devops/docker/docker-03-basic-web-app.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/22/Docker/Docker(3)-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%8F%91%E5%B8%83/">Docker(3)--镜像构建与发布</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="构建镜像"   >
-          <a href="#构建镜像" class="heading-link"><i class="fas fa-link"></i></a><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h1>
-      <p>有些冷门的软件不在远程仓库里，此时就需要手动安装。我们以Ubuntu的base镜像中安装Java环境，并将其打包成新的镜像（这个新的镜像就是一个包含Java环境的Ubuntu系统镜像）。</p>
-<p>拉取启动Ubuntu：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br><span class="line">docker run -it ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<p>更新apt（因为只有base镜像）</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>这一步我之前换不换源都会出错，反正就是更新失败，后来折腾了两三天，都没什么效果。最后把wifi换成热点就更新成功了。所以你如果更新失败，可以试着检查一下网络问题。</p>
-<p>也不用怀疑版本问题，本人用Ubuntu 15和Ubuntu22都更新成功过。</p>
-</blockquote>
-<p>安装<code>jdk</code>：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install openjdk-8-jdk</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果apt更新失败，后面的也会失败</span></span><br></pre></td></tr></table></div></figure>
-
-<p>退出容器，将其构建为新的镜像，使用commit将容器保存为新的镜像：</p>
-<figure class="highlight dockerfile"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit 容器名称/ID 新的镜像名称</span><br></pre></td></tr></table></div></figure>
-
-<p>此时再使用<code>docker images</code>就可以看到新构建的镜像了。</p>
-<blockquote>
-<p>但是这种构建方式Docker官方并不推荐。普通用户可以使用Dockerfile构建上述镜像</p>
-</blockquote>
-<p>创建名为<code>Dockerfile</code>的文件：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch Dockerfile</span><br></pre></td></tr></table></div></figure>
-
-<p>我们需要在<code>Dockerfile</code>文件内部编写指令来告诉Docker需要构建镜像的相关信息</p>
-<figure class="highlight dockerfile"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> &lt;基础镜像&gt;</span><br></pre></td></tr></table></div></figure>
-
-<p><code>FROM</code>指令选择当前镜像的基础镜像（必须以该指令开始）。如果不需要任何基础镜像，使用<code>scratch</code>表示从零开始基础构建。</p>
-<p>在容器中运行命令安装Java环境</p>
-<figure class="highlight dockerfile"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt install -y openjdk-8-jdk</span></span><br></pre></td></tr></table></div></figure>
-
-<p>构建：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t &lt;镜像名称&gt; &lt;构建目录&gt;</span><br></pre></td></tr></table></div></figure>
-
-<p>执行后，Docker会在构建目录中寻找Dockerfile文件，然后开始依次执行Dockerfile中的指令：</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/23/97bff6ac9d64700f.jpg"></p>
-<p>每一个指令都会在镜像上创建一个新的层，<code>-t</code>指定要创建的目标镜像名，<code>.</code>是Dockerfile所在目录。</p>
-
-        <h1 id="发布镜像"   >
-          <a href="#发布镜像" class="heading-link"><i class="fas fa-link"></i></a><a href="#发布镜像" class="headerlink" title="发布镜像"></a>发布镜像</h1>
-      <p>我们可以将镜像上传到：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://hub.docker.com/repositories" >https://hub.docker.com/repositories</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>先在hub.docker.com上创建公共的镜像仓库，再将本地镜像上传，上传前可以将镜像名称修改规范：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag ubuntu-java-file:latest 用户名/仓库名称:版本</span><br></pre></td></tr></table></div></figure>
-
-<p>然后本地上传：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push nagocoler/ubuntu-java:1.0</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>这里参考的青空の霞光的用户名nagocoler和仓库名ubuntu-java</p>
-</blockquote>
-<p>公共仓库是可以被搜索和下载的，搜索使用<code>search</code>命令即可：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search nagocoler/ubuntu-java</span><br></pre></td></tr></table></div></figure>
-
-<p>再使用pull命令下载：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nagocoler/ubuntu-java:1.0</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-03-basic2.html" >https://pdai.tech/md/devops/docker/docker-03-basic2.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">78</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">79</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

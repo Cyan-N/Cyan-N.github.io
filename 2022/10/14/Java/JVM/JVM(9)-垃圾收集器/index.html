@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="垃圾收集器        主要是介绍不同收集器得优劣以及使用   单线程与多线程: 单线程指的是垃圾收集器只使用一个线程进行收集，而多线程使用多个线程。  串行与并行: 串行指的是垃圾收集器与用户程序交替执行，这意味着在执行垃圾收集的时候需要停顿用户程序；并形指的是垃圾收集器和用户程序同时执行。除了 CMS 和 G1 之外，其它垃圾收集器都是以串行的方式执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM(9)-垃圾收集器">
+<meta property="og:url" content="https://cecilia.cool/2022/10/14/Java/JVM/JVM(9)-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/index.html">
+<meta property="og:site_name" content="慕青的日记">
+<meta property="og:description" content="垃圾收集器        主要是介绍不同收集器得优劣以及使用   单线程与多线程: 单线程指的是垃圾收集器只使用一个线程进行收集，而多线程使用多个线程。  串行与并行: 串行指的是垃圾收集器与用户程序交替执行，这意味着在执行垃圾收集的时候需要停顿用户程序；并形指的是垃圾收集器和用户程序同时执行。除了 CMS 和 G1 之外，其它垃圾收集器都是以串行的方式执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/14/df6e14722988927f.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/14/17a1a966f2a69388.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/14/9472c91267ced332.jpg">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/10/14/ec5b94383e100df0.jpg">
+<meta property="article:published_time" content="2022-10-14T04:10:45.000Z">
+<meta property="article:modified_time" content="2022-10-14T06:00:59.589Z">
+<meta property="article:author" content="Cyan">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/10/14/df6e14722988927f.jpg"><title>JVM(9)-垃圾收集器 | 慕青的日记</title><link ref="canonical" href="https://cecilia.cool/2022/10/14/Java/JVM/JVM(9)-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">JVM(9)-垃圾收集器</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-14</span></span></div></header><div class="post-body">
+        <h1 id="垃圾收集器"   >
+          <a href="#垃圾收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1>
+      <blockquote>
+<p>主要是介绍不同收集器得优劣以及使用</p>
+</blockquote>
+<ul>
+<li><p>单线程与多线程: 单线程指的是垃圾收集器只使用一个线程进行收集，而多线程使用多个线程。</p>
+</li>
+<li><p>串行与并行: 串行指的是垃圾收集器与用户程序交替执行，这意味着在执行垃圾收集的时候需要停顿用户程序；并形指的是垃圾收集器和用户程序同时执行。除了 CMS 和 G1 之外，其它垃圾收集器都是以串行的方式执行。</p>
+</li>
+</ul>
+
+        <h2 id="Serial收集器"   >
+          <a href="#Serial收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2>
+      <p><code>Serial</code>翻译为串行，即以串行的方式执行。它是单线程的收集器，只会使用一个线程进行垃圾收集工作。在进行垃圾收集时，其他线程都要暂停等待。尽管缺点明显，但是从JDK1.3.1开始，Serial收集器就是默认的垃圾收集器了（客户端模式）。</p>
+<p>优点：</p>
+<ul>
+<li>设计简单高效。</li>
+<li>在用户的桌面应用场景中，内存一般不大，可以在较短时间内完成垃圾收集，只要不频繁发生，使用串行回收器是可以接受的。</li>
+</ul>
+<blockquote>
+<p>客户端模式一般是一些桌面级图形化界面应用程序，使用内存较少。</p>
+</blockquote>
+<p>我们可以修改JDK当前模式为客户端模式，可以在jvm.cfg文件将内容修改为</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-client KNOWN</span><br><span class="line">-server IGNORE</span><br></pre></td></tr></table></div></figure>
+
+<p>使用<code>java -version</code>查看当前模式。（下图还没有修改为客户端模式）</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/14/df6e14722988927f.jpg"></p>
+<blockquote>
+<p>它是 Client 模式下的默认新生代收集器，因为在用户的桌面应用场景下，分配给虚拟机管理的内存一般来说不会很大。Serial 收集器收集几十兆甚至一两百兆的新生代停顿时间可以控制在一百多毫秒以内，只要不是太频繁，这点停顿是可以接受的。</p>
+</blockquote>
+
+        <h2 id="ParNew收集器"   >
+          <a href="#ParNew收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2>
+      <p>是 Serial 收集器的多线程版本。</p>
+<p>是 Server 模式下的虚拟机首选新生代收集器，除了性能原因外，主要是因为除了 Serial 收集器，只有它能与 CMS 收集器配合工作。</p>
+<p>默认开启的线程数量与 CPU 数量相同，可以使用 -XX:ParallelGCThreads 参数来设置线程数。</p>
+
+        <h2 id="Parallel-Scavenge收集器"   >
+          <a href="#Parallel-Scavenge收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2>
+      <p>其它收集器关注点是尽可能缩短垃圾收集时用户线程的停顿时间，而它的目标是<strong>达到一个可控制的吞吐量</strong>，它被称为“吞吐量优先”收集器。这里的吞吐量指 CPU 用于运行用户代码的时间占总时间的比值。</p>
+<ul>
+<li>停顿时间短适合用于与用户交互的程序，<strong>良好的响应速度提升用户体验</strong>。</li>
+<li>高吞吐量可以尽快完成程序运算任务，适合后台运算而不需要太多交互的任务。</li>
+</ul>
+<blockquote>
+<p>缩短停顿时间是以牺牲吞吐量和新生代空间来换取的: 新生代空间变小，垃圾回收变得频繁，导致吞吐量下降。</p>
+</blockquote>
+<p>还有个<strong>Parallel Old收集器</strong>，是Parallel Scavenge老年代版本，在注重吞吐量以及 CPU 资源敏感的场合，都可以优先考虑 Parallel Scavenge 加 Parallel Old 收集器。</p>
+
+        <h2 id="Serial-Old收集器"   >
+          <a href="#Serial-Old收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h2>
+      <p>Serial 收集器的老年代版本，也是给 Client 模式下的虚拟机使用。</p>
+<p>如果用在 Server 模式下，它有两大用途:</p>
+<ul>
+<li>在 JDK 1.5 以及之前版本(Parallel Old 诞生以前)中与 Parallel Scavenge 收集器搭配使用。</li>
+<li>作为 CMS 收集器的后备预案，在并发收集发生 Concurrent Mode Failure 时使用。</li>
+</ul>
+
+        <h2 id="CMS收集器"   >
+          <a href="#CMS收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h2>
+      <blockquote>
+<p>CMS(Concurrent Mark Sweep)，Mark Sweep 指的是标记 - 清除算法。</p>
+</blockquote>
+<p>这款收集器是HotSpot虚拟机中第一款真正意义上的并发（注意这里的并发和之前的并行是有区别的，并发可以理解为同时运行用户线程和GC线程，而并行可以理解为多条GC线程同时工作）收集器，它第一次实现了让垃圾收集线程与用户线程同时工作。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/14/17a1a966f2a69388.jpg"></p>
+<p>整个流程分为四个阶段：</p>
+<ul>
+<li>初始标记（需要暂停用户线程）：这个阶段的主要任务仅仅只是标记出GC Roots能<strong>直接关联</strong>到的对象，速度比较快，不用担心会停顿太长时间。</li>
+</ul>
+<blockquote>
+<p>直接关联：虚拟机栈，本地方法栈，被锁的对象，静态引用（方法区），虚拟机内部使用的对象</p>
+</blockquote>
+<ul>
+<li><p>并发标记：从GC Roots的直接关联对象开始<strong>遍历整个对象图</strong>的过程，这个过程耗时较长但是不需要停顿用户线程，可以与垃圾收集线程一起并发运行。</p>
+</li>
+<li><p>重新标记（需要暂停用户线程）：为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。这个时间会比初始标记时间长一丢丢。</p>
+</li>
+<li><p>并发清除：最后就可以直接将所有标记好的无用对象进行删除，因为这些对象程序中也用不到了，所以可以与用户线程并发运行。</p>
+</li>
+</ul>
+<p>具有以下缺点:</p>
+<ul>
+<li>吞吐量低: 低停顿时间是以牺牲吞吐量为代价的，导致 CPU 利用率不够高。</li>
+<li>无法处理浮动垃圾，可能出现 Concurrent Mode Failure。浮动垃圾是指<strong>并发清除阶段（第四个阶段）</strong>由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。如果预留的内存不够存放浮动垃圾，就会出现 Concurrent Mode Failure，这时虚拟机将临时启用 Serial Old 来替代 CMS。</li>
+<li>标记 - 清除算法导致的空间碎片，往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。</li>
+</ul>
+
+        <h2 id="G1收集器"   >
+          <a href="#G1收集器" class="heading-link"><i class="fas fa-link"></i></a><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2>
+      <p>堆被分为新生代和老年代，其它收集器进行收集的范围都是整个新生代或者老年代，而 G1（Garbage First ） 可以直接对新生代和老年代一起回收。</p>
+<p>垃圾回收分为<code>Minor GC</code>、<code>Major GC</code>和<code>Full GC</code>，它们分别对应的是新生代，老年代和整个堆内存的垃圾回收，而G1收集器巧妙地绕过了这些约定，它将整个Java堆划分成<code>2048</code>个大小相同的独立<code>Region</code>块，每个<code>Region块</code>的大小根据堆空间的实际大小而定，整体被控制在1MB到32MB之间，且都为2的N次幂。所有的<code>Region</code>大小相同，且在JVM的整个生命周期内不会发生改变。</p>
+<p>每一个<code>Region</code>都可以根据需要，自由决定扮演哪个角色（Eden、Survivor和老年代），收集器会根据对应的角色采用不同的回收策略。此外，G1收集器还存在一个Humongous区域，它专门用于存放大对象（一般认为大小超过了Region容量一半的对象为大对象）这样，新生代、老年代在物理上，不再是一个连续的内存区域，而是到处分布的。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/14/9472c91267ced332.jpg"></p>
+<p>回收过程与CMS相似：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/14/ec5b94383e100df0.jpg"></p>
+<ul>
+<li><p>初始标记（暂停用户线程）：仅仅只是标记一下GC Roots能直接关联到的对象，并且修改TAMS指针的值，让下一阶段用户线程并发运行时，能正确地在可用的Region中分配新对象。</p>
+</li>
+<li><p>并发标记：从GC Root开始对堆中对象进行可达性分析，递归扫描整个堆里的对象图，找出要回收的对象，这阶段耗时较长，但可与用户程序并发执行。</p>
+</li>
+<li><p>最终标记（暂停用户线程）：对用户线程做一个短暂的暂停，用于处理并发标记阶段漏标的那部分对象。</p>
+</li>
+<li><p>筛选回收：负责更新Region的统计数据，对各个Region的回收价值和成本进行排序，根据用户所期望的停顿时间来制定回收计划，<strong>可以自由选择任意多个Region构成回收集，然后把决定回收的那一部分Region的存活对象复制到空的Region中，再清理掉整个旧Region的全部空间</strong>。这里的操作涉及存活对象的移动，是必须暂停用户线程，由多个收集器线程并行完成的。</p>
+</li>
+</ul>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/hla7hr#2466c792" >https://www.yuque.com/qingkongxiaguang/javase/hla7hr#2466c792</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-gc.html#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8" >https://pdai.tech/md/java/jvm/java-jvm-gc.html#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://cecilia.cool">Cyan</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://cecilia.cool/2022/10/14/Java/JVM/JVM(9)-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">https://cecilia.cool/2022/10/14/Java/JVM/JVM(9)-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://cecilia.cool/tags/JVM/">JVM</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/10/13/Java/JVM/JVM(8)-%E5%AF%B9%E8%B1%A1%E5%AD%98%E6%B4%BB%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"><span class="paginator-prev__text">JVM(8)--对象存活与垃圾回收</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">
+          垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Serial%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">
+          Serial收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ParNew%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">
+          ParNew收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel-Scavenge%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.3.</span> <span class="toc-text">
+          Parallel Scavenge收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Serial-Old%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">
+          Serial Old收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMS%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.5.</span> <span class="toc-text">
+          CMS收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G1%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-number">1.6.</span> <span class="toc-text">
+          G1收集器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">80</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

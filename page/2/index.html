@@ -30,7 +30,246 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/04/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(5)-WeakHashMap/">Java集合(5)--WeakHashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/08/Java/JVM/JVM(2)-%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA/">JVM(2)--字节码增强</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-08</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="JVM基础-字节码增强"   >
+          <a href="#JVM基础-字节码增强" class="heading-link"><i class="fas fa-link"></i></a><a href="#JVM基础-字节码增强" class="headerlink" title="JVM基础-字节码增强"></a>JVM基础-字节码增强</h1>
+      <blockquote>
+<p>字节码增强技术就是一类对现有字节码进行修改或者动态生成全新字节码文件的技术。</p>
+</blockquote>
+
+        <h2 id="ASM"   >
+          <a href="#ASM" class="heading-link"><i class="fas fa-link"></i></a><a href="#ASM" class="headerlink" title="ASM"></a>ASM</h2>
+      <p>ASM可以直接生成<code>.class</code>字节码文件，也可以在类被加载入JVM之前动态修改类行为。ASM框架是JDK内部自带的，最基本的就是通过<code>ClassWriter</code>对象编辑类的字节码文件。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ClassWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassWriter</span>(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>在学习ASM前，请先学习一下<a href="https://cecilia.cool/2022/10/08/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%AE%BF%E9%97%AE%E8%80%85/">访问者模式</a>。</p>
+</blockquote>
+<p>字节码文件的结构是由JVM固定的，适合利用访问者模式对字节码文件进行修改。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/08/b57b44956364c1b6.jpg"></p>
+
+        <h3 id="核心API"   >
+          <a href="#核心API" class="heading-link"><i class="fas fa-link"></i></a><a href="#核心API" class="headerlink" title="核心API"></a>核心API</h3>
+      <ul>
+<li><p><code>ClassReader</code>：用于读取已经编译好的.class文件。</p>
+</li>
+<li><p><code>ClassWriter</code>：用于重新构建编译后的类，如修改类名、属性以及方法，也可以生成新的类的字节码文件。</p>
+</li>
+<li><p>各种<code>Visitor</code>类：如上所述，CoreAPI根据字节码从上到下依次处理，对于字节码文件中不同的区域有不同的Visitor，比如用于访问方法的<code>MethodVisitor</code>、用于访问类变量的<code>FieldVisitor</code>、用于访问注解的<code>AnnotationVisitor</code>等。</p>
+</li>
+</ul>
+<blockquote>
+<p>API文档：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://tool.oschina.net/apidocs/apidoc?api=asm" >https://tool.oschina.net/apidocs/apidoc?api=asm</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+
+        <h2 id="方法名和描述符"   >
+          <a href="#方法名和描述符" class="heading-link"><i class="fas fa-link"></i></a><a href="#方法名和描述符" class="headerlink" title="方法名和描述符"></a>方法名和描述符</h2>
+      <p>这里补充一下类文件中方法名和描述符的表示。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> m;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">inc</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>使用<code>jclasslib</code>插件查看一下：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/08/d03410a93bae253c.jpg"></p>
+<p>可以看到，方法名在字节码文件中被<code>&lt;&gt;</code>包围，描述符其实就是返回值和参数列表，也都被<code>&lt;&gt;</code>包围。<code>&lt;()I&gt;</code>表示：</p>
+<ul>
+<li>括号里的是参数，后面的是返回值。</li>
+<li><code>I</code>表示<code>int</code>，也就是说，该方法返回<code>int</code>，如果是<code>void</code>，这里就会是<code>V</code>。</li>
+</ul>
+<p>这样我们就固定了方法的方法名和参数列表以及返回值。从图中可以看到，<code>inc</code>方法上面还有个<code>&lt;init&gt;</code>方法，那就是构造方法。</p>
+<p>如果方法参数中加入了对象：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">inc</span><span class="params">(String s,Object o)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 描述符：&lt;(Ljava/lang/String;Ljava/lang/Object;)I&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">inc</span><span class="params">(<span class="type">char</span>[][] a)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> m+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 描述符：&lt;([[C)I&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+<p><code>L</code>开头表示是一个对象，参数之间要用<code>;</code>隔开。详细的读者可以自己写一些方法来看一下具体的效果。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/08/5d052fc53aef3cb4.jpg"></p>
+
+        <h2 id="基本使用"   >
+          <a href="#基本使用" class="heading-link"><i class="fas fa-link"></i></a><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ClassWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassWriter</span>(ClassWriter.COMPUTE_MAXS);</span><br></pre></td></tr></table></div></figure>
+
+<p>构造函数里的参数与操作数栈和局部临时变量表有关，不想琢磨，用<code>COMPUTE_MAXS</code>即可。</p>
+<p>首先指定一下类的基本信息：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ClassWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassWriter</span>(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">        <span class="comment">// 因为这里用到的常量比较多，所以说直接一次性静态导入：</span></span><br><span class="line">        <span class="comment">// import static jdk.internal.org.objectweb.asm.Opcodes.*;</span></span><br><span class="line">        writer.visit(V1_8, ACC_PUBLIC,<span class="string">&quot;com/JVM/Main&quot;</span>, <span class="literal">null</span>,</span><br><span class="line">                     <span class="string">&quot;java/lang/Object&quot;</span>,<span class="literal">null</span>);</span><br><span class="line">        <span class="comment">// 第三个参数，需要根据自己的Main路径填写</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>设定的基本信息依次是：版本–Java8，修饰符–<code>ACC_PUBLIC</code>，类名–要携带包名，标签–<code>null</code>，父类–<code>Object</code>。</p>
+<p>将其保存，然后写入到自己生成的字节码文件当中：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ClassWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassWriter</span>(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">        writer.visit(V1_8, ACC_PUBLIC,<span class="string">&quot;com/test/Main&quot;</span>, <span class="literal">null</span>,</span><br><span class="line">                     <span class="string">&quot;java/lang/Object&quot;</span>,<span class="literal">null</span>);</span><br><span class="line">        <span class="comment">//调用visitEnd表示结束编辑</span></span><br><span class="line">        writer.visitEnd();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>(<span class="type">FileOutputStream</span> <span class="variable">stream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;./Main.class&quot;</span>))&#123;</span><br><span class="line">            stream.write(writer.toByteArray());  </span><br><span class="line">            <span class="comment">//直接通过ClassWriter将字节码文件转换为byte数组，并保存到根目录下</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>结果为：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/08/f0c63a80acdf6c29.jpg"></p>
+<p>从class文件可知，<code>Main.class</code>没有构造方法，所以可以添加一个</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过visitMethod方法可以添加一个新的方法</span></span><br><span class="line"><span class="comment">// 放在writer.visitEnd();前面即可</span></span><br><span class="line">writer.visitMethod(ACC_PUBLIC, <span class="string">&quot;&lt;init&gt;&quot;</span>, <span class="string">&quot;()V&quot;</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br></pre></td></tr></table></div></figure>
+
+<p>再次编译，发现存在构造方法，之前讲了字节码文件中的方法名和描述符，读者可以自行修改描述符感受一下效果。</p>
+<p>但是<code>Main</code>继承了<code>Object</code>类，所以在子类构造方法中应该调用父类的构造方法。也就是说，沃恩需要在方法中添加父类构造方法调用指令：</p>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public com.test.Main();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=1, locals=1, args_size=1</span><br><span class="line">         0: aload_0</span><br><span class="line">         1: invokespecial #1             // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">         4: return</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 11: 0</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0       5     0  this   Lcom/test/Main;</span><br></pre></td></tr></table></div></figure>
+
+<p>所以我们开始访问代码（<code>visitCode()</code>)，也就是对方法进行详细i编辑：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过MethodVisitor接收返回值，进行进一步操作</span></span><br><span class="line"><span class="type">MethodVisitor</span> <span class="variable">visitor</span> <span class="operator">=</span> writer.visitMethod(ACC_PUBLIC, <span class="string">&quot;&lt;init&gt;&quot;</span>, <span class="string">&quot;()V&quot;</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始编辑代码</span></span><br><span class="line">visitor.visitCode();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Label用于存储行号，当前代码写到哪行了，l1得到的就是多少行</span></span><br><span class="line"><span class="type">Label</span> <span class="variable">l1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加源代码行数对应表(字节码中的LineNumberTable)</span></span><br><span class="line">visitor.visitListNumber(<span class="number">11</span>,l1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不同类型的指令需要不同方法调用</span></span><br><span class="line">visitor.visitVarInsn(ALOAD,<span class="number">0</span>);</span><br><span class="line">visitor.visitMethodInsn(INVOKESPECIAL, <span class="string">&quot;java/lang/Object&quot;</span>, <span class="string">&quot;&lt;init&gt;&quot;</span>, <span class="string">&quot;()V&quot;</span>, <span class="literal">false</span>);</span><br><span class="line">visitor.visitInsn(RETURN);</span><br><span class="line"></span><br><span class="line"><span class="type">Label</span> <span class="variable">l2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line">visitor.visitLabel(l2);</span><br><span class="line"><span class="comment">// 添加本地变量表(字节码中的LocalVariableTable)，这里是this关键字</span></span><br><span class="line">visitor.visiLocalVariable(<span class="string">&quot;this&quot;</span>,,<span class="string">&quot;Lcom/JVM/Main;&quot;</span>,<span class="literal">null</span>,l1, l2, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//最后设定最大栈深度和本地变量数</span></span><br><span class="line">visitor.visitMaxs(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">//结束编辑</span></span><br><span class="line">visitor.visitEnd();</span><br></pre></td></tr></table></div></figure>
+
+<p>至此构造方法编辑完成，可以看到是非常麻烦的一件事，其实哪怕只是完成一个</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    System.out.println(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>都是非常复杂的一件事：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//开始安排main方法</span></span><br><span class="line"><span class="type">MethodVisitor</span> <span class="variable">v2</span> <span class="operator">=</span> writer.visitMethod(ACC_PUBLIC | ACC_STATIC, <span class="string">&quot;main&quot;</span>, </span><br><span class="line">                                      <span class="string">&quot;([Ljava/lang/String;)V&quot;</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">v2.visitCode();</span><br><span class="line"><span class="comment">//记录起始行信息</span></span><br><span class="line"><span class="type">Label</span> <span class="variable">l3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line">v2.visitLabel(l3);</span><br><span class="line">v2.visitLineNumber(<span class="number">13</span>, l3);</span><br><span class="line"></span><br><span class="line"><span class="comment">//首先是int a = 10的操作，执行指令依次为：</span></span><br><span class="line"><span class="comment">// bipush 10     将10推向操作数栈顶</span></span><br><span class="line"><span class="comment">// istore_1      将操作数栈顶元素保存到1号本地变量a中</span></span><br><span class="line">v2.visitIntInsn(BIPUSH, <span class="number">10</span>);</span><br><span class="line">v2.visitVarInsn(ISTORE, <span class="number">1</span>);</span><br><span class="line"><span class="type">Label</span> <span class="variable">l4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line">v2.visitLabel(l4);</span><br><span class="line"><span class="comment">//记录一下行信息</span></span><br><span class="line">v2.visitLineNumber(<span class="number">14</span>, l4);</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里是获取System类中的out静态变量（PrintStream接口），用于打印</span></span><br><span class="line">v2.visitFieldInsn(GETSTATIC, <span class="string">&quot;java/lang/System&quot;</span>, <span class="string">&quot;out&quot;</span>, <span class="string">&quot;Ljava/io/PrintStream;&quot;</span>);</span><br><span class="line"><span class="comment">//把a的值取出来</span></span><br><span class="line">v2.visitVarInsn(ILOAD, <span class="number">1</span>);</span><br><span class="line"><span class="comment">//调用接口中的抽象方法println</span></span><br><span class="line">v2.visitMethodInsn(INVOKEVIRTUAL, <span class="string">&quot;java/io/PrintStream&quot;</span>, <span class="string">&quot;println&quot;</span>, <span class="string">&quot;(I)V&quot;</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//再次记录行信息</span></span><br><span class="line"><span class="type">Label</span> <span class="variable">l6</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line">v2.visitLabel(l6);</span><br><span class="line">v2.visitLineNumber(<span class="number">15</span>, l6);</span><br><span class="line"></span><br><span class="line">v2.visitInsn(RETURN);</span><br><span class="line"><span class="type">Label</span> <span class="variable">l7</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Label</span>();</span><br><span class="line">v2.visitLabel(l7);</span><br><span class="line"></span><br><span class="line"><span class="comment">//最后是本地变量表中的各个变量</span></span><br><span class="line">v2.visitLocalVariable(<span class="string">&quot;args&quot;</span>, <span class="string">&quot;[Ljava/lang/String;&quot;</span>, <span class="literal">null</span>, l3, l7, <span class="number">0</span>);</span><br><span class="line">v2.visitLocalVariable(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;I&quot;</span>, <span class="literal">null</span>, l4, l7, <span class="number">1</span>);</span><br><span class="line">v2.visitMaxs(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">//终于OK了</span></span><br><span class="line">v2.visitEnd();</span><br></pre></td></tr></table></div></figure>
+
+<blockquote>
+<p>写之前就需要先写好Java程序进行反编译，再照着字节码一行一行使用<code>MathodVisitor</code>编辑。</p>
+</blockquote>
+
+        <h2 id="例子：实现AOP"   >
+          <a href="#例子：实现AOP" class="heading-link"><i class="fas fa-link"></i></a><a href="#例子：实现AOP" class="headerlink" title="例子：实现AOP"></a>例子：实现AOP</h2>
+      <blockquote>
+<p>AOP–面向切面编程，Spring核心之一，如果你不了解AOP，就暂时理解为，在一个执行流程（模块）中，加入一个切面，通过这个切面的方法可以被切面加入一些操作，如记录日志啥的。</p>
+</blockquote>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/08/972d8fa05bf61137.jpg"></p>
+<p>我们希望通过ASM来实现AOP：在方法调用前后增加逻辑（也叫做前置通知和后置通知）。</p>
+<p>具体代码实现感兴趣的读者可以参考：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-class-enhancer.html#%E5%AD%97%E8%8A%82%E7%A0%81%E5%A2%9E%E5%BC%BA%E6%8A%80%E6%9C%AF" >直接利用ASM实现AOP</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/keopmg" >https://www.yuque.com/qingkongxiaguang/javase/keopmg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-class-enhancer.html" >https://pdai.tech/md/java/jvm/java-jvm-class-enhancer.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/05/Java/JVM/JVM(1)-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">JVM(1)--类文件结构</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-07</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="类文件结构"   >
+          <a href="#类文件结构" class="heading-link"><i class="fas fa-link"></i></a><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h1>
+      <p>计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。</p>
+<ul>
+<li>Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。</li>
+<li>JVM也不再只支持Java，由此衍生出了许多基于JVM的编程语言，如Groovy, Scala, Koltin等等。</li>
+</ul>
+<blockquote>
+<p>许多开发语言支持将源代码编译为<code>.class</code>字节码文件格式，以便交给JVM运行</p>
+</blockquote>
+
+        <h2 id="类文件信息"   >
+          <a href="#类文件信息" class="heading-link"><i class="fas fa-link"></i></a><a href="#类文件信息" class="headerlink" title="类文件信息"></a>类文件信息</h2>
+      <p>先写一个例子：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> m;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">inc</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> m + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>编译生成<code>Test.class</code>文件。</p>
+<blockquote>
+<p>下载WinHex软件，以十六进制格式查看字节码文件（将编译好的<code>class</code>文件拖进去），每一位都是4个bit</p>
+</blockquote>
+<p>呈现出来的是酱紫的：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/227b1ae28c54688f.jpg"></p>
+<p>但是winHex我这打开总是有些毛病，所以选择另一个工具（IEDA插件）查看十六进制字节码：</p>
+<ul>
+<li>安装插件：Binary&#x2F;hexadecimal editor。</li>
+<li>右键class文件，选择Open As Binary。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/995affe6c346a8aa.jpg"></p>
+<p>有时直接查看16进制的结果不方便，为了能够方便查看字节码信息，需要安装另一个插件：</p>
+<ul>
+<li>安装插件：jclasslib Bytecode Viewer。</li>
+<li>选中要查看的java文件（不是class文件），点击view（视图），再点击<code>show Bytecode with jclasslib</code>。</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/06/8f19ae55706ab1c2.jpg"></p>
+<ul>
+<li>这样查看字节码文件中的常量池什么的就非常方便。</li>
+</ul>
+<p>对于类文件信息，需要知道的部分如下图：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/05/868070b026d6842b.jpg"></p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ClassFile &#123;</span><br><span class="line">    u4             magic; <span class="comment">//Class 文件的标志</span></span><br><span class="line">    u2             minor_version;<span class="comment">//Class 的小版本号</span></span><br><span class="line">    u2             major_version;<span class="comment">//Class 的大版本号</span></span><br><span class="line">    u2             constant_pool_count;<span class="comment">//常量池的数量</span></span><br><span class="line">    cp_info        constant_pool[constant_pool_count-<span class="number">1</span>];<span class="comment">//常量池</span></span><br><span class="line">    u2             access_flags;<span class="comment">//Class 的访问标记</span></span><br><span class="line">    u2             this_class;<span class="comment">//当前类</span></span><br><span class="line">    u2             super_class;<span class="comment">//父类</span></span><br><span class="line">    u2             interfaces_count;<span class="comment">//接口</span></span><br><span class="line">    u2             interfaces[interfaces_count];<span class="comment">//一个类可以实现多个接口</span></span><br><span class="line">    u2             fields_count;<span class="comment">//Class 文件的字段属性</span></span><br><span class="line">    field_info     fields[fields_count];<span class="comment">//一个类会可以有个字段</span></span><br><span class="line">    u2             methods_count;<span class="comment">//Class 文件的方法数量</span></span><br><span class="line">    method_info    methods[methods_count];<span class="comment">//一个类可以有个多个方法</span></span><br><span class="line">    u2             attributes_count;<span class="comment">//此类的属性表中的属性数</span></span><br><span class="line">    attribute_info attributes[attributes_count];<span class="comment">//属性表集合</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h3 id="魔数与版本"   >
+          <a href="#魔数与版本" class="heading-link"><i class="fas fa-link"></i></a><a href="#魔数与版本" class="headerlink" title="魔数与版本"></a>魔数与版本</h3>
+      <p>字节码文件前4个字节（32bit）组成了魔数，魔数机制检验该文件是否是JVM可以直接运行的字节码文件。字节码文件的魔数为：<strong>CAFFBABE</strong>。</p>
+<p>魔数后面的4个字节存储的是字节码文件的版本号，前两个是次要版本号（现在基本不用了），后两个是主要版本号，将16进制换算成10进制之后，得到的可以参照：52代表JDK8编译的字节码文件（51是JDK7，53是JDK9）。</p>
+
+        <h3 id="常量池"   >
+          <a href="#常量池" class="heading-link"><i class="fas fa-link"></i></a><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h3>
+      <p><code>Constant pool</code>意为常量池，可以理解为<code>Class</code>文件中的资源仓库，是程序运行一些需要用到的常量数据，主要存放<strong>字面量</strong>和<strong>符号引用</strong>。字面量类似于Java中的常量概念，如文本字符串，<code>final</code>常量等。</p>
+<p>符号引用属于编译原理的概念：</p>
+<ul>
+<li>类和接口的全限定名</li>
+<li>字段的名称和描述符</li>
+<li>方法的名称和描述符</li>
+</ul>
+<p>常量的数量不是确定的，所以在<strong>最开始的位置</strong>会存放常量池中<strong>常量的数量</strong>（是从1开始计算的，不是0，比如18，翻译为10进制就是24，所以实际上有23个常量）。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             constant_pool_count;<span class="comment">//常量池的数量</span></span><br><span class="line">cp_info        constant_pool[constant_pool_count-<span class="number">1</span>];<span class="comment">//常量池</span></span><br></pre></td></tr></table></div></figure>
+
+<p>每一项常量池里面的数据都是一个表，都是以_info结尾的（通过插件查看即可），有14种表。</p>
+
+        <h3 id="访问标志"   >
+          <a href="#访问标志" class="heading-link"><i class="fas fa-link"></i></a><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3>
+      <p>两个字节，代表访问标志，用于识别一些类或者接口层次的访问信息，包括：Class是类还是接口，是否为 public 或者 abstract 类型，如果是类的话是否声明为 final 等等。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/d412705d408b4988.jpg"></p>
+<p>反编译一下<code>Test.class</code>文件查看访问标志：</p>
+<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-p -private 显示所有类和成员</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-v -verbose 输出附加信息</span></span><br><span class="line">javap -verbose -p Test.class</span><br></pre></td></tr></table></div></figure>
+
+<p>对于结果为：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/175494f35c4a5e2e.jpg"></p>
+
+        <h3 id="类索引和接口索引集合"   >
+          <a href="#类索引和接口索引集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#类索引和接口索引集合" class="headerlink" title="类索引和接口索引集合"></a>类索引和接口索引集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">u2             this_class;<span class="comment">//当前类</span></span><br><span class="line">u2             super_class;<span class="comment">//父类</span></span><br><span class="line">u2             interfaces_count;<span class="comment">//接口</span></span><br><span class="line">u2             interfaces[interfaces_count];<span class="comment">//一个类可以实现多个接口</span></span><br></pre></td></tr></table></div></figure>
+
+<p>在访问标志的反编译图中也可以看到<strong>当前类索引</strong>，<strong>父类索引</strong>，<strong>接口索引</strong>。</p>
+<p><strong>类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名，由于 Java 语言的单继承，所以父类索引只有一个，除了 <code>java.lang.Object</code> 之外，所有的 java 类都有父类，因此除了 <code>java.lang.Object</code> 外，所有 Java 类的父类索引都不为 0。</strong></p>
+<p><strong>接口索引集合用来描述这个类实现了那些接口，这些被实现的接口将按<code>implents</code>(如果这个类本身是接口的话则是<code>extends</code>) 后的接口顺序从左到右排列在接口索引集合中。</strong></p>
+
+        <h3 id="字段表集合"   >
+          <a href="#字段表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             fields_count;<span class="comment">//Class 文件的字段的个数</span></span><br><span class="line">field_info     fields[fields_count];<span class="comment">//一个类会可以有个字段</span></span><br></pre></td></tr></table></div></figure>
+
+<p>用于描述接口或类中声明的变量。不包括方法内部的局部变量。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/a82c68d88210068a.jpg"></p>
+<ul>
+<li><strong>access_flags:</strong> 字段的作用域（<code>public</code> ,<code>private</code>,<code>protected</code>修饰符），是实例变量还是类变量（<code>static</code>修饰符）,可否被序列化（transient 修饰符）,可变性（final）,可见性（volatile 修饰符，是否强制从主内存读写），各个修饰符都是布尔值，要么有某个修饰符，要么没有，适合使用标志位来表示。</li>
+<li><strong>name_index:</strong> 对<strong>常量池</strong>的引用，表示的字段的名称；</li>
+<li><strong>descriptor_index:</strong> 对常量池的引用，表示字段和方法的描述符；&#x2F;&#x2F;</li>
+<li><strong>attributes_count:</strong> 一个字段还会拥有一些额外的属性，attributes_count 存放属性的个数；</li>
+<li><strong>attributes[attributes_count]:</strong> 存放具体属性具体内容。</li>
+</ul>
+
+        <h3 id="方法表集合"   >
+          <a href="#方法表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             methods_count;<span class="comment">//Class 文件的方法的数量</span></span><br><span class="line">method_info    methods[methods_count];<span class="comment">//一个类可以有个多个方法</span></span><br></pre></td></tr></table></div></figure>
+
+<p>Class 文件存储格式中对方法的描述与对字段的描述几乎采用了完全一致的方式。方法表（<code>method_info</code>）的结构如同字段表一样，依次包括了访问标志、名称索引、描述符索引、属性表集合几项（所以参照上图<code>field_info</code>）。</p>
+<p>得到的结果（这里只看方法那部分）：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Chapter1.Test();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: (<span class="number">0x0001</span>) ACC_PUBLIC				<span class="comment">// 这就是access_flag取值</span></span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: invokespecial #<span class="number">1</span>                <span class="comment">// Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">         <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: getfield      #<span class="number">2</span>                <span class="comment">// Field m:I</span></span><br><span class="line">         <span class="number">4</span>: iconst_1</span><br><span class="line">         <span class="number">5</span>: iadd</span><br><span class="line">         <span class="number">6</span>: ireturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">6</span>: <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>其中<code>access_flag</code>取值为：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/10/07/f8a119d3fd7bb199.jpg"></p>
+<blockquote>
+<p>因为<code>volatile</code>修饰符和<code>transient</code>修饰符不可以修饰方法，所以方法表的访问标志中没有这两个对应的标志，但是增加了<code>synchronized</code>、<code>native</code>、<code>abstract</code>等关键字修饰方法，所以也就多了这些关键字对应的标志。</p>
+</blockquote>
+<p>code内的主要属性为:</p>
+<ul>
+<li><strong>stack</strong>： 最大操作数栈，JVM运行时会根据这个值来分配栈帧(Frame)中的操作栈深度,此处为1<strong>（递归？）</strong></li>
+<li><strong>locals</strong>：局部变量所需的存储空间，单位为Slot, Slot是虚拟机为局部变量分配内存时所使用的最小单位，为4个字节大小。方法参数(包括实例方法中的隐藏参数this)，显示异常处理器的参数(try catch中的catch块所定义的异常)，方法体中定义的局部变量都需要使用<strong>局部变量表</strong>来存放。值得一提的是，locals的大小并不一定等于所有局部变量所占的Slot之和，因为局部变量中的Slot是可以重用的。</li>
+<li><strong>args_size</strong>：方法参数的个数，这里是1，因为每个实例方法都会有一个隐藏参数this</li>
+<li><strong>attribute_info</strong>: 方法体内容，0,1,4为字节码”行号”，该段代码的意思是将第一个引用类型本地变量推送至栈顶，然后执行该类型的实例方法，也就是常量池存放的第一个变量，也就是注释里的<code>java/lang/Object.&quot;&quot;:()V</code>, 然后执行返回语句，结束方法。</li>
+<li><strong>LineNumberTable</strong>：该属性的作用是描述源码行号与字节码行号(字节码偏移量)之间的对应关系。可以使用 -g:none 或-g:lines选项来取消或要求生成这项信息，如果选择不生成LineNumberTable，当程序运行异常时将无法获取到发生异常的源码行号，也无法按照源码的行数来调试程序。</li>
+</ul>
+<p>有时还会出现这个：</p>
+<ul>
+<li><strong>LocalVariableTable</strong>：该属性的作用是描述帧栈中局部变量与源码中定义的变量之间的关系。可以使用 -g:none 或 -g:vars来取消或生成这项信息，如果没有生成这项信息，那么当别人引用这个方法时，将无法获取到参数名称，取而代之的是arg0, arg1这样的占位符。 start 表示该局部变量在哪一行开始可见，length表示可见行数，Slot代表所在帧栈位置，Name是变量名称，然后是类型签名。</li>
+</ul>
+
+        <h3 id="属性表集合"   >
+          <a href="#属性表集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2             attributes_count;<span class="comment">//此类的属性表中的属性数</span></span><br><span class="line">attribute_info attributes[attributes_count];<span class="comment">//属性表集合</span></span><br></pre></td></tr></table></div></figure>
+
+<p>用于描述某些场景专有的信息。</p>
+
+        <h1 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+      <blockquote>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485250&idx=2&sn=33793bcce3f2ff31b83cf2f9c32df153&chksm=cea24889f9d5c19fa3e2b7d4f59762b59e6cd9e5e6564fe73c6993bd06e08bddd40cc0f3cba0&scene=0&xtrack=1&key=49cd1e59990c3d1f207865d32759f1ff2ae7fdf676f3b0a02ba49906a5af3ccdbd73e43bbe31515866f9748388c78cb9e4406d880eaf2d51afcf32168f3ad271769cc1c93cbfb0135046210b41d7d036&ascene=1&uin=MjMxMDk4NDI3&devicetype=Windows+7&version=62060739&lang=zh_CN&pass_ticket=J0+LnrNgEFouK4etBnwg1HUabsFw7ji5W1fiSveug54=" >谈谈Java类文件结构</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> </p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html" >https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://coolshell.cn/articles/9229.html" >https://coolshell.cn/articles/9229.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/luanlouis/article/details/39960815" >https://blog.csdn.net/luanlouis/article/details/39960815</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>《实战 Java 虚拟机》</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/java/jvm/java-jvm-class.html" >https://pdai.tech/md/java/jvm/java-jvm-class.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/javase/keopmg" >https://www.yuque.com/qingkongxiaguang/javase/keopmg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/10/04/Java/Java%E5%9F%BA%E7%A1%80/Java%E9%9B%86%E5%90%88(5)-WeakHashMap/">Java集合(5)--WeakHashMap</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="引用类型"   >
           <a href="#引用类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1>
       
@@ -611,236 +850,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-start-stop-restart-command.html" >https://www.runoob.com/docker/docker-start-stop-restart-command.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/27/Docker/Docker(6)-%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%AE%A1%E7%90%86/">Docker(6)--数据卷管理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-10-05</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="数据卷"   >
-          <a href="#数据卷" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h1>
-      <blockquote>
-<p>基于分层机制，在容器中操作的文件都是在最顶层进行，这也导致容器的销毁会导致数据丢失。通过数据卷可以实现数据共享和持久化。</p>
-</blockquote>
-
-        <h2 id="文件挂载"   >
-          <a href="#文件挂载" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件挂载" class="headerlink" title="文件挂载"></a>文件挂载</h2>
-      <p>Linux根目录以外的文件想要被访问，就需要将其关联到根目录下的某个目录实现，这种关联就叫挂载，目录就是挂载点，解除关联就是卸载。</p>
-<blockquote>
-<p>最直接的就是读取U盘的文件，如果没有挂载操作，就只能在图形化界面使用U盘，在命令行找不到的。</p>
-</blockquote>
-<p>进行挂载时建议重新创建一个文件夹，如果使用了系统文件夹（etc之类的），挂载操作会使得原有目录中文件被隐藏，可能会导致系统崩溃。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount 设备号 挂载点目录</span><br><span class="line"></span><br><span class="line">umount 挂载点目录</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h2 id="容器持久化"   >
-          <a href="#容器持久化" class="heading-link"><i class="fas fa-link"></i></a><a href="#容器持久化" class="headerlink" title="容器持久化"></a>容器持久化</h2>
-      <blockquote>
-<p>我们可以让容器将文件保存到宿主主机上，这样就算容器销毁，文件也会在宿主主机上保留，下次创建容器时，依然可以从宿主主机上读取到对应的文件。</p>
-</blockquote>
-<p>在宿主机创建需要挂载到容器的目录：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">随便创建点文件表示有内容</span></span><br><span class="line">vim test/hello.txt</span><br></pre></td></tr></table></div></figure>
-
-<p>将test目录挂载到容器的某个目录上</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v ~test:/root/test ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<p>此时在容器中就可以访问宿主主机的文件，对挂载目录的文件进行编辑，就相当于编辑宿主主机的数据。在容器中创建文件，宿主主机也会创建相应文件。</p>
-<blockquote>
-<p>在容器中删除文件，不会影响主机的文件。</p>
-</blockquote>
-<p>可以部署Nginx，在宿主主机上保存前端页面，然后将这个前端页面目录挂载到Nignx容器上，这样Nginx镜像有升级，容器需要删除重新创建也不会影响前端页面。</p>
-<p>我们这里使用的前端模板是<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://bootstrapmade.com/" >Arsha</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>（如何将文件传到linux上待会讲）。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v /win_data/Arsha:/usr/share/nginx/html/ -p 80:80 -d nginx</span><br></pre></td></tr></table></div></figure>
-
-<p>将解压出来的目录挂载到Nginx的默认站点目录<code>/usr/share/nginx/html/</code>，因为挂在后位于顶层，会替代镜像原有的文件。</p>
-<p>进入容器将Nginx服务启动：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx</span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>在windos浏览器中输入<code>IP:80</code>，即可访问nginx服务，如果访问超时，可能是linux80端口被其他进程占用，最简单的就是重启一下linux，再启动nginx。</p>
-</blockquote>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/28/72cd9dda6c186381.jpg"></p>
-<p>如果在挂载时没有指定宿主主机的目录，Docker就会自动创建一个新的文件夹，并且会将容器中对应路径下的内容拷贝到这个自动创建的目录中，最后挂在到容器中，这种就是由Docker管理的数据卷了。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v /root/abc ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<p>要查看Docker将文件放在了宿主机哪个位置</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器名字/ID</span><br></pre></td></tr></table></div></figure>
-
-<p>主要是看Mount这个部分</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/28/efea66dac14a3326.jpg"></p>
-<p>Docker支持从宿主主机复制文件到容器中（或者容器复制文件到宿主主机）</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 主机文件 容器名/ID:文件夹路径</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h3 id="win文件传输到Linux"   >
-          <a href="#win文件传输到Linux" class="heading-link"><i class="fas fa-link"></i></a><a href="#win文件传输到Linux" class="headerlink" title="win文件传输到Linux"></a>win文件传输到Linux</h3>
-      <blockquote>
-<p>如果linux装在虚拟机上，虚拟机安装了VMwareTools后，一般可以实现文件直接从win拖动到虚拟机系统里面，但是有时候抽风又不能拖动。也可以将文件放到U盘里面，然后U盘挂载到Linux上，再将文件移动到Linux其他文件夹里面使用。（无语的是我这U盘挂载也出了问题）</p>
-</blockquote>
-<p>这里讲通过pscp，命令行传输文件。</p>
-<ul>
-<li>在Linux中设置好root的密码：<code>sudo passwd</code>。在根目录下创建<code>win_data</code>文件夹（名字其实随便）</li>
-<li>修改<code>sshd_config</code>文件，参考这篇文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/xuliangxing/p/7428737.html" >https://www.cnblogs.com/xuliangxing/p/7428737.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li>在windos下载好需要的文件</li>
-</ul>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/28/29425736a49aebd9.jpg"></p>
-<ul>
-<li>下载pscp：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" >https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li>将<code>pscp.exe</code>放在C:\Windows\System32文件夹下</li>
-</ul>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/28/0879d6517d9f457d.jpg"></p>
-<ul>
-<li>在C:Windows\System32下打开命令行，输入：</li>
-</ul>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp 下载文件路径 root@IP:/win_data</span><br></pre></td></tr></table></div></figure>
-
-<p>输入密码后就可以传输了，这里必须要使用root，使用一般用户的话，权限不够会拒绝访问。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/28/6d1d04a4f34aac95.jpg"></p>
-<ul>
-<li>最后在<code>/win_data</code>目录里解压压缩包就可以使将其挂载到nginx上了</li>
-</ul>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo unzip Arsha.zip</span><br></pre></td></tr></table></div></figure>
-
-
-
-
-        <h2 id="容器数据共享"   >
-          <a href="#容器数据共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#容器数据共享" class="headerlink" title="容器数据共享"></a>容器数据共享</h2>
-      <blockquote>
-<p>容器与容器之间的数据共享</p>
-</blockquote>
-<p>一般思路是在宿主主机上创建公告目录，让需要共享的容器挂载到这个公共目录。也可以创建一个容器专门用于存放数据，即数据卷容器。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v ~/test:/root/test --name=data_test ubuntu</span><br><span class="line">docker run -it --volumes-from data_test ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<p>使用<code>--volumes-from</code>指定另一个容器，数据卷容器挂载的内容，在当前容器也存在，就算数据卷容器被删除，也不会影响这边，本质上还是让两个容器挂载了同样的目录实现数据共享。</p>
-<p>还可以将数据完全放到容器中，通过构建一个容器将打包好的数据分享给其他容器</p>
-<figure class="highlight dockerfile"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> data.tar.gz /usr/share/nginx/html</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /usr/share/nginx/html</span></span><br></pre></td></tr></table></div></figure>
-
-<p>指令ADD，它跟COPY命令类似，也可以复制文件到容器中，但是它可以自动对压缩文件进行解压，这里只需要将压缩好的文件填入即可，后面的VOLUME指令就像我们使用<code>-v</code>参数一样，会创建一个挂载点在容器中</p>
-<p>然后构建</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t 镜像名 .</span><br></pre></td></tr></table></div></figure>
-
-<p>通过这个镜像创建按出来的容器，我们就可以使用了（假设容器名是ubuntu_test）</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --volumes-from=ubuntu_test -d nginx</span><br></pre></td></tr></table></div></figure>
-
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p>Linux文件挂载：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://haicoder.net/linux/linux-file-mount.html" >https://haicoder.net/linux/linux-file-mount.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.bbsmax.com/A/gVdnOKP8zW/" >https://www.bbsmax.com/A/gVdnOKP8zW/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>修改sshd_config文件：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/xuliangxing/p/7428737.html" >https://www.cnblogs.com/xuliangxing/p/7428737.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>前端模板：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://bootstrapmade.com/" >https://bootstrapmade.com/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/09/24/Docker/Docker(5)-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Docker(5)--网络配置</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-09-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-09-27</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="Docker默认网桥"   >
-          <a href="#Docker默认网桥" class="heading-link"><i class="fas fa-link"></i></a><a href="#Docker默认网桥" class="headerlink" title="Docker默认网桥"></a>Docker默认网桥</h1>
-      <p>安装Docker服务会默认创建一个 docker0 网桥，它在内核层连通了其他的物理或虚拟网卡，这就<strong>将所有容器和本地主机都放到同一个物理网络</strong>。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/26/6cd3d7a5835ed737.jpg"></p>
-<p>容器有三种网络类型，分别是<code>bridge</code>,<code>host</code>,<code>none</code>，创建容器时默认是<code>bridge</code>。我们可以使用命令查看</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></div></figure>
-
-<p>先创建一个容器再来讲解</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu</span><br><span class="line"></span><br><span class="line">apt update</span><br><span class="line">apt install net-tools iputils-ping curl</span><br></pre></td></tr></table></div></figure>
-
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/26/30f79fa9a2b0bfe5.jpg"></p>
-<p>可以看到这个容器的<code>IP</code>是<code>172.17.0.3</code>。该ubuntu容器启动时没有指定网络类型，默认就是<code>bridge</code>，我们看一下<code>bridge</code>的网络</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cyan@w2d:~$ docker network inspect bridge</span><br></pre></td></tr></table></div></figure>
-
-<p>看关键部分</p>
-<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Config&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Subnet&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.17.0.0/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Gateway&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.17.0.1&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></div></figure>
-
-<blockquote>
-<p>我的终端倒是没有显示Gateway网关，这个其实就是docker0的IP，我们创建的容器默认就是通过docker0桥接宿主机的网络。</p>
-</blockquote>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/26/726c5b32968c34d6.jpg"></p>
-
-        <h2 id="创建容器"   >
-          <a href="#创建容器" class="heading-link"><i class="fas fa-link"></i></a><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h2>
-      <p>Docker在创建一个容器的时候，会执行如下操作：</p>
-<ul>
-<li><p>创建一对虚拟接口&#x2F;网卡，也就是veth pair，分别放到本地主机和新容器中；</p>
-</li>
-<li><p>本地主机一端桥接到默认的 docker0 或指定网桥上，并具有一个唯一的名字，如 vethxxxxx；</p>
-</li>
-<li><p>容器一端放到新容器中，并修改名字作为 eth0，这个网卡&#x2F;接口只在容器的名字空间可见；</p>
-</li>
-<li><p>从网桥可用地址段中（也就是与该bridge对应的network）获取一个空闲地址分配给容器的 eth0，并配置默认路由到桥接网卡 vethxxxx。</p>
-</li>
-</ul>
-<blockquote>
-<p>如果不指定–network，创建的容器默认都会挂到 docker0 上，使用本地主机上 docker0 接口的 IP 作为所有容器的默认网关</p>
-</blockquote>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/26/324896ddff4fdafc.jpg"></p>
-
-        <h1 id="网络类型"   >
-          <a href="#网络类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#网络类型" class="headerlink" title="网络类型"></a>网络类型</h1>
-      
-        <h2 id="默认网络类型"   >
-          <a href="#默认网络类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#默认网络类型" class="headerlink" title="默认网络类型"></a>默认网络类型</h2>
-      <p>之前使用<code>docker network ls</code>查看三种网络类型，有<code>bridge</code>，<code>host</code>，<code>none</code>。，使用<code>--network</code>可以指定网络</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --network=none ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<ul>
-<li><strong>none网络</strong>：只有一个本地环回网络，通过<code>ifconfig</code>查看，只有一个本地环回<code>lo</code>网络设备：</li>
-</ul>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/26/ba906a10862142e3.jpg"></p>
-<p>在这种网络模式下，容器无法连接到互联网：比如，<code>ping</code>不通，纯纯单机运行。</p>
-<ul>
-<li><strong>bridger网络</strong>：容器默认使用的网络类型，上文我们已经讲了，此处不再赘述。</li>
-<li><strong>host网络</strong>：当容器连接到此网络，会共享宿主主机的网络，网络配置是完全一样。</li>
-</ul>
-
-        <h2 id="自定义网络类型"   >
-          <a href="#自定义网络类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#自定义网络类型" class="headerlink" title="自定义网络类型"></a>自定义网络类型</h2>
-      <p>Docker默认提供三种网络驱动：<code>bridge</code>、<code>overlay</code>、<code>macvlan</code>，不同的驱动对应着不同的网络设备驱动，实现的功能也不一样，比如bridge类型的，其实就和我们前面介绍的桥接网络是一样的。</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge test</span><br></pre></td></tr></table></div></figure>
-
-<p>这就是本文最开始的<code>ifconfig</code>多显示了一个网络设备，不同网络之间的通信是相互隔离的，无法进行通信，比如我们有一个在默认网络类型的ubuntu容器，有一个在test网络下的ubuntu容器，后者的网关是<code>172.18.0.1</code>，容器IP为<code>172.18.0.2</code>，在前者中想要执行命令：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 172.18.0.2</span><br></pre></td></tr></table></div></figure>
-
-<p>会失败，想要实现通信，需要将前者连接到另一个容器所属的网络下：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network connect test(网络类型) 容器ID/名称</span><br></pre></td></tr></table></div></figure>
-
-<p>此时容器就可以互相通信。Docker的DNS服务器可以不需要指定容器IP，比如有两个可以互相通信的容器，在启动时分别用<code>--name</code>指定名称，通信时就可以使用名称而不是IP（就像有一个DNS一样将名字解析成IP）</p>
-<p>两个容器也可以共享一个网络设备，即两个容器共同使用一个IP地址，只需要在创建时指定：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name=test02 --network=container:test02 ubuntu</span><br></pre></td></tr></table></div></figure>
-
-<p>两个容器的IP地址和网卡的Mac地址是完全一样的，它们的网络现在是共享状态，此时在容器中访问，localhost，既是自己也是别人。</p>
-<p>可以在容器1中，安装Nginx，然后再容器2中访问：</p>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install -y systemctl nginx</span><br><span class="line">systemctl start nginx</span><br></pre></td></tr></table></div></figure>
-
-<p>访问到另一个容器中的Nginx服务器。</p>
-<blockquote>
-<p>另外两种类型的网络用于多主机通信，多主机通信会使用物理交换机，不同主机的网卡连接到同一台交换机，就相当于各自网桥在同一物理网络了。</p>
-</blockquote>
-
-        <h2 id="容器外部网络"   >
-          <a href="#容器外部网络" class="heading-link"><i class="fas fa-link"></i></a><a href="#容器外部网络" class="headerlink" title="容器外部网络"></a>容器外部网络</h2>
-      <p>在默认的三种的网络下，只有共享模式和桥接模式可以连接到外网，共享模式实际上就是直接使用宿主主机的网络设备连接到互联网，这里主要来看一下桥接模式。</p>
-<blockquote>
-<p>桥接模式容器发送数据包时，关键部分就是NAT(Netwirk Address Translation)，将地址进行转换，再利用宿主主机的IP地址发送数据包出去。</p>
-</blockquote>
-<p>比如我们要访问互联网上的某个资源，要和服务器进行通信，那么就需要将数据包发送出去，同时服务器也要将数据包发送回来，我们可以知道服务器的IP地址，也可以直接去连接，因为服务器的IP地址是暴露在互联网上的，但是我们的局域网就不一样了，它仅仅局限在我们的家里，比如我们连接了家里的路由器，可以得到一个IP地址，但是你会发现，这个IP公网是无法直接访问到我们的，因为这个IP地址仅仅是一个局域网的IP地址，俗称内网IP。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/27/dab39643f8e2041e.jpg"></p>
-<p>这里就借助了NAT在帮助我们与互联网上的服务器进行通信，通过NAT，可以实现将局域网的IP地址，映射为对应的公网IP地址，而NAT设备一端连接外网，另一端连接内网的所有设备，当我们想要与外网进行通信时，就可以将数据包发送给NAT设备，由它来将数据包的源地址映射为它在外网上的地址，这样服务器就能够发现它了，能够直接与它建立通信。当服务器发送数据回来时，也是直接交给NAT设备，然后再根据地址映射，转发给对应的内网设备（当然由于公网IP地址有限，所以一般采用IP+端口结合使用的形式ANPT）。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/27/e05a018b5df6da55.jpg"></p>
-<p>用百度查出来的IP和在命令行使用<code>ipconfig(windows)</code>查出来的不一样，前者是NAT设备的公网地址。</p>
-<p>Docker中，内网数据包想要发送到互联网上的流程为：</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/09/27/e4ebfbc4ba947097.jpg"></p>
-<p>单纯依靠NAT，只有主动与外界联系时，外界才知道我们。但是如果容器中部署了一些服务，需要外界主动连接容器的服务，就需要使用端口映射配置。</p>
-<blockquote>
-<p>外界连接，只知道linux的IP而不知道容器的IP，就需要通过端口映射访问。端口映射可以将容器需要对外提供服务的端口映射到宿主主机的端口上，这样，当外部访问到宿主主机的对应端口时，就会直接转发给容器内映射的端口了。</p>
-</blockquote>
-<figure class="highlight shell"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先部署一个nginx服务</span></span><br><span class="line">docker run -d -p 80:80 nginx</span><br></pre></td></tr></table></div></figure>
-
-<p><code>-p</code>参数是进行端口映射配置，规则为<code>宿主端口:容器端口</code>，其实关于端口映射之前的文章已经讲过了。</p>
-<p>然后在浏览器中输入：<code>Linux IP:80</code>即可访问nignx服务。</p>
-
-        <h1 id="参考"   >
-          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
-      <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pdai.tech/md/devops/docker/docker-07-network.html" >https://pdai.tech/md/devops/docker/docker-07-network.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#67fb97ea" >https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#67fb97ea</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.it1352.com/2052892.html" >https://www.it1352.com/2052892.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">80</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">82</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

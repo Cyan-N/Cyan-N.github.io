@@ -30,7 +30,202 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/21/Java/%E5%B9%B6%E5%8F%91/JUC_locks1-LockSupport/">J.U.C.locks(1)--LockSupport</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-17</span></span></div></header><div class="post-body"><div class="post-excerpt">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">慕青的日记</div><div class="header-banner-info__subtitle">Cyan</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/24/Database/MySQL/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99/">字符集与比较规则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-07-24</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h1>
+      <p>计算机中存储的实际上是二进制数据，想要存储字符串，就要建立字符与二进制数据的映射关系。将字符映射为二进制数据的过程叫做<strong>编码</strong>，将二进制数据映射为字符的过程就是<strong>解码</strong>。</p>
+<p>为了容易记忆，你需要知道，解码就是把看不懂的数据（二进制数据）解析为看得懂的数据（字符）。</p>
+<p>因为每个字符实际上是二进制数据，所以他们是可以比较大小的，由此衍生出比较规则。以最经典的ASCII字符集为例，该字符集一共收录<strong>128个字符</strong>，<strong>每个字符由一个字节保存</strong>。字符<strong>a</strong>的二进制编码为<code>1100001</code>，字符<strong>b</strong>的二进制编码为<code>1100010</code>，通过比较就可以看出<code>a&gt;b</code>。</p>
+<p>需要记住几种重要的字符集：</p>
+<ul>
+<li>GBK字符集：在字符范围上对GB2312字符集进行扩充，编码方式兼容GB2312字符集。记住其应用广泛即可</li>
+<li>UTF-8字符集：几乎收录各国（地区）使用的字符，并且在不断扩充。使用变长编码方式，一个字符需要使用1~4个字节</li>
+</ul>
+<p>其实UTF-8只是Unicode字符集的一种<strong>编码方案</strong>，其他的还有UTF-16（2或4字节编码一个字符），UTF-32（4字节）。</p>
+
+        <h1 id="MySQL支持的字符集与比较规则"   >
+          <a href="#MySQL支持的字符集与比较规则" class="heading-link"><i class="fas fa-link"></i></a><a href="#MySQL支持的字符集与比较规则" class="headerlink" title="MySQL支持的字符集与比较规则"></a>MySQL支持的字符集与比较规则</h1>
+      
+        <h2 id="utf8mb3和utf8mb4"   >
+          <a href="#utf8mb3和utf8mb4" class="heading-link"><i class="fas fa-link"></i></a><a href="#utf8mb3和utf8mb4" class="headerlink" title="utf8mb3和utf8mb4"></a>utf8mb3和utf8mb4</h2>
+      <p>我们平常使用的字符一般用 1~3 个字节就可以表示，在MySQL中，<strong>字符集表示一个字符所用的最大字节数会影响系统存储和性能</strong>（比如一条记录中变长数据的存储，之后的文章会讲到）。</p>
+<p>总之，你需要记住的是UTF-8使用 1-4 个字节存储方式有点浪费，所以就有了utf8mb3。</p>
+<ul>
+<li>utf8mb3：阉割版的UTF-8字符集，使用1~3个字节表示一个字符。</li>
+<li>utf8mb4：就是UTF-8字符集，使用1~4个字节。</li>
+</ul>
+<p>在MySQL中，<strong>utf8是utf8mb3的别名</strong>。同时，在MySQL8.0中，utf8mb4被极大优化，成为了默认的字符集。</p>
+
+        <h2 id="字符集的查看"   >
+          <a href="#字符集的查看" class="heading-link"><i class="fas fa-link"></i></a><a href="#字符集的查看" class="headerlink" title="字符集的查看"></a>字符集的查看</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show charset;</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| Charset  | Description                     | Default collation   | Maxlen |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |</span><br><span class="line">| dec8     | DEC West European               | dec8_swedish_ci     |      1 |</span><br><span class="line">| cp850    | DOS West European               | cp850_general_ci    |      1 |</span><br><span class="line">| hp8      | HP West European                | hp8_english_ci      |      1 |</span><br><span class="line">| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br></pre></td></tr></table></div></figure>
+
+<p>命令 <code>show (character set | charset) [like 匹配模式];</code> （<code>[]</code>里的内容可以省略）</p>
+<p><code>Maxlen</code>表示该字符集最多需要几个字节表示一个字符。</p>
+<p>​																				<strong>表1  常用字符集与Maxlen</strong> </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">Charset</th>
+<th align="center">Maxlen</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ascii</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">latin1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">gb2312</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">gbk</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">utf8</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">utf8mb4</td>
+<td align="center">4</td>
+</tr>
+</tbody></table></div>
+<p><code>Default collation</code>表示默认的比较规则，<strong>一个字符集可能对应多种比较规则</strong>。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show collation like &#x27;utf8\_%&#x27;;</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| Collation                | Charset | Id  | Default | Compiled | Sortlen |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| utf8_general_ci          | utf8    |  33 | Yes     | Yes      |       1 |</span><br><span class="line">| utf8_bin                 | utf8    |  83 |         | Yes      |       1 |</span><br><span class="line">| utf8_unicode_ci          | utf8    | 192 |         | Yes      |       8 |</span><br><span class="line">| utf8_icelandic_ci        | utf8    | 193 |         | Yes      |       8 |</span><br><span class="line">| utf8_latvian_ci          | utf8    | 194 |         | Yes      |       8 |</span><br><span class="line">| utf8_romanian_ci         | utf8    | 195 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovenian_ci        | utf8    | 196 |         | Yes      |       8 |</span><br><span class="line">| utf8_polish_ci           | utf8    | 197 |         | Yes      |       8 |</span><br><span class="line">| utf8_estonian_ci         | utf8    | 198 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish_ci          | utf8    | 199 |         | Yes      |       8 |</span><br><span class="line">| utf8_swedish_ci          | utf8    | 200 |         | Yes      |       8 |</span><br><span class="line">| utf8_turkish_ci          | utf8    | 201 |         | Yes      |       8 |</span><br><span class="line">| utf8_czech_ci            | utf8    | 202 |         | Yes      |       8 |</span><br><span class="line">| utf8_danish_ci           | utf8    | 203 |         | Yes      |       8 |</span><br><span class="line">| utf8_lithuanian_ci       | utf8    | 204 |         | Yes      |       8 |</span><br><span class="line">| utf8_slovak_ci           | utf8    | 205 |         | Yes      |       8 |</span><br><span class="line">| utf8_spanish2_ci         | utf8    | 206 |         | Yes      |       8 |</span><br><span class="line">| utf8_roman_ci            | utf8    | 207 |         | Yes      |       8 |</span><br><span class="line">| utf8_persian_ci          | utf8    | 208 |         | Yes      |       8 |</span><br><span class="line">| utf8_esperanto_ci        | utf8    | 209 |         | Yes      |       8 |</span><br><span class="line">| utf8_hungarian_ci        | utf8    | 210 |         | Yes      |       8 |</span><br><span class="line">| utf8_sinhala_ci          | utf8    | 211 |         | Yes      |       8 |</span><br><span class="line">| utf8_german2_ci          | utf8    | 212 |         | Yes      |       8 |</span><br><span class="line">| utf8_croatian_ci         | utf8    | 213 |         | Yes      |       8 |</span><br><span class="line">| utf8_unicode_520_ci      | utf8    | 214 |         | Yes      |       8 |</span><br><span class="line">| utf8_vietnamese_ci       | utf8    | 215 |         | Yes      |       8 |</span><br><span class="line">| utf8_general_mysql500_ci | utf8    | 223 |         | Yes      |       1 |</span><br><span class="line">+--------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">27 rows in set (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+
+<p>命令：<code>show collation [like 匹配模式];</code> </p>
+<p>从命名中可以看出有些与地域有关系，如<code>utf8_spanish_ci</code>是西班牙语的比较规则，<code>utf8_polish_ci</code>则是波兰语的比较规则。</p>
+<p>​																	<strong>表2  比较规则后缀英文释义及描述</strong> </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">后缀</th>
+<th align="center">英文释义</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_ai</td>
+<td align="center">accent insensitive</td>
+<td align="center">不区分重音</td>
+</tr>
+<tr>
+<td align="center">_as</td>
+<td align="center">accent sensitive</td>
+<td align="center">区分重音</td>
+</tr>
+<tr>
+<td align="center">_ci</td>
+<td align="center">case insensitive</td>
+<td align="center">不区分大小写</td>
+</tr>
+<tr>
+<td align="center">_cs</td>
+<td align="center">case(大小写) sensitive</td>
+<td align="center">区分大小写</td>
+</tr>
+<tr>
+<td align="center">_bin</td>
+<td align="center">binary</td>
+<td align="center">以二进制方式比较</td>
+</tr>
+</tbody></table></div>
+
+        <h1 id="应用"   >
+          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用" class="headerlink" title="应用"></a>应用</h1>
+      <p>MySQL有四个级别的字符集和比较规则，分别是服务器级别，数据库级别，表级别，列级别。下面解释如何设置和查看不同级别的字符集和比较规则。</p>
+
+        <h3 id="服务器级别"   >
+          <a href="#服务器级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#服务器级别" class="headerlink" title="服务器级别"></a>服务器级别</h3>
+      <p>MySQL提供两个变量来表示服务器级别的字符集和比较规则。</p>
+<p>​																			<strong>表3  服务器对应的系统变量</strong></p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">系统变量</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">character_set_server</td>
+<td align="center">服务器级别的字符集</td>
+</tr>
+<tr>
+<td align="center">collation_server</td>
+<td align="center">服务器级别的比较规则</td>
+</tr>
+</tbody></table></div>
+<p>相关命令</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+
+<p>如果想要修改这两个系统变量，需要通过启动选项或者使用set语句修改 <code>set global/session varName = value</code>（如果看不懂命令，之后的文章会提到<code>global/session</code>）</p>
+
+        <h3 id="数据库级别"   >
+          <a href="#数据库级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据库级别" class="headerlink" title="数据库级别"></a>数据库级别</h3>
+      <p>字符集和比较规则在创建和修改数据库时可以指定该数据库的字符集和比较规则</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br><span class="line">	</span><br><span class="line">alter database 数据库名</span><br><span class="line">	[[default] character set 字符集名称]</span><br><span class="line">	[[default] collation 比较规则名称]</span><br></pre></td></tr></table></div></figure>
+
+<p>数据库级别也有两个系统变量，当我们使用<code>use</code>语句选择一个数据库时，这两个系统变量的值就是该数据库的字符集和比较规则。<strong>如果没有选择数据库，它们的值和服务器级别的系统变量值相同</strong>。</p>
+<p>​																				<strong>表4  数据库对应的系统变量</strong> </p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">系统变量</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">character_set_database</td>
+<td align="center">当前数据库的字符集</td>
+</tr>
+<tr>
+<td align="center">collation_databased</td>
+<td align="center">当前数据库的比较规则</td>
+</tr>
+</tbody></table></div>
+<p>我们不能通过修改这两个系统变量的值来改变当前数据库的字符集和比较规则。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%_server&#x27;;</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| Variable_name        | Value             |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">| character_set_server | latin1            |</span><br><span class="line">| collation_server     | latin1_swedish_ci |</span><br><span class="line">+----------------------+-------------------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; create database test;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use test;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%_database&#x27;;</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| Variable_name          | Value             |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">| character_set_database | latin1            |</span><br><span class="line">| collation_database     | latin1_swedish_ci |</span><br><span class="line">| skip_show_database     | OFF               |</span><br><span class="line">+------------------------+-------------------+</span><br><span class="line">3 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></div></figure>
+
+<p>可以看到，如果<strong>在创建数据库时没有指定字符集和比较规则，就会使用服务器级别的字符集和比较规则</strong>。</p>
+
+        <h3 id="表级别"   >
+          <a href="#表级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h3>
+      <p>表级别和数据库级别差不多，都是在创建，修改表时可以修改表的字符集和比较规则，如果没有在创建表时指明其字符集和比较规则，就会使用当前数据库的字符集和比较规则。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table t(</span><br><span class="line">	col varchar(10)</span><br><span class="line">) character set utf8,collate utf8_general_ci;</span><br><span class="line"></span><br><span class="line">alter table t character set utf8;</span><br></pre></td></tr></table></div></figure>
+
+<p>表查看比较规则</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 使用\G是将输出结果旋转90度输出，方便观看</span><br><span class="line">mysql&gt; show table status from test like &#x27;t&#x27; \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: t</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 0</span><br><span class="line"> Avg_row_length: 0</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: NULL</span><br><span class="line">    Create_time: 2022-07-24 17:44:59</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8_general_ci #比较规则</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">ERROR:</span><br><span class="line">No query specified</span><br></pre></td></tr></table></div></figure>
+
+<p>可以看到，表<code>t</code>的比较规则为<code>utf8_general_ci</code>，则字符集为 <code>utf8</code>（为什么知道比较规则之后就知道了字符集，请继续看）。</p>
+
+        <h3 id="列级别"   >
+          <a href="#列级别" class="heading-link"><i class="fas fa-link"></i></a><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h3>
+      <p>同一个表中，不同列也可以有不同的比较规则。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(</span><br><span class="line">	列名 字符串类型 [character set 字符集名称] [collate 比较规则名称],</span><br><span class="line">    其他列....</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table 表名 modify 列名 [character set 字符集名称] [collate 比较规则名称];</span><br></pre></td></tr></table></div></figure>
+
+
+
+<p>需要注意的是，<strong>对于任何一个级别</strong>，存在两条修改规则：</p>
+<ul>
+<li>只修改字符集，则比较规则将会变为修改后的字符集默认的比较规则。</li>
+<li>只修改比较规则，则字符集会变为比较规则对应的字符集。</li>
+</ul>
+<p>如果想要同时修改字符集和比较规则，他们两个一定要适配，比如下列命令</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table t character set utf8 collate utf8mb4_general_ci;</span><br><span class="line">ERROR 1253 (42000): COLLATION &#x27;utf8mb4_general_ci&#x27; is not valid for CHARACTER SET &#x27;utf8&#x27;</span><br></pre></td></tr></table></div></figure>
+
+<p>报错信息为比较规则<code>utf8mb4_general_ci</code>对于字符集<code>utf8</code>是无效的，所以，我们知道了一个表的比较规则，一般也就知道了其字符集。</p>
+
+        <h1 id="引用"   >
+          <a href="#引用" class="heading-link"><i class="fas fa-link"></i></a><a href="#引用" class="headerlink" title="引用"></a>引用</h1>
+      <blockquote>
+<p>本文总结于《从根上理解MySQL》第三章p32-p43，作者：小孩子4919。对于有能力或者兴趣的读者，鄙人强烈推荐这本书，如果您能够通过正规渠道购买，支持作者，支持正版，支持每一颗热爱技术的心，我将感激不尽。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/07/21/Java/%E5%B9%B6%E5%8F%91/JUC_locks1-LockSupport/">J.U.C.locks(1)--LockSupport</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-17</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="源码分析"   >
           <a href="#源码分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1>
       
@@ -115,4 +310,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.2.0"></he
       <blockquote>
 <p>冰河《深入理解高并发编程》第一版</p>
 </blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/8/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">82</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/8/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">You have lots more to work on</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">83</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_tw" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Cyan</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>

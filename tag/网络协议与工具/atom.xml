@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;网络协议与工具&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2022-10-01T01:58:30.000Z</updated>
+    <category term="tools" />
+    <category term="Docker" />
+    <category term="shell" />
+    <category term="云计算" />
+    <category term="网络协议与工具" />
+    <category term="MySQL" />
+    <category term="数据结构与算法" />
+    <category term="Mybatis" />
+    <category term="JVM" />
+    <category term="Java8" />
+    <category term="并发" />
+    <category term="设计模式" />
+    <category term="网络编程" />
+    <category term="Java基础" />
+    <category term="轻小说结局魔改" />
+    <entry>
+        <id>https://cecilia.cool/2022/10/01/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E4%B8%8E%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</id>
+        <title>网络协议</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/01/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E4%B8%8E%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;整个网络协议与工具线路参照 pdai 的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2ZWxvcC9wcm90b2NvbC9kZXYtcHJvdG9jb2wtb3ZlcnZpZXcuaHRtbA==&#34;&gt; Java 全栈知识体系&lt;/span&gt;学习，前半部分关于计算机网络的知识，padi 也是直接使用了博客园的博主&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ob21lLmNuYmxvZ3MuY29tL3UvZ29vZ255Lw==&#34;&gt;桂城老托尼&lt;/span&gt;关于《计算机网络第五版》（谢希仁）的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZ29vZ255L3AvMzY4MjI4MC5odG1s&#34;&gt;读书笔记&lt;/span&gt;，在学习期间，作者也会参考《计算机网络 - 自顶向下方法》进行内容补充。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;计算机网络基础&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#计算机网络基础&#34;&gt;#&lt;/a&gt; 计算机网络基础&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果学计算机网络觉得看文字过于枯燥，可以看一下中科大的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMUpWNDExdDdvdy8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smYW1wO3ZkX3NvdXJjZT01YWNmNWE3YjIzZDI4ZTc2MzNlNWE5YjM4MWM1N2M0Mg==&#34;&gt;郑烇老师&lt;/span&gt;的计算机网络的课。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;因特网概述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#因特网概述&#34;&gt;#&lt;/a&gt; 因特网概述&lt;/h2&gt;
+&lt;p&gt;一个网络可能由光纤，路由器，计算机（包括服务器）等组成，本质上就是结点和链路的组成。而&lt;strong&gt;因特网则是把许多网络连接在一起&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/01/4851be18068b1041.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;边缘部分：由所有连接在因特网的主机组成，这些主机又叫做端系统 (end system)。&lt;/li&gt;
+&lt;li&gt;核心部分：大量网络和连接这些网络的&lt;strong&gt;路由器&lt;/strong&gt;组成，为边缘部分提供服务的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;计算机通信方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;客户服务器方式 --C/S 方式，一般是客户端发起通信，否则服务端不知道客户端 IP。&lt;/li&gt;
+&lt;li&gt;对等方式 --P2P 方式（Peer-to-Peer），两个主机都运行了对等连接软件，可以平等，对等连接通信。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因特网中的核心部分最复杂，起特殊作用的是路由器（Router），实现分组交换。比如某一主机现需要发送一段较长的数据，发送时就会将这段数据分为一个个的分组，加上首部（事实上，我们说一个分组时，已经认为其包含了首部）。首部包含了一些有用的信息，比如这个分组实际承载的数据多大，目标地址等。&lt;/p&gt;
+&lt;p&gt;分组交换网中的结点交换机根据收到的分组的首部中的地址信息，把分组转发到下一个结点交换机。用这样的存储转发方式，最后分组就能到达最终目的地。接收端收到分组后剥去首部还原成报文。最后，在接收端把收到的数据恢复成为原来的报文。&lt;/p&gt;
+&lt;h2 id=&#34;路由器&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#路由器&#34;&gt;#&lt;/a&gt; 路由器&lt;/h2&gt;
+&lt;p&gt;路由器处理分组过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把收到的分组先放入缓存（暂时存储）；&lt;/li&gt;
+&lt;li&gt;查找转发表，找出到某个目的地址应从哪个端口转发；&lt;/li&gt;
+&lt;li&gt;把分组送到适当的端口转发出去。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;请区分好路由器和主机的区别，尽管都是因特网的节点，但是它们是不一样的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;分组交换也存在许多问题，比如许多节点在经过同一个路由器分组转发时，需要排队，会造成一定时延，分组的首部也造成一定开销。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;除了分组交换，还有电路交换，在发送信息前，双方必须建立一条连接，路径上的交换机都将为该连接维护状态，并且预留了带宽，数据能够以恒定速率发送。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对比：&lt;/p&gt;
+&lt;p&gt;早期面向终端的计算机网络是&lt;strong&gt;以单个主机为中心的星形网&lt;/strong&gt;，各终端通过通信线路共享昂贵的中心主机的硬件和软件资源。分组交换网则是以网络为中心，主机都处在网络的外围。&lt;/p&gt;
+&lt;h2 id=&#34;网络分类&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#网络分类&#34;&gt;#&lt;/a&gt; 网络分类&lt;/h2&gt;
+&lt;p&gt;不同作用范围：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;广域网 WAN（Wide Area Network），手机端移动设备是通过蜂窝网提供商运营的基站来发送和接收分组。用于仅需位于基站的数万米范围。&lt;/li&gt;
+&lt;li&gt;局域网 LAN（Local Area Network)，个人热点就是局域网，称为 wlan-- 无线局域网（Wireless），WiFi 是基于 IEEEE 802.11 技术的无线 LAN 接入，用户必须在接入点几十米范围内。&lt;/li&gt;
+&lt;li&gt;城域网 MAN&lt;/li&gt;
+&lt;li&gt;个人区域网 PAN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据使用者也可以分为公用网和专用网。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重点需要提的是接入网 AN（Access），由 ISP--Internet Service Provider 提供，起到让用户域因特网连接的桥梁作用。每个 ISP 自身就是一个由多台分组交换机和多段通信链路组成的网络。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;分组交换机除了路由器和链路层交换机，后者通常用于接入网，路由器用于网络核心中。&lt;/p&gt;
+&lt;h2 id=&#34;相关术语&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#相关术语&#34;&gt;#&lt;/a&gt; 相关术语&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;带宽&lt;/strong&gt;：数字信道所能传送的最&lt;strong&gt;高数据率&lt;/strong&gt;，单位是&lt;strong&gt;比特每秒 b/s&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;吞吐量&lt;/strong&gt;：单位时间内通过某个网络（信道，接口）的数据量。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;传输时延（发送时延 ）&lt;/strong&gt;：  发送数据时，数据块从结点进入到传输媒体所需要的时间。从发送数据帧的第一个比特算起，到该帧的最后一个比特发送完毕所需的时间，&lt;strong&gt;发送时延 = 数据块长度 / 带宽&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;传播时延&lt;/strong&gt;  电磁波在信道中需要传播一定的距离而花费的时间，&lt;strong&gt;传播时延 = 信道长度 / 信号在信道上的传播速率&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;处理时延和排队时延比较简单，跟路由器有关。&lt;/p&gt;
+&lt;h2 id=&#34;体系结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#体系结构&#34;&gt;#&lt;/a&gt; 体系结构&lt;/h2&gt;
+&lt;p&gt;经常使用的 TCP/IP 协议是四层体系结构：应用层，运输层，网际层，网络接口层。和 ISO 折中之后，采用一种五层协议的体系结构：应用层，运输层，网络层，数据链路层，物理层。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/01/cd33ff3621dde413.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;还有 UDP，这种传输协议不能对数据做出任何保证，即使在传播过程中出现丢失，比特突变，都不会做任何弥补措施，一般用于实时媒体软件，比如直播（数据丢了就丢了，无所谓）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZ29vZ255L3AvMzY4MjI4MC5odG1s&#34;&gt;https://www.cnblogs.com/googny/p/3682280.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;《计算机网络自顶向下》第一章&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="网络协议与工具" />
+        <updated>2022-10-01T01:58:30.000Z</updated>
+    </entry>
+</feed>

@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;docker&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2022-09-28T08:16:58.000Z</updated>
+    <category term="tools" />
+    <category term="Docker" />
+    <category term="shell" />
+    <category term="云计算" />
+    <category term="网络协议与工具" />
+    <category term="MySQL" />
+    <category term="数据结构与算法" />
+    <category term="Mybatis" />
+    <category term="JVM" />
+    <category term="Java8" />
+    <category term="并发" />
+    <category term="设计模式" />
+    <category term="网络编程" />
+    <category term="Java基础" />
+    <category term="轻小说结局魔改" />
+    <entry>
+        <id>https://cecilia.cool/2022/09/28/Docker/Docker(7)-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/</id>
+        <title>Docker(7)--资源管理</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/28/Docker/Docker(7)-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/"/>
+        <content type="html">&lt;h1 id=&#34;容器控制操作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器控制操作&#34;&gt;#&lt;/a&gt; 容器控制操作&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;补充一些 Docker 的命令，对于这种单纯的命令查看，建议直接看菜鸟教程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 进入容器，退出：ctrl+P，ctrl+Q；终止容器运行的程序：ctrl+C&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; attach 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 执行命令，这里执行的是 bash，并开启一个可输入终端&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; 容器ID/名称 &lt;span class=&#34;token function&#34;&gt;bash&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# （假设容器可以执行 java），就相当于让容器执行 java -version&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; 容器ID/名称 &lt;span class=&#34;token function&#34;&gt;java&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-version&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 允许容器处理善后再停止运行&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;kill&lt;/span&gt; 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 直接强制停止容器&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; stop 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 启动容器（一般是容器被 stop 之后）&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; start 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 重启容器&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; restart 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 暂停容器 (unpause-- 取消暂停)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pause 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;物理资源管理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#物理资源管理&#34;&gt;#&lt;/a&gt; 物理资源管理&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;内存分配：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-m&lt;/span&gt; 50M --memory-swap&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;100M nagocoler/springboot-test:1.0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;-m&lt;/code&gt;  对容器的物理内存的限制， &lt;code&gt;--memory-swap&lt;/code&gt;  对内存和交换分区总和的限制。默认都是 - 1，即没有任何限制。如果仅指定 &lt;code&gt;-m&lt;/code&gt; ，那么交换内存的限制也为 &lt;code&gt;-m&lt;/code&gt;  指定的参数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU 进行限额：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-c&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1024&lt;/span&gt; ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-c&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;512&lt;/span&gt; ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;对 CPU 的分配只有多容器才生效，默认是 1024，如果 CPU 不紧张，依然可以使用全部 CPU 资源。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过 Ubuntu 命令： &lt;code&gt;sudo apt install stress&lt;/code&gt;  在容器中下载压力测试工具来看一下进程分配权重对进程获得 CPU 资源的影响。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;还可以限制容器使用 CPU：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; --cpuset-cpus&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;选项后面的值不是 CPU 的数量，而是 CPU 的 “编号”，即这个容器只用 1 这个 CPU，所以指定两个 CPU 时也可以这样： &lt;code&gt;docker run -it --cpuset-cpus=0,1 ubuntu&lt;/code&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;命令 &lt;code&gt;--cpus&lt;/code&gt;  来限制使用 CPU 资源数（个数）： &lt;code&gt;docker run -it --cpus=1 ubuntu&lt;/code&gt; 。&lt;/p&gt;
+&lt;h1 id=&#34;容器监控&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器监控&#34;&gt;#&lt;/a&gt; 容器监控&lt;/h1&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; stats&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;可以实时对容器的各项状态进行监控，包括内存使用、CPU 占用、网络 I/O、磁盘 I/O 等信息。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/2e4f267ce01df490.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;top&lt;/code&gt;  命令可以查看容器进程：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;top&lt;/span&gt; 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;对于容器监管，也有页面版本的，官方&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9kb2NzLnBvcnRhaW5lci5pby9zdGFydC9pbnN0YWxsL3NlcnZlci9kb2NrZXIvbGludXg=&#34;&gt;下载教程&lt;/span&gt;，此处不过多讲解。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvendoa3BpL2txNnJsZw==&#34;&gt;https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cucnVub29iLmNvbS9kb2NrZXIvZG9ja2VyLXN0YXJ0LXN0b3AtcmVzdGFydC1jb21tYW5kLmh0bWw=&#34;&gt;https://www.runoob.com/docker/docker-start-stop-restart-command.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-28T08:16:58.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/27/Docker/Docker(6)-%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%AE%A1%E7%90%86/</id>
+        <title>Docker(6)--数据卷管理</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/27/Docker/Docker(6)-%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%AE%A1%E7%90%86/"/>
+        <content type="html">&lt;h1 id=&#34;数据卷&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据卷&#34;&gt;#&lt;/a&gt; 数据卷&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于分层机制，在容器中操作的文件都是在最顶层进行，这也导致容器的销毁会导致数据丢失。通过数据卷可以实现数据共享和持久化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;文件挂载&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件挂载&#34;&gt;#&lt;/a&gt; 文件挂载&lt;/h2&gt;
+&lt;p&gt;Linux 根目录以外的文件想要被访问，就需要将其关联到根目录下的某个目录实现，这种关联就叫挂载，目录就是挂载点，解除关联就是卸载。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最直接的就是读取 U 盘的文件，如果没有挂载操作，就只能在图形化界面使用 U 盘，在命令行找不到的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;进行挂载时建议重新创建一个文件夹，如果使用了系统文件夹（etc 之类的），挂载操作会使得原有目录中文件被隐藏，可能会导致系统崩溃。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;mount&lt;/span&gt; 设备号 挂载点目录&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;umount&lt;/span&gt; 挂载点目录&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;容器持久化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器持久化&#34;&gt;#&lt;/a&gt; 容器持久化&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们可以让容器将文件保存到宿主主机上，这样就算容器销毁，文件也会在宿主主机上保留，下次创建容器时，依然可以从宿主主机上读取到对应的文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在宿主机创建需要挂载到容器的目录：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;mkdir&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;test&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 随便创建点文件表示有内容&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;vim&lt;/span&gt; test/hello.txt&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;将 test 目录挂载到容器的某个目录上&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-v&lt;/span&gt; ~test:/root/test ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;此时在容器中就可以访问宿主主机的文件，对挂载目录的文件进行编辑，就相当于编辑宿主主机的数据。在容器中创建文件，宿主主机也会创建相应文件。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在容器中删除文件，不会影响主机的文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可以部署 Nginx，在宿主主机上保存前端页面，然后将这个前端页面目录挂载到 Nignx 容器上，这样 Nginx 镜像有升级，容器需要删除重新创建也不会影响前端页面。&lt;/p&gt;
+&lt;p&gt;我们这里使用的前端模板是&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ib290c3RyYXBtYWRlLmNvbS8=&#34;&gt; Arsha&lt;/span&gt;（如何将文件传到 linux 上待会讲）。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-v&lt;/span&gt; /win_data/Arsha:/usr/share/nginx/html/ &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;80&lt;/span&gt;:80 &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;将解压出来的目录挂载到 Nginx 的默认站点目录 &lt;code&gt;/usr/share/nginx/html/&lt;/code&gt; ，因为挂在后位于顶层，会替代镜像原有的文件。&lt;/p&gt;
+&lt;p&gt;进入容器将 Nginx 服务启动：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;systemctl start nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;在 windos 浏览器中输入 &lt;code&gt;IP:80&lt;/code&gt; ，即可访问 nginx 服务，如果访问超时，可能是 linux80 端口被其他进程占用，最简单的就是重启一下 linux，再启动 nginx。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/72cd9dda6c186381.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;如果在挂载时没有指定宿主主机的目录，Docker 就会自动创建一个新的文件夹，并且会将容器中对应路径下的内容拷贝到这个自动创建的目录中，最后挂在到容器中，这种就是由 Docker 管理的数据卷了。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-v&lt;/span&gt; /root/abc ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;要查看 Docker 将文件放在了宿主机哪个位置&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; inspect 容器名字/ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;主要是看 Mount 这个部分&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/efea66dac14a3326.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Docker 支持从宿主主机复制文件到容器中（或者容器复制文件到宿主主机）&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; 主机文件 容器名/ID:文件夹路径&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;win文件传输到linux&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#win文件传输到linux&#34;&gt;#&lt;/a&gt; win 文件传输到 Linux&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果 linux 装在虚拟机上，虚拟机安装了 VMwareTools 后，一般可以实现文件直接从 win 拖动到虚拟机系统里面，但是有时候抽风又不能拖动。也可以将文件放到 U 盘里面，然后 U 盘挂载到 Linux 上，再将文件移动到 Linux 其他文件夹里面使用。（无语的是我这 U 盘挂载也出了问题）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里讲通过 pscp，命令行传输文件。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 Linux 中设置好 root 的密码： &lt;code&gt;sudo passwd&lt;/code&gt; 。在根目录下创建 &lt;code&gt;win_data&lt;/code&gt;  文件夹（名字其实随便）&lt;/li&gt;
+&lt;li&gt;修改 &lt;code&gt;sshd_config&lt;/code&gt;  文件，参考这篇文章：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veHVsaWFuZ3hpbmcvcC83NDI4NzM3Lmh0bWw=&#34;&gt;https://www.cnblogs.com/xuliangxing/p/7428737.html&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;在 windos 下载好需要的文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/29425736a49aebd9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载 pscp：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY2hpYXJrLmdyZWVuZW5kLm9yZy51ay9+c2d0YXRoYW0vcHV0dHkvbGF0ZXN0Lmh0bWw=&#34;&gt;https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;将 &lt;code&gt;pscp.exe&lt;/code&gt;  放在 C:\Windows\System32 文件夹下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/0879d6517d9f457d.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 C:Windows\System32 下打开命令行，输入：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;scp&lt;/span&gt; 下载文件路径 root@IP:/win_data&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;输入密码后就可以传输了，这里必须要使用 root，使用一般用户的话，权限不够会拒绝访问。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/28/6d1d04a4f34aac95.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最后在 &lt;code&gt;/win_data&lt;/code&gt;  目录里解压压缩包就可以使将其挂载到 nginx 上了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;unzip&lt;/span&gt; Arsha.zip&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;容器数据共享&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器数据共享&#34;&gt;#&lt;/a&gt; 容器数据共享&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;容器与容器之间的数据共享&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一般思路是在宿主主机上创建公告目录，让需要共享的容器挂载到这个公共目录。也可以创建一个容器专门用于存放数据，即数据卷容器。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-v&lt;/span&gt; ~/test:/root/test &lt;span class=&#34;token parameter variable&#34;&gt;--name&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;data_test ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; --volumes-from data_test ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;使用 &lt;code&gt;--volumes-from&lt;/code&gt;  指定另一个容器，数据卷容器挂载的内容，在当前容器也存在，就算数据卷容器被删除，也不会影响这边，本质上还是让两个容器挂载了同样的目录实现数据共享。&lt;/p&gt;
+&lt;p&gt;还可以将数据完全放到容器中，通过构建一个容器将打包好的数据分享给其他容器&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-Dockerfile&#34;&gt;FROM ubuntu
+ADD data.tar.gz /usr/share/nginx/html
+VOLUME /usr/share/nginx/html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;指令 ADD，它跟 COPY 命令类似，也可以复制文件到容器中，但是它可以自动对压缩文件进行解压，这里只需要将压缩好的文件填入即可，后面的 VOLUME 指令就像我们使用 &lt;code&gt;-v&lt;/code&gt;  参数一样，会创建一个挂载点在容器中&lt;/p&gt;
+&lt;p&gt;然后构建&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; build &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; 镜像名 &lt;span class=&#34;token builtin class-name&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;通过这个镜像创建按出来的容器，我们就可以使用了（假设容器名是 ubuntu_test）&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;80&lt;/span&gt;:80 --volumes-from&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;ubuntu_test &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Linux 文件挂载：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oYWljb2Rlci5uZXQvbGludXgvbGludXgtZmlsZS1tb3VudC5odG1s&#34;&gt;https://haicoder.net/linux/linux-file-mount.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuYmJzbWF4LmNvbS9BL2dWZG5PS1A4elcv&#34;&gt;https://www.bbsmax.com/A/gVdnOKP8zW/&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;修改 sshd_config 文件：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veHVsaWFuZ3hpbmcvcC83NDI4NzM3Lmh0bWw=&#34;&gt;https://www.cnblogs.com/xuliangxing/p/7428737.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;前端模板：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ib290c3RyYXBtYWRlLmNvbS8=&#34;&gt;https://bootstrapmade.com/&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-27T08:46:08.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/24/Docker/Docker(5)-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/</id>
+        <title>Docker(5)--网络配置</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/24/Docker/Docker(5)-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+        <content type="html">&lt;h1 id=&#34;docker默认网桥&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#docker默认网桥&#34;&gt;#&lt;/a&gt; Docker 默认网桥&lt;/h1&gt;
+&lt;p&gt;安装 Docker 服务会默认创建一个 docker0 网桥，它在内核层连通了其他的物理或虚拟网卡，这就&lt;strong&gt;将所有容器和本地主机都放到同一个物理网络&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/26/6cd3d7a5835ed737.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;容器有三种网络类型，分别是 &lt;code&gt;bridge&lt;/code&gt; , &lt;code&gt;host&lt;/code&gt; , &lt;code&gt;none&lt;/code&gt; ，创建容器时默认是 &lt;code&gt;bridge&lt;/code&gt; 。我们可以使用命令查看&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; network &lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;先创建一个容器再来讲解&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; update&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; net-tools iputils-ping &lt;span class=&#34;token function&#34;&gt;curl&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/26/30f79fa9a2b0bfe5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;可以看到这个容器的 &lt;code&gt;IP&lt;/code&gt;  是 &lt;code&gt;172.17.0.3&lt;/code&gt; 。该 ubuntu 容器启动时没有指定网络类型，默认就是 &lt;code&gt;bridge&lt;/code&gt; ，我们看一下 &lt;code&gt;bridge&lt;/code&gt;  的网络&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;cyan@w2d:~$ &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; network inspect bridge&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;看关键部分&lt;/p&gt;
+&lt;figure class=&#34;highlight json&#34;&gt;&lt;figcaption data-lang=&#34;JSON&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token property&#34;&gt;&#34;Config&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token property&#34;&gt;&#34;Subnet&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;172.17.0.0/16&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token property&#34;&gt;&#34;Gateway&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;172.17.0.1&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;我的终端倒是没有显示 Gateway 网关，这个其实就是 docker0 的 IP，我们创建的容器默认就是通过 docker0 桥接宿主机的网络。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/26/726c5b32968c34d6.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;创建容器&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#创建容器&#34;&gt;#&lt;/a&gt; 创建容器&lt;/h2&gt;
+&lt;p&gt;Docker 在创建一个容器的时候，会执行如下操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;创建一对虚拟接口 / 网卡，也就是 veth pair，分别放到本地主机和新容器中；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地主机一端桥接到默认的 docker0 或指定网桥上，并具有一个唯一的名字，如 vethxxxxx；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;容器一端放到新容器中，并修改名字作为 eth0，这个网卡 / 接口只在容器的名字空间可见；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从网桥可用地址段中（也就是与该 bridge 对应的 network）获取一个空闲地址分配给容器的 eth0，并配置默认路由到桥接网卡 vethxxxx。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果不指定 --network，创建的容器默认都会挂到 docker0 上，使用本地主机上 docker0 接口的 IP 作为所有容器的默认网关&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/26/324896ddff4fdafc.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;网络类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#网络类型&#34;&gt;#&lt;/a&gt; 网络类型&lt;/h1&gt;
+&lt;h2 id=&#34;默认网络类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#默认网络类型&#34;&gt;#&lt;/a&gt; 默认网络类型&lt;/h2&gt;
+&lt;p&gt;之前使用 &lt;code&gt;docker network ls&lt;/code&gt;  查看三种网络类型，有 &lt;code&gt;bridge&lt;/code&gt; ， &lt;code&gt;host&lt;/code&gt; ， &lt;code&gt;none&lt;/code&gt; 。，使用 &lt;code&gt;--network&lt;/code&gt;  可以指定网络&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;--network&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;none ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;none 网络&lt;/strong&gt;：只有一个本地环回网络，通过 &lt;code&gt;ifconfig&lt;/code&gt;  查看，只有一个本地环回 &lt;code&gt;lo&lt;/code&gt;  网络设备：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/26/ba906a10862142e3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在这种网络模式下，容器无法连接到互联网：比如， &lt;code&gt;ping&lt;/code&gt;  不通，纯纯单机运行。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bridger 网络&lt;/strong&gt;：容器默认使用的网络类型，上文我们已经讲了，此处不再赘述。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;host 网络&lt;/strong&gt;：当容器连接到此网络，会共享宿主主机的网络，网络配置是完全一样。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;自定义网络类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#自定义网络类型&#34;&gt;#&lt;/a&gt; 自定义网络类型&lt;/h2&gt;
+&lt;p&gt;Docker 默认提供三种网络驱动： &lt;code&gt;bridge&lt;/code&gt; 、 &lt;code&gt;overlay&lt;/code&gt; 、 &lt;code&gt;macvlan&lt;/code&gt; ，不同的驱动对应着不同的网络设备驱动，实现的功能也不一样，比如 bridge 类型的，其实就和我们前面介绍的桥接网络是一样的。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; network create &lt;span class=&#34;token parameter variable&#34;&gt;--driver&lt;/span&gt; bridge &lt;span class=&#34;token builtin class-name&#34;&gt;test&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这就是本文最开始的 &lt;code&gt;ifconfig&lt;/code&gt;  多显示了一个网络设备，不同网络之间的通信是相互隔离的，无法进行通信，比如我们有一个在默认网络类型的 ubuntu 容器，有一个在 test 网络下的 ubuntu 容器，后者的网关是 &lt;code&gt;172.18.0.1&lt;/code&gt; ，容器 IP 为 &lt;code&gt;172.18.0.2&lt;/code&gt; ，在前者中想要执行命令：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ping&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;172.18&lt;/span&gt;.0.2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;会失败，想要实现通信，需要将前者连接到另一个容器所属的网络下：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; network connect test&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;网络类型&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 容器ID/名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;此时容器就可以互相通信。Docker 的 DNS 服务器可以不需要指定容器 IP，比如有两个可以互相通信的容器，在启动时分别用 &lt;code&gt;--name&lt;/code&gt;  指定名称，通信时就可以使用名称而不是 IP（就像有一个 DNS 一样将名字解析成 IP）&lt;/p&gt;
+&lt;p&gt;两个容器也可以共享一个网络设备，即两个容器共同使用一个 IP 地址，只需要在创建时指定：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;--name&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;test02 &lt;span class=&#34;token parameter variable&#34;&gt;--network&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;container:test02 ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;两个容器的 IP 地址和网卡的 Mac 地址是完全一样的，它们的网络现在是共享状态，此时在容器中访问，localhost，既是自己也是别人。&lt;/p&gt;
+&lt;p&gt;可以在容器 1 中，安装 Nginx，然后再容器 2 中访问：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-y&lt;/span&gt; systemctl nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; systemctl start nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;访问到另一个容器中的 Nginx 服务器。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;另外两种类型的网络用于多主机通信，多主机通信会使用物理交换机，不同主机的网卡连接到同一台交换机，就相当于各自网桥在同一物理网络了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;容器外部网络&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器外部网络&#34;&gt;#&lt;/a&gt; 容器外部网络&lt;/h2&gt;
+&lt;p&gt;在默认的三种的网络下，只有共享模式和桥接模式可以连接到外网，共享模式实际上就是直接使用宿主主机的网络设备连接到互联网，这里主要来看一下桥接模式。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;桥接模式容器发送数据包时，关键部分就是 NAT (Netwirk Address Translation)，将地址进行转换，再利用宿主主机的 IP 地址发送数据包出去。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;比如我们要访问互联网上的某个资源，要和服务器进行通信，那么就需要将数据包发送出去，同时服务器也要将数据包发送回来，我们可以知道服务器的 IP 地址，也可以直接去连接，因为服务器的 IP 地址是暴露在互联网上的，但是我们的局域网就不一样了，它仅仅局限在我们的家里，比如我们连接了家里的路由器，可以得到一个 IP 地址，但是你会发现，这个 IP 公网是无法直接访问到我们的，因为这个 IP 地址仅仅是一个局域网的 IP 地址，俗称内网 IP。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/27/dab39643f8e2041e.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;这里就借助了 NAT 在帮助我们与互联网上的服务器进行通信，通过 NAT，可以实现将局域网的 IP 地址，映射为对应的公网 IP 地址，而 NAT 设备一端连接外网，另一端连接内网的所有设备，当我们想要与外网进行通信时，就可以将数据包发送给 NAT 设备，由它来将数据包的源地址映射为它在外网上的地址，这样服务器就能够发现它了，能够直接与它建立通信。当服务器发送数据回来时，也是直接交给 NAT 设备，然后再根据地址映射，转发给对应的内网设备（当然由于公网 IP 地址有限，所以一般采用 IP + 端口结合使用的形式 ANPT）。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/27/e05a018b5df6da55.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;用百度查出来的 IP 和在命令行使用 &lt;code&gt;ipconfig(windows)&lt;/code&gt;  查出来的不一样，前者是 NAT 设备的公网地址。&lt;/p&gt;
+&lt;p&gt;Docker 中，内网数据包想要发送到互联网上的流程为：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/27/e4ebfbc4ba947097.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;单纯依靠 NAT，只有主动与外界联系时，外界才知道我们。但是如果容器中部署了一些服务，需要外界主动连接容器的服务，就需要使用端口映射配置。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;外界连接，只知道 linux 的 IP 而不知道容器的 IP，就需要通过端口映射访问。端口映射可以将容器需要对外提供服务的端口映射到宿主主机的端口上，这样，当外部访问到宿主主机的对应端口时，就会直接转发给容器内映射的端口了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 先部署一个 nginx 服务&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;80&lt;/span&gt;:80 nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;-p&lt;/code&gt;  参数是进行端口映射配置，规则为 &lt;code&gt;宿主端口:容器端口&lt;/code&gt; ，其实关于端口映射之前的文章已经讲过了。&lt;/p&gt;
+&lt;p&gt;然后在浏览器中输入： &lt;code&gt;Linux IP:80&lt;/code&gt;  即可访问 nignx 服务。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2b3BzL2RvY2tlci9kb2NrZXItMDctbmV0d29yay5odG1s&#34;&gt;https://pdai.tech/md/devops/docker/docker-07-network.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvendoa3BpL2txNnJsZyM2N2ZiOTdlYQ==&#34;&gt;https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#67fb97ea&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuaXQxMzUyLmNvbS8yMDUyODkyLmh0bWw=&#34;&gt;https://www.it1352.com/2052892.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-24T04:28:58.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/24/Docker/Docker(4)-webapp%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B/</id>
+        <title>Docker(4)--webapp应用实例</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/24/Docker/Docker(4)-webapp%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B/"/>
+        <content type="html">&lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;本文通过 web 应用展示主机如何与 wen 容器之间通信，为后续讲解网络提供基础。&lt;/p&gt;
+&lt;h1 id=&#34;web的运行与访问&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#web的运行与访问&#34;&gt;#&lt;/a&gt; web 的运行与访问&lt;/h1&gt;
+&lt;h2 id=&#34;运行&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#运行&#34;&gt;#&lt;/a&gt; 运行&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;找到一个 webapp 镜像即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pull training/webapp&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;下载完成后查看&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; images &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;grep&lt;/span&gt; webapp&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;我们需要跑一下这个 webapp 里面的 app.py 文件，其实就是 hello world&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;启动 webapp&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-P&lt;/span&gt; training/webapp python app.py&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-d&lt;/code&gt; ：让容器在后台运行&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;-P&lt;/code&gt; ：将容器内部使用的网络端口映射到主机上&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查看一下&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;cyan@w2d:~$ &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;ps&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;CONTAINER ID          PORTS                                   &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;e7a994ce697c     &lt;span class=&#34;token number&#34;&gt;0.0&lt;/span&gt;.0.0:49153-&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;5000&lt;/span&gt;/tcp, :::49153-&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;5000&lt;/span&gt;/tcp&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这里因为界面显示不够，我就只保留了 ID 和端口号的相关信息。&lt;/p&gt;
+&lt;h2 id=&#34;访问&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#访问&#34;&gt;#&lt;/a&gt; 访问&lt;/h2&gt;
+&lt;p&gt;上文端口号的解读是：Docker 开放 5000 端口（Python Flask 默认端口）映射到主机端口 49153.&lt;/p&gt;
+&lt;p&gt;所以我们可以从 49153 这个端口来访问这个界面&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;netstat&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-nltp&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;grep&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;49153&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;netstat&lt;/code&gt;  命令用于显示网络状态&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在命令行：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;curl&lt;/span&gt; localhost:49153&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 或者在浏览器上访问，ip 是虚拟机 - Ubuntu 的 ip&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/24/1d9b4aa085083f9e.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;容器映射到主机的端口是随机的，但是可以用 - P 选项来指定端口&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-P&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5001&lt;/span&gt;:500 training/webapp python app.py&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;如果浏览器访问不上，把镜像删了重新下载试试，反正是可以的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;其他功能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#其他功能&#34;&gt;#&lt;/a&gt; 其他功能&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;反正都是命令，快速过一下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看容器 (映射) 端口&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; port ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看日志&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; logs ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看容器进程&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;top&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 检查应用底层信息，返回 JSON 文件记录&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 容器配置和状态信息&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; inspect ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 停止应用容器&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; stop ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 重启容器&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; restart/start ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 移除容器，-f 就是强制删除，一般容器删除需要 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;rm&lt;/span&gt; ID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;容器互联&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#容器互联&#34;&gt;#&lt;/a&gt; 容器互联&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;删除所有不再使用的容器： &lt;code&gt;docker container prune&lt;/code&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;创建数据库容器：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;--name&lt;/span&gt; db training/postgres&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;db 容器与 web 容器建立互联关系&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-P&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5001&lt;/span&gt;:5000 &lt;span class=&#34;token parameter variable&#34;&gt;--name&lt;/span&gt; web &lt;span class=&#34;token parameter variable&#34;&gt;--link&lt;/span&gt; db:db training/webapp python app.py&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;--link&lt;/code&gt;  参数格式为  &lt;code&gt;--link name:alias&lt;/code&gt; ，其中 name 是要链接的容器的名称，alias 是这个连接的别名。&lt;/p&gt;
+&lt;p&gt;容器之间的连接信息的查看有两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;查看环境变量：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# webapp 已经运行起来了，假设其名字为 web&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; web /bin/bash&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# ====&gt;，这里假设 ID 是 1cbc9aeba2a8&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;root@1cbc9aeba2a8:/opt/webapp&lt;span class=&#34;token comment&#34;&gt;# env&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_NAME&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;/web/db&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_PORT_5432_TCP_ADDR&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;172.17&lt;/span&gt;.0.2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_PORT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;tcp://172.17.0.2:5432&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_PORT_5432_TCP&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;tcp://172.17.0.2:5432&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;PATH&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;PWD&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;/opt/webapp&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_PORT_5432_TCP_PORT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;5432&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;SHLVL&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;HOME&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;/root&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_PORT_5432_TCP_PROTO&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;tcp&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;DB_ENV_PG_VERSION&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;9.3&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;/usr/bin/env&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;DB_ 开头的环境变量是供 web 容器连接 db 容器使用，前缀采用大写的连接别名。&lt;strong&gt;只有在建立连接之后才会有，没有建立连接是没有这几个变量的&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;hosts 文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;除了环境变量，Docker 还添加 host 信息到父容器的  &lt;code&gt;/etc/hosts&lt;/code&gt;  的文件。下面是父容器 web 的 hosts 文件&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;root@1cbc9aeba2a8:/opt/webapp&lt;span class=&#34;token comment&#34;&gt;# cat /etc/hosts&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1       localhost&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;::1     localhost ip6-localhost ip6-loopback&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;fe00::0 ip6-localnet&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;ff00::0 ip6-mcastprefix&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;ff02::1 ip6-allnodes&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;ff02::2 ip6-allrouters&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;172.17&lt;/span&gt;.0.2      db d992e3c761e0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;172.17&lt;/span&gt;.0.3      1cbc9aeba2a8&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;root@1cbc9aeba2a8:/opt/webapp&lt;span class=&#34;token comment&#34;&gt;#&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这里有 2 个 hosts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一个， &lt;code&gt;172.17.0.2 db d992e3c761e0&lt;/code&gt;  表示 db 容器的 ip, ID 和 Name&lt;/li&gt;
+&lt;li&gt;第二个， &lt;code&gt;172.17.0.3 1cbc9aeba2a8&lt;/code&gt;  表示 web 容器的 ip, ID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;netstat 命令：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cucnVub29iLmNvbS9saW51eC9saW51eC1jb21tLW5ldHN0YXQuaHRtbD9pdmtfc2E9MTAyNDMyMHU=&#34;&gt;https://www.runoob.com/linux/linux-comm-netstat.html?ivk_sa=1024320u&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Java 全栈知识体系：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2b3BzL2RvY2tlci9kb2NrZXItMDMtYmFzaWMtd2ViLWFwcC5odG1s&#34;&gt;https://pdai.tech/md/devops/docker/docker-03-basic-web-app.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-24T03:34:17.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/22/Docker/Docker(3)-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%8F%91%E5%B8%83/</id>
+        <title>Docker(3)--镜像构建与发布</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/22/Docker/Docker(3)-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%8F%91%E5%B8%83/"/>
+        <content type="html">&lt;h1 id=&#34;构建镜像&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#构建镜像&#34;&gt;#&lt;/a&gt; 构建镜像&lt;/h1&gt;
+&lt;p&gt;有些冷门的软件不在远程仓库里，此时就需要手动安装。我们以 Ubuntu 的 base 镜像中安装 Java 环境，并将其打包成新的镜像（这个新的镜像就是一个包含 Java 环境的 Ubuntu 系统镜像）。&lt;/p&gt;
+&lt;p&gt;拉取启动 Ubuntu：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pull ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; ubuntu&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;更新 apt（因为只有 base 镜像）&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; update&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;这一步我之前换不换源都会出错，反正就是更新失败，后来折腾了两三天，都没什么效果。最后把 wifi 换成热点就更新成功了。所以你如果更新失败，可以试着检查一下网络问题。&lt;/p&gt;
+&lt;p&gt;也不用怀疑版本问题，本人用 Ubuntu 15 和 Ubuntu22 都更新成功过。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安装 &lt;code&gt;jdk&lt;/code&gt; ：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; openjdk-8-jdk&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 如果 apt 更新失败，后面的也会失败&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;退出容器，将其构建为新的镜像，使用 commit 将容器保存为新的镜像：&lt;/p&gt;
+&lt;figure class=&#34;highlight dockerfile&#34;&gt;&lt;figcaption data-lang=&#34;Docker&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;docker commit 容器名称/ID 新的镜像名称&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;此时再使用 &lt;code&gt;docker images&lt;/code&gt;  就可以看到新构建的镜像了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;但是这种构建方式 Docker 官方并不推荐。普通用户可以使用 Dockerfile 构建上述镜像&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;创建名为 &lt;code&gt;Dockerfile&lt;/code&gt;  的文件：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;touch&lt;/span&gt; Dockerfile&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;我们需要在 &lt;code&gt;Dockerfile&lt;/code&gt;  文件内部编写指令来告诉 Docker 需要构建镜像的相关信息&lt;/p&gt;
+&lt;figure class=&#34;highlight dockerfile&#34;&gt;&lt;figcaption data-lang=&#34;Docker&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token instruction&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;FROM&lt;/span&gt; &amp;lt;基础镜像&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;FROM&lt;/code&gt;  指令选择当前镜像的基础镜像（必须以该指令开始）。如果不需要任何基础镜像，使用 &lt;code&gt;scratch&lt;/code&gt;  表示从零开始基础构建。&lt;/p&gt;
+&lt;p&gt;在容器中运行命令安装 Java 环境&lt;/p&gt;
+&lt;figure class=&#34;highlight dockerfile&#34;&gt;&lt;figcaption data-lang=&#34;Docker&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token instruction&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;RUN&lt;/span&gt; apt update&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token instruction&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;RUN&lt;/span&gt; apt install -y openjdk-8-jdk&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;构建：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; build &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;镜像名称&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;构建目录&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;执行后，Docker 会在构建目录中寻找 Dockerfile 文件，然后开始依次执行 Dockerfile 中的指令：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/23/97bff6ac9d64700f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;每一个指令都会在镜像上创建一个新的层， &lt;code&gt;-t&lt;/code&gt;  指定要创建的目标镜像名， &lt;code&gt;.&lt;/code&gt;  是 Dockerfile 所在目录。&lt;/p&gt;
+&lt;h1 id=&#34;发布镜像&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#发布镜像&#34;&gt;#&lt;/a&gt; 发布镜像&lt;/h1&gt;
+&lt;p&gt;我们可以将镜像上传到：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yZXBvc2l0b3JpZXM=&#34;&gt;https://hub.docker.com/repositories&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;先在 hub.docker.com 上创建公共的镜像仓库，再将本地镜像上传，上传前可以将镜像名称修改规范：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; tag ubuntu-java-file:latest 用户名/仓库名称:版本&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后本地上传：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; push nagocoler/ubuntu-java:1.0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;这里参考的青空の霞光的用户名 nagocoler 和仓库名 ubuntu-java&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;公共仓库是可以被搜索和下载的，搜索使用 &lt;code&gt;search&lt;/code&gt;  命令即可：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; search nagocoler/ubuntu-java&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;再使用 pull 命令下载：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pull nagocoler/ubuntu-java:1.0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvendoa3BpL2txNnJsZw==&#34;&gt;https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2b3BzL2RvY2tlci9kb2NrZXItMDMtYmFzaWMyLmh0bWw=&#34;&gt;https://pdai.tech/md/devops/docker/docker-03-basic2.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-22T02:46:18.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/21/Docker/Docker(2)-%E9%95%9C%E5%83%8F%E5%9F%BA%E7%A1%80/</id>
+        <title>Docker(2)--镜像基础</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/21/Docker/Docker(2)-%E9%95%9C%E5%83%8F%E5%9F%BA%E7%A1%80/"/>
+        <content type="html">&lt;h1 id=&#34;hello-world&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#hello-world&#34;&gt;#&lt;/a&gt; hello-world&lt;/h1&gt;
+&lt;p&gt;要使用那些容器，首先需要拉取镜像到本地仓库，然后再运行&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 拉取 hello-world&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pull hello-world:latest&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看本地仓库的镜像&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; images&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 在容器中运行 hello-world 实例&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;--name&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;XXX&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; hello-world&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;拉取指定版本的镜像： &lt;code&gt;docker pull 名称:版本&lt;/code&gt; ，默认是最新版本。run 命令 hi 自动给容器分配名称，也可以使用唯一名称指定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果没有调整 docker 的镜像源，那么 docker 就是从&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS8=&#34;&gt; Docker Hub&lt;/span&gt; 拉取的镜像到本地仓库。也可直接使用 &lt;code&gt;run&lt;/code&gt;  来运行实例，如果本地仓库没有这个实例，那么就会从远端拉取镜像到仓库中。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/6378a12818c5974f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;docker images&lt;/code&gt;  的结果有一列是 ID，如果希望删除一个镜像： &lt;code&gt;docker rmi -f  &amp;lt;ID&amp;gt;&lt;/code&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Docker 允许在容器内运行应用程序： &lt;code&gt;docker run&lt;/code&gt; 。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run centos:latest /bin/echo &lt;span class=&#34;token string&#34;&gt;&#34;Hello world&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果本地仓库没有 centos 的镜像，那么就会先拉取 centos 镜像。看一下参数的含义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker&lt;/code&gt; : Docker 的二进制执行文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;run&lt;/code&gt; : 与前面的 docker 组合来运行一个容器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;ubuntu:latest&lt;/code&gt;  指定要运行的镜像，Docker 首先从本地主机上查找镜像是否存在，如果不存在，Docker 就会从镜像仓库 Docker Hub 下载公共镜像。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/bin/echo &amp;quot;Hello world&amp;quot;&lt;/code&gt; : 在启动的容器里执行的命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;吐槽：我这拉取 centos 镜像文件好慢。。。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果我们只是想创建容器而不是去运行&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; create hello-world&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果想要查看&lt;strong&gt;所有容器&lt;/strong&gt;（不论是否运行）&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# linux 的 ps 是查看进程&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 不加 - a 就只能查看运行的容器&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;ps&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-a&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/7bcf577b1cbd289f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;想要停止或者删除容器，就需要使用 ID 或者 NAMES 来指定容器，关于容器的相关操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;删除容器： &lt;code&gt;docker rm &amp;lt;容器名/ID&amp;gt;&lt;/code&gt; 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止容器： &lt;code&gt;docker stop &amp;lt;XXX&amp;gt;&lt;/code&gt; 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;运行停止的容器： &lt;code&gt;docker start &amp;lt;XXX&amp;gt;&lt;/code&gt; 。因为有些容器是执行完后马上停止，而不是像服务器那样阻塞从而一直保持运行状态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启容器： &lt;code&gt;docker restart &amp;lt;XXX&amp;gt;&lt;/code&gt; 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止后自动删除： &lt;code&gt;docker run --rm &amp;lt;XXX&amp;gt;&lt;/code&gt; 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在指定 ID 时，可以不用将 ID 完整打出来，只要前面一部分能够&lt;strong&gt;唯一标识&lt;/strong&gt;该容器即可。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;该部分通过 hello-world 的例子讲解了一些命令和容器操作&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;镜像结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#镜像结构&#34;&gt;#&lt;/a&gt; 镜像结构&lt;/h1&gt;
+&lt;p&gt;先回顾一下镜像，容器与仓库的关系，这是官网的图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/8ef2d678187a6499.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;可以看到，容器的建立（实例化）依赖于镜像，项目打包需要一个基本的操作系统环境，这样才能在操作系统中安装依赖，这种基本的系统镜像，叫做&lt;strong&gt; base 镜像&lt;/strong&gt;。一般 base 镜像就是各个 Linux 操作系统的发行版。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 如果你执行过上面的 centos 的 hello world&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 就不需要再执行该语句&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; pull centos&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这就是 centos 的 base 镜像，&lt;strong&gt;base 镜像省去了内核&lt;/strong&gt;，内存很小。&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/2ccdcf9b038c620c.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;base镜像机制&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#base镜像机制&#34;&gt;#&lt;/a&gt; base 镜像机制&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Linux 操作系统&lt;/strong&gt;有内核空间和用户空间组成，这里需要了解两个文件系统：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bootfs 包含 BootLoader 和 Linux 内核，在内核启动后，bootfs 会自动卸载。&lt;/li&gt;
+&lt;li&gt;rootfs 包含系统常见目录结构，包括 &lt;code&gt;/dev&lt;/code&gt; ， &lt;code&gt;/bin&lt;/code&gt;  等以及一些基本的文件和命令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;base 镜像底层会直接使用宿主主机的内核&lt;/strong&gt;，而 rootfs 可以在不同容器中运行多种不同的版本，所以实际上 base 镜像只包含 CentOS 的 rootfs。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# uname 查看内核版本&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;uname&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-r&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;因此，Docker 能够同时模拟多种 Linux 操作系统环境。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 启动 base 镜像&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-it&lt;/span&gt; centos&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;参数 &lt;code&gt;-it&lt;/code&gt;  进行启动，其中 &lt;code&gt;-i&lt;/code&gt;  表示在容器上打开一个标准输入（STDIN）接口， &lt;code&gt;-t&lt;/code&gt;  表示分配一个伪 tty 设备，可以支持终端登录（理解为伪终端），一般这两个是一起使用，否则 base 容器启动后就自动停止了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;两个合起来的意思就是会弹出一个可以标准输入的终端提示符。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/e0ad3e663ad0fd3e.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;exit&lt;/code&gt;  退出后（&lt;strong&gt;CTRL+D 也可以&lt;/strong&gt;），容器也会停止，再次启动时，&lt;strong&gt;需要加上 &lt;code&gt;-i&lt;/code&gt;  参数才能输入进行交互，否则就是后台运行&lt;/strong&gt;。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; start &lt;span class=&#34;token parameter variable&#34;&gt;-i&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;容器ID&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;安装镜像&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#安装镜像&#34;&gt;#&lt;/a&gt; 安装镜像&lt;/h2&gt;
+&lt;p&gt;前面提到为什么需要一个基本的操作系统，基于 base 镜像，我们可以在这基础上安装各种软件，使用分层结构，每安装一个软件，就在 base 镜像上叠加上去。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/21/2600c8683f6fa6f4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;** 所有的镜像会叠起来组成一个统一的文件系统，如果不同层中存在相同位置的文件，那么上层的会覆盖掉下层的文件，最终我们看到的是一个叠加之后的文件系统。** 当需要修改容器中的文件时，实际上并不会对镜像进行直接修改，而是在最顶上的容器层（最上面一般称为容器层，下面都是镜像层）进行修改。&lt;/p&gt;
+&lt;p&gt;各个操作如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;文件读取：要读取一个文件，Docker 会&lt;strong&gt;最上层往下&lt;/strong&gt;依次寻找，找到后则打开文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;文件创建和修改：创建新文件会直接添加到容器层中，修改文件会从上往下依次寻找各个镜像中的文件，如果找到，则将其复制到容器层，再进行修改。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除文件：删除文件也会从上往下依次寻找各个镜像中的文件，一旦找到，并不会直接删除镜像中的文件，而是在容器层标记这个删除操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2b3BzL2RvY2tlci9kb2NrZXItMDItYmFzaWMuaHRtbA==&#34;&gt;https://pdai.tech/md/devops/docker/docker-02-basic.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvendoa3BpL2txNnJsZyNhMzI3ZGRmMg==&#34;&gt;https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg#a327ddf2&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-21T11:56:42.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/09/20/Docker/Docker(1)-%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/</id>
+        <title>Docker(1)--容器技术入门</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/09/20/Docker/Docker(1)-%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
+        <content type="html">&lt;h1 id=&#34;虚拟化技术&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#虚拟化技术&#34;&gt;#&lt;/a&gt; 虚拟化技术&lt;/h1&gt;
+&lt;p&gt;Virtualization 是一种资源管理技术，将计算机各种实体资源（服务器，内存，网络）予以抽象，打破实体结构间不可切割的障碍，使用户可以更好的方式利用资源。从而实现在同一主机上运行多个系统或应用。&lt;/p&gt;
+&lt;p&gt;软件虚拟化技术是利用软件技术，在现有的物理平台上实现对物理平台访问的截获和模拟。有些软件虚拟化技术需要依赖硬件支持，比如：VMware，KVM。&lt;/p&gt;
+&lt;p&gt;Docker 就是软件虚拟化，软件虚拟化分为好几类，Docker 实际是操作系统层虚拟化。&lt;strong&gt;操作系统级虚拟化也被称为容器化&lt;/strong&gt;，它允许多个相互隔离的用户空间实例存在，这些用户空间实例也被&lt;strong&gt;容器&lt;/strong&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;普通的进程可以看到计算机所有资源而容器只能看到分配给该容器的资源&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;实现操作系统虚拟化需要用到&lt;strong&gt; Namespace&lt;/strong&gt; 及&lt;strong&gt; cgroups&lt;/strong&gt; 技术。&lt;/p&gt;
+&lt;p&gt;因为不是主要讲解虚拟化技术的底层实现，所以详细可以看这篇文章：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9teS5vc2NoaW5hLm5ldC9rZWx2aW54dXB0L2Jsb2cvMTYwMjk5MA==&#34;&gt;操作系统级虚拟化概述&lt;/span&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;docker虚拟化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#docker虚拟化&#34;&gt;#&lt;/a&gt; Docker 虚拟化&lt;/h2&gt;
+&lt;p&gt;Docker 是一个开源的应用容器引擎，它让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到安装了任何 Linux 发行版本的机器上。Docker 是直接运行在宿主操作系统之上的一个容器（操作系统级别的虚拟化），&lt;strong&gt;所有容器用的都是宿主操作系统的内核&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Docker 能快速搭建开发环境，并且每个容器相互隔离：我们只需要将这些环境打包成镜像，到需要在服务器上部署时，可以直接下载镜像实现一键部署。&lt;/p&gt;
+&lt;h2 id=&#34;docker与虚拟机区别&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#docker与虚拟机区别&#34;&gt;#&lt;/a&gt; Docker 与虚拟机区别&lt;/h2&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/09/20/204f57e058964113.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;虚拟机&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基础设施（Infrastructure）：个人电脑，服务器，云主机。&lt;/li&gt;
+&lt;li&gt;主操作系统（Host Operating System）：基础设施上运行的 MacOS，Windows 或者某个 Linux 发行版。&lt;/li&gt;
+&lt;li&gt;虚拟机管理系统（Hypervisor）：利用 Hypervisor，可以在主操作系统之上运行多个不同的从操作系统。类型 1 的 Hypervisor 有支持 MacOS 的 HyperKit，支持 Windows 的 Hyper-V 以及支持 Linux 的 KVM。类型 2 的 Hypervisor 有 VirtualBox 和 VMWare。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;操作系统（Guest Operating System）&lt;/strong&gt;：假设你需要运行 3 个相互隔离的应用，则需要使用 Hypervisor 启动 3 个从操作系统，也就是 3 个虚拟机。这些虚拟机都非常大，也许有 700MB，这就意味着它们将占用 2.1GB 的磁盘空间。更糟糕的是，它们还会消耗很多 CPU 和内存。&lt;/li&gt;
+&lt;li&gt;各种依赖：每一个从操作系统都需要安装许多依赖。如果你的的应用需要连接 PostgreSQL 的话，则需要安装 libpq-dev；如果你使用 Ruby 的话，应该需要安装 gems；如果使用其他编程语言，比如 Python 或者 Node.js，都会需要安装对应的依赖库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Docker 容器&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主操作系统（Host Operating System）：所有主流的 Linux 发行版都可以运行 Docker。对于 MacOS 和 Windows，也有一些办法 &amp;quot;运行&amp;quot;Docker。&lt;/li&gt;
+&lt;li&gt;Docker 守护进程（Docker Daemon）：Docker 守护进程取代了 Hypervisor，它是运行在操作系统之上的后台进程，&lt;strong&gt;负责管理 Docker 容器&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;各种依赖。对于 Docker，&lt;strong&gt;应用的所有依赖都打包在 Docker 镜像中，Docker 容器是基于 Docker 镜像创建的&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;应用。应用的源代码与它的依赖都打包在 Docker 镜像中，不同的应用需要不同的 Docker 镜像。不同的应用运行在不同的 Docker 容器中，它们是相互隔离的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker 守护进程可以直接与主操作系统进行通信，为各个 Docker 容器分配资源；它还可以将容器与主操作系统隔离，并将各个容器互相隔离。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;docker架构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#docker架构&#34;&gt;#&lt;/a&gt; Docker 架构&lt;/h1&gt;
+&lt;p&gt;Docker 是 C/S 架构，通过远程 API 来管理和创建容器。&lt;/p&gt;
+&lt;p&gt;客户端：客户端通过命令行或者其他工具使用 Docker SDK 和 Docker 守护进程通信。&lt;/p&gt;
+&lt;p&gt;主机：物理或虚拟机器，用于执行 Docker 守护进程和容器。&lt;/p&gt;
+&lt;p&gt;其他的基本概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;镜像（Image）&lt;/strong&gt;：Docker 镜像（Image），就相当于是一个 root 文件系统。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;容器（Container）&lt;/strong&gt;：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;仓库（Repository）&lt;/strong&gt;：仓库可看着一个代码控制中心，用来保存镜像。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;docker安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#docker安装&#34;&gt;#&lt;/a&gt; Docker 安装&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我使用的系统是 Ubuntu 20.04.3 版本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;先安装一些工具&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt-get&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; ca-certificates &lt;span class=&#34;token function&#34;&gt;curl&lt;/span&gt; gnupg lsb-release&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;再安装官方的 GPG key：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;mkdir&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; /etc/apt/keyrings&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;curl&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-fsSL&lt;/span&gt; https://download.docker.com/linux/ubuntu/gpg &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; gpg &lt;span class=&#34;token parameter variable&#34;&gt;--dearmor&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-o&lt;/span&gt; /etc/apt/keyrings/docker.gpg&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;将 Docker 的库添加到 apt 资源列表中：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;deb [arch=&lt;span class=&#34;token variable&#34;&gt;&lt;span class=&#34;token variable&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;token variable&#34;&gt;)&lt;/span&gt;&lt;/span&gt; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu &lt;span class=&#34;token variable&#34;&gt;&lt;span class=&#34;token variable&#34;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&#34;token parameter variable&#34;&gt;-cs&lt;/span&gt;&lt;span class=&#34;token variable&#34;&gt;)&lt;/span&gt;&lt;/span&gt; stable&#34;&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;tee&lt;/span&gt; /etc/apt/sources.list.d/docker.list &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; /dev/null&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;更新 apt：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; update&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;安装 Docker CE 版本&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; docker-ce&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;等待安装后，查看 Docker 版本&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;--version&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;但是我们使用了 sudo 命令（因为当前用户使用权限可能不足），所以需要将当前用户加入到 Docker 组里面&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;usermod&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-aG&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;用户名&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;退出 ssh 终端，重新连接即可生效。&lt;/p&gt;
+&lt;p&gt;我们可以先看一下 Docker 这个组&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 这里把提示符部分也写出来是为了展示一下我的用户名&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;cyan@cyan-virtual-machine:~$ &lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; /etc/group&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 最后一排：docker:x:998:cyan&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 我已经执行过 usermod 命令了，所以 docker 组有 cyan 这个用户&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;关于详细的 Linux 组的知识，你可以参考这篇文章：&lt;a href=&#34;https://cecilia.cool/2022/07/31/Shell/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/&#34;&gt;Linux 文件权限&lt;/a&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果加入组后权限依然不够，执行： &lt;code&gt;newgrp docker&lt;/code&gt; 。newgrp 命令是登入群组。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;前文提到 Docker 架构（C/S），现在部署 Nginx 服务器&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; run &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;80&lt;/span&gt;:80 nginx&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;会从镜像仓库里面下载对应的镜像，下载完成后就在后台运行了&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在浏览器的 url 中输入虚拟机 IP，就能看到 Nginx 启动了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;该命令流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Docker 客户端将操作发送给服务端，告诉服务端我们要运行 nginx 这个镜像。&lt;/li&gt;
+&lt;li&gt;Docker 服务端先看看本地有没有这个镜像，发现没有。&lt;/li&gt;
+&lt;li&gt;接着只能从公共仓库 Docker Hub 去查找下载镜像了。&lt;/li&gt;
+&lt;li&gt;下载完成，镜像成功保存到本地。&lt;/li&gt;
+&lt;li&gt;Docker&lt;strong&gt; 服务端加载 Nginx 镜像&lt;/strong&gt;，启动容器开始正常运行。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGV2b3BzL2RvY2tlci9kb2NrZXItMDEtZG9ja2VyLXZtLmh0bWw=&#34;&gt;https://pdai.tech/md/devops/docker/docker-01-docker-vm.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvendoa3BpL2txNnJsZw==&#34;&gt;https://www.yuque.com/qingkongxiaguang/zwhkpi/kq6rlg&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9teS5vc2NoaW5hLm5ldC9rZWx2aW54dXB0L2Jsb2cvMTYwMjk5MA==&#34;&gt;https://my.oschina.net/kelvinxupt/blog/1602990&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vamllLWZhbmcvcC8xMDI3OTYyOS5odG1s&#34;&gt;https://www.cnblogs.com/jie-fang/p/10279629.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Docker" />
+        <updated>2022-09-20T03:56:30.000Z</updated>
+    </entry>
+</feed>

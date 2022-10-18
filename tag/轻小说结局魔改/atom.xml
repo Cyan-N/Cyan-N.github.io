@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;轻小说结局魔改&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2022-10-16T15:54:21.000Z</updated>
+    <category term="tools" />
+    <category term="Docker" />
+    <category term="shell" />
+    <category term="云计算" />
+    <category term="网络协议与工具" />
+    <category term="MySQL" />
+    <category term="数据结构与算法" />
+    <category term="Mybatis" />
+    <category term="JVM" />
+    <category term="Java8" />
+    <category term="并发" />
+    <category term="设计模式" />
+    <category term="网络编程" />
+    <category term="Java基础" />
+    <category term="轻小说结局魔改" />
+    <entry>
+        <id>https://cecilia.cool/2022/10/16/%E5%A8%B1%E4%B9%90/%E8%BD%BB%E5%B0%8F%E8%AF%B4%E7%BB%93%E5%B1%80%E9%AD%94%E6%94%B9/%E3%80%8A%E6%88%91%E5%92%8C%E5%A5%B3%E5%8F%8B%E7%9A%84%E5%A6%B9%E5%A6%B9%E6%8E%A5%E5%90%BB%E4%BA%86%E3%80%8B/</id>
+        <title>《我和女友的妹妹接吻了》</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/16/%E5%A8%B1%E4%B9%90/%E8%BD%BB%E5%B0%8F%E8%AF%B4%E7%BB%93%E5%B1%80%E9%AD%94%E6%94%B9/%E3%80%8A%E6%88%91%E5%92%8C%E5%A5%B3%E5%8F%8B%E7%9A%84%E5%A6%B9%E5%A6%B9%E6%8E%A5%E5%90%BB%E4%BA%86%E3%80%8B/"/>
+        <content type="html">&lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;这本书每次更新，在 GA 文库里面，直接就是 S 级热度，褒不一，贬却很一，但大家最统一的意见就是对结局不满意（汉化结局还没出，但是有人看了日文版，然后剧透，我谢谢。）我对结局也超级无语，脏话（*……￥%@**），出于对结局的不满，我想在汉化版更新完后按照自己的想法重构一下结局，之于我喜欢的结局。&lt;/p&gt;
+&lt;p&gt;作者&lt;strong&gt;海陆空&lt;/strong&gt;，说实话，这本书关于人物心理描写是很到位了，剧情矛盾也十分突出，个人认为最重要的，最好的，就是每个人的个性鲜明，而且至始至终。无论是两面为难，抉择不定的佐藤博道，还是堪称完美的佐藤时雨（没错，我对时雨的评价非常高：颜值高，格斗强，会持家，擅长理解包容他人，敢爱敢恨等等，我就是时雨重度患者），以及将周围理想化的才川晴香。当然，男主有些性格我是真的无语，出于剧情需要，我理解。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其实仅限三个人，人物塑造难度也不大。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面给出一些节选，我觉得写的比较好：&lt;/p&gt;
+&lt;p&gt;佐藤博道心理活动：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;不是的，晴香，不是这样的。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;我其实才不在乎什么烟火大会，对那一点兴趣也没有。约会也一样。今天也好明天也罢，哪天都无所谓。只是&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;我就只是希望&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;你能够选择我。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;佐藤时雨对话：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;要是这样的感情能传达给哥哥，那么和姊姊的关系如何，对我来说都无所谓了。曾经是挚爱的姊姊，也变得不重要。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;就是这强烈的执著，将我的世界划分为【唯一一人】和【其他人】两个部分。我想这就是所谓的爱吧。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;才川晴香心理活动：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;那个瞬间，我感觉我的一切不愉快都被吹到了身后。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	从自己最喜欢的人那，第一次拿到生日礼物。我内心的一切阴霾皆被那沾满各种色彩的刷子有力地覆盖掉了。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	我知道博道君一定准备好了礼物。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	就像我知道他一定只爱着我一样。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	我相信他会一直回应我的期待，这点自信我还是有的。但是，一旦得到了他的回应，我感觉自己的身体，从脸颊遍及全身，都热的像是要融化了一样。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;我要说的是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;虽然我很推荐这本轻小说，但是，如果你觉得你是那种对于爱情忠贞不渝，无论对方怎么” 冷落 “你，你都会回应她的期待，如果你觉得你总是能快刀斩乱麻，如果你觉得这本书一看标题就是让人无语的 ntr 小说，抱歉，请不要看这本书，因为它确实不适合你。不过分地说，我就是为了这本书单独开了这么一个&lt;strong&gt;轻小说结局魔改&lt;/strong&gt;的 tag，因为结局让我意难平啊。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="轻小说结局魔改" />
+        <updated>2022-10-16T15:54:21.000Z</updated>
+    </entry>
+</feed>

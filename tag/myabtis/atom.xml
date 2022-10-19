@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;myabtis&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2022-10-19T08:01:45.000Z</updated>
+    <category term="Docker" />
+    <category term="tools" />
+    <category term="数据结构与算法" />
+    <category term="云计算" />
+    <category term="网络协议与工具" />
+    <category term="shell" />
+    <category term="轻小说结局魔改" />
+    <category term="MySQL" />
+    <category term="JVM" />
+    <category term="Java8" />
+    <category term="Java基础" />
+    <category term="网络编程" />
+    <category term="设计模式" />
+    <category term="Mybatis" />
+    <category term="Myabtis" />
+    <category term="并发" />
+    <entry>
+        <id>https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(6)-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</id>
+        <title>Mybatis(6)--动态代理</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(6)-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
+        <content type="html">&lt;h1 id=&#34;静态代理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#静态代理&#34;&gt;#&lt;/a&gt; 静态代理&lt;/h1&gt;
+&lt;p&gt;一方提供接口定义行为，并实现行为的基本操作。代理方在执行该行为时，可以加入自己的行为进去。这样需要提前知道接口的定义并进行实现才可以完成代理。而 Mybatis 这样的是无法预知代理接口的，我们就需要用到动态代理。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JDK 提供的反射框架就为我们很好地解决了动态代理的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;动态代理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#动态代理&#34;&gt;#&lt;/a&gt; 动态代理&lt;/h1&gt;
+</content>
+        <category term="Myabtis" />
+        <updated>2022-10-19T08:01:45.000Z</updated>
+    </entry>
+</feed>

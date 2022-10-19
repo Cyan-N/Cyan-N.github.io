@@ -5,20 +5,21 @@
     <link href="https://cecilia.cool" />
     <updated>2022-10-19T04:28:04.000Z</updated>
     <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
     <category term="数据结构与算法" />
     <category term="云计算" />
-    <category term="轻小说结局魔改" />
     <category term="网络协议与工具" />
+    <category term="shell" />
+    <category term="轻小说结局魔改" />
     <category term="MySQL" />
-    <category term="Java8" />
     <category term="JVM" />
-    <category term="Mybatis" />
-    <category term="并发" />
+    <category term="Java8" />
+    <category term="Java基础" />
     <category term="网络编程" />
     <category term="设计模式" />
-    <category term="Java基础" />
+    <category term="Mybatis" />
+    <category term="Myabtis" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(5)-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</id>
         <title>Myabtis(5)--注解开发</title>
@@ -61,6 +62,7 @@
 &lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuaHhzdHJpdmUuY29tL3N1YmplY3QvbXliYXRpcy8xOTYuaHRt&#34;&gt;https://www.hxstrive.com/subject/mybatis/196.htm&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3VhbmcvamF2YXdlYi9nbjBzeXQjODE1ZjhjZWM=&#34;&gt;https://www.yuque.com/qingkongxiaguang/javaweb/gn0syt#815f8cec&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
         <category term="Mybatis" />
@@ -68,7 +70,7 @@
     </entry>
     <entry>
         <id>https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(4)-%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</id>
-        <title>Mybatis4-缓存机制</title>
+        <title>Mybatis(4)--缓存机制</title>
         <link rel="alternate" href="https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(4)-%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
         <content type="html">&lt;h1 id=&#34;缓存机制&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#缓存机制&#34;&gt;#&lt;/a&gt; 缓存机制&lt;/h1&gt;
 &lt;p&gt;缓存机制其实就是提前将一部分内容放入缓存中，下次获取数据时可以直接从缓存中读取，而不是再向数据库查询，提升效率。&lt;/p&gt;

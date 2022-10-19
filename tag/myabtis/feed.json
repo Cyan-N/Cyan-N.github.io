@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "慕青の迷途 • All posts by \"myabtis\" tag",
+    "description": "时雨病重症患者！！！",
+    "home_page_url": "https://cecilia.cool",
+    "items": [
+        {
+            "id": "https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(6)-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/",
+            "url": "https://cecilia.cool/2022/10/19/Java/Mybatis/Mybatis(6)-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/",
+            "title": "Mybatis(6)--动态代理",
+            "date_published": "2022-10-19T08:01:45.000Z",
+            "content_html": "<h1 id=\"静态代理\"><a class=\"anchor\" href=\"#静态代理\">#</a> 静态代理</h1>\n<p>一方提供接口定义行为，并实现行为的基本操作。代理方在执行该行为时，可以加入自己的行为进去。这样需要提前知道接口的定义并进行实现才可以完成代理。而 Mybatis 这样的是无法预知代理接口的，我们就需要用到动态代理。</p>\n<blockquote>\n<p>JDK 提供的反射框架就为我们很好地解决了动态代理的问题。</p>\n</blockquote>\n<h1 id=\"动态代理\"><a class=\"anchor\" href=\"#动态代理\">#</a> 动态代理</h1>\n",
+            "tags": [
+                "Myabtis"
+            ]
+        }
+    ]
+}

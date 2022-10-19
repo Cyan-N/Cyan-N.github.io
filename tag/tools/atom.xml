@@ -5,20 +5,21 @@
     <link href="https://cecilia.cool" />
     <updated>2022-07-29T06:16:57.000Z</updated>
     <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
     <category term="数据结构与算法" />
     <category term="云计算" />
-    <category term="轻小说结局魔改" />
     <category term="网络协议与工具" />
+    <category term="shell" />
+    <category term="轻小说结局魔改" />
     <category term="MySQL" />
-    <category term="Java8" />
     <category term="JVM" />
-    <category term="Mybatis" />
-    <category term="并发" />
+    <category term="Java8" />
+    <category term="Java基础" />
     <category term="网络编程" />
     <category term="设计模式" />
-    <category term="Java基础" />
+    <category term="Mybatis" />
+    <category term="Myabtis" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2022/07/29/Tools/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%8C%87%E5%8D%97/</id>
         <title>Hexo搭建博客指南</title>

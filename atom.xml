@@ -3,23 +3,23 @@
     <id>https://cecilia.cool</id>
     <title>慕青の迷途</title>
     <link href="https://cecilia.cool" />
-    <updated>2089-12-31T16:00:00.000Z</updated>
-    <category term="tools" />
+    <updated>2090-01-01T07:01:00.000Z</updated>
     <category term="shell" />
+    <category term="数据结构与算法" />
     <category term="Docker" />
     <category term="网络协议与工具" />
-    <category term="云计算" />
+    <category term="tools" />
     <category term="轻小说结局魔改" />
+    <category term="云计算" />
     <category term="MySQL" />
-    <category term="数据结构与算法" />
-    <category term="JVM" />
     <category term="Java基础" />
-    <category term="Java8" />
-    <category term="并发" />
     <category term="日志框架" />
+    <category term="JVM" />
+    <category term="Mybatis" />
+    <category term="并发" />
+    <category term="Java8" />
     <category term="设计模式" />
     <category term="网络编程" />
-    <category term="Mybatis" />
     <entry>
         <id>https://cecilia.cool/2090/01/01/Tools/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/</id>
         <title>必读：南慕青の碎碎念</title>
@@ -87,73 +87,7 @@
 &lt;p&gt;这篇关于我的碎碎念，其实就只是向单纯向上面的大佬们说声谢谢，超级感谢。&lt;/p&gt;
 </content>
         <category term="tools" />
-        <updated>2089-12-31T16:00:00.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://cecilia.cool/2022/10/20/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/</id>
-        <title>南慕青の碎碎念</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/10/20/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-        <content type="html">&lt;h1 id=&#34;前尘&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前尘&#34;&gt;#&lt;/a&gt; 前尘&lt;/h1&gt;
-&lt;p&gt;搭建博客是一件很麻烦的事，自己写网站代码，自己买服务器搭上去，自己写文章，有时还会遇到一些 sb 跟你玩 DDoS，md，学了点东西就违法犯罪是吧，详情&lt;strong&gt;参考《刑法》第二百八十六条破坏计算机信息系统罪&lt;/strong&gt;。当然很多 DDoS 是公司发动的。&lt;/p&gt;
-&lt;p&gt;我很懒，也怕麻烦，所以选择了 Hexo 框架，在 Github 上搭了个小家。&lt;/p&gt;
-&lt;p&gt;其实最开始还是看三叶姐的微信公众号的一篇&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvZEVIWW1HaVprS2tyVmR3N285QWF4Zw==&#34;&gt;碎碎念&lt;/span&gt;才了解到 Hexo 这个框架，后来就开始找主题，个人体验几个主题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[stun](&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2xpdXlpYi9oZXhvLXRoZW1lLXN0dW4uZ2l0&#34;&gt;https://github.com/liuyib/hexo-theme-stun.git&lt;/span&gt; themes/stun)：简约风，好像不维护了，在 README 里面推荐 NexT 主题。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/20/ee0a3917d638ec09.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2ZsdWlkLWRldi9oZXhvLXRoZW1lLWZsdWlk&#34;&gt;fluid&lt;/span&gt;：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zaGFyaW5nc291cmNlLmdpdGh1Yi5pby8=&#34;&gt;三叶姐&lt;/span&gt;用的就是这个，我也用过一段时间。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/20/f72a0febc8143ea0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibGlua2ZveC5naXRodWIuaW8v&#34;&gt;闪烁之狐&lt;/span&gt;：其实个人感觉颜色太鲜艳了，感兴趣可以试试，链接点进去就可以看效果。&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==&#34;&gt;Shoka&lt;/span&gt;：超级推荐，&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWUv&#34;&gt;开发者&lt;/span&gt;的博客，很厉害的主题，功能点特别多，可以选择性关闭，感兴趣就去试试，超级推荐。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后换上自己喜欢的域名，打开 Github 支持的 https，关于慕青的博客就搭建好了。&lt;/p&gt;
-&lt;h1 id=&#34;今世&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#今世&#34;&gt;#&lt;/a&gt; 今世&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不要问我为什么一级标题这么中二！！！！&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;最开始的内容，路线是跟着 pdai（皮带哥）的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gv&#34;&gt; Java 全栈知识体系&lt;/span&gt;写的，这位前辈给我的很深触动就是他的网站开篇的一句话：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;当你将本文中知识点掌握时，你会发现那些平时高谈阔论的家伙其实都是纸老虎；但你依然要保持谦卑，闻道有先后，术业有专攻，如是而已。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;pdai&#34; style=&#34;--block-color:#38b5b2;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gv&#34; data-background-image=&#34;https://s3.bmp.ovh/imgs/2022/10/20/f7b81a3958dc4db4.jpg&#34;&gt;&lt;/span&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gv&#34;&gt;Java全栈知识体系&lt;/span&gt;
-          &lt;p class=&#34;desc&#34;&gt;生活的本身才是最重要的，保持身心健康，去爱你所爱，不虚此生！&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;后来在 B 站遇到了&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzc3MzcxNjEvP3NwbV9pZF9mcm9tPTMzMy45OTkuMC4w&#34;&gt;青空の霞光&lt;/span&gt;，他也是一个在读大学生（当你看到这篇文章时他可能毕业了），很厉害的，然后 JavaWeb，Netty，JVM，Docker 什么的，都是跟着他写的博客，当然，中间也参考（白嫖）了 pdai 大佬的文章。&lt;/p&gt;
-&lt;p&gt;&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;青空の霞光&#34; style=&#34;--block-color:#f8dada;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzc3MzcxNjEvP3NwbV9pZF9mcm9tPTMzMy45OTkuMC4w&#34; data-background-image=&#34;https://s3.bmp.ovh/imgs/2022/10/20/842da9b731ec16ed.jpg&#34;&gt;&lt;/span&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzc3MzcxNjEvP3NwbV9pZF9mcm9tPTMzMy45OTkuMC4w&#34;&gt;青空の霞光&lt;/span&gt;
-          &lt;p class=&#34;desc&#34;&gt;白马程序员课程金牌讲师(doge)&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;之后会更新算法笔记，但都是跟着三叶姐走，我会尽量用自己的话再将透彻一点，三叶姐厉害！&lt;/p&gt;
-&lt;p&gt;&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;宫水三叶&#34; style=&#34;--block-color:#165e8e;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9zaGFyaW5nc291cmNlLmdpdGh1Yi5pby8=&#34; data-background-image=&#34;https://s3.bmp.ovh/imgs/2022/10/20/c683089bcb314ca3.jpg&#34;&gt;&lt;/span&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9zaGFyaW5nc291cmNlLmdpdGh1Yi5pby8=&#34;&gt;宫水三叶の刷题日记&lt;/span&gt;
-          &lt;p class=&#34;desc&#34;&gt;算法爱好者，退役Oler，现微软工程师&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;其实还有一位&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMTk2NTg2MjEvP3NwbV9pZF9mcm9tPTMzMy45OTkuMC4w&#34;&gt; Frank&lt;/span&gt; 前辈，我的 c 语言，linux，java 入门都是看他的视频，其实这都不是最重要的，而是他告诉我们（还有其他伙伴）的思想：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;基础最重要，不要沉迷于框架。&lt;/li&gt;
-&lt;li&gt;数据结构和算法很重要，但是光刷题是不能进大厂的。&lt;/li&gt;
-&lt;li&gt;好好学习，好好训练。&lt;/li&gt;
-&lt;li&gt;哦，还有精髓：……&amp;amp;*￥（￥……@&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;当然还有些话不方便写出来，总之，我很感谢。&lt;/p&gt;
-&lt;p&gt;当然我也参考了很多书：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;shell：参考《Linux 命令行与 shell 脚本编程大全》第三版，作者 Richard Blum 和 Christine Bresnahan&lt;/li&gt;
-&lt;li&gt;MySQL：参考《MySQL 是怎样运行的》，作者是小孩子 4919&lt;/li&gt;
-&lt;li&gt;网络协议与工具：部分参考《计算机网络自顶向下方法》，作者是 James F.Kurose 和 Keith W.Ross&lt;/li&gt;
-&lt;li&gt;操作系统（还没更）：部分参考《操作系统导论》，作者是 Remzi H.Arpaci-Dusseau 和 Andrea C.Arpaci-Dusseau&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;末了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#末了&#34;&gt;#&lt;/a&gt; 末了&lt;/h1&gt;
-&lt;p&gt;当然，每一篇文章到底参考了哪些，我都在最后的参考标题注明了的。&lt;/p&gt;
-&lt;p&gt;这篇关于我的碎碎念，其实就只是向单纯向上面的大佬们说声谢谢，超级感谢。&lt;/p&gt;
-</content>
-        <category term="tools" />
-        <updated>2022-10-20T06:37:11.128Z</updated>
+        <updated>2090-01-01T07:01:00.000Z</updated>
     </entry>
     <entry>
         <id>https://cecilia.cool/2022/10/20/Java/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/JUL%E6%97%A5%E5%BF%97(1)-%E5%88%9D%E4%BD%BF%E7%94%A8/</id>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>慕青の迷途 • Posts by &#34;spring&#34; tag</title>
+        <link>https://cecilia.cool</link>
+        <description>时雨病重症患者！！！</description>
+        <language>zh-CN</language>
+        <pubDate>Fri, 21 Oct 2022 14:36:28 +0800</pubDate>
+        <lastBuildDate>Fri, 21 Oct 2022 14:36:28 +0800</lastBuildDate>
+        <category>Docker</category>
+        <category>shell</category>
+        <category>tools</category>
+        <category>数据结构与算法</category>
+        <category>云计算</category>
+        <category>网络协议与工具</category>
+        <category>Mybatis</category>
+        <category>轻小说结局魔改</category>
+        <category>MySQL</category>
+        <category>Spring</category>
+        <category>日志框架</category>
+        <category>JVM</category>
+        <category>Java基础</category>
+        <category>Java8</category>
+        <category>设计模式</category>
+        <category>并发</category>
+        <category>网络编程</category>
+        <item>
+            <guid isPermalink="true">https://cecilia.cool/2022/10/21/Framework/Spring/Spring(1)-%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%A2%8E%E5%BF%B5/</guid>
+            <title>Spring(1)--一些碎碎念</title>
+            <link>https://cecilia.cool/2022/10/21/Framework/Spring/Spring(1)-%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
+            <category>Spring</category>
+            <pubDate>Fri, 21 Oct 2022 14:36:28 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;最近课设要用 SpringBoot，想着顺便就把这部分博客更新。&lt;/p&gt;
+&lt;p&gt;但是为什么我选择先更新一下 Spring 呢？因为我根本没在意这个课设🤣，更新是因为学习进度到这了哈哈哈哈。&lt;/p&gt;
+&lt;p&gt;很多开发者都是直接上手 SpringBoot，会导致对 Spring 整体框架底层，以及发展历史不是很了解，对老旧项目和底层 Bug 分析没有全局观。 &lt;code&gt;Spring&lt;/code&gt;  作为一个成熟的，受广大企业爱戴的框架，它已经形成了良好的生态环境，所以学习的时候不能只是当成一个简单的框架，会用就行啥的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;作者也是边更新边学习的，泪目。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇文章不会直接讲框架的使用，当然也不是什么 Spring 发展历史，而是对 Spring 的几个核心要点讲解一下，之后在对每个要点挨个切入讲解。&lt;/p&gt;
+&lt;p&gt;Spring 框架的特性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;非侵入式，项目中对象可以不依赖 Spring 的 API&lt;/li&gt;
+&lt;li&gt;IOC—— &lt;code&gt;Inversion&lt;/code&gt; ：控制反转，&lt;strong&gt;对象的创建交给 Spring 管理&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;DI—— &lt;code&gt;Dependency Injection&lt;/code&gt; ：依赖对象不需要手动调用 set 方法设置对象属性，而是通过配置赋值。&lt;/li&gt;
+&lt;li&gt;AOP—— &lt;code&gt;Aspect Oriented Programming&lt;/code&gt; ：面向切面编程，待会会讲，OOP 就是面向对象编程。&lt;/li&gt;
+&lt;li&gt;容器：Spring 本身是一个容器，包含并管理应用对象生命周期。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本篇不讲原理，不演示任何代码，只讲思想。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;bean&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#bean&#34;&gt;#&lt;/a&gt; Bean&lt;/h1&gt;
+&lt;p&gt;其实就是类，JavaBean 就是有一定规范的 Java 实体类。你总要给它一个好听的名字，才气派。&lt;/p&gt;
+&lt;h1 id=&#34;ioc&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ioc&#34;&gt;#&lt;/a&gt; IOC&lt;/h1&gt;
+&lt;p&gt;这里就要提到为什么我们需要讲创建对象的控制权交给 IoC 容器，由它根据配置文件来决定到底给我们哪一个实体类。&lt;/p&gt;
+&lt;p&gt;在这个版本迭代飞起的社会，经常就是出现一个潮流，能赚💴的功能，大家都跟着开发。如果说项目的类与类之间耦合性（或者直接说代码的耦合性）很高，改动代码 —— 牵一发而动全身。有时项目太大了，改个类名都要改一天。&lt;/p&gt;
+&lt;p&gt;将对象交给 IoC 容器进行管理，比如当我们需要一个接口的实现时，由它根据配置文件来决定到底给我们哪一个实现类，这样，我们就可以不用再关心我们要去使用哪一个实现类了，我们只需要关心，给到我的一定是一个可以正常使用的实现类，能用就完事了，反正接口定义了啥，我只管调用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用 Java 全栈知识体系的例子：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假设你想查询用户 User，项目是一个 MVC 结构，service 包负责处理查询的业务（需要调用 dao 包的类），dao 包负责处理和数据库的交互，pojo 是实际要查询的类。&lt;/p&gt;
+&lt;p&gt;那么没有 Spring 框架：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我们需要自己创建 &lt;code&gt;UserDao&lt;/code&gt;  的实现类， &lt;code&gt;UserService&lt;/code&gt;  的实现类。&lt;/li&gt;
+&lt;li&gt;然后讲 &lt;code&gt;UserDao&lt;/code&gt;  放进 &lt;code&gt;UserService&lt;/code&gt; ，最后由 &lt;code&gt;UserService&lt;/code&gt;  去调用业务方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有了 Spring 框架：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原来创建 Bean 的工作交给框架，需要时从 Bean 容器中获取。&lt;/li&gt;
+&lt;li&gt;我不在关心拿到 &lt;code&gt;UserService&lt;/code&gt;  时是否设置好了 &lt;code&gt;UserDao&lt;/code&gt; （正常 mvc 开发就是，UserDao 是 UserService 的一个属性，要用时直接 set 方法传入 dao 的实现类）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IoC 做到了：Bean 的创建和使用分离了。&lt;/p&gt;
+&lt;h1 id=&#34;di&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#di&#34;&gt;#&lt;/a&gt; DI&lt;/h1&gt;
+&lt;p&gt;依赖注入，应用程序代码从 Ioc Container 中获取依赖的 Bean，注入到应用程序中，这个过程叫 &lt;strong&gt;依赖注入 (Dependency Injection，DI)&lt;/strong&gt; ； 所以说控制反转是通过依赖注入实现的，其实它们是同一个概念的不同角度描述。通俗来说就是&lt;strong&gt; IoC 是设计思想，DI 是实现方式&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。&lt;/p&gt;
+&lt;p&gt;分析：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;谁依赖谁：应用程序依赖于 IoC 容器。&lt;/li&gt;
+&lt;li&gt;为什么需要依赖：应用程序需要 IoC 容器来提供对象需要的外部资源。&lt;/li&gt;
+&lt;li&gt;谁注入谁：IoC 容器注入应用程序某个对象，应用程序依赖的对象。&lt;/li&gt;
+&lt;li&gt;🌌注入了什么：注入&lt;strong&gt;某个对象&lt;/strong&gt;所需要的外部资源（包括对象、资源、常量数据）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;上面的例子， &lt;code&gt;UserService&lt;/code&gt;  依赖 &lt;code&gt;UserDao&lt;/code&gt; ，通过 IoC 容器获取 &lt;code&gt;UserService&lt;/code&gt;  时，就需要通过依赖注入，讲 &lt;code&gt;UserDao&lt;/code&gt;  的实例化对象&lt;/strong&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不要想得太复杂，依赖注入也是一种设计模式：在软件工程中，依赖注入（dependency injection，缩写为 DI）是一种软件设计模式，也是实现控制反转的其中一种技术。 這种模式能让一个物件接收它所依赖的其他物件。 “依赖” 是指接收方所需的对象。 “注入” 是指将 “依赖” 传递给接收方的过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;aop&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#aop&#34;&gt;#&lt;/a&gt; AOP&lt;/h1&gt;
+&lt;p&gt;面向切面编程，思想其实就是：在运行时，动态地将代码切入到类的&lt;strong&gt;指定方法&lt;/strong&gt;、&lt;strong&gt;指定位置&lt;/strong&gt;上的编程思想就是面向切面的编程。&lt;/p&gt;
+&lt;p&gt;AOP 好就好在不会破坏原有代码逻辑，原有业务不变的情况下添加额外动作。&lt;/p&gt;
+&lt;p&gt;相当于我们的整个业务流程，被直接斩断，并在断掉的位置添加了一个额外的操作，再连接起来，也就是在一个切点位置插入内容。&lt;/p&gt;
+&lt;p&gt;举个不恰当的例子，你可以将业务流程想象成一个管道，代码就是里面的流。我将一个滤网横向插入管道中，会流经这个位置的流（执行到这的代码）都会进行这个网，网的效果就是增强的操作。&lt;/p&gt;
+&lt;p&gt;你问能有什么操作？我放一个打印日志的切面不行吗？&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvc3ByaW5nL3NwcmluZy14LWZyYW1ld29yay1pbnRyb2R1Y2UuaHRtbA==&#34;&gt;https://pdai.tech/md/spring/spring-x-framework-introduce.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODU3NDA2MDA4ODc3MTIxNTUw&#34;&gt;https://juejin.cn/post/6857406008877121550&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODU3NDA2MDA4ODc3MTIxNTUw&#34;&gt;https://juejin.cn/post/6857406008877121550&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

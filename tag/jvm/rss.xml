@@ -7,23 +7,23 @@
         <language>zh-CN</language>
         <pubDate>Fri, 14 Oct 2022 12:10:45 +0800</pubDate>
         <lastBuildDate>Fri, 14 Oct 2022 12:10:45 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>shell</category>
         <category>tools</category>
+        <category>shell</category>
         <category>数据结构与算法</category>
         <category>云计算</category>
-        <category>网络协议与工具</category>
-        <category>Mybatis</category>
         <category>轻小说结局魔改</category>
-        <category>MySQL</category>
+        <category>网络协议与工具</category>
+        <category>Docker</category>
         <category>Spring</category>
         <category>日志框架</category>
-        <category>JVM</category>
-        <category>Java基础</category>
-        <category>Java8</category>
-        <category>设计模式</category>
+        <category>MySQL</category>
+        <category>Mybatis</category>
         <category>并发</category>
+        <category>Java基础</category>
+        <category>设计模式</category>
+        <category>Java8</category>
         <category>网络编程</category>
+        <category>JVM</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/14/Java/JVM/JVM(9)-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</guid>
             <title>JVM(9)-垃圾收集器</title>

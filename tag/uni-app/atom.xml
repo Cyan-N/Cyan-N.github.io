@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;uni-app&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2022-10-26T04:59:58.000Z</updated>
+    <category term="Docker" />
+    <category term="tools" />
+    <category term="云计算" />
+    <category term="数据结构与算法" />
+    <category term="网络协议与工具" />
+    <category term="轻小说结局魔改" />
+    <category term="shell" />
+    <category term="Spring" />
+    <category term="uni-app" />
+    <category term="MySQL" />
+    <category term="日志框架" />
+    <category term="Java8" />
+    <category term="Mybatis" />
+    <category term="JVM" />
+    <category term="网络编程" />
+    <category term="设计模式" />
+    <category term="并发" />
+    <category term="Java基础" />
+    <entry>
+        <id>https://cecilia.cool/2022/10/26/Framework/uni-app/uni-app%E5%BC%80%E5%8F%91(1)-%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/</id>
+        <title>uni-app开发(1)--基础讲解</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/26/Framework/uni-app/uni-app%E5%BC%80%E5%8F%91(1)-%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/"/>
+        <content type="html">&lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;最近课设要做小程序和网站两个部分，我们组小程序开发选择的是 uni-app 框架，在开始本篇开始前，你需要先花时间看看&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly91bmlhcHAuZGNsb3VkLm5ldC5jbi90dXRvcmlhbC8=&#34;&gt; uni-app 官方文档&lt;/span&gt;，在此你需要有一些前端知识：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;html，css，js。快速入门我推荐看一下康文昌老师的视频：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zcGFjZS5iaWxpYmlsaS5jb20vMzQ3ODY0NTM=&#34;&gt;https://space.bilibili.com/34786453&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;vue，快速入门的话，就去看官网：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9jbi52dWVqcy5vcmcvZ3VpZGUvaW50cm9kdWN0aW9uLmh0bWw=&#34;&gt;https://cn.vuejs.org/guide/introduction.html&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最近的话，我不会花太多时间写博客，更多的是自己学习，等之后可能会完善，或者课设阶段性总结的时候会更新，本篇会讲解一些基本的用法，其实就是在总结上面给的资源的知识，最好的教程就在官网。&lt;/p&gt;
+&lt;h1 id=&#34;开发工具下载&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开发工具下载&#34;&gt;#&lt;/a&gt; 开发工具下载&lt;/h1&gt;
+&lt;p&gt;直接看官网就行了：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oeC5kY2xvdWQubmV0LmNuL1R1dG9yaWFsL2luc3RhbGwvd2luZG93cw==&#34;&gt;https://hx.dcloud.net.cn/Tutorial/install/windows&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;最后新建项目，选择默认模板，Vue3，启用 uniCloud 即可&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/26/a981b02161bc04e0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;你可以自己在顶部栏的工具 - 设置，修改自己的配置&lt;/p&gt;
+&lt;h1 id=&#34;项目文件介绍&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#项目文件介绍&#34;&gt;#&lt;/a&gt; 项目文件介绍&lt;/h1&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/26/d36d466d64840c33.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;uniCloud：如果你有发布云端的需求，就可以在该文件夹右键，选择云服务初始化向导。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pages：里面存放.vue 文件，一个文件对应一个界面。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;static：存放一些静态资源，比如图片&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;unpackage：存放 uni-app 项目打包输出的文件，存有各个平台的打包文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;main.js：是 uni-app 项目的入口文件，主要作用是初始化 &lt;code&gt;vue&lt;/code&gt;  实例并使用需要的插件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pages.json：文件用来对 uni-app 进行全局配置，决定页面文件的路径、窗口样式、原生的导航栏、底部的原生 tabbar 等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;uni.scss ：预置了一些常用样式变量，方便整体控制应用的风格。比如按钮颜色、边框风格。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;下载插件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#下载插件&#34;&gt;#&lt;/a&gt; 下载插件&lt;/h1&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/26/c85c6e76874d051b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;案例界面跳转&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#案例界面跳转&#34;&gt;#&lt;/a&gt; 案例：界面跳转&lt;/h1&gt;
+&lt;p&gt;首先要设置微信小程序开发工具：设置 - 安全 - 服务端口（需要打开）。在 &lt;code&gt;pages&lt;/code&gt;  里面新增一个 vue 文件&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/26/0bbb14b0f4987aa4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;必须要在 &lt;code&gt;pages.json&lt;/code&gt;  中注册，大致修改一下界面：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;template&amp;gt;
+	&amp;lt;view&amp;gt;
+		&amp;lt;h&amp;gt;另一个界面&amp;lt;/h&amp;gt;
+	&amp;lt;/view&amp;gt;
+&amp;lt;/template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后在 &lt;code&gt;index.vue&lt;/code&gt;  的 &lt;code&gt;methods&lt;/code&gt;  中加上跳转方法（方法之间要用 &lt;code&gt;,&lt;/code&gt;  隔开）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;jump() &amp;#123;
+    uni.navigateTo(&amp;#123;
+    	url: &#39;../test.vue&#39;
+    &amp;#125;);
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在前端定义一个按钮：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;button @click=&amp;quot;jump()&amp;quot;&amp;gt;点击跳转&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后就可以选择：运行 - 运行到小程序模拟器 - 微信开发者工具即可。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0ppZV8xOTk3L2FydGljbGUvZGV0YWlscy8xMDg4NzA2MTg=&#34;&gt;https://blog.csdn.net/Jie_1997/article/details/108870618&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tpcnV0aGlrYS9hcnRpY2xlL2RldGFpbHMvMTE5NjY2MTgxP29wc19yZXF1ZXN0X21pc2M9JmFtcDtyZXF1ZXN0X2lkPSZhbXA7Yml6X2lkPTEwMiZhbXA7dXRtX3Rlcm09dnVlJTIwJUU3JTgyJUI5JUU1JTg3JUJCJUU2JThDJTg5JUU5JTkyJUFFJTIwJUU4JUI3JUIzJUU4JUJEJUFDJUU2JThDJTg3JUU1JUFFJTlBJUU5JUExJUI1JUU5JTlEJUEyJTIwdW5pLWFwcCZhbXA7dXRtX21lZGl1bT1kaXN0cmlidXRlLnBjX3NlYXJjaF9yZXN1bHQubm9uZS10YXNrLWJsb2ctMn5hbGx+c29iYWlkdXdlYn5kZWZhdWx0LTItMTE5NjY2MTgxLjE0MiU1RXY1OSU1RWpzX3RvcCwyMDElNUV2MyU1RWNvbnRyb2xfMSwyMTMlNUV2MSU1RWNvbnRyb2wmYW1wO3NwbT0xMDE4LjIyMjYuMzAwMS40MTg3&#34;&gt;uni-app 点击跳转页面&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="uni-app" />
+        <updated>2022-10-26T04:59:58.000Z</updated>
+    </entry>
+</feed>

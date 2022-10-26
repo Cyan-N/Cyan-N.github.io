@@ -7,24 +7,24 @@
         <language>zh-CN</language>
         <pubDate>Sun, 23 Oct 2022 10:19:28 +0800</pubDate>
         <lastBuildDate>Sun, 23 Oct 2022 10:19:28 +0800</lastBuildDate>
+        <category>shell</category>
+        <category>云计算</category>
         <category>Docker</category>
         <category>tools</category>
-        <category>云计算</category>
-        <category>数据结构与算法</category>
         <category>网络协议与工具</category>
         <category>轻小说结局魔改</category>
-        <category>shell</category>
-        <category>Spring</category>
-        <category>uni-app</category>
-        <category>MySQL</category>
-        <category>日志框架</category>
-        <category>Java8</category>
-        <category>Mybatis</category>
+        <category>数据结构与算法</category>
         <category>JVM</category>
-        <category>网络编程</category>
-        <category>设计模式</category>
-        <category>并发</category>
         <category>Java基础</category>
+        <category>Java8</category>
+        <category>并发</category>
+        <category>MySQL</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
+        <category>uni-app</category>
+        <category>Spring</category>
+        <category>Mybatis</category>
+        <category>日志框架</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/23/Framework/Spring/Spring(4)-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</guid>
             <title>Spring(4)--注解开发</title>

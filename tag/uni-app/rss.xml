@@ -7,24 +7,24 @@
         <language>zh-CN</language>
         <pubDate>Wed, 26 Oct 2022 12:59:58 +0800</pubDate>
         <lastBuildDate>Wed, 26 Oct 2022 12:59:58 +0800</lastBuildDate>
+        <category>shell</category>
+        <category>云计算</category>
         <category>Docker</category>
         <category>tools</category>
-        <category>云计算</category>
-        <category>数据结构与算法</category>
         <category>网络协议与工具</category>
         <category>轻小说结局魔改</category>
-        <category>shell</category>
-        <category>Spring</category>
-        <category>uni-app</category>
-        <category>MySQL</category>
-        <category>日志框架</category>
-        <category>Java8</category>
-        <category>Mybatis</category>
+        <category>数据结构与算法</category>
         <category>JVM</category>
-        <category>网络编程</category>
-        <category>设计模式</category>
-        <category>并发</category>
         <category>Java基础</category>
+        <category>Java8</category>
+        <category>并发</category>
+        <category>MySQL</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
+        <category>uni-app</category>
+        <category>Spring</category>
+        <category>Mybatis</category>
+        <category>日志框架</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/26/Framework/uni-app/uni-app%E5%BC%80%E5%8F%91(1)-%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/</guid>
             <title>uni-app开发(1)--基础讲解</title>
@@ -38,6 +38,9 @@
 &lt;li&gt;vue，快速入门的话，就去看官网：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9jbi52dWVqcy5vcmcvZ3VpZGUvaW50cm9kdWN0aW9uLmh0bWw=&#34;&gt;https://cn.vuejs.org/guide/introduction.html&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;最近的话，我不会花太多时间写博客，更多的是自己学习，等之后可能会完善，或者课设阶段性总结的时候会更新，本篇会讲解一些基本的用法，其实就是在总结上面给的资源的知识，最好的教程就在官网。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于 vue 的代码，我在代码块标注的是 html,css 或 js，因为我这个渲染插件好像还没倒腾过 vue 代码的渲染。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&#34;开发工具下载&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开发工具下载&#34;&gt;#&lt;/a&gt; 开发工具下载&lt;/h1&gt;
 &lt;p&gt;直接看官网就行了：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oeC5kY2xvdWQubmV0LmNuL1R1dG9yaWFsL2luc3RhbGwvd2luZG93cw==&#34;&gt;https://hx.dcloud.net.cn/Tutorial/install/windows&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;最后新建项目，选择默认模板，Vue3，启用 uniCloud 即可&lt;/p&gt;
@@ -74,23 +77,9 @@
 &lt;p&gt;首先要设置微信小程序开发工具：设置 - 安全 - 服务端口（需要打开）。在 &lt;code&gt;pages&lt;/code&gt;  里面新增一个 vue 文件&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/10/26/0bbb14b0f4987aa4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;必须要在 &lt;code&gt;pages.json&lt;/code&gt;  中注册，大致修改一下界面：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;template&amp;gt;
-	&amp;lt;view&amp;gt;
-		&amp;lt;h&amp;gt;另一个界面&amp;lt;/h&amp;gt;
-	&amp;lt;/view&amp;gt;
-&amp;lt;/template&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;然后在 &lt;code&gt;index.vue&lt;/code&gt;  的 &lt;code&gt;methods&lt;/code&gt;  中加上跳转方法（方法之间要用 &lt;code&gt;,&lt;/code&gt;  隔开）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;jump() &amp;#123;
-    uni.navigateTo(&amp;#123;
-    	url: &#39;../test.vue&#39;
-    &amp;#125;);
-&amp;#125;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;在前端定义一个按钮：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;button @click=&amp;quot;jump()&amp;quot;&amp;gt;点击跳转&amp;lt;/button&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;然后就可以选择：运行 - 运行到小程序模拟器 - 微信开发者工具即可。&lt;/p&gt;
+&lt;figure class=&#34;highlight html&#34;&gt;&lt;figcaption data-lang=&#34;HTML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;template&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;view&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;h&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;另一个界面&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;h&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;view&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;template&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后在 &lt;code&gt;index.vue&lt;/code&gt;  的 &lt;code&gt;methods&lt;/code&gt;  中加上跳转方法（方法之间要用 &lt;code&gt;,&lt;/code&gt;  隔开）：&lt;/p&gt;
+&lt;figure class=&#34;highlight js&#34;&gt;&lt;figcaption data-lang=&#34;JavaScript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;jump&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    uni&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;navigateTo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    	&lt;span class=&#34;token literal-property property&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;../test.vue&#39;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;在前端定义一个按钮：&lt;/p&gt;
+&lt;figure class=&#34;highlight html&#34;&gt;&lt;figcaption data-lang=&#34;HTML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt; &lt;span class=&#34;token attr-name&#34;&gt;@click&lt;/span&gt;&lt;span class=&#34;token attr-value&#34;&gt;&lt;span class=&#34;token punctuation attr-equals&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;jump()&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;点击跳转&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后就可以选择：运行 - 运行到小程序模拟器 - 微信开发者工具即可。&lt;/p&gt;
 &lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0ppZV8xOTk3L2FydGljbGUvZGV0YWlscy8xMDg4NzA2MTg=&#34;&gt;https://blog.csdn.net/Jie_1997/article/details/108870618&lt;/span&gt;&lt;/p&gt;

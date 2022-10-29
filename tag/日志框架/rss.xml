@@ -7,24 +7,24 @@
         <language>zh-CN</language>
         <pubDate>Thu, 20 Oct 2022 23:42:16 +0800</pubDate>
         <lastBuildDate>Thu, 20 Oct 2022 23:42:16 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>tools</category>
-        <category>shell</category>
         <category>云计算</category>
         <category>数据结构与算法</category>
-        <category>网络协议与工具</category>
         <category>轻小说结局魔改</category>
-        <category>MySQL</category>
-        <category>Mybatis</category>
+        <category>tools</category>
+        <category>网络协议与工具</category>
+        <category>shell</category>
+        <category>Docker</category>
+        <category>uni-app</category>
         <category>Spring</category>
         <category>日志框架</category>
-        <category>uni-app</category>
-        <category>JVM</category>
+        <category>Mybatis</category>
+        <category>MySQL</category>
         <category>Java8</category>
-        <category>Java基础</category>
+        <category>JVM</category>
         <category>并发</category>
-        <category>设计模式</category>
+        <category>Java基础</category>
         <category>网络编程</category>
+        <category>设计模式</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/20/Framework/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/JUL%E6%97%A5%E5%BF%97(2)-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
             <title>JUL(2)--配置文件</title>

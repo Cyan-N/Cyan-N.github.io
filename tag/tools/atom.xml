@@ -5,23 +5,24 @@
     <link href="https://cecilia.cool" />
     <updated>2090-01-01T07:01:00.000Z</updated>
     <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
+    <category term="shell" />
+    <category term="开源软件构建技术" />
     <category term="云计算" />
     <category term="数据结构与算法" />
-    <category term="轻小说结局魔改" />
     <category term="网络协议与工具" />
+    <category term="Mybatis" />
+    <category term="轻小说结局魔改" />
+    <category term="Spring" />
+    <category term="日志框架" />
+    <category term="uni-app" />
     <category term="MySQL" />
+    <category term="设计模式" />
     <category term="JVM" />
     <category term="Java8" />
     <category term="Java基础" />
-    <category term="并发" />
-    <category term="设计模式" />
     <category term="网络编程" />
-    <category term="Mybatis" />
-    <category term="Spring" />
-    <category term="uni-app" />
-    <category term="日志框架" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2090/01/01/Tools/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/</id>
         <title>必读：南慕青の碎碎念</title>
@@ -90,6 +91,136 @@
 </content>
         <category term="tools" />
         <updated>2090-01-01T07:01:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/11/01/Tools/Linus&#39;s%20Git/</id>
+        <title>Linus&#39;s Git</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/01/Tools/Linus&#39;s%20Git/"/>
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;Linus 大佬团队俩星期写出来的 Git&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;基本使用&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本使用&#34;&gt;#&lt;/a&gt; 基本使用&lt;/h1&gt;
+&lt;p&gt;安装这么简单的事就不讲了。一些介绍就是：分布式版本控制系统，远程仓库 巴拉巴拉的。&lt;/p&gt;
+&lt;h2 id=&#34;基本模块&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本模块&#34;&gt;#&lt;/a&gt; 基本模块&lt;/h2&gt;
+&lt;p&gt;这部分一定要仔细，git 的命令与不同模块息息相关。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/5a93f2899a2cac45.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;工作目录：存放我们正在写的代码（当我们新版本开发完成之后，就可以进行新版本的提交）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;暂存区：暂时保存待提交的内容（新版本提交后会存放到本地仓库）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地仓库：位于我们电脑上的一个版本控制仓库（存放的就是当前项目各个版本代码的增删信息），可以是随便一个文件夹作为本地仓库， &lt;code&gt;git init&lt;/code&gt;  生成 &lt;code&gt;.git&lt;/code&gt;  目录，仓库目录就是工作目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;远程仓库：位于服务器上的版本控制仓库（服务器上的版本信息可以由本地仓库推送上去，也可以从服务器抓取到本地仓库）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;创建仓库&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#创建仓库&#34;&gt;#&lt;/a&gt; 创建仓库&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;github&lt;/code&gt;  和 &lt;code&gt;gitee&lt;/code&gt;  都可以，看自己能力创建捏，这里建议仓库私有，你拿来练手 &lt;code&gt;git&lt;/code&gt;  的仓库就没必要公开了。最近做课设，团队作业，我在 &lt;code&gt;Gitee&lt;/code&gt;  上还搜到了好几个认识的同学的仓库，还有几个老哥是实名上网，笑😥。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;创建好后，拿到仓库地址：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRlZS5jb20veHh4L3RlYWNoLWxlYXJuaW5nLmdpdA==&#34;&gt;https://gitee.com/xxx/teach-learning.git&lt;/span&gt; （这个仓库我之后会删了。。），本地随便创建一个文件夹 &lt;code&gt;Teach-learning&lt;/code&gt; 。进入文件夹，右键 &lt;code&gt;git bash here&lt;/code&gt;  初始化仓库 &lt;code&gt;git init&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;你应该还看到了有一个 &lt;code&gt;Git GUI Here&lt;/code&gt; ， &lt;code&gt;GUI&lt;/code&gt;  就是图形化， &lt;code&gt;Bash&lt;/code&gt;  是命令行。&lt;/p&gt;
+&lt;p&gt;如果从来没有配置过用户名和邮箱，先配置一下：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; config &lt;span class=&#34;token parameter variable&#34;&gt;--global&lt;/span&gt; user.name &lt;span class=&#34;token string&#34;&gt;&#34;Your Name&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; config &lt;span class=&#34;token parameter variable&#34;&gt;--global&lt;/span&gt; user.email &lt;span class=&#34;token string&#34;&gt;&#34;email@example.com&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;现在远程仓库和本地仓库都创建好了，但是先不需要管远程仓库，我们这里啥都没配置，本地仓库也不知道远程仓库地址。其实，你如果觉得 &lt;code&gt;git&lt;/code&gt;  提供的 UI 不好看，也可以使用 cmd 终端执行 &lt;code&gt;git&lt;/code&gt;  命令。&lt;/p&gt;
+&lt;h1 id=&#34;本地操作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#本地操作&#34;&gt;#&lt;/a&gt; 本地操作&lt;/h1&gt;
+&lt;p&gt;现在的都做都是在和本地仓库进行交互，与远程仓库没有关系。&lt;/p&gt;
+&lt;h2 id=&#34;添加与提交&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#添加与提交&#34;&gt;#&lt;/a&gt; 添加与提交&lt;/h2&gt;
+&lt;p&gt;我们先看一下工作目录的文件与本地仓库：&lt;/p&gt;
+&lt;p&gt;执行 &lt;code&gt;git status&lt;/code&gt;  查看本地仓库状态，结果是：&lt;strong&gt;No commits yet&lt;/strong&gt;。表示我们还没有向仓库提交任何内容。&lt;/p&gt;
+&lt;p&gt;创建一个文本文件 &lt;code&gt;test.txt&lt;/code&gt; ，随便写内容: &lt;code&gt;hello world&lt;/code&gt; ，再查看状态：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;On branch master&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;No commits yet&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Untracked files:&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;token string&#34;&gt;&#34;git add &amp;lt;file&gt;...&#34;&lt;/span&gt; to include &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; what will be committed&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        test.txt&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;nothing added to commit but untracked files present &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;token string&#34;&gt;&#34;git add&#34;&lt;/span&gt; to track&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;Untracked files 是未追踪文件的意思， &lt;code&gt;git&lt;/code&gt;  不会记录它的变化，始终将其当做一个新创建的文件。加入到暂存区，该文件就会自动变为追踪状态：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; test.txt &lt;span class=&#34;token comment&#34;&gt;#也可以 add . 一次性添加目录下所有的&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;再次 &lt;code&gt;git status&lt;/code&gt;  发现文件颜色变成绿色了。其实在 IDEA 里面也是这样，项目中文件未追踪，颜色是红色的（前提是项目已经使用了 Git）：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/1e4323523100a5bf.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;1.txt&lt;/code&gt;  是我新建的，此时是红色的，然后 IDEA 提醒我叫我添加该文件到 Git，&lt;strong&gt;也就是将文件交给 Git 管理&lt;/strong&gt;。选择 add 后就变绿色了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;此时文件就在暂存区了&lt;/strong&gt;，使用 &lt;code&gt;commit&lt;/code&gt;  命令就可以提交到本地仓库中了：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; commit &lt;span class=&#34;token parameter variable&#34;&gt;-m&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;提交test.txt文件&#39;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# -m 就是添加提交消息，meassage&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 提交后暂存区就没东西了，之后要提交，就必须先 commit&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# -a 选项可以将没有加入到暂存区的文件放入暂存区再提交&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;现在先不演示在 IDEA 中的样子，先把基本学明白。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查看提交记录：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;C:&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Users&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Cyan&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Desktop&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Teach-learning&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;git log&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;commit ed549112c66212a24d659583ac2fe472eec9b378 &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;HEAD -&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; master&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Author: cyan &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;我的邮箱&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Date:   Tue Nov &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;17&lt;/span&gt;:15:28 &lt;span class=&#34;token number&#34;&gt;2022&lt;/span&gt; +0800&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token string&#34;&gt;&#39;提交test.txt文件&#39;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;第一行是提交的 &lt;code&gt;commitID&lt;/code&gt; ，此时再查看状态，就会提示工作目录没有需要提交的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;git log --all --graph --oneline&lt;/code&gt;  挺好用的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;尝试修改一下 &lt;code&gt;test.txt&lt;/code&gt; （删除 hello world 吧），由于当前文件已经是被追踪状态，那么 git 会去跟踪它的变化，如果说文件发生了修改，那么我们再次查看状态会得到下面的结果：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;C:&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Users&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Cyan&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Desktop&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Teach-learning&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;git status&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;On branch master&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Changes not staged &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; commit:&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;token string&#34;&gt;&#34;git add &amp;lt;file&gt;...&#34;&lt;/span&gt; to update what will be committed&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;token string&#34;&gt;&#34;git restore &amp;lt;file&gt;...&#34;&lt;/span&gt; to discard changes &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; working directory&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        modified:   test.txt	&lt;span class=&#34;token comment&#34;&gt;# 红色的&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;no changes added to commit &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;use &lt;span class=&#34;token string&#34;&gt;&#34;git add&#34;&lt;/span&gt; and/or &lt;span class=&#34;token string&#34;&gt;&#34;git commit -a&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;此时修改的文件在工作目录，需要再次提交到暂存区（ &lt;code&gt;git add .&lt;/code&gt; )，然后提交 &lt;code&gt;git commit&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;可以创建一个 &lt;code&gt;.gitignore&lt;/code&gt;  文件来确定一个文件忽略列表，如果忽略列表中的文件存在且不是被追踪状态，那么 git 不会对其进行任何检查：&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 这样就会匹配所有以 txt 结尾的文件&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token important&#34;&gt;*.txt&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 虽然上面排除了所有 txt 结尾的文件，但是这个不排除&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;!666.txt&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 也可以直接指定一个文件夹，文件夹下的所有文件将全部忽略&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;test/&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 目录中所有以 txt 结尾的文件，但不包括子目录&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;xxx/&lt;span class=&#34;token important&#34;&gt;*.txt&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 目录中所有以 txt 结尾的文件，包括子目录&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;xxx/&lt;span class=&#34;token important&#34;&gt;**/*.txt&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;回滚&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#回滚&#34;&gt;#&lt;/a&gt; 回滚&lt;/h2&gt;
+&lt;p&gt;每提交一次，就是一个版本，通过 &lt;code&gt;commitID&lt;/code&gt;  就可以回滚到指定版本。（ID 通过 &lt;code&gt;git log&lt;/code&gt;  查看）&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; reset &lt;span class=&#34;token parameter variable&#34;&gt;--hard&lt;/span&gt; commitID&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;执行后，会直接重置为那个时候的状态。再次查看提交日志，我们发现之后的日志全部消失了。&lt;/p&gt;
+&lt;p&gt;要是现在我又想回去呢？我们可以通过查看所有&lt;strong&gt;分支&lt;/strong&gt;的所有操作记录：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; reflog&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 就能找到之前的 commitID，再次重置即可&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;分支&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分支&#34;&gt;#&lt;/a&gt; 分支&lt;/h2&gt;
+&lt;p&gt;为什么要有分支：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于当前项目的基础功能，我们想做成不同方向的需求，开发不同方向的功能，就需要分支。&lt;/li&gt;
+&lt;li&gt;像一些开源项目就有很多分支，一方面是各个分支功能实现略有不同，另一方面也方便不同人开发，也就是一部分人开发某个分支，另一部分人开发另一个分支啥的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;像有些项目一条路走到黑的，就没必要使用分支；如果是类似前后端分离，MVVM 之类的，就可以开多个分支。&lt;/p&gt;
+&lt;p&gt;我的看法就是有需求就开分支，不要吃饱了撑的。&lt;/p&gt;
+&lt;p&gt;查看当前分支： &lt;code&gt;git branch&lt;/code&gt; 。默认分支是 &lt;code&gt;master&lt;/code&gt; ，以前 &lt;code&gt;github&lt;/code&gt;  的默认分支我记得是 &lt;code&gt;main&lt;/code&gt; ，后来就改了。 &lt;code&gt;master&lt;/code&gt;  一般是正式版本更新。&lt;/p&gt;
+&lt;p&gt;相关命令：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 基于当前分支创建一个新的分支&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; branch &lt;span class=&#34;token builtin class-name&#34;&gt;test&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 删除分支&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; branch &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;test&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 切换分支&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; checkout &lt;span class=&#34;token builtin class-name&#34;&gt;test&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;不同分支的文件内容是相互隔离的&lt;/p&gt;
+&lt;h2 id=&#34;分支合并&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分支合并&#34;&gt;#&lt;/a&gt; 分支合并&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这部分是重点难点，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;两个分支想要合并，就不能存在冲突。假设有一个文件，在 A 分支修改提交了，在 B 分支也修改提交了，A 和 B 分支合并时，该文件哪个版本是最新的呢？哪个该被覆盖呢？&lt;/p&gt;
+&lt;p&gt;我们重新建一个本地仓库演示一下：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/797211819dc89825.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;目前是，有 A.txt 和 B.txt 两个文件，A，B 两个分支，两个文件写入内容后提交到 master 分支上。&lt;/p&gt;
+&lt;p&gt;我们合并 AB 两个分支来演示分支合并：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;切入到 A 分支，对 A.txt 文件新增一行（就是修改）：A branch add a row， &lt;code&gt;commit&lt;/code&gt;  提交。&lt;/li&gt;
+&lt;li&gt;切入到 B 分支，此时查看 A.txt 文件，并没有 A 分支修改的内容（分支之间相互隔离）。&lt;/li&gt;
+&lt;li&gt;在 B 分支，对 B.txt 文件新增一行：B branch add a row， &lt;code&gt;commit&lt;/code&gt;  提交。&lt;/li&gt;
+&lt;li&gt;再回到 A 分支，使用 &lt;code&gt;git log --all --graph --oneline&lt;/code&gt;  查看一下。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/1783faa4ee95c509.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;分支情况一目了然。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 A 分支查看 A.txt，B.txt 两个分支的内容，并没有 B 分支修改的内容。&lt;/li&gt;
+&lt;li&gt;将 B 分支合并到 A 分支： &lt;code&gt;git merge B&lt;/code&gt; ，再看一下 &lt;code&gt;log&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/0db832aa135ba0a2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;检查 B.txt 内容，合并成功。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分支合并的时候，A，B 分支的文件修改上没有冲突 ——A 分支 A.txt 修改了，而 B 分支的 A.txt 没有修改，所以 A.txt 合并可以成功（B.txt 同理），如果 A，B 分支都对 A 文件进行修改，就有可能发生冲突。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;分支冲突&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分支冲突&#34;&gt;#&lt;/a&gt; 分支冲突&lt;/h2&gt;
+&lt;p&gt;现在我们再来演示一下分支冲突：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A 分支对 A.txt 再新增一行：A branch add a row again，提交。&lt;/li&gt;
+&lt;li&gt;切换到 B 分支，同样在&lt;strong&gt; A.txt&lt;/strong&gt; 新增一行：B branch add a row again，提交。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在两个分支在 A.txt 的修改上发生冲突，回到 A 分支，执行 &lt;code&gt;git merge B&lt;/code&gt; ，就会出现冲突提示：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/745dfafffb1deb4c.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;我们调用 &lt;code&gt;git diff&lt;/code&gt;  查看一下（必须合并失败之后才有用）：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/27ad3de5711579e2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;解决办法就是，在当前分支下，要么回到没有冲突的版本，要么在 A.txt 文件中选定冲突的部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A 分支下，回滚到修改 A.txt 之前的版本。&lt;/li&gt;
+&lt;li&gt;或者是，你现在去看一下 A.txt 的内容，里面就会加入 &lt;code&gt;&amp;lt;&amp;lt;HEAD&lt;/code&gt;  之类的东西，你可以手动选择需要那部分，或者两部分都要（其实你可以随便改），然后再 commit 一下，然后在合并，就可以了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/01/fc46689075fb2f2d.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;远程仓库&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#远程仓库&#34;&gt;#&lt;/a&gt; 远程仓库&lt;/h1&gt;
+&lt;p&gt;之前我们的操作都是在本地操作的，最后我们可以将一个分支的结果上传到远程仓库：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先添加本地仓库： &lt;code&gt;git remote add 仓库名 远程仓库地址&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;如果你是空文件夹，是想单纯拉取那些开源项目： &lt;code&gt;git pull 仓库名 远程分支&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;然后自己修改代码后，就可以将本地的文件传过去了： &lt;code&gt;git push 远程仓库名称 本地分支名称[:远端分支名称]&lt;/code&gt; 。 &lt;code&gt;git clone&lt;/code&gt;  也可以&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一次 push 一般需要用户名和密码。每次都需要指定分支映射，我们可以绑定分支： &lt;code&gt;git push --set-upstream 仓库名 本地分支:远程仓库&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;如果只是一个人玩 &lt;code&gt;git&lt;/code&gt; ，那么以上命令没有任何问题，可是如果是多人开发，我们假设一个场景：&lt;/p&gt;
+&lt;p&gt;AB 两人开发项目，他们在写代码时，有自己的本地仓库，然后有一天他俩都克隆了同一远程仓库，A1h 后将自己的代码交到远程仓库，再过 1h 后，B 执行 push 的话就会出错：&lt;strong&gt; &lt;code&gt;error: failed to push some refs to &#39;https://github.com/xx/xxx.git&#39; hint: Updates were rejected because the remote contains work that you do&lt;/code&gt; &lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;因为如果让他 push 上去，就会覆盖 A 的代码， &lt;code&gt;git push --force&lt;/code&gt;  是强制 push，那么就会真的覆盖 A 的代码。&lt;/p&gt;
+&lt;p&gt;一旦一个本地仓库推送了代码，那么另一个本地仓库的推送会被拒绝，原因是当前文件已经被其他的推送给修改了，我们这边相当于是另一个版本，和之前两个分支合并一样，产生了冲突，因此我们只能去解决冲突问题。&lt;/p&gt;
+&lt;p&gt;一般就是通过 fetch 拉取下来，但是没有合并，然后自己再合并（其实就是 pull），至于他人写的会不会覆盖你的代码，如果没有修改同一个文件就不会，然后合并就会冲突。&lt;/p&gt;
+</content>
+        <category term="tools" />
+        <updated>2022-11-01T08:30:06.000Z</updated>
     </entry>
     <entry>
         <id>https://cecilia.cool/2022/07/29/Tools/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%8C%87%E5%8D%97/</id>

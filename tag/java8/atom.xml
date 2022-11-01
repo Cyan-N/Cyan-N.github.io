@@ -5,23 +5,24 @@
     <link href="https://cecilia.cool" />
     <updated>2022-08-23T05:54:59.000Z</updated>
     <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
+    <category term="shell" />
+    <category term="开源软件构建技术" />
     <category term="云计算" />
     <category term="数据结构与算法" />
-    <category term="轻小说结局魔改" />
     <category term="网络协议与工具" />
+    <category term="Mybatis" />
+    <category term="轻小说结局魔改" />
+    <category term="Spring" />
+    <category term="日志框架" />
+    <category term="uni-app" />
     <category term="MySQL" />
+    <category term="设计模式" />
     <category term="JVM" />
     <category term="Java8" />
     <category term="Java基础" />
-    <category term="并发" />
-    <category term="设计模式" />
     <category term="网络编程" />
-    <category term="Mybatis" />
-    <category term="Spring" />
-    <category term="uni-app" />
-    <category term="日志框架" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2022/08/23/Java/Java8/Java8%E6%96%B0%E7%89%B9%E6%80%A76-StampedLock/</id>
         <title>Java8新特性--StampedLock</title>

@@ -5,23 +5,24 @@
     <link href="https://cecilia.cool" />
     <updated>2022-10-08T05:02:44.000Z</updated>
     <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
+    <category term="shell" />
+    <category term="开源软件构建技术" />
     <category term="云计算" />
     <category term="数据结构与算法" />
-    <category term="轻小说结局魔改" />
     <category term="网络协议与工具" />
+    <category term="Mybatis" />
+    <category term="轻小说结局魔改" />
+    <category term="Spring" />
+    <category term="日志框架" />
+    <category term="uni-app" />
     <category term="MySQL" />
+    <category term="设计模式" />
     <category term="JVM" />
     <category term="Java8" />
     <category term="Java基础" />
-    <category term="并发" />
-    <category term="设计模式" />
     <category term="网络编程" />
-    <category term="Mybatis" />
-    <category term="Spring" />
-    <category term="uni-app" />
-    <category term="日志框架" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2022/10/08/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%AE%BF%E9%97%AE%E8%80%85/</id>
         <title>行为型--访问者</title>

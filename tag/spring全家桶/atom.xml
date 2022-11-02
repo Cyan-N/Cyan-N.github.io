@@ -1,28 +1,88 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cecilia.cool</id>
-    <title>慕青の迷途 • Posts by &#34;spring&#34; tag</title>
+    <title>慕青の迷途 • Posts by &#34;spring全家桶&#34; tag</title>
     <link href="https://cecilia.cool" />
-    <updated>2022-10-27T06:36:06.000Z</updated>
+    <updated>2022-11-02T11:47:50.000Z</updated>
     <category term="Docker" />
     <category term="tools" />
     <category term="shell" />
-    <category term="开源软件构建技术" />
     <category term="云计算" />
-    <category term="数据结构与算法" />
-    <category term="网络协议与工具" />
-    <category term="Mybatis" />
     <category term="轻小说结局魔改" />
-    <category term="Spring" />
-    <category term="日志框架" />
-    <category term="uni-app" />
+    <category term="数据结构与算法" />
+    <category term="开源软件构建技术" />
+    <category term="网络协议与工具" />
     <category term="MySQL" />
+    <category term="Mybatis" />
+    <category term="Spring全家桶" />
+    <category term="uni-app" />
+    <category term="日志框架" />
     <category term="设计模式" />
+    <category term="Java基础" />
     <category term="JVM" />
     <category term="Java8" />
-    <category term="Java基础" />
-    <category term="网络编程" />
     <category term="并发" />
+    <category term="网络编程" />
+    <entry>
+        <id>https://cecilia.cool/2022/11/02/Framework/Spring/Springboot(1)-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/</id>
+        <title>Springboot(1)--快速开发</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/02/Framework/Spring/Springboot(1)-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/"/>
+        <content type="html">&lt;h1 id=&#34;快速开发&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#快速开发&#34;&gt;#&lt;/a&gt; 快速开发&lt;/h1&gt;
+&lt;p&gt;很方便的开发框架，只需要很少的配置，提供一站式 &lt;code&gt;starter&lt;/code&gt;  依赖项，简化 &lt;code&gt;maven&lt;/code&gt;  配置，内置 tomcat，没有 xml 配置要求，大幅度提高开发效率。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这么爽的开发框架，几乎是傻瓜式上手即用，所以会用点框架是拿不上台面的。我们更应该注重基础，以及算法，不要过多沉迷于框架。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;新建项目&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#新建项目&#34;&gt;#&lt;/a&gt; 新建项目&lt;/h2&gt;
+&lt;p&gt;几乎不用选择什么，新建项目选择 &lt;code&gt;Spring Initializr&lt;/code&gt;  如果是 web 项目，勾选上 spring web 就差不多了（小辣椒也可以选，毕竟真的很方便）：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/02/638fdf5e45c0e1c1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;进去之后就会看到启动类，该类有 &lt;code&gt;@SpringBootApplication&lt;/code&gt;  注解， &lt;code&gt;springboot&lt;/code&gt;  项目启动时，会通过启动类去 &amp;quot;扫描&amp;quot; 其他的类，所以我们&lt;strong&gt;写的 service 类，controller 类不能放在启动类的父目录，只能放在同级目录或同级目录的子目录里面&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;现在你可以什么都不写，直接 run，也不会报错（没有配置文件默认就是 8080 端口）。&lt;/p&gt;
+&lt;h2 id=&#34;整合web框架&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#整合web框架&#34;&gt;#&lt;/a&gt; 整合 web 框架&lt;/h2&gt;
+&lt;p&gt;配置文件：可以是 &lt;code&gt;.properties&lt;/code&gt;  文件，也可以是 &lt;code&gt;.yml&lt;/code&gt;  文件，区别只是两个文件内容书写格式不同，前者通过 &lt;code&gt;.&lt;/code&gt;  引用，后者通过缩进。&lt;/p&gt;
+&lt;h3 id=&#34;mybatis&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#mybatis&#34;&gt;#&lt;/a&gt; mybatis&lt;/h3&gt;
+&lt;p&gt;导入依赖：&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;figcaption data-lang=&#34;XML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;org.mybatis.spring.boot&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;mybatis-spring-boot-starter&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;version&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;2.2.0&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;version&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;mysql&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;mysql-connector-java&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;在 &lt;code&gt;resource&lt;/code&gt;  目录配置文件指定数据源（我这里用的就是.yaml 文件）：&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;spring&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;datasource&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; jdbc&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;mysql&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//localhost&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;3306&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; root&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;123456&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;driver-class-name&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; com.mysql.cj.jdbc.Driver&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;starter&lt;/code&gt;  会自动扫描项目中 &lt;code&gt;@Mapper&lt;/code&gt;  注解的接口，注册为 Bean，不需要任何配置：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token annotation punctuation&#34;&gt;@Mapper&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;MainMapper&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token annotation punctuation&#34;&gt;@Select&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;select * from users where username = #&amp;#123;username&amp;#125;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;UserData&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;findUserByName&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; username&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;SpringBoot&lt;/code&gt;  会自动为 Mybatis 配置数据源，默认使用的就是 &lt;code&gt;HikariCP&lt;/code&gt;  数据源。&lt;/p&gt;
+&lt;h3 id=&#34;thymeleaf&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#thymeleaf&#34;&gt;#&lt;/a&gt; Thymeleaf&lt;/h3&gt;
+&lt;p&gt;导入依赖：&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;figcaption data-lang=&#34;XML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;org.springframework.boot&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;spring-boot-starter-thymeleaf&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后直接用就可以了&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token annotation punctuation&#34;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;/index&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;index&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;html&lt;/code&gt;  文件放在 &lt;code&gt;template&lt;/code&gt;  目录下，css,js 文件放在 &lt;code&gt;static&lt;/code&gt;  目录下，甚至你可能还特意分了一下 css 目录之类的，所以我们愮在配置文件中指定一下静态资源的访问前缀：&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;spring&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token key atrule&#34;&gt;mvc&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  	&lt;span class=&#34;token key atrule&#34;&gt;static-path-pattern&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; /static/&lt;span class=&#34;token important&#34;&gt;**&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;日志&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#日志&#34;&gt;#&lt;/a&gt; 日志&lt;/h3&gt;
+&lt;p&gt;先了解两个概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;日志实现：之前学习的 JUL 其实就是日志实现，实现了具体细节和操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;日志门面：如 Slf4j，把不同日志系统实现进行具体的抽象化，只提供统一的日志&lt;strong&gt;使用&lt;/strong&gt;接口，使用时直接调用接口即可。但是最终日志实现的格式，输出方式等需要绑定具体日志系统来实现。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Springboot 为了统一日志框架，做了以下的事情：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将其他依赖以前的日志框架剔除。&lt;/li&gt;
+&lt;li&gt;导入对应日志框架的 Slf4j 中间包。&lt;/li&gt;
+&lt;li&gt;导入自己官方指定的日志实现。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以选择&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sb2diYWNrLnFvcy5jaA==&#34;&gt; Logback&lt;/span&gt; 日志框架：&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;figcaption data-lang=&#34;XML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;org.springframework.boot&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;spring-boot-starter-logging&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;多环境配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#多环境配置&#34;&gt;#&lt;/a&gt; 多环境配置&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;写好多个环境的配置文件，进行自由切换。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;SpringBoot&lt;/code&gt;  只会读取 &lt;code&gt;application.properties&lt;/code&gt;  或者 &lt;code&gt;application.yml&lt;/code&gt;  文件，所以要实现自由切换，需要在配置文件中指定：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;spring:
+  profiles:
+    active: dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样就会读取 &lt;code&gt;application-dev.yml&lt;/code&gt;  配置文件。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL3h6bzQ0NQ==&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/xzo445&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Spring全家桶" />
+        <updated>2022-11-02T11:47:50.000Z</updated>
+    </entry>
     <entry>
         <id>https://cecilia.cool/2022/10/27/Framework/Spring/Spring(5)-%E6%95%B4%E5%90%88Mybatis/</id>
         <title>Spring(5)--整合Mybatis</title>
@@ -68,7 +128,7 @@
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL3JsZ2NmNyNmZmY4YjE2Ng==&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/rlgcf7#fff8b166&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
-        <category term="Spring" />
+        <category term="Spring全家桶" />
         <updated>2022-10-27T06:36:06.000Z</updated>
     </entry>
     <entry>
@@ -117,7 +177,7 @@
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL3JsZ2NmNyNmZGJhMmZlYw==&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/rlgcf7#fdba2fec&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
-        <category term="Spring" />
+        <category term="Spring全家桶" />
         <updated>2022-10-23T02:19:28.000Z</updated>
     </entry>
     <entry>
@@ -205,7 +265,7 @@
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL3JsZ2NmNyMzODJlNzk1YQ==&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/rlgcf7#382e795a&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
-        <category term="Spring" />
+        <category term="Spring全家桶" />
         <updated>2022-10-22T08:57:11.000Z</updated>
     </entry>
     <entry>
@@ -350,7 +410,7 @@
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvc3ByaW5nL3NwcmluZy14LWZyYW1ld29yay1pb2Mtc291cmNlLTEuaHRtbA==&#34;&gt;https://pdai.tech/md/spring/spring-x-framework-ioc-source-1.html&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
-        <category term="Spring" />
+        <category term="Spring全家桶" />
         <updated>2022-10-21T16:16:47.000Z</updated>
     </entry>
     <entry>
@@ -422,7 +482,7 @@
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODU3NDA2MDA4ODc3MTIxNTUw&#34;&gt;https://juejin.cn/post/6857406008877121550&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
-        <category term="Spring" />
+        <category term="Spring全家桶" />
         <updated>2022-10-21T06:36:28.000Z</updated>
     </entry>
 </feed>

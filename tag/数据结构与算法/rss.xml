@@ -7,25 +7,26 @@
         <language>zh-CN</language>
         <pubDate>Sat, 29 Oct 2022 19:44:32 +0800</pubDate>
         <lastBuildDate>Sat, 29 Oct 2022 19:44:32 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>tools</category>
-        <category>shell</category>
         <category>云计算</category>
-        <category>轻小说结局魔改</category>
+        <category>tools</category>
+        <category>网络协议与工具</category>
         <category>数据结构与算法</category>
         <category>开源软件构建技术</category>
-        <category>网络协议与工具</category>
+        <category>轻小说结局魔改</category>
+        <category>shell</category>
+        <category>Docker</category>
+        <category>Redis</category>
         <category>MySQL</category>
-        <category>Mybatis</category>
-        <category>Spring全家桶</category>
+        <category>Java8</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
+        <category>Java基础</category>
+        <category>并发</category>
         <category>uni-app</category>
         <category>日志框架</category>
-        <category>设计模式</category>
-        <category>Java基础</category>
         <category>JVM</category>
-        <category>Java8</category>
-        <category>并发</category>
-        <category>网络编程</category>
+        <category>Mybatis</category>
+        <category>Spring全家桶</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%B9%B6%E6%9F%A5%E9%9B%86/</guid>
             <title>并查集</title>

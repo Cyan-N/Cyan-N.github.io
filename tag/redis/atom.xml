@@ -3,27 +3,96 @@
     <id>https://cecilia.cool</id>
     <title>慕青の迷途 • Posts by &#34;redis&#34; tag</title>
     <link href="https://cecilia.cool" />
-    <updated>2022-11-04T16:39:36.000Z</updated>
-    <category term="Docker" />
-    <category term="shell" />
-    <category term="tools" />
-    <category term="开源软件构建技术" />
-    <category term="数据结构与算法" />
+    <updated>2022-11-05T09:13:37.000Z</updated>
     <category term="云计算" />
-    <category term="网络协议与工具" />
+    <category term="tools" />
+    <category term="数据结构与算法" />
+    <category term="开源软件构建技术" />
+    <category term="shell" />
+    <category term="Docker" />
     <category term="轻小说结局魔改" />
+    <category term="网络协议与工具" />
     <category term="Redis" />
     <category term="MySQL" />
+    <category term="Mybatis" />
+    <category term="uni-app" />
+    <category term="Spring全家桶" />
+    <category term="日志框架" />
+    <category term="Java8" />
+    <category term="设计模式" />
     <category term="JVM" />
+    <category term="网络编程" />
     <category term="并发" />
     <category term="Java基础" />
-    <category term="Java8" />
-    <category term="网络编程" />
-    <category term="设计模式" />
-    <category term="uni-app" />
-    <category term="日志框架" />
-    <category term="Mybatis" />
-    <category term="Spring全家桶" />
+    <entry>
+        <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</id>
+        <title>Redis(3)--持久化</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+        <content type="html">&lt;h1 id=&#34;持久化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#持久化&#34;&gt;#&lt;/a&gt; 持久化&lt;/h1&gt;
+&lt;p&gt;Redis 数据放在内存中所以快， 但是也容易丢失。引出两种持久化方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;存储数据到硬盘中。&lt;/li&gt;
+&lt;li&gt;保存存放数据的过程，恢复数据时，只需要将过程执行一遍（有点 undo 日志的味道）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;rdb&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#rdb&#34;&gt;#&lt;/a&gt; RDB&lt;/h2&gt;
+&lt;p&gt;就是将数据保存到硬盘中：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;-- 会阻塞&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;save&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;-- 创建进程负责持久化，只有 fork 才会阻塞&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;bgsave&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;执行后，会在服务端目录下生成一个 dump.rdb 文件，而这个文件中就保存了内存中存放的数据，当服务器重启后，会自动加载里面的内容到对应数据库中。保存后我们可以关闭服务器：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;-- 也会触发 bgsave&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;shutdown&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;可以在配置文件中设置自动保存功能（windows 下是 redis.windows.conf 文件）&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/05/c23c983682d34698.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;以第一个为例，意思为 900 秒内有 1 个写入时，就保存。配置的 save 使用的都是 bgsave 后台执行。&lt;/p&gt;
+&lt;p&gt;RDB 保证数据一致性，生产环境中内存区都比较大，将内存中的数据同步到硬盘的过程可能会持续比较长，此时 Redis 服务收到数据写请求就需要&lt;strong&gt;保证数据一致性&lt;/strong&gt;。核心思路是 Copy-on-Write：&lt;/p&gt;
+&lt;p&gt;我们需要保证的是，在某个数据执行写入磁盘操作时，该数据在内存中不会发生变化。&lt;/p&gt;
+&lt;p&gt;在正常的快照操作中，Redis 主进程会 fork 一个新的快照进程专门来做这个事情，这样保证了 Redis 服务不会停止对客户端包括写请求在内的任何响应。子进程就不断将内存数据存入磁盘。这个过程中，主进程对于内存只有&lt;strong&gt; read-only&lt;/strong&gt; 权限，当发生写请求时，会触发页异常中断，陷入内核的中断例程，此时内核就会把触发异常的页复制一份（还未修改）交给子进程。这种哪个页发生修改就复制哪个页的机制，细化了内存粒度。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在进行快照操作的这段时间，如果发生服务崩溃怎么办&lt;/strong&gt;？&lt;/p&gt;
+&lt;p&gt;很简单，在没有将数据全部写入到磁盘前，这次快照操作都不算成功。如果出现了服务崩溃的情况，将以上一次完整的 RDB 快照文件作为恢复内存数据的参考。也就是说，在快照操作过程中不能影响上一次的备份数据。Redis 服务会在磁盘上创建一个临时文件进行数据操作，待操作成功后才会用这个临时文件替换掉上一次的备份。&lt;/p&gt;
+&lt;h2 id=&#34;aof&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#aof&#34;&gt;#&lt;/a&gt; AOF&lt;/h2&gt;
+&lt;p&gt;RDB 缺点在于，如果在自动保存前服务器崩溃，依然会导致少量数据丢失。AOF 就是另一种方式，它会以日志的形式将我们每次执行的命令都进行保存，服务器重启时会将所有命令依次执行，通过这种重演的方式将数据恢复，这样就能很好解决实时性存储问题。&lt;/p&gt;
+&lt;p&gt;对于日志的记录，也有保存策略可以配置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;always：每次写操作都会保存&lt;/li&gt;
+&lt;li&gt;everysec：每秒保存一次（默认配置），这样丢失数据限定在一秒内。&lt;/li&gt;
+&lt;li&gt;no：看系统心情&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置文件：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 注意得改成也是&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;appendonly yes&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# appendfsync always&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;appendfsync everysec&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# appendfsync no&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;重启服务器后，可以看到服务器目录下多了一个 &lt;code&gt;appendonly.aof&lt;/code&gt;  文件，存储的就是我们执行的命令。&lt;/p&gt;
+&lt;p&gt;AOF 的同步策略涉及到操作系统的 &lt;code&gt;write&lt;/code&gt;  函数和 &lt;code&gt;fsync&lt;/code&gt;  函数，在《Redis 设计与实现》如此说明：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了提高文件写入效率，在现代操作系统中，当用户调用 write 函数，将一些数据写入文件时，操作系统通常会将数据暂存到一个内存缓冲区里，当缓冲区的空间被填满或超过了指定时限后，才真正将缓冲区的数据写入到磁盘里。&lt;/p&gt;
+&lt;p&gt;这样的操作虽然提高了效率，但也为数据写入带来了安全问题：如果计算机停机，内存缓冲区中的数据会丢失。为此，系统提供了 fsync、fdatasync 同步函数，可以强制操作系统立刻将缓冲区中的数据写入到硬盘里，从而确保写入数据的安全性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;aof文件重写机制&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#aof文件重写机制&#34;&gt;#&lt;/a&gt; AOF 文件重写机制&lt;/h3&gt;
+&lt;p&gt;如果只是傻瓜式记录操作日志。没有任何优化，就会导致 &lt;code&gt;appednonly.aof&lt;/code&gt;  变得十分大，所以 Redis 有一个 AOF 重写机制进行优化（多条语句压缩），反正就是优化后的操作和原来的操作结果一致。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/06/634891d04771fda3.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;输入命令执行重写操作： &lt;code&gt;bgrewriteaof&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;AOF 重写过程是由后台进程 bgrewriteaof 来完成的。主线程 fork 出后台的 bgrewriteaof 子进程，fork 会把主线程的内存拷贝一份给 bgrewriteaof 子进程，这里面就包含了数据库的最新数据。然后，bgrewriteaof 子进程就可以在不影响主线程的情况下，逐一把拷贝的数据写成操作，记入重写日志。&lt;/p&gt;
+&lt;p&gt;所以 aof 在重写时，在 fork 进程时是会阻塞住主线程的。&lt;/p&gt;
+&lt;p&gt;或者配置文件配置自动重写：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 百分比计算，当前 aof 文件比上一次重写后 aof 文件的增量大小，和上一次重写后 aof 文件大小的比值。&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;auto&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;aof&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;rewrite&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;percentage &lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 当达到这个大小时，触发自动重写&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;auto&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;aof&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;rewrite&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;min&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;size &lt;span class=&#34;token number&#34;&gt;64&lt;/span&gt;mb&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如何在重写时，处理写请求：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2022/11/06/0f71177930cf5ed9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;如果有新数据写入，主线程就会将命令记录到两个 aof 日志内存缓冲区中。如果 AOF 写回策略配置的是 always，则直接将命令写回旧的日志文件，并且保存一份命令至 AOF 重写缓冲区，这些操作对新的日志文件是不存在影响的。（旧的日志文件：主线程使用的日志文件，新的日志文件：bgrewriteaof 进程使用的日志文件）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主线程 fork 出子进程重写 aof 日志&lt;/li&gt;
+&lt;li&gt;子进程重写日志完成后，主线程追加 aof 日志缓冲&lt;/li&gt;
+&lt;li&gt;替换日志文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL25rYTJ2eiNSREI=&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/nka2vz#RDB&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGIvbm9zcWwtcmVkaXMvZGItcmVkaXMteC1yZGItYW9mLmh0bWw=&#34;&gt;https://pdai.tech/md/db/nosql-redis/db-redis-x-rdb-aof.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9uaW5nZy50b3AvY29tcHV0ZXItYmFzaWMtdGhlb3J5LWNvcHktb24td3JpdGUv&#34;&gt;https://ningg.top/computer-basic-theory-copy-on-write/&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L011c2NsZWFwZS9hcnRpY2xlL2RldGFpbHMvMTA1NjcwNDgx&#34;&gt;https://blog.csdn.net/Muscleape/article/details/105670481&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veWJ5bi9wLzE0MTU3NTY4Lmh0bWw=&#34;&gt;https://www.cnblogs.com/ybyn/p/14157568.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2EvMTE5MDAwMDAxNTk4MzUxOA==&#34;&gt;https://segmentfault.com/a/1190000015983518&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNDM0NjEyL2FydGljbGUvZGV0YWlscy8xMDg3OTE0Mzc=&#34;&gt;https://blog.csdn.net/qq_41434612/article/details/108791437&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vbGlhbmcyNC9wLzE0MTgwMDM2Lmh0bWw=&#34;&gt;https://www.cnblogs.com/liang24/p/14180036.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9kM2JhN2I4YWQ5NjQ=&#34;&gt;https://www.jianshu.com/p/d3ba7b8ad964&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXBlaWZlbmczNTE0L2FydGljbGUvZGV0YWlscy83OTA0ODc2Nw==&#34;&gt;https://blog.csdn.net/liupeifeng3514/article/details/79048767&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;极客时间 《Redis 核心与实战》的相关内容&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Redis" />
+        <updated>2022-11-05T09:13:37.000Z</updated>
+    </entry>
     <entry>
         <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
         <title>Redis(2)--数据类型</title>
@@ -94,6 +163,7 @@
 &lt;p&gt;开源地址：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3Rwb3JhZG93c2tpL3JlZGlzL3JlbGVhc2Vz&#34;&gt;https://github.com/tporadowski/redis/releases&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;直接下载 &lt;code&gt;zip&lt;/code&gt;  安装包就行了，然后运行服务端打开&lt;strong&gt; redis-server.exe&lt;/strong&gt; 文件即可。客户端打开&lt;strong&gt; redis-cli.exe&lt;/strong&gt; 即可。&lt;/p&gt;
 &lt;p&gt;如果客户端想要使用本地 cmd，则在 &lt;code&gt;redis&lt;/code&gt;  根目录下执行命令： &lt;code&gt;redis-cli.exe -h localhost&lt;/code&gt; 。默认是 6379 端口。&lt;/p&gt;
+&lt;p&gt;如果想要远程访问，就需要将 &lt;code&gt;redis.windows.conf&lt;/code&gt;  的 bind 注释掉， &lt;code&gt;protected-mode&lt;/code&gt;  设为 &lt;code&gt;no&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;Linux (ubuntu) 下载 Redis：&lt;/p&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; redis-server&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看服务，按 q 退出&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; systemctl status redis-server&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;可以远程访问 Redis，但是需要配置一下 &lt;code&gt;/etc/redis.conf&lt;/code&gt;  文件，定位到 &lt;code&gt;bind 0.0.0.0 ::1&lt;/code&gt; ，取消这行的注释，保存退出，重启 Redis 服务：&lt;/p&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; systemctl restart redis-server&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;配置防火墙，允许网络流量通过 TCP 端口 &lt;code&gt;6379&lt;/code&gt; 。&lt;/p&gt;

@@ -4,30 +4,30 @@
     <title>慕青の迷途 • Posts by &#34;开源软件构建技术&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2022-10-30T06:39:24.000Z</updated>
-    <category term="云计算" />
     <category term="tools" />
     <category term="数据结构与算法" />
+    <category term="云计算" />
+    <category term="轻小说结局魔改" />
     <category term="开源软件构建技术" />
+    <category term="网络协议与工具" />
     <category term="shell" />
     <category term="Docker" />
-    <category term="轻小说结局魔改" />
-    <category term="网络协议与工具" />
     <category term="Redis" />
+    <category term="JVM" />
+    <category term="Java8" />
+    <category term="Java基础" />
+    <category term="设计模式" />
+    <category term="网络编程" />
+    <category term="并发" />
     <category term="MySQL" />
     <category term="Mybatis" />
     <category term="uni-app" />
     <category term="Spring全家桶" />
     <category term="日志框架" />
-    <category term="Java8" />
-    <category term="设计模式" />
-    <category term="JVM" />
-    <category term="网络编程" />
-    <category term="并发" />
-    <category term="Java基础" />
     <entry>
-        <id>https://cecilia.cool/2022/10/30/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF/Linux%E5%9F%BA%E7%A1%80(1)/</id>
-        <title>Linux基础(1)</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/10/30/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF/Linux%E5%9F%BA%E7%A1%80(1)/"/>
+        <id>https://cecilia.cool/2022/10/30/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF/Linux%E5%9F%BA%E7%A1%80-%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</id>
+        <title>Linux基础--一些操作</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/30/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF/Linux%E5%9F%BA%E7%A1%80-%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/"/>
         <content type="html">&lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
 &lt;p&gt;大三上学校开的一门课，想着上课莫事干，就开一个写一些相关的文章，在此之前，我已经更新了：&lt;a href=&#34;https://cecilia.cool/tags/shell/&#34;&gt;shell&lt;/a&gt;，&lt;a href=&#34;https://cecilia.cool/tags/shell/&#34;&gt;docker&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;如果你感兴趣，也欢迎移步相关文章。&lt;strong&gt;开源软件构建技术&lt;/strong&gt;系列文章整体是跟着老师的进度走的，就是他讲啥，我更新相关篇章。老师考虑到大部分同学还没有学习过 Linux，所以前几节课就讲的相关操作和知识。&lt;/p&gt;
@@ -73,7 +73,10 @@
 &lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;scp&lt;/span&gt; C:&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Users&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Cyan&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;Desktop&lt;span class=&#34;token punctuation&#34;&gt;\&lt;/span&gt;joe-4.4.tar.gz root@192.168.92.133:/home/cyan/windata&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
 &lt;li&gt;如何让用户可以执行 sudo 命令：使用 &lt;code&gt;su&lt;/code&gt;  命令进入 root 账户，使用 &lt;code&gt;visudo&lt;/code&gt;  修改 &lt;code&gt;/etc/sudoers&lt;/code&gt;  文件：&lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;root	&lt;span class=&#34;token assign-left variable&#34;&gt;ALL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ALL&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;	ALL&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;xxxx	&lt;span class=&#34;token assign-left variable&#34;&gt;ALL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ALL&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;	ALL&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# xxxx 为要修改的用户名，大概在 101 行&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;root	&lt;span class=&#34;token assign-left variable&#34;&gt;ALL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ALL&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;	ALL&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;xxxx	&lt;span class=&#34;token assign-left variable&#34;&gt;ALL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ALL&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;	ALL&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# xxxx 为要修改的用户名，大概在 101 行&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;li&gt;防火墙&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看防火墙&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;systemctl status firewalld daemon&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 关闭防火墙&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;systemctl stop firewalld&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 禁用防火墙&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;systemctl disable firewalld&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;visudo 命令：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA4MDQ0NS9hcnRpY2xlL2RldGFpbHMvMTE2ODYxODYw&#34;&gt;https://blog.csdn.net/weixin_44080445/article/details/116861860&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;

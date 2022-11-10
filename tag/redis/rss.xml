@@ -7,30 +7,30 @@
         <language>zh-CN</language>
         <pubDate>Sun, 06 Nov 2022 14:21:50 +0800</pubDate>
         <lastBuildDate>Sun, 06 Nov 2022 14:21:50 +0800</lastBuildDate>
+        <category>tools</category>
         <category>Docker</category>
         <category>shell</category>
         <category>云计算</category>
-        <category>tools</category>
-        <category>数据结构与算法</category>
-        <category>开源软件构建技术</category>
         <category>网络协议与工具</category>
         <category>轻小说结局魔改</category>
-        <category>MySQL</category>
+        <category>开源软件构建技术</category>
+        <category>数据结构与算法</category>
         <category>Redis</category>
-        <category>Mybatis</category>
-        <category>Spring全家桶</category>
-        <category>uni-app</category>
-        <category>日志框架</category>
+        <category>MySQL</category>
+        <category>Java8</category>
         <category>JVM</category>
         <category>网络编程</category>
-        <category>并发</category>
         <category>设计模式</category>
-        <category>Java8</category>
         <category>Java基础</category>
+        <category>并发</category>
+        <category>Mybatis</category>
+        <category>uni-app</category>
+        <category>日志框架</category>
+        <category>Spring全家桶</category>
         <item>
-            <guid isPermalink="true">https://cecilia.cool/2022/11/06/Database/Redis/Redis(4)-%E4%BA%8B%E5%8A%A1/</guid>
-            <title>Redis4--事务</title>
-            <link>https://cecilia.cool/2022/11/06/Database/Redis/Redis(4)-%E4%BA%8B%E5%8A%A1/</link>
+            <guid isPermalink="true">https://cecilia.cool/2022/11/06/Database/Redis/Redis%E5%85%A5%E9%97%A8(4)-%E4%BA%8B%E5%8A%A1/</guid>
+            <title>Redis入门(4)--事务</title>
+            <link>https://cecilia.cool/2022/11/06/Database/Redis/Redis%E5%85%A5%E9%97%A8(4)-%E4%BA%8B%E5%8A%A1/</link>
             <category>Redis</category>
             <pubDate>Sun, 06 Nov 2022 14:21:50 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;事务的本质是一组命令的集合。事务支持一次执行多个命令，一个事务中所有命令都会被序列化。在事务执行过程，会按照顺序串行化执行队列中的命令，其他客户端提交的命令请求不会插入到事务执行命令序列中。&lt;/p&gt;
@@ -82,9 +82,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
-            <title>Redis(3)--持久化</title>
-            <link>https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+            <guid isPermalink="true">https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+            <title>Redis入门(3)--持久化</title>
+            <link>https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</link>
             <category>Redis</category>
             <pubDate>Sat, 05 Nov 2022 17:13:37 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;持久化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#持久化&#34;&gt;#&lt;/a&gt; 持久化&lt;/h1&gt;
@@ -151,9 +151,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://cecilia.cool/2022/11/05/Database/Redis/Redis(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-            <title>Redis(2)--数据类型</title>
-            <link>https://cecilia.cool/2022/11/05/Database/Redis/Redis(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+            <guid isPermalink="true">https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+            <title>Redis入门(2)--数据类型</title>
+            <link>https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
             <category>Redis</category>
             <pubDate>Sat, 05 Nov 2022 00:39:36 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;数据类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据类型&#34;&gt;#&lt;/a&gt; 数据类型&lt;/h1&gt;
@@ -210,9 +210,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://cecilia.cool/2022/11/03/Database/Redis/Redis(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</guid>
-            <title>Redis(1)--安装与操作</title>
-            <link>https://cecilia.cool/2022/11/03/Database/Redis/Redis(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</link>
+            <guid isPermalink="true">https://cecilia.cool/2022/11/03/Database/Redis/Redis%E5%85%A5%E9%97%A8(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</guid>
+            <title>Redis入门(1)--安装与操作</title>
+            <link>https://cecilia.cool/2022/11/03/Database/Redis/Redis%E5%85%A5%E9%97%A8(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</link>
             <category>Redis</category>
             <pubDate>Thu, 03 Nov 2022 10:57:36 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#安装&#34;&gt;#&lt;/a&gt; 安装&lt;/h1&gt;

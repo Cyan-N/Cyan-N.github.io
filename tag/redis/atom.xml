@@ -4,30 +4,30 @@
     <title>慕青の迷途 • Posts by &#34;redis&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2022-11-06T06:21:50.000Z</updated>
+    <category term="tools" />
     <category term="Docker" />
     <category term="shell" />
     <category term="云计算" />
-    <category term="tools" />
-    <category term="数据结构与算法" />
-    <category term="开源软件构建技术" />
     <category term="网络协议与工具" />
     <category term="轻小说结局魔改" />
-    <category term="MySQL" />
+    <category term="开源软件构建技术" />
+    <category term="数据结构与算法" />
     <category term="Redis" />
-    <category term="Mybatis" />
-    <category term="Spring全家桶" />
-    <category term="uni-app" />
-    <category term="日志框架" />
+    <category term="MySQL" />
+    <category term="Java8" />
     <category term="JVM" />
     <category term="网络编程" />
-    <category term="并发" />
     <category term="设计模式" />
-    <category term="Java8" />
     <category term="Java基础" />
+    <category term="并发" />
+    <category term="Mybatis" />
+    <category term="uni-app" />
+    <category term="日志框架" />
+    <category term="Spring全家桶" />
     <entry>
-        <id>https://cecilia.cool/2022/11/06/Database/Redis/Redis(4)-%E4%BA%8B%E5%8A%A1/</id>
-        <title>Redis4--事务</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/11/06/Database/Redis/Redis(4)-%E4%BA%8B%E5%8A%A1/"/>
+        <id>https://cecilia.cool/2022/11/06/Database/Redis/Redis%E5%85%A5%E9%97%A8(4)-%E4%BA%8B%E5%8A%A1/</id>
+        <title>Redis入门(4)--事务</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/06/Database/Redis/Redis%E5%85%A5%E9%97%A8(4)-%E4%BA%8B%E5%8A%A1/"/>
         <content type="html">&lt;p&gt;事务的本质是一组命令的集合。事务支持一次执行多个命令，一个事务中所有命令都会被序列化。在事务执行过程，会按照顺序串行化执行队列中的命令，其他客户端提交的命令请求不会插入到事务执行命令序列中。&lt;/p&gt;
 &lt;h1 id=&#34;相关命令&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#相关命令&#34;&gt;#&lt;/a&gt; 相关命令&lt;/h1&gt;
 &lt;blockquote&gt;
@@ -79,9 +79,9 @@
         <updated>2022-11-06T06:21:50.000Z</updated>
     </entry>
     <entry>
-        <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</id>
-        <title>Redis(3)--持久化</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/11/05/Database/Redis/Redis(3)-%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+        <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(3)-%E6%8C%81%E4%B9%85%E5%8C%96/</id>
+        <title>Redis入门(3)--持久化</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(3)-%E6%8C%81%E4%B9%85%E5%8C%96/"/>
         <content type="html">&lt;h1 id=&#34;持久化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#持久化&#34;&gt;#&lt;/a&gt; 持久化&lt;/h1&gt;
 &lt;p&gt;Redis 数据放在内存中所以快， 但是也容易丢失。引出两种持久化方法：&lt;/p&gt;
 &lt;ul&gt;
@@ -148,9 +148,9 @@
         <updated>2022-11-05T09:13:37.000Z</updated>
     </entry>
     <entry>
-        <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
-        <title>Redis(2)--数据类型</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/11/05/Database/Redis/Redis(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+        <id>https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
+        <title>Redis入门(2)--数据类型</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/05/Database/Redis/Redis%E5%85%A5%E9%97%A8(2)-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
         <content type="html">&lt;h1 id=&#34;数据类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据类型&#34;&gt;#&lt;/a&gt; 数据类型&lt;/h1&gt;
 &lt;p&gt;在 &lt;code&gt;redis&lt;/code&gt;  中，所有 &lt;code&gt;key&lt;/code&gt;  都是字符串，讨论数据结构时，都是存储值的数据类型，常见的包括：&lt;/p&gt;
 &lt;ul&gt;
@@ -207,9 +207,9 @@
         <updated>2022-11-04T16:39:36.000Z</updated>
     </entry>
     <entry>
-        <id>https://cecilia.cool/2022/11/03/Database/Redis/Redis(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</id>
-        <title>Redis(1)--安装与操作</title>
-        <link rel="alternate" href="https://cecilia.cool/2022/11/03/Database/Redis/Redis(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/"/>
+        <id>https://cecilia.cool/2022/11/03/Database/Redis/Redis%E5%85%A5%E9%97%A8(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/</id>
+        <title>Redis入门(1)--安装与操作</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/03/Database/Redis/Redis%E5%85%A5%E9%97%A8(1)-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%93%8D%E4%BD%9C/"/>
         <content type="html">&lt;h1 id=&#34;安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#安装&#34;&gt;#&lt;/a&gt; 安装&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;官网提供的是 Mac 和 Linux 的安装包，并没有 windows 的，但是 &lt;code&gt;github&lt;/code&gt;  有相关的开源项目。&lt;/p&gt;

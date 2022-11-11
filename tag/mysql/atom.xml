@@ -8,22 +8,22 @@
     <category term="Docker" />
     <category term="shell" />
     <category term="云计算" />
-    <category term="网络协议与工具" />
-    <category term="轻小说结局魔改" />
     <category term="开源软件构建技术" />
     <category term="数据结构与算法" />
-    <category term="Redis" />
+    <category term="轻小说结局魔改" />
+    <category term="网络协议与工具" />
     <category term="MySQL" />
+    <category term="Redis" />
     <category term="Java8" />
     <category term="JVM" />
     <category term="网络编程" />
     <category term="设计模式" />
     <category term="Java基础" />
     <category term="并发" />
+    <category term="Spring全家桶" />
     <category term="Mybatis" />
     <category term="uni-app" />
     <category term="日志框架" />
-    <category term="Spring全家桶" />
     <entry>
         <id>https://cecilia.cool/2022/07/31/Database/MySQL/B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
         <title>B+树索引的使用</title>

@@ -5,24 +5,25 @@
     <link href="https://cecilia.cool" />
     <updated>2022-08-06T07:53:00.000Z</updated>
     <category term="tools" />
+    <category term="云计算" />
+    <category term="网络协议与工具" />
+    <category term="数据结构与算法" />
+    <category term="开源软件构建技术" />
+    <category term="轻小说结局魔改" />
     <category term="Docker" />
     <category term="shell" />
-    <category term="云计算" />
-    <category term="开源软件构建技术" />
-    <category term="数据结构与算法" />
-    <category term="轻小说结局魔改" />
-    <category term="网络协议与工具" />
+    <category term="Web" />
+    <category term="Spring全家桶" />
+    <category term="uni-app" />
+    <category term="Mybatis" />
+    <category term="JVM" />
+    <category term="并发" />
+    <category term="Java基础" />
+    <category term="网络编程" />
     <category term="MySQL" />
+    <category term="设计模式" />
     <category term="Redis" />
     <category term="Java8" />
-    <category term="JVM" />
-    <category term="网络编程" />
-    <category term="设计模式" />
-    <category term="Java基础" />
-    <category term="并发" />
-    <category term="Spring全家桶" />
-    <category term="Mybatis" />
-    <category term="uni-app" />
     <category term="日志框架" />
     <entry>
         <id>https://cecilia.cool/2022/08/06/Shell/gawk%E7%A8%8B%E5%BA%8F%E8%BF%9B%E9%98%B6/</id>

@@ -7,27 +7,27 @@
         <language>zh-CN</language>
         <pubDate>Sat, 01 Oct 2022 15:20:23 +0800</pubDate>
         <lastBuildDate>Sat, 01 Oct 2022 15:20:23 +0800</lastBuildDate>
-        <category>tools</category>
         <category>云计算</category>
-        <category>网络协议与工具</category>
-        <category>数据结构与算法</category>
+        <category>tools</category>
         <category>开源软件构建技术</category>
-        <category>轻小说结局魔改</category>
+        <category>数据结构与算法</category>
         <category>Docker</category>
+        <category>网络协议与工具</category>
         <category>shell</category>
-        <category>Web</category>
-        <category>Spring全家桶</category>
+        <category>轻小说结局魔改</category>
+        <category>日志框架</category>
+        <category>MySQL</category>
         <category>uni-app</category>
+        <category>Redis</category>
+        <category>Spring全家桶</category>
         <category>Mybatis</category>
+        <category>Web</category>
         <category>JVM</category>
+        <category>设计模式</category>
         <category>并发</category>
         <category>Java基础</category>
-        <category>网络编程</category>
-        <category>MySQL</category>
-        <category>设计模式</category>
-        <category>Redis</category>
         <category>Java8</category>
-        <category>日志框架</category>
+        <category>网络编程</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/10/01/Java/%E5%B9%B6%E5%8F%91/Java%E5%85%B3%E9%94%AE%E5%AD%97-volatile/</guid>
             <title>Java关键字volitale</title>

@@ -4,27 +4,27 @@
     <title>慕青の迷途 • Posts by &#34;web&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2022-11-13T13:05:16.000Z</updated>
-    <category term="tools" />
     <category term="云计算" />
-    <category term="网络协议与工具" />
-    <category term="数据结构与算法" />
+    <category term="tools" />
     <category term="开源软件构建技术" />
-    <category term="轻小说结局魔改" />
+    <category term="数据结构与算法" />
     <category term="Docker" />
+    <category term="网络协议与工具" />
     <category term="shell" />
-    <category term="Web" />
-    <category term="Spring全家桶" />
+    <category term="轻小说结局魔改" />
+    <category term="日志框架" />
+    <category term="MySQL" />
     <category term="uni-app" />
+    <category term="Redis" />
+    <category term="Spring全家桶" />
     <category term="Mybatis" />
+    <category term="Web" />
     <category term="JVM" />
+    <category term="设计模式" />
     <category term="并发" />
     <category term="Java基础" />
-    <category term="网络编程" />
-    <category term="MySQL" />
-    <category term="设计模式" />
-    <category term="Redis" />
     <category term="Java8" />
-    <category term="日志框架" />
+    <category term="网络编程" />
     <entry>
         <id>https://cecilia.cool/2022/11/13/Java/Web/Web%E5%85%A5%E9%97%A8(4)-%E4%BC%A0%E7%BB%9F%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</id>
         <title>Web入门(4)--传统后端开发</title>
@@ -91,8 +91,16 @@
         <updated>2022-11-13T13:05:16.000Z</updated>
     </entry>
     <entry>
+        <id>https://cecilia.cool/2022/11/13/Java/Web/Web%E5%85%A5%E9%97%A8(2)-css/</id>
+        <title>Web入门(2)--css</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/11/13/Java/Web/Web%E5%85%A5%E9%97%A8(2)-css/"/>
+        <content type="html"></content>
+        <category term="Web" />
+        <updated>2022-11-13T07:23:19.000Z</updated>
+    </entry>
+    <entry>
         <id>https://cecilia.cool/2022/11/13/Java/Web/Web%E5%85%A5%E9%97%A8(3)-javascript/</id>
-        <title>Web(3)--javascript</title>
+        <title>Web入门(3)--javascript</title>
         <link rel="alternate" href="https://cecilia.cool/2022/11/13/Java/Web/Web%E5%85%A5%E9%97%A8(3)-javascript/"/>
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;如果是走 &lt;code&gt;java&lt;/code&gt;  路线，不管以后是否从事前端工作，js 都是一门必须学会的脚本语言&lt;/p&gt;

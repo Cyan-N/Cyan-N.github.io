@@ -7,27 +7,27 @@
         <language>zh-CN</language>
         <pubDate>Fri, 11 Nov 2022 12:43:37 +0800</pubDate>
         <lastBuildDate>Fri, 11 Nov 2022 12:43:37 +0800</lastBuildDate>
-        <category>shell</category>
-        <category>Docker</category>
         <category>tools</category>
+        <category>Docker</category>
+        <category>shell</category>
         <category>云计算</category>
-        <category>开源软件构建技术</category>
         <category>数据结构与算法</category>
-        <category>轻小说结局魔改</category>
         <category>网络协议与工具</category>
+        <category>开源软件构建技术</category>
+        <category>轻小说结局魔改</category>
         <category>Mybatis</category>
-        <category>uni-app</category>
         <category>日志框架</category>
+        <category>uni-app</category>
         <category>Spring全家桶</category>
+        <category>Java8</category>
+        <category>Web</category>
+        <category>并发</category>
+        <category>JVM</category>
+        <category>网络编程</category>
         <category>MySQL</category>
+        <category>设计模式</category>
         <category>Redis</category>
         <category>Java基础</category>
-        <category>Java8</category>
-        <category>JVM</category>
-        <category>Web</category>
-        <category>网络编程</category>
-        <category>并发</category>
-        <category>设计模式</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/11/11/Framework/Spring/Springboot(2)-%E5%85%B6%E4%BB%96%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/</guid>
             <title>Springboot(2)-其他框架使用</title>

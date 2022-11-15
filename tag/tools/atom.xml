@@ -4,27 +4,26 @@
     <title>慕青の迷途 • Posts by &#34;tools&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2090-01-01T07:01:00.000Z</updated>
-    <category term="Docker" />
-    <category term="云计算" />
-    <category term="开源软件构建技术" />
-    <category term="网络协议与工具" />
-    <category term="数据结构与算法" />
     <category term="tools" />
-    <category term="轻小说结局魔改" />
+    <category term="云计算" />
     <category term="shell" />
-    <category term="Spring全家桶" />
-    <category term="日志框架" />
+    <category term="数据结构与算法" />
+    <category term="网络协议与工具" />
+    <category term="Docker" />
+    <category term="轻小说结局魔改" />
     <category term="uni-app" />
-    <category term="Mybatis" />
     <category term="Redis" />
+    <category term="日志框架" />
     <category term="MySQL" />
-    <category term="JVM" />
+    <category term="Spring全家桶" />
+    <category term="Mybatis" />
     <category term="Java8" />
-    <category term="Java基础" />
-    <category term="Web" />
-    <category term="并发" />
-    <category term="网络编程" />
     <category term="设计模式" />
+    <category term="JVM" />
+    <category term="Web" />
+    <category term="Java基础" />
+    <category term="网络编程" />
+    <category term="并发" />
     <entry>
         <id>https://cecilia.cool/2090/01/01/Tools/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/</id>
         <title>必读：南慕青の碎碎念</title>
@@ -101,6 +100,27 @@
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Linus 大佬团队俩星期写出来的 Git&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;h1 id=&#34;开源发展史&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开源发展史&#34;&gt;#&lt;/a&gt; 开源发展史&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提到 Linus，就不得不提到这段历史，这部分了解的时候真的让人激动，可以说，Linux 的发展，极大推动（开创）了开源。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;强烈推荐这个视频：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXpWNDExZDdMYS8/c3BtX2lkX2Zyb209MzMzLjMzNy5zZWFyY2gtY2FyZC5hbGwuY2xpY2smYW1wO3ZkX3NvdXJjZT01YWNmNWE3YjIzZDI4ZTc2MzNlNWE5YjM4MWM1N2M0Mg==&#34;&gt;你不知道的「开源」60 年秘史&lt;/span&gt;。&lt;/p&gt;
+&lt;p&gt;视频讲得非常清楚，所以我这里就简单的总结一点点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;贝尔实验室的&lt;strong&gt; Ken Thompson&lt;/strong&gt; 和 &lt;strong&gt;Dennis Ritchie&lt;/strong&gt; 开发了 UNICS，后来被神秘地改成了 UNIX。&lt;/li&gt;
+&lt;li&gt;Unix 源码分享出去，K 神在休假时还和加州大学伯克利分校的研究小组共同改进 Unix。&lt;/li&gt;
+&lt;li&gt;研究小组的 Bill Joy 开发 BSD，成为 Unix 最大分支。毕业后创建 Sun 公司，进而创建 SunOs 系统（Unix 逐步商业化）。&lt;/li&gt;
+&lt;li&gt;AT&amp;amp;T 注册 Unix 商标，开启了商业化 Unix 之路，Unix 第 7 版开始，禁止大学使用 Unix 源代码。&lt;/li&gt;
+&lt;li&gt;阿姆斯特丹自由大学计算机科学系教授&lt;strong&gt; Andrew Tanenbaum&lt;/strong&gt; 为了在课上更好演示操作系统细节，自己开发了 Minix，即【迷你 Unix】，并作为《操作系统设计与实现》艺术参考案例。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Richard Stallman&lt;/strong&gt; 作为 MIT 人工智能实验室研究员，推崇黑客文化，1984 年辞去 MIT 工作，随后开发类 Unix 系统 ——GNU（全称为：GNU IS NOT UNIX），次年成立自由软件基金会。&lt;/li&gt;
+&lt;li&gt;《操作系统设计与实现》这本书为 Linux 之父 ——&lt;strong&gt;Linus Torvalds&lt;/strong&gt; 推向人生巅峰，之后开发出 Linux。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;开源宇宙中子星，商业软件面壁人的 Linus・你的上帝・Torvalds。美国时代周刊评价：“有些人生来就具有统率百万人的领袖风范；另一些人则是为写出颠覆世界的软件而生。唯一一个能同时做到这两者的人，就是 Linus Torvalds”。Linus 自己评价自己：“My name is Linus , and I am your God.”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux 代码完全开源，早年参与开发的黑客水平较高，直到今天，Linux 社区内核的开发才被程序员们认为是【真正的编程】。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h1 id=&#34;基本使用&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本使用&#34;&gt;#&lt;/a&gt; 基本使用&lt;/h1&gt;
 &lt;p&gt;安装这么简单的事就不讲了。一些介绍就是：分布式版本控制系统，远程仓库 巴拉巴拉的。&lt;/p&gt;
 &lt;h2 id=&#34;基本模块&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本模块&#34;&gt;#&lt;/a&gt; 基本模块&lt;/h2&gt;

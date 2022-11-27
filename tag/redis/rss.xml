@@ -5,28 +5,94 @@
         <link>https://cecilia.cool</link>
         <description>时雨病重症患者！！！</description>
         <language>zh-CN</language>
-        <pubDate>Tue, 15 Nov 2022 19:02:41 +0800</pubDate>
-        <lastBuildDate>Tue, 15 Nov 2022 19:02:41 +0800</lastBuildDate>
+        <pubDate>Sun, 27 Nov 2022 23:59:09 +0800</pubDate>
+        <lastBuildDate>Sun, 27 Nov 2022 23:59:09 +0800</lastBuildDate>
+        <category>shell</category>
         <category>tools</category>
+        <category>Docker</category>
+        <category>网络协议与工具</category>
         <category>云计算</category>
         <category>轻小说结局魔改</category>
         <category>数据结构与算法</category>
-        <category>网络协议与工具</category>
-        <category>shell</category>
-        <category>Docker</category>
-        <category>Mybatis</category>
-        <category>Spring全家桶</category>
-        <category>日志框架</category>
-        <category>设计模式</category>
-        <category>uni-app</category>
-        <category>JVM</category>
         <category>Redis</category>
-        <category>Java8</category>
         <category>MySQL</category>
-        <category>Java基础</category>
+        <category>JVM</category>
+        <category>Java8</category>
         <category>Web</category>
-        <category>并发</category>
+        <category>Java基础</category>
         <category>网络编程</category>
+        <category>并发</category>
+        <category>设计模式</category>
+        <category>Spring全家桶</category>
+        <category>Mybatis</category>
+        <category>uni-app</category>
+        <category>日志框架</category>
+        <item>
+            <guid isPermalink="true">https://cecilia.cool/2022/11/27/Database/Redis/Redis%E5%85%A5%E9%97%A8(6)-%E4%B8%BB%E4%BB%8E%E4%B8%8E%E5%93%A8%E5%85%B5/</guid>
+            <title>Redis入门(6)--主从与哨兵</title>
+            <link>https://cecilia.cool/2022/11/27/Database/Redis/Redis%E5%85%A5%E9%97%A8(6)-%E4%B8%BB%E4%BB%8E%E4%B8%8E%E5%93%A8%E5%85%B5/</link>
+            <category>Redis</category>
+            <pubDate>Sun, 27 Nov 2022 23:59:09 +0800</pubDate>
+            <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;本章讲解 redis 配置主从复制和哨兵模式&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;主从复制&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#主从复制&#34;&gt;#&lt;/a&gt; 主从复制&lt;/h1&gt;
+&lt;p&gt;主从赋值是指将一台 Redis 服务器的数据，复制到其他的 Redis 服务器。前者称为主节点 (Master)，后者称为从节点 (Slave)，&lt;strong&gt;数据的复制是单向的&lt;/strong&gt;，只能由主节点到从节点。Master 以写为主，Slave 以读为主。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.uuu.ovh/imgs/2022/11/28/c643227d0a6fbb2f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读写分离，提高性能。&lt;/li&gt;
+&lt;li&gt;主要是读多写少的场景下，可以为一个主节点安排很多个从节点，这样就能分担压力，即使挂掉一个，其他的也可以使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先要启动两个 Redis 服务器，修改以下配置文件，注意这两个配置文件的端口不能一样（因为是放在一个虚拟机上跑的），我这里是 &lt;code&gt;port1 = 6890 port2 = 6891&lt;/code&gt; 。为了方便辨认，建议把文件夹名字加上端口。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.uuu.ovh/imgs/2022/11/28/63b699ea7ea4c9b9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;我们这里还是写一个启动脚本 &lt;code&gt;start.sh&lt;/code&gt; ：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token shebang important&#34;&gt;#!/bin/bash&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;./redis-master-6890/src/redis-server ./redis-master-6890/redis.conf&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;./redis-slave-6891/src/redis-server ./redis-slave-6891/redis.conf&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;修改一下执行权限： &lt;code&gt;chmod u+x start.sh&lt;/code&gt; ，执行文件 &lt;code&gt;./start.sh&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;启动成功后连接一下：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;./redis-slave-6890/src/redis-cli &lt;span class=&#34;token parameter variable&#34;&gt;-p&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;6891&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;用 &lt;code&gt;info replication&lt;/code&gt;  查看当前主从状态：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1:689&lt;span class=&#34;token operator&#34;&gt;&lt;span class=&#34;token file-descriptor important&#34;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; info replication&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# Replication&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;role:master		&lt;span class=&#34;token comment&#34;&gt;# 现在还没有指定主从服务器，两个 redis 其实都是 master&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;connected_slaves:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_replid:41fc9e87973d2d96832d3abe8485a4b13b718d00&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_replid2:0000000000000000000000000000000000000000&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_repl_offset:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;second_repl_offset:-1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;repl_backlog_active:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;repl_backlog_size:1048576&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;repl_backlog_first_byte_offset:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;repl_backlog_histlen:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;我们现在登陆的就是我们希望作为从服务器的 redis，已知主服务器是 &lt;code&gt;127.0.0.1 6890&lt;/code&gt; ，执行以下命令：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1:689&lt;span class=&#34;token operator&#34;&gt;&lt;span class=&#34;token file-descriptor important&#34;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; replicaof &lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1 &lt;span class=&#34;token number&#34;&gt;6890&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 旧版本使用的命令是 slaveof，replicaof 是新版本&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;现在再用 &lt;code&gt;info replication&lt;/code&gt;  查看试试。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1:689&lt;span class=&#34;token operator&#34;&gt;&lt;span class=&#34;token file-descriptor important&#34;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; info replication&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# Replication&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;role:slave&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_host:127.0.0.1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_port:6890&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_link_status:up&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_last_io_seconds_ago:6&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;master_sync_in_progress:0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# ....&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;现在测试一下，在主服务器上写入，在从服务器上读取：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.uuu.ovh/imgs/2022/11/28/35d66c109faea833.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;从节点压根就没办法进行数据插入，节点的模式为只读模式&lt;/strong&gt;。如果从服务器想变回主服务器，执行 &lt;code&gt;replicaof no one&lt;/code&gt;  命令。&lt;/p&gt;
+&lt;p&gt;在主节点写入一些数据后，用新的服务器作为从服务器连接，从服务器会同步主节点的数据，流程为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从节点执行 &lt;code&gt;slave ip port&lt;/code&gt;  命令后，从节点会保存主节点相关的地址信息。&lt;/li&gt;
+&lt;li&gt;从节点通过每秒运行的定时任务发现配置了新的主节点后，会尝试与该节点建立网络连接，专门用于接收主节点发送的复制命令。&lt;/li&gt;
+&lt;li&gt;连接成功后，第一次会将主节点的数据进行全量复制，之后采用增量复制，持续将新来的写命令同步给从节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当我们的主节点关闭后，从节点依然可以读取数据，但是从节点会疯狂报错。&lt;/p&gt;
+&lt;p&gt;如果不想每次都在从节点启动后使用 &lt;code&gt;replicaof&lt;/code&gt;  配置主节点，可以在配置文件中写好主服务器是哪个，需要加入一行：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;replicaof ip port
+# replicaof 127.0.0.1 6890
+# 你可以在配置文件里找到replica-read-only yes，表示从节点为读模式
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;此外，从节点也可以有从节点：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.uuu.ovh/imgs/2022/11/28/5507a436bff048c6.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;采用这种方式，优点肯定是显而易见的，但是缺点也很明显，整个传播链路一旦中途出现问题，那么就会导致后面的从节点无法及时同步。&lt;/p&gt;
+&lt;h1 id=&#34;哨兵模式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#哨兵模式&#34;&gt;#&lt;/a&gt; 哨兵模式&lt;/h1&gt;
+&lt;p&gt;经过之前的学习，我们发现，实际上最关键的还是主节点，因为一旦主节点出现问题，那么整个主从系统将无法写入，因此，我们得想一个办法，处理一下主节点故障的情况。&lt;/p&gt;
+&lt;p&gt;类似&lt;strong&gt; Nacos&lt;/strong&gt; 和&lt;strong&gt; Eureka&lt;/strong&gt;，所有的服务都会被&lt;strong&gt;实时监控&lt;/strong&gt;，那么只要出现问题，肯定是可以及时发现的，并且能够采取响应的补救措施，这就是我们即将介绍的哨兵：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.uuu.ovh/imgs/2022/11/28/fe67c346f734075b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;哨兵会对所有的节点进行监控，如果发现主节点出现问题，那么会立即让从节点进行投票，&lt;strong&gt;选举一个新的主节点出来，这样就不会由于主节点的故障导致整个系统不可写&lt;/strong&gt;（注意要实现这样的功能最小的系统必须是一主一从，再小的话就没有意义了）&lt;/p&gt;
+&lt;p&gt;配置时需要修改一下配置文件 (主节点）：&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;sentinel monitor cyan-monitor &lt;span class=&#34;token number&#34;&gt;127.0&lt;/span&gt;.0.1 &lt;span class=&#34;token number&#34;&gt;6890&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;第一个和第二个是固定，第三个是为监控对象名称，随意，后面就是主节点的相关信息，包括 IP 地址和端口，最后一个数 x 表示 x 个哨兵（可以设置多个哨兵）认为主节点挂了，主节点就真的挂了。&lt;/p&gt;
+&lt;p&gt;服务器启动时需要加上 &lt;code&gt;xx/src/redis-server xx/reids.conf --sentinel&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;在哨兵模式下，从节点连接到主节点，哨兵也能检测到这一行为。当主节点挂掉了，会选择新的主节点，所有节点的主从关系会被重新分配，就连挂掉的节点也会变成新的主节点的从节点（尽管挂掉的节点还没启动），当挂掉的节点重启时，就会自动变成从节点（如果没变，估计式卡了，等一会）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;选举规则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先会根据优先级进行选择，可以在配置文件中进行配置，添加 &lt;code&gt;replica-priority&lt;/code&gt;  配置项（默认是 100），越小表示优先级越高。&lt;/li&gt;
+&lt;li&gt;如果优先级一样，那就选择偏移量最大的&lt;/li&gt;
+&lt;li&gt;要是还选不出来，那就选择 runid（启动时随机生成的）最小的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为了避免哨兵也挂了，可以多安排几个哨兵（一个哨兵就要多启动一个 redis 服务），只需要把哨兵的配置复制一下，然后修改端口，这样就可以同时启动多个哨兵了&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZmFuc2h1eWFvL3AvMTQxNTYyMDguaHRtbA==&#34;&gt;https://www.cnblogs.com/fanshuyao/p/14156208.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueXVxdWUuY29tL3Fpbmdrb25neGlhZ3Vhbmcvc3ByaW5nL3hvYXBxNSMwMDJmNzE5Yw==&#34;&gt;https://www.yuque.com/qingkongxiaguang/spring/xoapq5#002f719c&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/11/15/Database/Redis/Redis%E5%85%A5%E9%97%A8(5)-%E9%85%8D%E7%BD%AE%E9%9B%86%E7%BE%A4/</guid>
             <title>Redis入门(5)-配置集群</title>

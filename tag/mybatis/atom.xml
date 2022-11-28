@@ -4,26 +4,26 @@
     <title>慕青の迷途 • Posts by &#34;mybatis&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2022-10-26T13:35:48.000Z</updated>
-    <category term="shell" />
     <category term="tools" />
-    <category term="Docker" />
-    <category term="网络协议与工具" />
     <category term="云计算" />
-    <category term="轻小说结局魔改" />
     <category term="数据结构与算法" />
-    <category term="Redis" />
-    <category term="MySQL" />
-    <category term="JVM" />
-    <category term="Java8" />
-    <category term="Web" />
-    <category term="Java基础" />
-    <category term="网络编程" />
-    <category term="并发" />
-    <category term="设计模式" />
-    <category term="Spring全家桶" />
-    <category term="Mybatis" />
-    <category term="uni-app" />
+    <category term="网络协议与工具" />
+    <category term="轻小说结局魔改" />
+    <category term="shell" />
+    <category term="Docker" />
     <category term="日志框架" />
+    <category term="Java基础" />
+    <category term="uni-app" />
+    <category term="Mybatis" />
+    <category term="Spring全家桶" />
+    <category term="设计模式" />
+    <category term="Java8" />
+    <category term="并发" />
+    <category term="JVM" />
+    <category term="Web" />
+    <category term="网络编程" />
+    <category term="MySQL" />
+    <category term="Redis" />
     <entry>
         <id>https://cecilia.cool/2022/10/26/Framework/Mybatis/Mybatis(7)-%E6%95%B0%E6%8D%AE%E6%BA%90%E4%B8%8E%E8%BF%9E%E6%8E%A5%E6%B1%A0/</id>
         <title>Mybatis(7)--数据源与连接池</title>

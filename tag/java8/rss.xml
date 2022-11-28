@@ -7,26 +7,26 @@
         <language>zh-CN</language>
         <pubDate>Tue, 23 Aug 2022 13:54:59 +0800</pubDate>
         <lastBuildDate>Tue, 23 Aug 2022 13:54:59 +0800</lastBuildDate>
-        <category>shell</category>
         <category>tools</category>
-        <category>Docker</category>
-        <category>网络协议与工具</category>
         <category>云计算</category>
-        <category>轻小说结局魔改</category>
         <category>数据结构与算法</category>
-        <category>Redis</category>
-        <category>MySQL</category>
-        <category>JVM</category>
-        <category>Java8</category>
-        <category>Web</category>
-        <category>Java基础</category>
-        <category>网络编程</category>
-        <category>并发</category>
-        <category>设计模式</category>
-        <category>Spring全家桶</category>
-        <category>Mybatis</category>
-        <category>uni-app</category>
+        <category>网络协议与工具</category>
+        <category>轻小说结局魔改</category>
+        <category>shell</category>
+        <category>Docker</category>
         <category>日志框架</category>
+        <category>Java基础</category>
+        <category>uni-app</category>
+        <category>Mybatis</category>
+        <category>Spring全家桶</category>
+        <category>设计模式</category>
+        <category>Java8</category>
+        <category>并发</category>
+        <category>JVM</category>
+        <category>Web</category>
+        <category>网络编程</category>
+        <category>MySQL</category>
+        <category>Redis</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/08/23/Java/Java8/Java8%E6%96%B0%E7%89%B9%E6%80%A76-StampedLock/</guid>
             <title>Java8新特性--StampedLock</title>

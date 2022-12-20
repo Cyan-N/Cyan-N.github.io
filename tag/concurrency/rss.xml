@@ -7,26 +7,26 @@
         <language>zh-CN</language>
         <pubDate>Tue, 20 Dec 2022 21:49:24 +0800</pubDate>
         <lastBuildDate>Tue, 20 Dec 2022 21:49:24 +0800</lastBuildDate>
-        <category>网络协议与工具</category>
         <category>Docker</category>
-        <category>轻小说结局魔改</category>
-        <category>数据结构与算法</category>
         <category>tools</category>
-        <category>云计算</category>
+        <category>数据结构与算法</category>
         <category>shell</category>
-        <category>Spring全家桶</category>
-        <category>日志框架</category>
-        <category>uni-app</category>
+        <category>云计算</category>
+        <category>网络协议与工具</category>
+        <category>轻小说结局魔改</category>
         <category>MySQL</category>
         <category>Redis</category>
-        <category>Mybatis</category>
         <category>JVM</category>
-        <category>Concurrency</category>
         <category>Java基础</category>
         <category>Java8</category>
-        <category>网络编程</category>
         <category>Web</category>
+        <category>网络编程</category>
+        <category>Concurrency</category>
         <category>设计模式</category>
+        <category>Mybatis</category>
+        <category>Spring全家桶</category>
+        <category>uni-app</category>
+        <category>日志框架</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/12/20/Java/%E5%B9%B6%E5%8F%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87A/</guid>
             <title>操作系统篇A</title>
@@ -126,7 +126,7 @@ mov %eax, 0x8049a1c
 &lt;/ul&gt;
 &lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;lock&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;amp;&lt;/span&gt;my_lock&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;count&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 临界区&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;unlock&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;amp;&lt;/span&gt;my_lock&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;假设只有 AB 两个线程，线程 A 在获取锁后，B 也获取锁，失败后 B 加入等待队列。当 A 执行到 &lt;code&gt;unlock()&lt;/code&gt;  代码后，唤醒 B 线程，也许 B 不会立刻被分配时间片，但是此时 flag 仍然为 1，其他线程哪怕拿到时间片获取锁，也需要休眠进入队列。直到 B 分配到时间片，B 从哪里开始继续执行呢？&lt;/p&gt;
 &lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;queue_add&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;m&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;q&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;gettid&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;m&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;guard &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;park&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 从这里被唤醒，也就是 lock () 函数的结尾&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;相当于在 &lt;code&gt;lock()&lt;/code&gt;  结束， &lt;code&gt;count++;&lt;/code&gt;  之前被唤醒。在临界区被唤醒，天生自带锁。&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;h2 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zZTc5YWUyNWJmYjY=&#34;&gt;https://www.jianshu.com/p/3e79ae25bfb6&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wYWdlcy5jcy53aXNjLmVkdS9+cmVtemkvT1NURVAvQ2hpbmVzZS8yNi5wZGY=&#34;&gt;https://pages.cs.wisc.edu/~remzi/OSTEP/Chinese/26.pdf&lt;/span&gt;&lt;/p&gt;

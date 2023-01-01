@@ -3,27 +3,60 @@
     <id>https://cecilia.cool</id>
     <title>慕青の迷途 • Posts by &#34;concurrency&#34; tag</title>
     <link href="https://cecilia.cool" />
-    <updated>2022-12-22T03:44:20.000Z</updated>
-    <category term="shell" />
+    <updated>2022-12-28T10:16:37.000Z</updated>
+    <category term="Docker" />
     <category term="tools" />
     <category term="云计算" />
-    <category term="数据结构与算法" />
     <category term="网络协议与工具" />
+    <category term="shell" />
+    <category term="数据结构与算法" />
     <category term="轻小说结局魔改" />
-    <category term="Docker" />
+    <category term="MySQL" />
+    <category term="Redis" />
+    <category term="Mybatis" />
+    <category term="Spring全家桶" />
+    <category term="日志框架" />
+    <category term="uni-app" />
     <category term="Concurrency" />
     <category term="JVM" />
     <category term="Web" />
     <category term="Java基础" />
-    <category term="Java8" />
-    <category term="Spring全家桶" />
-    <category term="uni-app" />
     <category term="设计模式" />
-    <category term="Mybatis" />
-    <category term="日志框架" />
-    <category term="MySQL" />
+    <category term="Java8" />
     <category term="网络编程" />
-    <category term="Redis" />
+    <entry>
+        <id>https://cecilia.cool/2022/12/28/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6B(%E5%85%B3%E9%94%AE%E5%AD%97)/</id>
+        <title>Java并发机制B(关键字)</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/12/28/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6B(%E5%85%B3%E9%94%AE%E5%AD%97)/"/>
+        <content type="html">&lt;h2 id=&#34;volatile关键字&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#volatile关键字&#34;&gt;#&lt;/a&gt; volatile 关键字&lt;/h2&gt;
+&lt;p&gt;CPU 并不是和内存直接交互，而是和 &lt;code&gt;cache&lt;/code&gt;  高速缓存交互，当需要访问一个内存地址时，如果这个地址之前被读到 &lt;code&gt;cache&lt;/code&gt;  中，就直接从 &lt;code&gt;cache&lt;/code&gt;  中拿，这叫做&lt;strong&gt;缓存命中&lt;/strong&gt;。同时，如果想要修改一个数据，而这个数据被读到了 &lt;code&gt;cache&lt;/code&gt;  中，处理器则会将这个操作数写回到缓存中，而不是内存中，这叫做&lt;strong&gt;写命中&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这也导致，在多处理器中，多个线程各自运行在自己的处理器上，对共享变量各自都在 &lt;code&gt;cache&lt;/code&gt;  中有一份副本，某一线程对该变量修改后是写回缓存中，而不是马上写回内存，即使写回内存，其他线程也不会读取新的值（因为自己的 &lt;code&gt;cache&lt;/code&gt;  中始终处于缓存命中状态，除非该部分被其他内存地址覆盖）。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;volatile&lt;/code&gt;  的作用有两个，假设被该关键词修饰的变量为 &lt;code&gt;count&lt;/code&gt; ：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;count&lt;/code&gt;  被某一个线程修改后，会立即写入内存中。&lt;/li&gt;
+&lt;li&gt;这个写回操作会使其他 CPU 的 &lt;code&gt;cache&lt;/code&gt;  缓存了该内存地址的数据无效。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;实现原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实现原理&#34;&gt;#&lt;/a&gt; 实现原理&lt;/h3&gt;
+&lt;p&gt;被 &lt;code&gt;volatile&lt;/code&gt;  修饰的变量在进行写操作时，JVM 会向处理器发送一条 &lt;code&gt;lock&lt;/code&gt;  前缀指令，该指令就会让变量所在的缓存行的数据写回到系统内存中。&lt;/p&gt;
+&lt;p&gt;在多处理器下，为了保证各个处理器的缓存是一致的，会实现&lt;strong&gt;缓存一致协议（MESI）&lt;/strong&gt;：每个处理器通过嗅探总线上传播的数据来检查自己缓存的值是否过期，从而设置自己缓存中的对应的数据为无效状态。&lt;/p&gt;
+&lt;p&gt;早期的 &lt;code&gt;lock&lt;/code&gt;  前缀会使处理器执行当前指令时产生一个 &lt;code&gt;LOCK#&lt;/code&gt; 信号，会对&lt;strong&gt;总线进行锁定&lt;/strong&gt;，其他 CPU 对内存的读写请求会被阻塞，直到锁释放，但是开销比较大。后来加锁操作变成了&lt;strong&gt;高速缓存锁&lt;/strong&gt;。缓存锁不是指给某一行缓存上锁，而是说&lt;strong&gt;某个 CPU 对缓存数据进行更改时，会通知缓存了该数据的其他 CPU 抛弃缓存的数据或者从内存重新读取。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;缓存一致性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#缓存一致性&#34;&gt;#&lt;/a&gt; 缓存一致性&lt;/h3&gt;
+&lt;p&gt;缓存是分段的，一个段对应一块存储空间，称之为&lt;strong&gt;缓存行&lt;/strong&gt;，是 CPU 缓存中可分配的最小存储单元，通常是 64 字节， LOCK# 因为锁总线效率太低，因此使用了多组缓存。 为了使其行为看起来如同一组缓存那样。因而设计了 缓存一致性协议。 缓存一致性协议有多种，但是日常处理的大多数计算机设备都属于 &amp;quot; &lt;strong&gt;嗅探&lt;/strong&gt; &amp;quot; 协议。 &lt;strong&gt;所有内存的传输都发生在一条共享的总线上，而所有的处理器都能看到这条总线。&lt;/strong&gt; 缓存本身是独立的，但是内存是共享资源，所有的内存访问都要经过仲裁 (同一个指令周期中，只有一个 CPU 缓存可以读写内存)。 CPU 缓存不仅仅在做内存传输的时候才与总线打交道，而是不停在嗅探总线上发生的数据交换，跟踪其他缓存在做什么。 当一个缓存代表它所属的处理器去读写内存时，其它处理器都会得到通知，它们以此来使自己的缓存保持同步。 只要某个处理器写内存，其它处理器马上知道这块内存在它们的缓存段中已经失效。&lt;/p&gt;
+&lt;p&gt;之前也提到过， &lt;code&gt;volatile&lt;/code&gt;  不能保证并发安全，多个线程对共享变量进行自增的例子：线程 1 刚刚将 a 的值更新为 100，这时线程 2 可能也已经执行到更新 a 的值这条指令了，&lt;strong&gt;已经刹不住车了&lt;/strong&gt;，所以依然会将 a 的值再更新为一次 100。&lt;/p&gt;
+&lt;h3 id=&#34;优化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#优化&#34;&gt;#&lt;/a&gt; 优化&lt;/h3&gt;
+&lt;p&gt;在 Java7 中并发包下新增了一个队列集合类 &lt;code&gt;LinkedTransferQueue&lt;/code&gt; ，Doug lea 设计这个队列的节点时，用一个类将节点包装起来，再通过加入一些无用的引用 &lt;code&gt;reference&lt;/code&gt;  来将包装类扩充到 64 字节大小，下面是我修改后，意思相近的代码：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 队列代码&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Reference&lt;/span&gt;&lt;span class=&#34;token generics&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;QNode&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt; head&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Reference&lt;/span&gt;&lt;span class=&#34;token generics&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;QNode&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt; tail&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Reference&lt;/span&gt;&lt;span class=&#34;token generics&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;volatile&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;V&lt;/span&gt; value&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;Object&lt;/span&gt; p0&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p1&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p2&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p3&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p4&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p5&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p6&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p7&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p8&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;p9&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;pa&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;pb&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;pc&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;pd&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;pe&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 15 个引用，一个引用占 4 字节&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;加入队列中的是 &lt;code&gt;Reference&lt;/code&gt; ，这是一个很神奇的事，它将共享变量扩充到了 64 字节。因为在英特尔酷睿 i7 等处理器，缓存行是 64 字节，如果头节点和尾节点加起来都不足 &lt;code&gt;64byte&lt;/code&gt; ，那么他们可能会被分配到一个缓存行，当需要入队（修改尾节点）时，就会锁定整个缓存行，导致其他处理器的对应缓存行失效，本来应该只失效尾节点数据，但是此时头节点和尾节点在同一行中，导致头节点也失效。&lt;/p&gt;
+&lt;p&gt;将节点大小扩充到 64 字节后，避免了头节点和尾节点在同一缓存行中。&lt;/p&gt;
+&lt;h2 id=&#34;synchronized关键字&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#synchronized关键字&#34;&gt;#&lt;/a&gt; synchronized 关键字&lt;/h2&gt;
+&lt;h2 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;《Java 并发编程的艺术》第二章&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktdm9sYXRpbGUuaHRtbA==&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-volatile.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="Concurrency" />
+        <updated>2022-12-28T10:16:37.000Z</updated>
+    </entry>
     <entry>
         <id>https://cecilia.cool/2022/12/22/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6A(%E7%BA%BF%E7%A8%8B)/</id>
         <title>Java并发机制A(线程)</title>

@@ -5,28 +5,152 @@
         <link>https://cecilia.cool</link>
         <description>时雨病重症患者</description>
         <language>zh-CN</language>
-        <pubDate>Wed, 28 Dec 2022 18:16:37 +0800</pubDate>
-        <lastBuildDate>Wed, 28 Dec 2022 18:16:37 +0800</lastBuildDate>
-        <category>shell</category>
-        <category>数据结构与算法</category>
+        <pubDate>Mon, 02 Jan 2023 15:50:32 +0800</pubDate>
+        <lastBuildDate>Mon, 02 Jan 2023 15:50:32 +0800</lastBuildDate>
         <category>tools</category>
-        <category>Docker</category>
+        <category>数据结构与算法</category>
         <category>云计算</category>
         <category>网络协议与工具</category>
         <category>轻小说结局魔改</category>
-        <category>Redis</category>
-        <category>MySQL</category>
-        <category>Spring全家桶</category>
-        <category>uni-app</category>
-        <category>Mybatis</category>
-        <category>日志框架</category>
+        <category>shell</category>
+        <category>Docker</category>
+        <category>Concurrency</category>
         <category>Java8</category>
+        <category>Web</category>
         <category>JVM</category>
         <category>Java基础</category>
-        <category>Concurrency</category>
-        <category>网络编程</category>
         <category>设计模式</category>
-        <category>Web</category>
+        <category>网络编程</category>
+        <category>uni-app</category>
+        <category>MySQL</category>
+        <category>Mybatis</category>
+        <category>Redis</category>
+        <category>日志框架</category>
+        <category>Spring全家桶</category>
+        <item>
+            <guid isPermalink="true">https://cecilia.cool/2023/01/02/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6C(JMM)/</guid>
+            <title>Java并发机制C(JMM)</title>
+            <link>https://cecilia.cool/2023/01/02/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6C(JMM)/</link>
+            <category>Concurrency</category>
+            <pubDate>Mon, 02 Jan 2023 15:50:32 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;java内存模型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#java内存模型&#34;&gt;#&lt;/a&gt; Java 内存模型&lt;/h1&gt;
+&lt;p&gt;并发编程中，线程通信一般有两种方式：共享内存和消息传递。Java 并发采用的是共享内存模型，所有实例域，静态域，数组元素都存储在堆内存中，堆内存在线程之间共享。&lt;/p&gt;
+&lt;p&gt;每个线程都有一个本地内存，其实这个本地内存是一个抽象概念，它包含了缓存，写缓冲区，寄存器， &lt;code&gt;cache&lt;/code&gt;  等，和 &lt;code&gt;volatile&lt;/code&gt;  关键字那部分知识类似。线程之间的共享变量存储在主内存中。&lt;/p&gt;
+&lt;p&gt;下图为 JMM 抽象结构：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/01/02/23912ba83bcf2aa0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;JMM&lt;/code&gt;  通过控制主内存与每个线程的本地内存之间的交互，提供内存可见性的保证。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;重排序&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#重排序&#34;&gt;#&lt;/a&gt; 重排序&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;编译器&lt;/strong&gt;和&lt;strong&gt;处理器&lt;/strong&gt;常常会对指令重排序：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译器优化重排序：在 Java 语言层面上重新安排语句执行顺序。&lt;/li&gt;
+&lt;li&gt;指令级并行重排序：将多条指令重叠执行，如果不存在数据依赖性，处理器可以改变机器指令的执行顺序。&lt;/li&gt;
+&lt;li&gt;内存系统重排序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;重排序有时会导致严重的内存可见性问题，比如一个引用还没有初始化就被调用&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;A&lt;/span&gt; a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; s &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; a&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;toSTring&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 重排序可能导致两个语句调换&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 只是一个不恰当的例子，处理器不会重排序数据依赖的操作:s 依赖 a&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;JMM&lt;/code&gt;  通过插入特定类型的内存屏障来禁止特定类型的处理器 / 编译器重排序来保证内存可见性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;还有一个经典的例子就是：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; b &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// processorA&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; b&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// processorB&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;b &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;B&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; a&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;ab 两个变量没有使用 &lt;code&gt;volatile&lt;/code&gt; ，即使被写入也不会立即刷新到主存中，所以可能 A 和 B 变量都读到了 0，所以尽管先执行了 &lt;code&gt;a=1&lt;/code&gt; ，但从内存操作顺序来看，是先执行的 &lt;code&gt;A=b&lt;/code&gt; ，&lt;strong&gt;这表示处理器 A 内存操作顺序被重排序了&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;所以 &lt;code&gt;JMM&lt;/code&gt;  有时会插入内存屏障来保证内存可见性，对应四种内存屏障（来自《Java 并发编程的艺术》）：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;屏障类型&lt;/th&gt;
+&lt;th&gt;指令示例&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;LoadLoad Barriers&lt;/td&gt;
+&lt;td&gt;Load1; LoadLoad; Load2&lt;/td&gt;
+&lt;td&gt;确保 Load1 数据的装载，之前于 Load2 及所有后续装载指令的装载。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;StoreStore Barriers&lt;/td&gt;
+&lt;td&gt;Store1; StoreStore; Store2&lt;/td&gt;
+&lt;td&gt;确保 Store1 数据对其他处理器可见（刷新到内存），之前于 Store2 及所有后续存储指令的存储。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LoadStore Barriers&lt;/td&gt;
+&lt;td&gt;Load1; LoadStore; Store2&lt;/td&gt;
+&lt;td&gt;确保 Load1 数据装载，之前于 Store2 及所有后续的存储指令刷新到内存。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;StoreLoad Barriers&lt;/td&gt;
+&lt;td&gt;Store1; StoreLoad; Load2&lt;/td&gt;
+&lt;td&gt;确保 Store1 数据对其他处理器变得可见（指刷新到内存），之前于 Load2 及所有后续装载指令的装载。该屏障会使屏障之前所有的内存访问（存储 / 装载）指令完成后才执行屏障后的内存访问指令。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;StoreLoad Barriers 是一个 “全能型” 的屏障，它同时具有其他三个屏障的效果。现代的多处理器大都支持该屏障（其他类型的屏障不一定被所有处理器支持）。执行该屏障开销会很昂贵，因为当前处理器通常要把写缓冲区中的数据全部刷新到内存中（buffer fully flush）。&lt;/p&gt;
+&lt;p&gt;我们再看一个重排序对多线程的影响的例子&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 代码改自《Java 并发编程的艺术》第 3 章&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;ReorderExample&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;boolean&lt;/span&gt; flag &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;writer&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;                   &lt;span class=&#34;token comment&#34;&gt;//1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        flag &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;             &lt;span class=&#34;token comment&#34;&gt;//2&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;Public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;reader&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;flag&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;                &lt;span class=&#34;token comment&#34;&gt;//3&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;  a&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;            &lt;span class=&#34;token comment&#34;&gt;//4&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            ……&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;假设有两个线程 A 和 B，A 首先执行 writer () 方法，随后 B 线程接着执行 reader () 方法。线程 B 在执行操作 4 时，能否看到线程 A 在操作 1 对共享变量 a 的写入？&lt;/p&gt;
+&lt;p&gt;答案是：不一定能看到。我们先不考虑任何线程可能会中断的情况，操作 1，2 没有数据依赖，操作 3，4 也没有数据依赖，他们可以被重排序：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;操作 1，2 重排序： &lt;code&gt;flag&lt;/code&gt;  先被设为 &lt;code&gt;true&lt;/code&gt;  导致操作 3 通过，从而拿到 &lt;code&gt;a = 0&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;操作 3，4 重排序：操作 4 先拿到 &lt;code&gt;a=0&lt;/code&gt; ，相当于执行 &lt;code&gt;tmp = 0*0&lt;/code&gt; ，再判断 &lt;code&gt;flag&lt;/code&gt;  从而 &lt;code&gt;i=tmp&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重排序会导致多线程环境下的并发问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;计算机科学家提出了&lt;strong&gt;顺序一致性模型&lt;/strong&gt;，一种理想的理论模型，所有操作都是原子的且对其他线程立即可见，且一个线程的操作必须按照程序的顺序执行。&lt;/p&gt;
+&lt;p&gt;而 &lt;code&gt;JMM&lt;/code&gt;  并没有提供这种理想化的保证，想要不出现并发问题，就必须对&lt;strong&gt;临界区&lt;/strong&gt;加入监视器（锁）：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;synchronized&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;writer&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;                   &lt;span class=&#34;token comment&#34;&gt;//1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    flag &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;             &lt;span class=&#34;token comment&#34;&gt;//2&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;//reader () 一样的&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;JMM&lt;/code&gt;  对于未同步的程序，只提供最小安全性：线程执行时读取到的值，要么是之前某个线程写入的值，要么是默认值（0，null，false），JMM 保证线程读操作读取到的值不会无中生有的冒出来。为了实现最小安全性，JVM 在堆上分配对象时，首先会清零内存空间，然后才会在上面分配对象（JVM 内部会同步这两个操作）。因此，在以清零的内存空间（pre-zeroed memory）分配对象时，域的默认初始化已经完成了。&lt;/p&gt;
+&lt;p&gt;上述同步代码的变量不需要加上 &lt;code&gt;volatile&lt;/code&gt; ，因为 &lt;code&gt;synchronized&lt;/code&gt;  也可以保证可见性：&lt;strong&gt;线程在加锁时，先清空本地内存→在主内存拷贝最新变量的副本到本地内存→执行完代码→刷新到主内存中→解锁。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;重排序volatile&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#重排序volatile&#34;&gt;#&lt;/a&gt; 重排序：volatile&lt;/h2&gt;
+&lt;p&gt;之前在关键字篇提到的 &lt;code&gt;volatile&lt;/code&gt;  关键字内容只是一部分，是关于 &lt;code&gt;volatile&lt;/code&gt;  对于&lt;strong&gt;可见性&lt;/strong&gt;的实现，在我们学习 JMM 中我们还需要学习它对&lt;strong&gt;有序性&lt;/strong&gt;的实现。&lt;/p&gt;
+&lt;p&gt;JMM 采取了保守的策略来禁止重排序：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在每个 volatile 写操作的前面插入一个 StoreStore 屏障。&lt;/li&gt;
+&lt;li&gt;在每个 volatile 写操作的后面插入一个 StoreLoad 屏障，防止上面的 volatile 写与下面可能有的 volatile 读 / 写重排序。&lt;/li&gt;
+&lt;li&gt;在每个 volatile 读操作的后面插入一个 LoadLoad 屏障。&lt;/li&gt;
+&lt;li&gt;在每个 volatile 读操作的后面插入一个 LoadStore 屏障。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例子：单例模式的双重检查&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Singleton&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 使用了 volatile&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;volatile&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Singleton&lt;/span&gt; singleton&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Singleton&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Singleton&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getInstance&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;singleton &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;synchronized&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;singleton&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;singleton &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                    singleton &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Singleton&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; singleton&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果没有重排序，那么 &lt;code&gt;signleton&lt;/code&gt;  可以不加 &lt;code&gt;volatile&lt;/code&gt; 。实例化一个对象分 3 个步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分配内存空间、&lt;/li&gt;
+&lt;li&gt;初始化对象&lt;/li&gt;
+&lt;li&gt;内存空间地址赋给引用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是操作系统可以重排序，所以存在可能导致重排序为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分配内存空间&lt;/li&gt;
+&lt;li&gt;内存空间地址赋给引用&lt;/li&gt;
+&lt;li&gt;初始化对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;尽管可能性较低，但是当这种情况发生后，就有可能将一个未初始化的对象暴露出来，所以此处需要 &lt;code&gt;volaitle&lt;/code&gt;  来禁止重排序。&lt;/p&gt;
+&lt;h2 id=&#34;重排序final&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#重排序final&#34;&gt;#&lt;/a&gt; 重排序：final&lt;/h2&gt;
+&lt;p&gt;先看一段代码&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; j&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        j &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;code&gt;Demo&lt;/code&gt;  如果在使用时，没有被 &lt;code&gt;volatile&lt;/code&gt;  修饰，那么在上文内容中，我们可以知道其他线程可能会拿到一个引用不为 &lt;code&gt;null&lt;/code&gt; ，但是还没有完全初始化的实例化对象，导致出现错误，而这本质原因在于&lt;strong&gt;变量被重排序到构造函数外面了&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;final&lt;/code&gt;  也可以禁止重排序， &lt;code&gt;final&lt;/code&gt;  域的重排序规则为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;构造函数中对 &lt;code&gt;final&lt;/code&gt;  域的写入不能和被构造函数的引用赋给一个引用变量进行重排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    j &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 其实会在 j=2 与 return 语句间插入 StoreStore 屏障&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt; d &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 假设实例化的地址为 Ox111111 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 即 d = Ox111111 不能和 j = 2 重排序&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;li&gt;初次读包含 &lt;code&gt;final&lt;/code&gt;  域的对象的引用不能和初次读这个 &lt;code&gt;final&lt;/code&gt;  域重排序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; t &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; demo&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;j&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 本质是先读 demo 的地址，再读 j&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 本质上会在读 j 的指令前加上 LoadLoad 屏障&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;对于第二点，这两个操作是由依赖性的，编译器肯定不会重排序，大部分处理器也不会，只有小部分处理器可能会重排序。&lt;/p&gt;
+&lt;p&gt;如果 &lt;code&gt;final&lt;/code&gt;  修饰的是一个引用：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Object&lt;/span&gt; j&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        j &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;//demo 对 AB 都可见，A 线程执行&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;demo &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Demo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// B 线程执行&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;demo &lt;span class=&#34;token operator&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;Object&lt;/span&gt; o &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; demo&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;j&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果说 B 线程拿到了 &lt;code&gt;demo&lt;/code&gt; ，通过了 &lt;code&gt;if&lt;/code&gt;  语句，此时 &lt;code&gt;demo&lt;/code&gt;  一定被初始化了，那么 &lt;code&gt;j&lt;/code&gt;  一定也被初始化了。 &lt;code&gt;final&lt;/code&gt;  域如果是引用，新增了约束：&lt;/p&gt;
+&lt;p&gt;构造函数内对一个 &lt;code&gt;final&lt;/code&gt;  引用的对象的写入不能与被构造的函数引用赋给引用变量重排序。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本质上还是保证 &lt;code&gt;final&lt;/code&gt;  域不会重排序到构造函数之外。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;《Java 并发编程的艺术》第 3 章&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS9qdm0vamF2YS1qdm0tam1tLmh0bWw=&#34;&gt;https://pdai.tech/md/java/jvm/java-jvm-jmm.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2d1eXVlYWxpYW4vYXJ0aWNsZS9kZXRhaWxzLzUyNTI1NzI0&#34;&gt;https://blog.csdn.net/guyuealian/article/details/52525724&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktdm9sYXRpbGUuaHRtbA==&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-volatile.html&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktZmluYWwuaHRtbA==&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-final.html&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/12/28/Java/Concurrency/Java%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6B(%E5%85%B3%E9%94%AE%E5%AD%97)/</guid>
             <title>Java并发机制B(关键字)</title>
@@ -136,12 +260,45 @@
 &lt;blockquote&gt;
 &lt;p&gt;轻量锁的一个很大的特征就是其他线程会自旋等待一段时间，而重量锁会直接阻塞。&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;h2 id=&#34;final关键字&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#final关键字&#34;&gt;#&lt;/a&gt; final 关键字&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;final&lt;/code&gt;  关键字有很多知识都和 &lt;code&gt;JMM&lt;/code&gt;  有关，所以本部分不会涉及太多相关内容，到了 &lt;code&gt;JMM&lt;/code&gt;  篇再详细说明。&lt;/p&gt;
+&lt;h3 id=&#34;基础使用&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基础使用&#34;&gt;#&lt;/a&gt; 基础使用&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修饰类：类不能被继承， &lt;code&gt;final&lt;/code&gt;  类所有方法都是隐式为 &lt;code&gt;final&lt;/code&gt; ，所以 &lt;code&gt;final&lt;/code&gt;  类中的方法不需要再加 &lt;code&gt;final&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果想要扩展 &lt;code&gt;final&lt;/code&gt; ，要用到的设计模式为&lt;strong&gt;组合&lt;/strong&gt;，一般想要扩展一个类，就是继承 / 实现和组合。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;修饰方法：不能被重写，继承，但是可以重载， &lt;code&gt;private&lt;/code&gt;  方法是隐式的 &lt;code&gt;final&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;修饰&lt;strong&gt;参数&lt;/strong&gt;：无法更改参数引用所指的对象&lt;/li&gt;
+&lt;li&gt;修饰&lt;strong&gt;变量&lt;/strong&gt;：被 &lt;code&gt;final&lt;/code&gt;  修饰的变量可以不是编译器常量，只是初始化后无法被更改。Java 允许允许生产 &lt;code&gt;blank final&lt;/code&gt;  也就是空白 &lt;code&gt;final&lt;/code&gt; ，被声明为 &lt;code&gt;final&lt;/code&gt;  但又没有给定值的字段，但是&lt;strong&gt;必须在该字段被使用之前被赋值&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果 &lt;code&gt;final&lt;/code&gt;  修饰的是一个指向对象的引用，那么该引用只是不能指向其他对象，但是当前对象的成员变量仍然可以被修改。&lt;/p&gt;
+&lt;p&gt;一个有趣的现象就是：&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;byte&lt;/span&gt; b1&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;byte&lt;/span&gt; b2&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;byte&lt;/span&gt; b3&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;b1&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;b2&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 会出错，运算时 java 虚拟机对它进行了转换，结果导致把一个 int 赋值给 byte&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果用 &lt;code&gt;final&lt;/code&gt;  修饰 &lt;code&gt;b1&lt;/code&gt; , &lt;code&gt;b2&lt;/code&gt; ，就不会强转。&lt;/p&gt;
+&lt;h3 id=&#34;重排序规则&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#重排序规则&#34;&gt;#&lt;/a&gt; 重排序规则&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;基本数据类型:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;final域写&lt;/code&gt; ：禁止 &lt;code&gt;final&lt;/code&gt;  域写与构造方法重排序，即禁止 &lt;code&gt;final&lt;/code&gt;  域写重排序到构造方法之外，从而保证该对象对所有线程可见时，该对象的 &lt;code&gt;final&lt;/code&gt;  域全部已经初始化过。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;final域读&lt;/code&gt; ：禁止初次读对象的引用与读该对象包含的 &lt;code&gt;final&lt;/code&gt;  域的重排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;引用数据类型：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;额外增加约束&lt;/code&gt; ：禁止在构造函数对一个 &lt;code&gt;final&lt;/code&gt;  修饰的对象的成员域的写入与随后将这个被构造的对象的引用赋值给引用变量 重排序、&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;更多细节会留到 &lt;code&gt;JMM&lt;/code&gt;  篇讲解。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;《Java 并发编程的艺术》第二章&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktdm9sYXRpbGUuaHRtbA==&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-volatile.html&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktc3luY2hyb25pemVkLmh0bWw=&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-synchronized.html&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9hc2suY3Nkbi5uZXQvcXVlc3Rpb25zLzQ2NDYyMjc=&#34;&gt;https://ask.csdn.net/questions/4646227&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvamF2YS90aHJlYWQvamF2YS10aHJlYWQteC1rZXktZmluYWwuaHRtbA==&#34;&gt;https://pdai.tech/md/java/thread/java-thread-x-key-final.html&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
  ]]></description>
         </item>

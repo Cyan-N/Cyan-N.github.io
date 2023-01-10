@@ -4,26 +4,26 @@
     <title>慕青の迷途 • Posts by &#34;tools&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2090-01-01T07:01:00.000Z</updated>
-    <category term="Docker" />
-    <category term="shell" />
     <category term="tools" />
+    <category term="Docker" />
     <category term="云计算" />
-    <category term="数据结构与算法" />
     <category term="网络协议与工具" />
-    <category term="Java基础" />
+    <category term="shell" />
+    <category term="数据结构与算法" />
     <category term="轻小说结局魔改" />
-    <category term="Concurrency" />
-    <category term="JVM" />
-    <category term="Web" />
-    <category term="Java8" />
-    <category term="Redis" />
-    <category term="设计模式" />
     <category term="MySQL" />
-    <category term="网络编程" />
     <category term="Mybatis" />
-    <category term="uni-app" />
     <category term="Spring全家桶" />
     <category term="日志框架" />
+    <category term="Concurrency" />
+    <category term="Redis" />
+    <category term="uni-app" />
+    <category term="Java8" />
+    <category term="Java基础" />
+    <category term="JVM" />
+    <category term="设计模式" />
+    <category term="Web" />
+    <category term="网络编程" />
     <entry>
         <id>https://cecilia.cool/2090/01/01/Tools/%E5%8D%97%E6%85%95%E9%9D%92%E3%81%AE%E7%A2%8E%E7%A2%8E%E5%BF%B5/</id>
         <title>必读：南慕青の碎碎念</title>
@@ -31,7 +31,7 @@
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;博客置顶功能出毛病了，所以就把文章时间改成 2090，让它保持在首页最上面。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&#34;前尘&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前尘&#34;&gt;#&lt;/a&gt; 前尘&lt;/h1&gt;
+&lt;h1 id=&#34;起因&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#起因&#34;&gt;#&lt;/a&gt; 起因&lt;/h1&gt;
 &lt;p&gt;搭建博客是一件很麻烦的事，自己写网站代码，自己买服务器搭上去，自己写文章，有时还会遇到一些 sb 跟你玩 DDoS，md，学了点东西就违法犯罪是吧，详情&lt;strong&gt;参考《刑法》第二百八十六条破坏计算机信息系统罪&lt;/strong&gt;。当然很多 DDoS 是公司发动的。&lt;/p&gt;
 &lt;p&gt;我很懒，也怕麻烦，所以选择了 Hexo 框架，在 Github 上搭了个小家。&lt;/p&gt;
 &lt;p&gt;其实最开始还是看三叶姐的微信公众号的一篇&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvZEVIWW1HaVprS2tyVmR3N285QWF4Zw==&#34;&gt;碎碎念&lt;/span&gt;才了解到 Hexo 这个框架，后来就开始找主题，个人体验几个主题：&lt;/p&gt;
@@ -48,10 +48,7 @@
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==&#34;&gt;Shoka&lt;/span&gt;：超级推荐，&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWUv&#34;&gt;开发者&lt;/span&gt;的博客，很厉害的主题，功能点特别多，可以选择性关闭，感兴趣就去试试，超级推荐。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;然后换上自己喜欢的域名，打开 Github 支持的 https，关于慕青的博客就搭建好了。&lt;/p&gt;
-&lt;h1 id=&#34;今世&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#今世&#34;&gt;#&lt;/a&gt; 今世&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不要问我为什么一级标题这么中二！！！！&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h1 id=&#34;感谢&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#感谢&#34;&gt;#&lt;/a&gt; 感谢&lt;/h1&gt;
 &lt;p&gt;最开始的内容，路线是跟着 pdai（皮带哥）的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gv&#34;&gt; Java 全栈知识体系&lt;/span&gt;写的，这位前辈给我的很深触动就是他的网站开篇的一句话：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;当你将本文中知识点掌握时，你会发现那些平时高谈阔论的家伙其实都是纸老虎；但你依然要保持谦卑，闻道有先后，术业有专攻，如是而已。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;pdai&#34; style=&#34;--block-color:#38b5b2;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gv&#34; data-background-image=&#34;https://s3.bmp.ovh/imgs/2022/10/20/f7b81a3958dc4db4.jpg&#34;&gt;&lt;/span&gt;
@@ -85,6 +82,7 @@
 &lt;li&gt;MySQL：参考《MySQL 是怎样运行的》，作者是小孩子 4919&lt;/li&gt;
 &lt;li&gt;网络协议与工具：部分参考《计算机网络自顶向下方法》，作者是 James F.Kurose 和 Keith W.Ross&lt;/li&gt;
 &lt;li&gt;操作系统（还没更）：部分参考《操作系统导论》，作者是 Remzi H.Arpaci-Dusseau 和 Andrea C.Arpaci-Dusseau&lt;/li&gt;
+&lt;li&gt;并发：部分参考《Java 并发编程的艺术》作者方腾飞，魏鹏，程晓明，以及《操作系统导论》&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;末了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#末了&#34;&gt;#&lt;/a&gt; 末了&lt;/h1&gt;
 &lt;p&gt;当然，每一篇文章到底参考了哪些，我都在最后的参考标题注明了的。&lt;/p&gt;

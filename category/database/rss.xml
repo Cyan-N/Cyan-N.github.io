@@ -14,19 +14,19 @@
         <category>云计算</category>
         <category>轻小说结局魔改</category>
         <category>网络协议与工具</category>
-        <category>Spring全家桶</category>
-        <category>uni-app</category>
-        <category>日志框架</category>
-        <category>Concurrency</category>
-        <category>Java8</category>
-        <category>JVM</category>
-        <category>Java基础</category>
-        <category>Web</category>
-        <category>网络编程</category>
-        <category>设计模式</category>
         <category>Redis</category>
         <category>MySQL</category>
+        <category>Spring全家桶</category>
         <category>Mybatis</category>
+        <category>Concurrency</category>
+        <category>uni-app</category>
+        <category>日志框架</category>
+        <category>Java8</category>
+        <category>JVM</category>
+        <category>Web</category>
+        <category>Java基础</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/07/28/Database/MySQL/B-%E6%A0%91%E7%B4%A2%E5%BC%95/</guid>
             <title>B+树索引</title>

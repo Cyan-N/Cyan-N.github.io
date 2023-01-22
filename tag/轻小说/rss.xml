@@ -7,29 +7,29 @@
         <language>zh-CN</language>
         <pubDate>Sat, 21 Jan 2023 12:45:00 +0800</pubDate>
         <lastBuildDate>Sat, 21 Jan 2023 12:45:00 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>shell</category>
-        <category>数据结构与算法</category>
-        <category>tools</category>
         <category>云计算</category>
+        <category>数据结构与算法</category>
+        <category>shell</category>
+        <category>tools</category>
+        <category>Docker</category>
         <category>轻小说</category>
-        <category>网络协议与工具</category>
-        <category>MySQL</category>
-        <category>Redis</category>
-        <category>JVM</category>
-        <category>Concurrency</category>
-        <category>Web</category>
-        <category>Java基础</category>
-        <category>Java8</category>
-        <category>网络编程</category>
-        <category>设计模式</category>
         <category>Mybatis</category>
+        <category>网络协议与工具</category>
         <category>Spring全家桶</category>
+        <category>Java8</category>
         <category>uni-app</category>
         <category>日志框架</category>
+        <category>JVM</category>
+        <category>Concurrency</category>
+        <category>网络编程</category>
+        <category>设计模式</category>
+        <category>Web</category>
+        <category>Java基础</category>
+        <category>MySQL</category>
+        <category>Redis</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2023/01/21/%E8%BD%BB%E5%B0%8F%E8%AF%B4/%E3%80%8A%E6%88%91%E6%83%B3%E6%88%90%E4%B8%BA%E4%BD%A0%E7%9A%84%E7%9C%BC%E6%B3%AA%E3%80%8B/</guid>
-            <title>我想成为你的眼泪</title>
+            <title>《我想成为你的眼泪》</title>
             <link>https://cecilia.cool/2023/01/21/%E8%BD%BB%E5%B0%8F%E8%AF%B4/%E3%80%8A%E6%88%91%E6%83%B3%E6%88%90%E4%B8%BA%E4%BD%A0%E7%9A%84%E7%9C%BC%E6%B3%AA%E3%80%8B/</link>
             <category>轻小说</category>
             <pubDate>Sat, 21 Jan 2023 12:45:00 +0800</pubDate>
@@ -44,11 +44,7 @@
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【所以你实际上是在干什么呢？我刚才看到你往口袋里塞了些什么】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;于是，樱花的花瓣纷纷扬扬地落在了少女雪白的手心里。&lt;/p&gt;
 &lt;p&gt;“我祈祷花瓣可以将伤口填满，祈祷疼痛因此可以得到治愈。其实无所谓我收集了什么，只要它能填满伤口。”&lt;/p&gt;
 &lt;p&gt;少年八云如此希望着，希望母亲的伤痛因为这虔诚的祈祷减轻，他在心中祈祷着花瓣能为母亲送上微不足道的治愈，一路走，一路捡，未曾停歇。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;【我叫五十岚摇月。写作“摇曳之月”的摇月。你呢？】
-【我叫三枝八云，写作“八重之云”的八云。——刚才那首曲子叫什么呢？】
-【《离别》。肖邦的曲子】
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;这就是八云跟摇月的相遇。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我叫五十岚摇月。写作“摇曳之月”的摇月。你呢？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我叫三枝八云，写作“八重之云”的八云。——刚才那首曲子叫什么呢？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【《离别》。肖邦的曲子】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这就是八云跟摇月的相遇。&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/01/21/4b796ba8d065702b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 &lt;h2 id=&#34;羁绊&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#羁绊&#34;&gt;#&lt;/a&gt; 羁绊&lt;/h2&gt;
 &lt;p&gt;摇月在弹奏钢琴上非常有天赋，但母亲兰子的培养方式，对于一个孩子来说实在是无法接受&lt;/p&gt;
@@ -85,20 +81,23 @@
             <link>https://cecilia.cool/2022/10/16/%E8%BD%BB%E5%B0%8F%E8%AF%B4/%E3%80%8A%E6%88%91%E5%92%8C%E5%A5%B3%E5%8F%8B%E7%9A%84%E5%A6%B9%E5%A6%B9%E6%8E%A5%E5%90%BB%E4%BA%86%E3%80%8B/</link>
             <category>轻小说</category>
             <pubDate>Sun, 16 Oct 2022 23:54:21 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
-&lt;p&gt;这本书每次更新，在 GA 文库里面，直接就是 S 级热度，褒不一，贬却很一，但大家最统一的意见就是对结局不满意（汉化结局还没出，但是有人看了日文版，然后剧透，我谢谢。）我对结局也超级无语，脏话（*……￥%@**），出于对结局的不满，我想在汉化版更新完后按照自己的想法重构一下结局，之于我喜欢的结局。&lt;/p&gt;
-&lt;p&gt;作者&lt;strong&gt;海陆空&lt;/strong&gt;，说实话，这本书关于人物心理描写是很到位了，剧情矛盾也十分突出，个人认为最重要的，最好的，就是每个人的个性鲜明，而且至始至终。无论是两面为难，抉择不定的佐藤博道，还是堪称完美的佐藤时雨（没错，我对时雨的评价非常高：颜值高，格斗强，会持家，擅长理解包容他人，敢爱敢恨等等，我就是时雨重度患者），以及将周围理想化的才川晴香。当然，男主有些性格我是真的无语，出于剧情需要，我理解。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;其实仅限三个人，人物塑造难度也不大。&lt;/p&gt;
+            <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;我可以舍弃一切来选择你，世界除了你，就剩下我舍弃的一切。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;下面给出一些节选，我觉得写的比较好：&lt;/p&gt;
-&lt;p&gt;佐藤博道心理活动：&lt;/p&gt;
-&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;不是的，晴香，不是这样的。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;我其实才不在乎什么烟火大会，对那一点兴趣也没有。约会也一样。今天也好明天也罢，哪天都无所谓。只是&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;我就只是希望&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;你能够选择我。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;佐藤时雨对话：&lt;/p&gt;
-&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;要是这样的感情能传达给哥哥，那么和姊姊的关系如何，对我来说都无所谓了。曾经是挚爱的姊姊，也变得不重要。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;就是这强烈的执著，将我的世界划分为【唯一一人】和【其他人】两个部分。我想这就是所谓的爱吧。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;才川晴香心理活动：&lt;/p&gt;
-&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;那个瞬间，我感觉我的一切不愉快都被吹到了身后。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	从自己最喜欢的人那，第一次拿到生日礼物。我内心的一切阴霾皆被那沾满各种色彩的刷子有力地覆盖掉了。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	我知道博道君一定准备好了礼物。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	就像我知道他一定只爱着我一样。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	我相信他会一直回应我的期待，这点自信我还是有的。但是，一旦得到了他的回应，我感觉自己的身体，从脸颊遍及全身，都热的像是要融化了一样。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;我要说的是&lt;/p&gt;
+&lt;p&gt;​	这本小说重点在于对人物的心理刻画以及随着故事推进，每个人自己身份的变化。作者大量描绘了三位主人公的心理活动，所以我根本无法通过简单的一篇文章来向你展示这本书的优秀之处，我甚至连故事发展历程都不能说出来，因为整体的故事发展，如果缺少了三位人物的心理变化，就显得干瘪苍白。&lt;/p&gt;
+&lt;p&gt;​	整个故事围绕着三位高中生：佐藤博道，佐藤时雨，才川晴香的爱情故事展开，作者通过大量，&lt;strong&gt;细腻的心理描写来拷问人物的灵魂，同时也是拷问读者的灵魂。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;才川晴香&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#才川晴香&#34;&gt;#&lt;/a&gt; 才川晴香&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;虽然我很推荐这本轻小说，但是，如果你觉得你是那种对于爱情忠贞不渝，无论对方怎么” 冷落 “你，你都会回应她的期待，如果你觉得你总是能快刀斩乱麻，如果你觉得这本书一看标题就是让人无语的 ntr 小说，抱歉，请不要看这本书，因为它确实不适合你。不过分地说，我就是为了这本书单独开了这么一个&lt;strong&gt;轻小说结局魔改&lt;/strong&gt;的 tag，因为结局让我意难平啊。&lt;/p&gt;
+&lt;p&gt;是谁活在自己幻想的国度里，又是谁在维持这个国度，为了做到这一点，那样的付出却没得到应有的关心&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;作为佐藤博道的女朋友，佐藤时雨的双胞胎姐姐，和时雨一样非常美丽可爱，小时候在安亲班上受到博道体贴的照顾，走出了父母离异的阴影（你猜博道为什么也在安亲班），一直觉得博道是一位温柔体贴，善解人意，善良大度的白马王子，高中主动向博道表白。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​	但是晴香对于博道的了解其实一直停留在安亲班那种印象，在于平日博道的相处中，也单方面的认为博道就是那种温柔体贴的绅士，无论是放学后博道一直等待晴香社团活动结束，还是出去约会时主动付账，休息时为晴香放一张手帕等等，这些日常行为都让晴香产生了&lt;strong&gt;博道还是那个博道&lt;/strong&gt;的错觉，她从来没有主动去了解过博道，她只道 “博道最喜欢她了”，但是&lt;strong&gt;她不懂博道背后的付出，不懂博道为了不让她产生讨厌，害怕的心情所付出的努力，而正是这一点，如果晴香意识不到这一点，那么她和博道就好不了太久&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;​	在海滨的夜晚，在两人的相吻中，博道控制不住那般喜欢的情绪，伸出了舌头，甚至下意识摸向了晴香的胸部，然后遭到晴香厌恶&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【刚刚、你把舌头……而且……还碰到、胸部……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【对、对不起。你不喜欢、这样吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    突如其来，强烈得前所未有的排斥反应，让她的冷汗跟著流了出来。仔细一瞧，晴香眼瞳里已经不再有先前那种娇怜。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    取而代之的情感……是畏惧。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【真的很抱歉！我不该这么急的！刚刚因为跟晴香你接吻，我心中满满的喜欢无处宣泄，才想说希望能更进一步让你明白，没想到却克制不了……！你想想，刚刚友卫他们不是也那么做吗？所以我才──】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【这样不对……这种事才不叫做『喜欢』。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【……咦？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    晴香自卫似地环抱著自己的身体。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【因为刚刚那种摸法，还有把舌、舌头伸进来的接吻，是做爱时的那种吻吧？虎子学姊已经是大学生了，但我们还只是高中生而已，还不到做爱的年纪喔？结果你却……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【先等一下！我没有那个意思！我只是想接吻想抱紧你，完、完全没想过什么做爱之类的！】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【……你刚刚说喜欢的心克制不了，但要是那样的吻跟抚摸继续下去，你能够保证……自己不会犯规吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    这、这个……被泛著泪光的晴香一瞪，令我一时语塞。因为，这种事谁也不可能百分之百保证。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【我本来还以为，博道你是理解这些事情的。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;后来又发生过许多事情，在暑假最后，两人本来早就约好了要去烟花大会，可是晴香因为戏剧社社长为自己拍了一张很好的照片在网络小火，被社长介绍的制片人相中，恰好在烟火大会那天。&lt;/p&gt;
+&lt;p&gt;晴香认为只是耽误一天，于是提出第二天去东京的迪士尼玩，车费她会给&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;不是的，晴香。不是这样的。……我其实才不在乎什么烟火，对那一点兴趣也没有。约会也一样。今天也好明天也罢，哪天都无所谓。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;只是……我就只是希望……你能够选择我。因为觉得晴香离我愈来愈远而感到孤单。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;觉得再这样下去真的会成为遥不可及的存在，而心怀不安。……要是把这些心事对晴香吐露，她会愿意为我重新考虑吗？&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;愿意抛下至今累积的一切，放弃眼前即将到手的人生机会，选择和我在一起吗？&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; ……我不知道。我无法信赖晴香到这种地步。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;要是。假设。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;假设我坦白告知这想法……最后她还是不愿选择我──&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;那……好吧，那就去吧！去迪士尼乐园！」&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;最后晴香赴宴的路上，社长问她明明约好了和男朋友去烟花大会，这样男朋友不会生气吗&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【是。不过不要紧的，我们中午已经商量过，他愿意让我改日子。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【咦咦……可是…………噢，不会吧……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【嗯……像我这种局外人不该对这种事说三道四，所以我还是只说一次吧。你所谓的『支持』，背后是用多大的忍耐所换来的──要是晴香你不能理解这点，我想你们接下来恐怕不会长久喔。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;临近小说的最后几章，博道还是和晴香分手了，博道和晴香，无论如何都无法互相追上彼此的真心，作者在大量描绘晴香的心理活动时，后期也是在拷问晴香是否真的喜欢博道，还是她只是喜欢心中那个白马王子的印象，她是只喜欢着自己对于博道的幻想，那个无论自己做什么都会接纳宽容的佐藤博道，而不是那个思绪敏感，脆弱，为了女友放心而拼命掩饰的佐藤博道。&lt;strong&gt;如果不能意识到自己的另一半为了自己付出了多大的努力，那么是长久不了的&lt;/strong&gt;。&lt;/p&gt;
  ]]></description>
         </item>
     </channel>

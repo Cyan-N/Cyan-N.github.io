@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cecilia.cool</id>
+    <title>慕青の迷途 • Posts by &#34;二次元&#34; tag</title>
+    <link href="https://cecilia.cool" />
+    <updated>2023-03-05T14:24:41.000Z</updated>
+    <category term="Docker" />
+    <category term="云计算" />
+    <category term="二次元" />
+    <category term="八股文" />
+    <category term="tools" />
+    <category term="shell" />
+    <category term="数据结构与算法" />
+    <category term="网络协议与工具" />
+    <category term="MySQL" />
+    <category term="Redis" />
+    <category term="uni-app" />
+    <category term="Mybatis" />
+    <category term="Spring全家桶" />
+    <category term="日志框架" />
+    <category term="Concurrency" />
+    <category term="JVM" />
+    <category term="Web" />
+    <category term="Java8" />
+    <category term="Java基础" />
+    <category term="网络编程" />
+    <category term="设计模式" />
+    <entry>
+        <id>https://cecilia.cool/2023/03/05/%E4%BA%8C%E6%AC%A1%E5%85%83/Galgame%E7%9B%AE%E5%BD%95/</id>
+        <title>Galgame目录</title>
+        <link rel="alternate" href="https://cecilia.cool/2023/03/05/%E4%BA%8C%E6%AC%A1%E5%85%83/Galgame%E7%9B%AE%E5%BD%95/"/>
+        <content type="html">&lt;p&gt;前言：本目录包含各种类型的 &lt;code&gt;Galgame&lt;/code&gt; ，都是鄙人亲自玩过一遍写上的，并且根据个人主观评价分了等级的，请保持自己的思考，文明游戏，&lt;strong&gt;我只是个臭打游戏的&lt;/strong&gt;。声明一下，可以标注来源的我会标注来源，标注不了的，大家各凭本事找资源吧。&lt;/p&gt;
+&lt;h1 id=&#34;五星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#五星&#34;&gt;#&lt;/a&gt; 五星&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无论是剧情、人物塑造、CG、游戏设计都超级好，甚至部分游戏对鄙人价值观影响较大（积极正面的）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《ATRI  My Dear Moments》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 女主设定仿生机器人，故事背景海平面急剧上升后的生活，主要围绕亚托莉与夏生共同度过的 44 天，算是 good end&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《他人世界末》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发的校园爱情 galgame，代入感特别强，不是龙傲天爽文，也不是梦中情节，剧情很真实。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《鸢之歌》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内游戏，末世生存，背景设定很大，剧情很值得推敲，游戏制作也很精良&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《电车 X 同级生》&lt;/strong&gt;： Local Love 三部曲第二部，其实三部剧情都挺离谱的，但是女主在田川鳰太戳我 xp 了&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《可爱的圣诞礼物：泡沫冬景》&lt;/strong&gt;  ：&lt;strong&gt;steam&lt;/strong&gt; - 猫猫社 Nekoday 开发，公司成立在四川成都，四川人打 call！要钱，整个游戏就是纯剧情，无选择。男主在 1988 年从中国到日本谋生展开的故事，跟爱情没关系，出场的人物都很个性鲜明&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《IRIS》&lt;/strong&gt;：  &lt;strong&gt;TapTap 免费游戏&lt;/strong&gt;，但是 21 年暂停下载了，大家想玩就各凭本事了吧，故事关于战斗机器人 都是女性  在战争后的生活，男主类似于星探，把这些女孩组成一个明星团，当然是纯爱，还面临生死考验，颜值、剧情都 ok&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;四星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#四星&#34;&gt;#&lt;/a&gt; 四星&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;没什么毛病，细节处理也很到位，但是还没有那么让人印象深刻，不失为一部佳作&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《高考恋爱 100 天》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发，初中看到视频里有人玩，算是难忘回忆了吧&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《零下记忆》&lt;/strong&gt; ：&lt;strong&gt;TapTap 游戏&lt;/strong&gt;，国内开发，推理过剧情的游戏，略带惊悚设定和情节，但都不是那种值得品味的剧情，背景独特，游戏制作、人物画像等方面都很好，就是要钱&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《青箱（测试服）》&lt;/strong&gt; ：&lt;strong&gt;TapTap 游戏&lt;/strong&gt;，国内开发，我没玩完，因为要钱，游戏制作上也很好，场景转换流畅，有些独特的体验&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;三星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#三星&#34;&gt;#&lt;/a&gt; 三星&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;吃饭无聊的时候可以当电视看看&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《密语》&lt;/strong&gt;：兄妹禁忌，父母双亡，男主被父系族人收养，女主被母系族人收养，在不同城市，后来男主出差到了妹妹所在的城市，此时妹妹还是高中生，懂的都懂，good end 走向&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《同居 X 后辈》&lt;/strong&gt;：Local Love 三部曲第一部，怎么说呢，正常的小日子纯爱剧情&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《星空列车与白的旅行》&lt;/strong&gt;：也许它很值得玩，但是我实在提不起兴趣，一个关于救赎的故事，但是节奏太慢了，客观来说还是很推荐的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《露西她所期望的一切》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt;，在 TapTap 中也有，我玩过一个 Bad End，就是露西被男主老爸烧了，就没心思玩了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;二星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#二星&#34;&gt;#&lt;/a&gt; 二星&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对我而言类似于肥皂剧，有点荒谬牵强的感觉&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《神社 X 前辈》&lt;/strong&gt;：Local Love 三部曲第三部，连神社的神灵都出来了，没什么看头&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;一星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#一星&#34;&gt;#&lt;/a&gt; 一星&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;屑作，里面要么就是工业糖精，要么就是一些恶趣味，自以为黑暗的游戏（我这个评价太主观了，没有任何参考价值，最好的方式就是你自己去玩一把）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《濒死轮回的卿于馆中萌生的憎恶》&lt;/strong&gt;：一些无聊的虐待场景，被称为第十三神器，个人感觉设定和剧情都不怎么行&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="二次元" />
+        <updated>2023-03-05T14:24:41.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://cecilia.cool/2022/10/16/%E4%BA%8C%E6%AC%A1%E5%85%83/%E8%BD%BB%E5%B0%8F%E8%AF%B4%E6%8E%A8%E8%8D%90/</id>
+        <title>轻小说推荐</title>
+        <link rel="alternate" href="https://cecilia.cool/2022/10/16/%E4%BA%8C%E6%AC%A1%E5%85%83/%E8%BD%BB%E5%B0%8F%E8%AF%B4%E6%8E%A8%E8%8D%90/"/>
+        <content type="html">&lt;h1 id=&#34;妹吻&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#妹吻&#34;&gt;#&lt;/a&gt; 《妹吻》&lt;/h1&gt;
+&lt;p&gt;全名为：我和女友的妹妹接吻了，作者 &lt;strong&gt;海陆空&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我可以舍弃一切来选择你，世界除了你，就剩下我舍弃的一切。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;​	这本小说重点在于对人物的心理刻画以及随着故事推进，每个人自己身份的变化。作者大量描绘了三位主人公的心理活动，所以我根本无法通过简单的一篇文章来向你展示这本书的优秀之处，我甚至连故事发展历程都不能说出来，因为整体的故事发展，如果缺少了三位人物的心理变化，就显得干瘪苍白。&lt;/p&gt;
+&lt;p&gt;​	整个故事围绕着三位高中生：佐藤博道，佐藤时雨，才川晴香的爱情故事展开，作者通过大量，&lt;strong&gt;细腻的心理描写来拷问人物的灵魂，同时也是拷问读者的灵魂。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;才川晴香&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;是谁活在自己幻想的国度里，又是谁在维持这个国度，为了做到这一点，那样的付出却没得到应有的关心&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;作为佐藤博道的女朋友，佐藤时雨的双胞胎姐姐，和时雨一样非常美丽可爱，小时候在安亲班上受到博道体贴的照顾，走出了父母离异的阴影（你猜博道为什么也在安亲班），一直觉得博道是一位温柔体贴，善解人意，善良大度的白马王子，高中主动向博道表白。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​	但是晴香对于博道的了解其实一直停留在安亲班那种印象，在于平日博道的相处中，也单方面的认为博道就是那种温柔体贴的绅士，无论是放学后博道一直等待晴香社团活动结束，还是出去约会时主动付账，休息时为晴香放一张手帕等等，这些日常行为都让晴香产生了&lt;strong&gt;博道还是那个博道&lt;/strong&gt;的错觉，她从来没有主动去了解过博道，她只道 “博道最喜欢她了”，但是&lt;strong&gt;她不懂博道背后的付出，不懂博道为了不让她产生讨厌，害怕的心情所付出的努力，而正是这一点，如果晴香意识不到这一点，那么她和博道就好不了太久&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;​	在海滨的夜晚，在两人的相吻中，博道控制不住那般喜欢的情绪，伸出了舌头，甚至下意识摸向了晴香的胸部，然后遭到晴香厌恶&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【刚刚、你把舌头……而且……还碰到、胸部……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【对、对不起。你不喜欢、这样吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    突如其来，强烈得前所未有的排斥反应，让她的冷汗跟著流了出来。仔细一瞧，晴香眼瞳里已经不再有先前那种娇怜。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    取而代之的情感……是畏惧。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【真的很抱歉！我不该这么急的！刚刚因为跟晴香你接吻，我心中满满的喜欢无处宣泄，才想说希望能更进一步让你明白，没想到却克制不了……！你想想，刚刚友卫他们不是也那么做吗？所以我才──】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【这样不对……这种事才不叫做『喜欢』。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【……咦？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    晴香自卫似地环抱著自己的身体。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【因为刚刚那种摸法，还有把舌、舌头伸进来的接吻，是做爱时的那种吻吧？虎子学姊已经是大学生了，但我们还只是高中生而已，还不到做爱的年纪喔？结果你却……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【先等一下！我没有那个意思！我只是想接吻想抱紧你，完、完全没想过什么做爱之类的！】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【……你刚刚说喜欢的心克制不了，但要是那样的吻跟抚摸继续下去，你能够保证……自己不会犯规吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    这、这个……被泛著泪光的晴香一瞪，令我一时语塞。因为，这种事谁也不可能百分之百保证。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    【我本来还以为，博道你是理解这些事情的。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;后来又发生过许多事情，在暑假最后，两人本来早就约好了要去烟花大会，可是晴香因为戏剧社社长为自己拍了一张很好的照片在网络小火，被社长介绍的制片人相中，恰好在烟火大会那天。&lt;/p&gt;
+&lt;p&gt;晴香认为只是耽误一天，于是提出第二天去东京的迪士尼玩，车费她会给&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;不是的，晴香。不是这样的。……我其实才不在乎什么烟火，对那一点兴趣也没有。约会也一样。今天也好明天也罢，哪天都无所谓。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;只是……我就只是希望……你能够选择我。因为觉得晴香离我愈来愈远而感到孤单。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;觉得再这样下去真的会成为遥不可及的存在，而心怀不安。……要是把这些心事对晴香吐露，她会愿意为我重新考虑吗？&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;愿意抛下至今累积的一切，放弃眼前即将到手的人生机会，选择和我在一起吗？&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; ……我不知道。我无法信赖晴香到这种地步。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;要是。假设。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;假设我坦白告知这想法……最后她还是不愿选择我──&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;那……好吧，那就去吧！去迪士尼乐园！」&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;最后晴香赴宴的路上，社长问她明明约好了和男朋友去烟花大会，这样男朋友不会生气吗&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【是。不过不要紧的，我们中午已经商量过，他愿意让我改日子。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【咦咦……可是…………噢，不会吧……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【嗯……像我这种局外人不该对这种事说三道四，所以我还是只说一次吧。你所谓的『支持』，背后是用多大的忍耐所换来的──要是晴香你不能理解这点，我想你们接下来恐怕不会长久喔。】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;临近小说的最后几章，博道还是和晴香分手了，博道和晴香，无论如何都无法互相追上彼此的真心，作者在大量描绘晴香的心理活动时，后期也是在拷问晴香是否真的喜欢博道，还是她只是喜欢心中那个白马王子的印象，她是只喜欢着自己对于博道的幻想，那个无论自己做什么都会接纳宽容的佐藤博道，而不是那个思绪敏感，脆弱，为了女友放心而拼命掩饰的佐藤博道。&lt;strong&gt;如果不能意识到自己的另一半为了自己付出了多大的努力，那么是长久不了的&lt;/strong&gt;。&lt;/p&gt;
+&lt;h1 id=&#34;我想成为你的眼泪&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我想成为你的眼泪&#34;&gt;#&lt;/a&gt; 《我想成为你的眼泪》&lt;/h1&gt;
+&lt;p&gt;作者 &lt;strong&gt;四季大雅&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;曾经世界带走了我最重要的人，现在依然&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;相遇&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这是一个从眼泪始、由眼泪终的故事。&lt;/p&gt;
+&lt;p&gt;你是否听过 “&lt;strong&gt;盐化病&lt;/strong&gt;”，身体渐渐化作盐分，从四肢蔓延向身体，从血肉变成结晶，分崩离析，无法医治，甚至很多人未曾听闻，我想你亦如此。&lt;/p&gt;
+&lt;p&gt;它带走了少年&lt;strong&gt;三枝八云&lt;/strong&gt;的母亲，我们都以为这是一个故事的结束，直到它又带走了八云的妻子。&lt;/p&gt;
+&lt;p&gt;音乐室内，五十岚摇月看着” 迷路 “的八云，好奇地问道：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【所以你实际上是在干什么呢？我刚才看到你往口袋里塞了些什么】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;于是，樱花的花瓣纷纷扬扬地落在了少女雪白的手心里。&lt;/p&gt;
+&lt;p&gt;“我祈祷花瓣可以将伤口填满，祈祷疼痛因此可以得到治愈。其实无所谓我收集了什么，只要它能填满伤口。”&lt;/p&gt;
+&lt;p&gt;少年八云如此希望着，希望母亲的伤痛因为这虔诚的祈祷减轻，他在心中祈祷着花瓣能为母亲送上微不足道的治愈，一路走，一路捡，未曾停歇。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我叫五十岚摇月。写作“摇曳之月”的摇月。你呢？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我叫三枝八云，写作“八重之云”的八云。——刚才那首曲子叫什么呢？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【《离别》。肖邦的曲子】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这就是八云跟摇月的相遇。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/01/21/4b796ba8d065702b.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;羁绊&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;摇月在弹奏钢琴上非常有天赋，但母亲兰子的培养方式，对于一个孩子来说实在是无法接受&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;兰子小姐涨红了脸，凶神恶煞地怒吼着。她丝毫不留情面地扇了摇月一巴掌。摇月的脑袋遭受了重击，她那黑色的长发也随之飘散着，凌乱不堪，瘦弱的肩膀也在微微地发抖。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  摇月擦了擦眼泪，又开始弹起了钢琴。她瑟缩着身子，一抽一抽的。兰子小姐怒吼了起来。又是一声耳光，“你为什么就弹不出来呢！”的辱骂声不停地重复着。我感觉所有的声音都铭刻在了我的鼓膜上。总是在同一个地方卡壳的钢琴声、清脆的耳光声、尖锐的怒吼声、低声啜泣的哭声、以及节拍器那强制性的声音。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;父亲也对此选择逃避，他对摇月的弥补的方式则是金钱，如果摇月想要钱，他就会从柜子里抽出一张给她，那里面大概有百万日元。&lt;/p&gt;
+&lt;p&gt;八云的父亲是一个非常有名的小说家，早年他为了找寻灵感，抛弃了妻子和八云，甚至还吃掉了自己的右眼（他自己说的），直到八云母亲去世，才过来安排葬礼。他问八云要不要一起生活，被拒绝了。&lt;/p&gt;
+&lt;p&gt;八云能够听出摇月弹奏的曲目所流露的情感，也能指出其中的问题，而摇月的曲子，也能让八云心情欢愉。出于一些幼稚的原因，慢慢地，学校的人开始疏远她，摇月开始游离于班级之外、疏远了母亲，她和八云找到一辆废弃公交车，也许对摇月而言，天底下再也没有比这辆废弃公交车更为温柔的地方了。她向那仅存于残垣断壁中的温柔寻求着治愈。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/01/21/80d2c2f3a6919769.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在某个黄昏&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我再也不想回到那样的家里去了。我也不想去上学了。钢琴我也不要弹了。什么事情我都不想做了。八云，永远待在这里吧，和我待在一起吧……】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……不行的啊】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……八云……你有……喜欢的人吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……怎么说呢】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【你不肯告诉我吗？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我不想告诉你】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……八云你可能有喜欢的人，也有可能没有……那假设，如果你真的有喜欢的人，那她会是除了我之外的谁呢？】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……如果我真的有喜欢的人，那只会是摇月你，不可能会是其他人】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【我也是……如果我真的有喜欢的人，那也只会是八云你哦】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;后来，摇月又邀请八云远走高飞，偷走爸爸柜子里的一百五十万日元&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【就算没有彻底逃走也可以的。真的，我只是想从生活中的一切逃离开去而已，哪怕只是一小阵子也行……求你了，和我一起走吧？我明天在秘密基地里等着你——】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;可是，在那个纷飞的雪夜里，抱着一百五十万的少女，终究没等到喜欢的少年。也从那以后，少女摇月再也没有为少年八云弹过琴。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;成长&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;后来日本发生地震，福岛核电站爆炸，因为日本的&lt;strong&gt;错误的，不负责任的&lt;/strong&gt;应对手段，导致核废料泄露。摇月的母亲希望她离开福岛县，前往意大利留学。&lt;/p&gt;
+&lt;p&gt;摇月不想要离开，她抱着最后的希望询问八云&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……为什么，你也要和我妈说同样的话呢……&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  我是在福岛出生长大的。我是吃着这片土地上的食物，喝着这条河里的水长大的。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  怎么可能随随便便地就逃离这里啊。一旦我出国留学了，我心中的无尽悲愤与悔恨就再也没法传达给任何人了。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  别人会说我落荒而逃，说我抛弃了福岛的啊！&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; 】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;愤怒的摇月跳进了人们认为被污染了的河里。&lt;/p&gt;
+&lt;p&gt;摇月的灵魂尽管轻盈，但是却并不轻松；八云的灵魂并不轻盈，但是却轻松至极。至少八云如此认为，他只是因为哪都去不了，所以才停留在原地而已。&lt;/p&gt;
+&lt;p&gt;八云安慰摇月，去意大利是为了弹奏出更美妙的音乐，这才能传达出自己的心情。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【那八云你呢？没有我的话，你活不下去的吧？如果我真的走了，你肯定会出事的】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;八云觉得他轻如鸿毛一般的灵魂，不应该去挽留摇月那重如泰山的灵魂。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;【……好吧。那再见】&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;后来，摇月的新 CD 发售了，封面却是摇月跳河的那张照片，经纪人偷偷拍的，副标题为《为伤痕累累的故乡所祈祷》。CD 发售爆红，可是那个雨夜，摇月与经纪人和母亲大吵一架，跑到了八云家里。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;终章&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是我为你讲述的故事的结局，却不是故事的结局。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;到了高中，摇月就去了意大利，慢慢的成为了很有名的钢琴家，八云开始写小说，三年多来杳无音讯。后来突然摇月让八云飞到华沙看她参加比赛，十八岁的少男少女，终是再次相遇。&lt;/p&gt;
+&lt;p&gt;在所有人都享受着摇月比赛演奏的曲目时，钢琴的声音戛然而止，摇月左手的无名指，第一关节和第二关节之间的部分突然折断，掉在了琴键上。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;在那一瞬，我看见了摇月无名指的断截面。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;——纯白如盐。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;我实在是太清楚这究竟意味着什么了。&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;摇月也患上了盐化病——&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这是我为你讲述的故事的结局，却不是故事的结局。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;《我想成为你的眼泪》：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cud2Vua3U4Lm5ldC9ib29rLzMyOTkuaHRt&#34;&gt;https://www.wenku8.net/book/3299.htm&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="二次元" />
+        <updated>2022-10-16T15:54:21.000Z</updated>
+    </entry>
+</feed>

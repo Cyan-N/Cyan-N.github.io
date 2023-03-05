@@ -3,28 +3,85 @@
     <id>https://cecilia.cool</id>
     <title>慕青の迷途 • Posts by &#34;八股文&#34; tag</title>
     <link href="https://cecilia.cool" />
-    <updated>2023-02-27T09:09:36.000Z</updated>
+    <updated>2023-03-05T02:02:30.000Z</updated>
+    <category term="Docker" />
     <category term="tools" />
     <category term="云计算" />
     <category term="八股文" />
+    <category term="网络协议与工具" />
     <category term="shell" />
     <category term="轻小说" />
-    <category term="网络协议与工具" />
     <category term="数据结构与算法" />
-    <category term="Docker" />
-    <category term="Spring全家桶" />
-    <category term="uni-app" />
-    <category term="日志框架" />
-    <category term="Mybatis" />
     <category term="MySQL" />
     <category term="Redis" />
-    <category term="JVM" />
-    <category term="Java基础" />
+    <category term="Mybatis" />
+    <category term="日志框架" />
+    <category term="Spring全家桶" />
+    <category term="uni-app" />
     <category term="Concurrency" />
-    <category term="Java8" />
-    <category term="设计模式" />
+    <category term="JVM" />
     <category term="Web" />
+    <category term="Java8" />
     <category term="网络编程" />
+    <category term="Java基础" />
+    <category term="设计模式" />
+    <entry>
+        <id>https://cecilia.cool/2023/03/05/%E5%85%AB%E8%82%A1%E6%96%87/Java%E9%9B%86%E5%90%88/</id>
+        <title>Java集合</title>
+        <link rel="alternate" href="https://cecilia.cool/2023/03/05/%E5%85%AB%E8%82%A1%E6%96%87/Java%E9%9B%86%E5%90%88/"/>
+        <content type="html">&lt;p&gt;本文涉及到 Java 集合部分，也包括线程安全的集合，还是以面试题的形式记录。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1. &lt;code&gt;ArrayList&lt;/code&gt;  和 &lt;code&gt;LinkedList&lt;/code&gt;  遍历谁更快？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;ArrayList&lt;/code&gt;  更快， &lt;code&gt;ArrayList&lt;/code&gt;  的优势就是内存连续，如果遍历 &lt;code&gt;LinkedList&lt;/code&gt; ，随机 IO 可能更多一些&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2. 谈谈你对 &lt;code&gt;ArrayList&lt;/code&gt;  的理解&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;从我学习程度来看， &lt;code&gt;ArrayList&lt;/code&gt;  需要注意的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;线程不安全，如果要保证安全，可以使用 &lt;code&gt;Vector&lt;/code&gt;  或者使用 &lt;code&gt;Collections.synchronizedList(xx)&lt;/code&gt; ，前者在每个操作方法上都加了 &lt;code&gt;synchronized&lt;/code&gt;  关键字，后者内部会维护一个排他锁，每次对集合操作时，都需要先竞争锁。&lt;/li&gt;
+&lt;li&gt;迭代器的 &lt;code&gt;fail-fast&lt;/code&gt;  机制：这其实是每个实现了 &lt;code&gt;iterator&lt;/code&gt;  集合都需要注意的地方，每次对数组进行增删，都会使得 &lt;code&gt;modCount++&lt;/code&gt; ，而迭代器的 &lt;code&gt;next&lt;/code&gt;  函数会检测 &lt;code&gt;modCount&lt;/code&gt;  是否和最开始的自己保存的 &lt;code&gt;modCount&lt;/code&gt;  相同，也就是检测在迭代的过程中数组是否发生了改变，&lt;strong&gt;因为这可能使得迭代过程中漏了某些元素或者重复遍历某些元素&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ArrayList&lt;/code&gt;  内部是使用 &lt;code&gt;Object&lt;/code&gt;  数组 -- &lt;code&gt;elementData&lt;/code&gt; ，但是该变量没有被 &lt;code&gt;private&lt;/code&gt;  修饰，代码注释写的是方便内部类更快的访问该属性，如果被 &lt;code&gt;private&lt;/code&gt;  修饰，那么同样的代码反编译后的字节码文件更复杂一些。&lt;/li&gt;
+&lt;li&gt;扩容时，是 1.5 倍增长，而 &lt;code&gt;Vector&lt;/code&gt;  扩容默认两倍扩容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;3. &lt;code&gt;HashMap&lt;/code&gt;  了解吗？1.7 版本和 1.8 版本都什么区别&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;JDK1.7&lt;/code&gt;  的 &lt;code&gt;HashMap&lt;/code&gt;  使用的是数组桶加链表，如果链表过长，那么时间复杂度会退化为 O (n)，而 1.8 使用的引入了红黑树，当链表节点为 8 时，就转为红黑树。至于为什么是 8，估计也是个统计概率值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;1.7&lt;/code&gt;  节点插入时使用的是头插法，而 1.8 使用的是尾插法，头插在并发环境下容易出现环导致死循环，具体形成原因我并没有仔细研究，因为我认为 &lt;code&gt;HashMap&lt;/code&gt;  本身就是线程不安全的，无论是头插还是尾插，在并发环境下都不能使用 &lt;code&gt;HashMap&lt;/code&gt; ，曾经也有人向社区报告 &lt;code&gt;bug&lt;/code&gt;  说 1.7 的 &lt;code&gt;HashMap&lt;/code&gt;  尾插会在并发环境下出现死循环，但是社区并没有管，而是回复 “ &lt;code&gt;HashMap&lt;/code&gt;  本来就不是给你在并发环境用的，想要安全请使用 &lt;code&gt;ConcurrentHashMap&lt;/code&gt; ”。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;4. &lt;code&gt;HashMap&lt;/code&gt;  扩容机制了解过吗，为什么容量大小必须是 2 的指数&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;HashMap&lt;/code&gt;  的容量大小默认是 16，阿里巴巴开发规范插件提示在初始化 &lt;code&gt;HashMap&lt;/code&gt;  时尽量指定容量大小（预计存储个数 / 负载因子 + 1），因为没有指定可能会导致多次扩容，这个涉及到重建 &lt;code&gt;Hash&lt;/code&gt;  表，链表分拆的操作，比较耗时。如果构造函数传入的容量不是 2 的指数，那么会将容量设置为既是 2 的指数，又是大于传入参数的最小数。&lt;/p&gt;
+&lt;p&gt;至于为什么是 2 的指数，涉及 &lt;code&gt;hash&lt;/code&gt;  公式，也就是 &lt;code&gt;index = hash &amp;amp; (len - 1)&lt;/code&gt; ，这个公式其实就相当于用长度取模 &lt;code&gt;index = hash % len&lt;/code&gt; ，只不过位运算快很多。扩容机制为两倍扩容，公式为 &lt;code&gt;newCap = 2 * oldCap&lt;/code&gt; ，我们假设下标为 &lt;code&gt;i&lt;/code&gt;  的那一部分，这个部分的链表的节点都满足 &lt;code&gt;hash / len = y ... i&lt;/code&gt; ，也就是说，我们假设商为 &lt;code&gt;y&lt;/code&gt; ，那么当商为奇数时（ &lt;code&gt;hash &amp;amp; oldCap == 0&lt;/code&gt; ），扩容后再使用 &lt;code&gt;hash&lt;/code&gt;  公式得到的结果就是 &lt;code&gt;i+n&lt;/code&gt; ，如果商为偶数的话，扩容后再 &lt;code&gt;hash&lt;/code&gt;  的结果还是 &lt;code&gt;i&lt;/code&gt; 。这就使得每次扩容，都将现有的链表拆为两部分，一部分留在当前下标，另一部分转移到扩容后的 &lt;code&gt;i+n&lt;/code&gt;  处，这种机制使用扩容时逻辑简单，操作迅速，还使得数组中节点分布均匀，不会出现那种节点都分布在前半部分或者后半部分。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;5. 为什么重写 &lt;code&gt;equals&lt;/code&gt;  方法的同时建议重写 &lt;code&gt;hashCode方法&lt;/code&gt; ，能用 &lt;code&gt;HashMap&lt;/code&gt;  举个例子吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们假设一个类为 &lt;code&gt;People&lt;/code&gt; ，只有一个属性 &lt;code&gt;name&lt;/code&gt; ，那么现实情况下，两个对象相等，要么他们内存地址相同，要么 &lt;code&gt;equals&lt;/code&gt;  比较后相同，这里也就是 &lt;code&gt;name&lt;/code&gt;  相同。如果不重写 &lt;code&gt;hashCode&lt;/code&gt;  方法，也就是使用 &lt;code&gt;Object&lt;/code&gt;  内置的方法。现在有两个内存地址不同的 &lt;code&gt;People&lt;/code&gt;  对象， &lt;code&gt;name&lt;/code&gt;  相同使得 &lt;code&gt;equals&lt;/code&gt;  相同，但是 &lt;code&gt;hashCode&lt;/code&gt;  却不相同，那么当这两个对象作为 &lt;code&gt;Key&lt;/code&gt;  加入到 &lt;code&gt;HashMap&lt;/code&gt;  时，我们希望的是后加入的对象会覆盖前面加入的，因为两个对象是相同的，但是因为 &lt;code&gt;hashCode&lt;/code&gt;  不同，他们两个甚至连映射出来的数组下标都不同，是无法覆盖的。这也就导致 &lt;code&gt;HashMap&lt;/code&gt;  中有两个相同的 &lt;code&gt;key&lt;/code&gt; ，这明显不符合哈希表的定义。&lt;/p&gt;
+&lt;p&gt;再来看 &lt;code&gt;HashMap&lt;/code&gt;  的源码，为了实现覆盖操作，首先就要使得 &lt;code&gt;equals&lt;/code&gt;  相同的对象 &lt;code&gt;hashCode&lt;/code&gt;  也相同才一定能映射到同样的下标，然后顺着链表向下查找，如果 &lt;code&gt;HashCode&lt;/code&gt;  相同，同时 &lt;code&gt;equals&lt;/code&gt;  也相同就会覆盖，反之如果遍历了整个链表都没有这样的节点，就算做新增节点，尾插到链表中。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;6. 说说 &lt;code&gt;HashMap&lt;/code&gt;  与 &lt;code&gt;HashTable&lt;/code&gt;  的区别&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;并发： &lt;code&gt;HashTable&lt;/code&gt;  用于并发环境，通过在方法上加入 &lt;code&gt;synchronized&lt;/code&gt;  关键字保证线程安全，但是并行度太低了，所以大多数都使用 &lt;code&gt;ConcurrentHashMap&lt;/code&gt; 。而 &lt;code&gt;HashMap&lt;/code&gt;  是线程不安全的。&lt;/li&gt;
+&lt;li&gt;存储： &lt;code&gt;HashTable&lt;/code&gt;  键值对不允许存储 &lt;code&gt;null&lt;/code&gt; ，而 &lt;code&gt;HashMap&lt;/code&gt;  却可以， &lt;code&gt;HashTable&lt;/code&gt;  源码中会先判断 &lt;code&gt;value&lt;/code&gt;  是不是 &lt;code&gt;null&lt;/code&gt; ，从而抛出空指针异常，并且会直接调用 &lt;code&gt;key&lt;/code&gt;  的 &lt;code&gt;hashCode&lt;/code&gt;  方法，计算比较粗暴，而 &lt;code&gt;HashMap&lt;/code&gt;  统一指定 &lt;code&gt;key==null&lt;/code&gt;  时 &lt;code&gt;hashCode&lt;/code&gt;  为 0，至于 &lt;code&gt;value&lt;/code&gt;  是否为 &lt;code&gt;null&lt;/code&gt;  完全不重要，因为插入删除过程都不会涉及到 &lt;code&gt;value&lt;/code&gt; ，只会比较 &lt;code&gt;key&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;迭代： &lt;code&gt;HashTable&lt;/code&gt;  有两个迭代器， &lt;code&gt;Enumeration&lt;/code&gt;  使用的是安全失败机制（ &lt;code&gt;fail-safe&lt;/code&gt; ），而 &lt;code&gt;Iterator&lt;/code&gt;  是快速失败机制。 &lt;code&gt;HashMap&lt;/code&gt;  使用的是快速失败机制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;7. 刚才提到 &lt;code&gt;ConcurrentHashMap&lt;/code&gt; ，你知道什么？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvTXk0UF9CQlhEbkFHWDFnaDYzMFpLdw==&#34;&gt;https://mp.weixin.qq.com/s/My4P_BBXDnAGX1gh630ZKw&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;这个也要分 &lt;code&gt;1.7&lt;/code&gt;  和 &lt;code&gt;1.8&lt;/code&gt;  两个版本：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1.7&lt;/code&gt;  使用的是数组桶 + 链表，分段，段数决定并行度。通俗来讲， &lt;code&gt;1.7&lt;/code&gt;  版本维护了一个数组，数组中每个元素都是一个 &lt;code&gt;HashMap&lt;/code&gt; ，上锁就是对每个段上锁。所以并行度并不高&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1.8&lt;/code&gt;  使用的是数组桶 + 链表（升级红黑树），同时锁的粒度更小了，使用 &lt;code&gt;CAS+synchronized&lt;/code&gt;  来实现并发安全。维护的数组和 &lt;code&gt;HashMap&lt;/code&gt;  的数组是一致的，只不过每次上锁都是对要修改的下标单个元素进行上锁。由于 &lt;code&gt;Synchronized&lt;/code&gt;  的性能采用锁升级的方式优化后， &lt;code&gt;ConcurrentHashMap&lt;/code&gt;  的性能也随之上升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;至于 &lt;code&gt;CAS&lt;/code&gt;  操作，是对数组元素进行修改，也就是&lt;strong&gt;链表的表头&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;只要上了锁，保证了线程安全，其他的都和 &lt;code&gt;HashMap&lt;/code&gt;  没有太多区别，也就有些细节不同，比如 &lt;code&gt;HashMap&lt;/code&gt;  再加入一个键值对就要扩容了，它会先插入再扩容，而 &lt;code&gt;ConcurrenHashMap&lt;/code&gt;  是先扩容再插入。&lt;/p&gt;
+</content>
+        <category term="八股文" />
+        <updated>2023-03-05T02:02:30.000Z</updated>
+    </entry>
     <entry>
         <id>https://cecilia.cool/2023/02/27/%E5%85%AB%E8%82%A1%E6%96%87/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</id>
         <title>计算机网络</title>
@@ -149,6 +206,9 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;源认证必须配合首包丢弃使用，不然性能瓶颈也只是从服务器转移到了 Anti-DDos 系统中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置 TCP 参数也可以一定程度上防御 SYN 攻击，比如扩大半连接队列，开启 &lt;code&gt;syncookies&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;8.TCP 的半连接队列和全连接队列了解吗？如果队列满了怎么办？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -257,6 +317,18 @@
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;DNS 劫持&lt;/strong&gt;：劫持了 DNS 服务器，通过某些手段取得某域名的解析记录控制权，进而修改此域名的解析结果，导致对该域名的访问由原 IP 地址转入到修改后的指定 IP。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;DNS 污染&lt;/strong&gt;：通过对 UDP 端口 53 上的 DNS 查询进行入侵检测，一经发现与关键词相匹配的请求则立即伪装成目标域名的解析服务器（NS，Name Server）给查询者返回虚假结果。很难靠个人设置解决，使用 VPN 是一个方法&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;12. 聊聊 IP 协议，它和 MAC 地址有什么区别，IPV4 和 IPV6 呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;IP 协议用于唯一标识网络设备，属于网络层协议，传输层将数据包传到网络层后，会为数据加上 IP 首部。 &lt;code&gt;MAC&lt;/code&gt;  属于链路层，用于标识下一跳的网络设备的物理地址，数据从源主机到目的主机的过程中， &lt;code&gt;MAC&lt;/code&gt;  首部每经过一个路由器都会变换，而 IP 地址不会变换。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IPv4&lt;/code&gt;  地址由 32 位组成，以前会根据前几位将其分为 &lt;code&gt;ABCDE&lt;/code&gt;  类地址，但是分类地址的局限性太多，比如 C 类 IP 数量太少，而 A 类 IP 数量有太多，所以采用了无分类 IP 地址，通过子网掩码和 IP 地址做 ** &lt;code&gt;&amp;amp;&lt;/code&gt;  运算&lt;strong&gt;来确定&lt;/strong&gt;网络号、子网号 **。在路由控制中，目的地址与路由表中的子网掩码运算并比较网络号，从而进行路由转发。&lt;/p&gt;
+&lt;p&gt;IP 协议因为不能重组分片数据，所以分片会导致严重的性能损耗，一个分片丢失了，就要重发整个 IP 数据报，所以通过引入 &lt;code&gt;MSS&lt;/code&gt;  将分片操作交给 &lt;code&gt;TCP&lt;/code&gt;  处理。&lt;/p&gt;
+&lt;p&gt;IPv6 相对于 IPv4 的改进：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;取消了首部校验和字段：因为数据链路层和传输层都会校验&lt;/li&gt;
+&lt;li&gt;取消分片 / 重组相关字段，这种操作只允许源 / 目标主机。&lt;/li&gt;
+&lt;li&gt;使用了 128 位，16 进制，极大扩充了 IP 数量&lt;/li&gt;
+&lt;/ul&gt;
 </content>
         <category term="八股文" />
         <updated>2023-02-27T09:09:36.000Z</updated>

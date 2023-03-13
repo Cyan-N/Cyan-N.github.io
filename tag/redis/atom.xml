@@ -4,27 +4,27 @@
     <title>慕青の迷途 • Posts by &#34;redis&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2022-11-27T15:59:09.000Z</updated>
-    <category term="Docker" />
-    <category term="云计算" />
-    <category term="二次元" />
-    <category term="八股文" />
     <category term="tools" />
-    <category term="shell" />
+    <category term="二次元" />
+    <category term="Docker" />
+    <category term="八股文" />
+    <category term="云计算" />
     <category term="数据结构与算法" />
     <category term="网络协议与工具" />
+    <category term="shell" />
+    <category term="uni-app" />
+    <category term="Spring全家桶" />
+    <category term="Mybatis" />
+    <category term="日志框架" />
     <category term="MySQL" />
     <category term="Redis" />
-    <category term="uni-app" />
-    <category term="Mybatis" />
-    <category term="Spring全家桶" />
-    <category term="日志框架" />
     <category term="Concurrency" />
-    <category term="JVM" />
-    <category term="Web" />
-    <category term="Java8" />
     <category term="Java基础" />
+    <category term="Java8" />
     <category term="网络编程" />
     <category term="设计模式" />
+    <category term="Web" />
+    <category term="JVM" />
     <entry>
         <id>https://cecilia.cool/2022/11/27/Database/Redis/Redis%E5%85%A5%E9%97%A8(6)-%E4%B8%BB%E4%BB%8E%E4%B8%8E%E5%93%A8%E5%85%B5/</id>
         <title>Redis入门(6)--主从与哨兵</title>
@@ -250,7 +250,7 @@
 &lt;p&gt;Redis 数据放在内存中所以快， 但是也容易丢失。引出两种持久化方法：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;存储数据到硬盘中。&lt;/li&gt;
-&lt;li&gt;保存存放数据的过程，恢复数据时，只需要将过程执行一遍（有点 undo 日志的味道）。&lt;/li&gt;
+&lt;li&gt;保存存放数据的过程，恢复数据时，只需要将过程执行一遍（有点 redo 日志的味道）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;rdb&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#rdb&#34;&gt;#&lt;/a&gt; RDB&lt;/h2&gt;
 &lt;p&gt;就是将数据保存到硬盘中：&lt;/p&gt;
@@ -260,11 +260,11 @@
 &lt;p&gt;以第一个为例，意思为 900 秒内有 1 个写入时，就保存。配置的 save 使用的都是 bgsave 后台执行。&lt;/p&gt;
 &lt;p&gt;RDB 保证数据一致性，生产环境中内存区都比较大，将内存中的数据同步到硬盘的过程可能会持续比较长，此时 Redis 服务收到数据写请求就需要&lt;strong&gt;保证数据一致性&lt;/strong&gt;。核心思路是 Copy-on-Write：&lt;/p&gt;
 &lt;p&gt;我们需要保证的是，在某个数据执行写入磁盘操作时，该数据在内存中不会发生变化。&lt;/p&gt;
-&lt;p&gt;在正常的快照操作中，Redis 主进程会 fork 一个新的快照进程专门来做这个事情，这样保证了 Redis 服务不会停止对客户端包括写请求在内的任何响应。子进程就不断将内存数据存入磁盘。这个过程中，主进程对于内存只有&lt;strong&gt; read-only&lt;/strong&gt; 权限，当发生写请求时，会触发页异常中断，陷入内核的中断例程，此时内核就会把触发异常的页复制一份（还未修改）交给子进程。这种哪个页发生修改就复制哪个页的机制，细化了内存粒度。&lt;/p&gt;
+&lt;p&gt;在正常的快照操作中，Redis 主进程会 fork 一个新的快照进程专门来做这个事情，这样保证了 Redis 服务不会停止对客户端包括写请求在内的任何响应。子进程就不断将内存数据存入磁盘。这个过程中，主进程对于内存只有&lt;strong&gt; read-only&lt;/strong&gt; 权限，当发生写请求时，会触发页异常中断，陷入内核的中断例程，此时内核就会把触发异常的页复制一份，然后对这个复制的页进行修改，而子进程相应的页没有变化。这种哪个页发生修改就复制哪个页的机制，细化了内存粒度。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;在进行快照操作的这段时间，如果发生服务崩溃怎么办&lt;/strong&gt;？&lt;/p&gt;
 &lt;p&gt;很简单，在没有将数据全部写入到磁盘前，这次快照操作都不算成功。如果出现了服务崩溃的情况，将以上一次完整的 RDB 快照文件作为恢复内存数据的参考。也就是说，在快照操作过程中不能影响上一次的备份数据。Redis 服务会在磁盘上创建一个临时文件进行数据操作，待操作成功后才会用这个临时文件替换掉上一次的备份。&lt;/p&gt;
 &lt;h2 id=&#34;aof&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#aof&#34;&gt;#&lt;/a&gt; AOF&lt;/h2&gt;
-&lt;p&gt;RDB 缺点在于，如果在自动保存前服务器崩溃，依然会导致少量数据丢失。AOF 就是另一种方式，它会以日志的形式将我们每次执行的命令都进行保存，服务器重启时会将所有命令依次执行，通过这种重演的方式将数据恢复，这样就能很好解决实时性存储问题。&lt;/p&gt;
+&lt;p&gt;RDB 缺点在于，如果在自动保存前服务器崩溃，依然会导致数据丢失。AOF 就是另一种方式，它会以日志的形式将我们每次执行的命令都进行保存，服务器重启时会将所有命令依次执行，通过这种重演的方式将数据恢复，这样就能很好解决实时性存储问题。&lt;/p&gt;
 &lt;p&gt;对于日志的记录，也有保存策略可以配置：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;always：每次写操作都会保存&lt;/li&gt;

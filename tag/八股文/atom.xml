@@ -4,27 +4,27 @@
     <title>慕青の迷途 • Posts by &#34;八股文&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2024-03-07T02:14:42.000Z</updated>
-    <category term="tools" />
-    <category term="二次元" />
+    <category term="shell" />
+    <category term="云计算" />
     <category term="Docker" />
     <category term="八股文" />
-    <category term="云计算" />
+    <category term="tools" />
+    <category term="二次元" />
     <category term="数据结构与算法" />
     <category term="网络协议与工具" />
-    <category term="shell" />
-    <category term="uni-app" />
+    <category term="日志框架" />
     <category term="Spring全家桶" />
     <category term="Mybatis" />
-    <category term="日志框架" />
+    <category term="uni-app" />
     <category term="MySQL" />
     <category term="Redis" />
-    <category term="Concurrency" />
-    <category term="Java基础" />
     <category term="Java8" />
-    <category term="网络编程" />
+    <category term="Java基础" />
+    <category term="Concurrency" />
     <category term="设计模式" />
-    <category term="Web" />
     <category term="JVM" />
+    <category term="网络编程" />
+    <category term="Web" />
     <entry>
         <id>https://cecilia.cool/2024/03/07/%E5%85%AB%E8%82%A1%E6%96%87/%E9%9D%A2%E7%BB%8F/</id>
         <title>面经</title>
@@ -247,7 +247,9 @@
         <id>https://cecilia.cool/2023/03/08/%E5%85%AB%E8%82%A1%E6%96%87/Redis/</id>
         <title>Redis</title>
         <link rel="alternate" href="https://cecilia.cool/2023/03/08/%E5%85%AB%E8%82%A1%E6%96%87/Redis/"/>
-        <content type="html">&lt;p&gt;本文积累了我在（准备）面试的关于 &lt;code&gt;Redis&lt;/code&gt;  的问题，当然我不喜欢背八股文，所以就会强迫自己去系统性学习， &lt;code&gt;Redis&lt;/code&gt;  之前我开了一个 &lt;code&gt;tag&lt;/code&gt;  的，但是没更完就要准备面试了，Java 太卷了！！&lt;/p&gt;
+        <content type="html">&lt;p&gt;本文积累了我在（准备）面试的关于 &lt;code&gt;Redis&lt;/code&gt;  的问题，当然我不喜欢背八股文，所以就会强迫自己去系统性学习， &lt;code&gt;Redis&lt;/code&gt;  之前我开了一个 &lt;code&gt;tag&lt;/code&gt;  的，但是没更完就要准备面试了，Java 后端岗位太卷了！！&lt;/p&gt;
+&lt;p&gt;大部分参考&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly94aWFvbGluY29kaW5nLmNvbS8=&#34;&gt;小林 Coding&lt;/span&gt; 以及敖丙的&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0FvYmluZ0phdmEvSmF2YUZhbWlseQ==&#34;&gt; JavaFamily&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&#34;通用篇&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#通用篇&#34;&gt;#&lt;/a&gt; 通用篇&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  为什么这么快？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -264,38 +266,23 @@
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvS3R6dmF3RG5RUXdoZmpuQ29YcGNNUQ==&#34;&gt;https://mp.weixin.qq.com/s/KtzvawDnQQwhfjnCoXpcMQ&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvbXNjS0luV05BdWhDYmcxODNVbTlfZw==&#34;&gt;https://mp.weixin.qq.com/s/mscKInWNAuhCbg183Um9_g&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h1 id=&#34;数据类型篇&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据类型篇&#34;&gt;#&lt;/a&gt; 数据类型篇&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;String、List、Hash、Set、Zset、Stream、Hyperloglog、GEO、BitMap、BloomFilter&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;刚才你提到了 &lt;code&gt;HyperLoglog&lt;/code&gt; ，知道怎么原理吗？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;redisObject&lt;/code&gt;  是什么，为什么需要这个对象？&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;HyperLoglog&lt;/code&gt;  是一个基于基数统计的数据结构，其实底层算法很早之前就有人提出了，但是 &lt;code&gt;Redis&lt;/code&gt;  第一次使用数据结构将其实现。说到应用，我们可以假设一个场景，有个业务需求需要每个网页都统计访问量，同一 IP 多次访问只算做一次访问。如果是在业务端实现，最先想到的就是对每一个网页加一个 &lt;code&gt;Set&lt;/code&gt; ，最后需要统计量时直接获取集合大小即可，如果访问量很大，上百万、千万什么的，就非常消耗内存，不可能为了这么小的业务需求付出这么大的内存，并且这种业务是可以容忍一定误差的，所以就可以使用 &lt;code&gt;Redis&lt;/code&gt;  里的 &lt;code&gt;HyperLoglog&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;至于原理，涉及到统计概率中的伯努利实验，以及后来者引入的桶和加权平均等修正，我还没来得及深入了解。仅仅只知道这确实可以统计去重元素个数，但是存在一点误差，如果可以容忍误差，那么性能是很高的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  如何保证数据高可用的？（变相问你持久化）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  为了保证数据高可用，引入了持久化机制， 在早期版本，还有 VM，后来版本不推荐了。现在一般都是使用 &lt;code&gt;RDB&lt;/code&gt; 、 &lt;code&gt;AOF&lt;/code&gt;  或者混合持久化。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;RDB&lt;/code&gt;  通过对内存数据拍摄快照来持久化数据，触发机制是在一定时间内发生一定次数的修改操作。当然也可以使用 &lt;code&gt;save/bgsave&lt;/code&gt;  主动拍摄快照，前者会阻塞线程，后者才会 &lt;code&gt;fork&lt;/code&gt;  一个子线程进行快照拍摄。因为采用了压缩算法，实际占用空间很小。异步存储为了保证数据一致性，借助了操作系统的 &lt;code&gt;Copy on Write&lt;/code&gt;  机制，主线程修改哪个页，就会先将这个页复制出来，在复制页进行修改。等快照拍摄结束，再将复制的页合并到原始内存中。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;AOF&lt;/code&gt;  通过存储执行的命令到磁盘中保证数据的持久性，可以配置多种存储方式，比如执行一条命令就存储一条，或者每秒存储一次，或者看系统心情，什么时候有空什么时候就将缓冲区的命令存进去。 &lt;code&gt;AOF&lt;/code&gt;  机制执行久了，就会导致文件保存了很多无效的命令，所以需要重写 &lt;code&gt;AOF&lt;/code&gt;  文件 —— &lt;code&gt;bgrewriteaof&lt;/code&gt; ，过程为：子线程遍历 &lt;code&gt;Redis&lt;/code&gt;  内存生成一系列指令，然后将这些指令序列化到临时文件中，过程中的增量命令会追加到临时文件中，最后替换 &lt;code&gt;AOF&lt;/code&gt;  文件。这里需要重点说一下，我们将数据写入到文件中时，其实是先写入到内核缓冲区，再到磁盘缓冲区，最后到磁盘，最后一个阶段我们是无法介入的，但是可以调用 &lt;code&gt;fsync()&lt;/code&gt;  强制将数据刷新到磁盘缓冲区。 &lt;code&gt;redis&lt;/code&gt;  默认是每秒调用一次。（有参数控制何时重写，比如文件大小超过多少，增量达到多少）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;混合持久化&lt;/code&gt; ：4.0 版本后还出现了混合持久化，该机制必须打开 &lt;code&gt;AOF&lt;/code&gt; ，隔一段时间拍摄快照，生成 &lt;code&gt;rdb&lt;/code&gt;  数据，两次快照之间的记录使用 &lt;code&gt;AOF&lt;/code&gt;  日志来记录，并追加到 &lt;code&gt;rdb&lt;/code&gt;  数据后面。恢复数据时，先回复 &lt;code&gt;rbd&lt;/code&gt;  数据，再执行 &lt;code&gt;AOF&lt;/code&gt;  日志。这种机制既解决了 &lt;code&gt;rdb&lt;/code&gt;  快照摄时突然断电导致整个快照丢失（因为还在临时文件中），也解决了 &lt;code&gt;AOF&lt;/code&gt;  文件太大，不断重写的性能消耗。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;redis&lt;/code&gt;  是键值数据库，这意味着会对键有大量的操作，一些命令只适用于特定的数据类型，如 &lt;code&gt;zadd&lt;/code&gt;  只适用于 &lt;code&gt;zset&lt;/code&gt;  而不适合 &lt;code&gt;string&lt;/code&gt; ，但是又有一些命令适用于所有 &lt;code&gt;key&lt;/code&gt; ，如 &lt;code&gt;ttl&lt;/code&gt; 、 &lt;code&gt;del&lt;/code&gt;  等，所以这些命令要正确执行， &lt;code&gt;key&lt;/code&gt;  就需要带有类型信息，使得程序可以检查 &lt;code&gt;key&lt;/code&gt;  类型，选择合适的处理方式。&lt;/p&gt;
+&lt;p&gt;为此 &lt;code&gt;redis&lt;/code&gt;  构建了自己的类型系统，包括显示多态，类型判断，对象分配销毁和共享。 &lt;code&gt;redisObject&lt;/code&gt;  的属性有 &lt;code&gt;type、encoding、lru、refcount、ptr&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;redisObject&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 类型，判断数据类型&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;unsigned&lt;/span&gt; type&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 编码方式，判断数据结构&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;unsigned&lt;/span&gt; encoding&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// LRU - 24 位，记录最末一次访问时间（相对于 lru_clock）; 或者 LFU（最少使用的数据：8 位频率，16 位访问时间）&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;unsigned&lt;/span&gt; lru&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;LRU_BITS&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// LRU_BITS: 24&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 引用计数&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; refcount&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 指向底层数据结构实例&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;ptr&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; robj&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;当执行一个命令时，假设是 &lt;code&gt;zadd&lt;/code&gt; ，就会先将 &lt;code&gt;key&lt;/code&gt;  从字典中找到对应的 &lt;code&gt;redisObject&lt;/code&gt; ，如果为 &lt;code&gt;null&lt;/code&gt;  就说明 &lt;code&gt;key&lt;/code&gt;  不存在，然后继续检查 &lt;code&gt;type&lt;/code&gt;  是否正确，最后根据 &lt;code&gt;encoding&lt;/code&gt;  判断底层的数据结构到底是什么来调用多态函数。&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGIvbm9zcWwtcmVkaXMvZGItcmVkaXMteC1yZGItYW9mLmh0bWwjcmRiJUU1JTkyJThDYW9mJUU2JUI3JUI3JUU1JTkwJTg4JUU2JTk2JUI5JUU1JUJDJThGLTQtMCVFNyU4OSU4OCVFNiU5QyVBQw==&#34;&gt;Redis 进阶 - 持久化&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvT19xRGNvNi1EYXN1M1JvbVdJS19JZw==&#34;&gt;https://mp.weixin.qq.com/s/O_qDco6-Dasu3RomWIK_Ig&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGIvbm9zcWwtcmVkaXMvZGItcmVkaXMteC1yZWRpcy1vYmplY3QuaHRtbA==&#34;&gt;https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-object.html&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cubW9kYi5wcm8vZGIvNzI5NDc=&#34;&gt;https://www.modb.pro/db/72947&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  如何保证数据一致性？&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;首先，很难保证缓存和数据库 100% 数据一致，因为我们引入 &lt;code&gt;Redis&lt;/code&gt;  本身是为了性能，花很大代价完全保证数据一致性，有时性能反而还会下降，只能说尽量吧。&lt;/p&gt;
-&lt;p&gt;考虑到并发，面对更新请求，我了解到的解决方案就是：先更新数据库再删除缓存（也有问题，但是相对概率很小）。如果是更新数据库 + 更新缓存，并发问题很大，哪怕是先删除缓存再更新数据库，也存在并发问题，因为从数据库拿数据到缓存中是两步：从数据库读取，写到缓存中。只要不是原子操作，在并发环境就可能导致数据不一致。&lt;/p&gt;
-&lt;p&gt;再考虑到删除缓存操作可能会失败，现在的解决方案一般是使用消息队列或者订阅数据库变更日志再操作缓存（canal）。&lt;/p&gt;
-&lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvRDRJazZsVEFfeVNCT3lEM3dhTmoxdw==&#34;&gt;https://mp.weixin.qq.com/s/D4Ik6lTA_ySBOyD3waNj1w&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Redis 的 &lt;code&gt;SDS&lt;/code&gt;  是什么？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -306,9 +293,38 @@
 &lt;li&gt;操作不方便，容易溢出，类似 &lt;code&gt;strcat&lt;/code&gt;  这种函数，拼接两个字符串，都会默认前一个字符串剩余空间足够，所以很不方便。 &lt;code&gt;SDS&lt;/code&gt;  维护了当前分配空间大小 &lt;code&gt;alloc&lt;/code&gt; ，可以检测剩余空间。&lt;/li&gt;
 &lt;li&gt;以 &lt;code&gt;\0&lt;/code&gt;  结束，需要指定编码格式。这种性质使得字符串只能存储文本文件， &lt;code&gt;SDS&lt;/code&gt;  使用了字节数组，使得可以存储任何可转为字节的数据。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;SDS&lt;/code&gt;  还可以动态扩容，并且会还会多分配一些未使用空间，减少分配次数。 &lt;code&gt;SDS&lt;/code&gt;  设计了不同类型的结构体，区别在于 &lt;code&gt;len&lt;/code&gt;  和 &lt;code&gt;alloc&lt;/code&gt;  的大小不同，通过为不同大小字符串灵活分配，可以节省内存。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SDS&lt;/code&gt;  还可以动态扩容，并且会还会多分配一些未使用空间，减少分配次数。具体是，当操作触发扩容机制，会先算出需要扩容到多少才够，这个值保存在 &lt;code&gt;newLen&lt;/code&gt;  中，然后真正扩容还会多分配一些空间：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 &lt;code&gt;newLen &amp;lt; 1MB&lt;/code&gt; ，那么 &lt;code&gt;newLen *= 2&lt;/code&gt;  再进行扩容&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;newLen &amp;gt;= 1MB&lt;/code&gt; ，那么 &lt;code&gt;newLen += 1MB&lt;/code&gt;  再进行扩容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;SDS&lt;/code&gt;  设计了不同类型的结构体，区别在于 &lt;code&gt;len&lt;/code&gt;  和 &lt;code&gt;alloc&lt;/code&gt;  的大小不同，通过为不同大小字符串灵活分配，可以节省内存。&lt;/p&gt;
 &lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;__attribute__&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;__packed__&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;sdshdr16&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint16_t&lt;/span&gt; len&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint16_t&lt;/span&gt; alloc&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; flags&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; 	&lt;span class=&#34;token comment&#34;&gt;// SDS 类型&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; buf&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;最后， &lt;code&gt;SDS&lt;/code&gt;  还使用了编译优化 &lt;code&gt;__attribute__ ((__packed__))&lt;/code&gt; ，告诉编译器取消结构在编译中的对齐优化，而是实际使用多少就分配多少。比如一个结构体有 1 个 &lt;code&gt;int&lt;/code&gt;  和 1 个 &lt;code&gt;char&lt;/code&gt; ，正常的优化对齐会使 &lt;code&gt;char&lt;/code&gt;  对齐 &lt;code&gt;int&lt;/code&gt; ，也就是 &lt;code&gt;char&lt;/code&gt;  也会占 3 个字节。其实这 3 个字节就浪费了。 &lt;code&gt;SDS&lt;/code&gt;  的编译优化就可以使 &lt;code&gt;char&lt;/code&gt;  只分配一个字节。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SDS&lt;/code&gt;  与 &lt;code&gt;redisObject&lt;/code&gt;  的关系根据字符串存储的值的不同而有所不同：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字符串对象保存的整数值，并且该整数可以用 &lt;code&gt;long&lt;/code&gt;  表示，那么就会把 &lt;code&gt;redisObject.ptr&lt;/code&gt;  从 &lt;code&gt;void*&lt;/code&gt;  改为 &lt;code&gt;long&lt;/code&gt; ，并设置 &lt;code&gt;encoding=int&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;字符串对象保存的字符串，则使用 &lt;code&gt;SDS&lt;/code&gt;  保存字符串， &lt;code&gt;ptr&lt;/code&gt;  指向 &lt;code&gt;SDS&lt;/code&gt;  地址，实际数据放在 &lt;code&gt;SDS&lt;/code&gt;  中的 &lt;code&gt;buf&lt;/code&gt;  中。如果字符串字节长度 &lt;code&gt;&amp;lt;=X&lt;/code&gt; ，则 &lt;code&gt;encoding=embstr&lt;/code&gt;  反之则 &lt;code&gt;encoding=raw&lt;/code&gt; 。（x 在个版本中定义不同，2.+ 是 32，3.0-4.0 是 39，5.0 是 44）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;embstr&lt;/code&gt;  会一次性分配 &lt;code&gt;redisObject&lt;/code&gt;  和 &lt;code&gt;SDS&lt;/code&gt;  的空间，有利于内存连续更好利用 CPU 缓存，减少内存分配次数，内存释放次数。而 &lt;code&gt;raw&lt;/code&gt;  就需要分配两次。 &lt;code&gt;embstr&lt;/code&gt;  是只读的，如果要对 &lt;code&gt;embstr&lt;/code&gt;  操作，就会先升级为 &lt;code&gt;raw&lt;/code&gt;  再执行修改命令。&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvcXB0RTE3MnNsZ182VGwxeXV6ZGJmdw==&#34;&gt;https://mp.weixin.qq.com/s/qptE172slg_6Tl1yuzdbfw&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;redis&lt;/code&gt;  的 &lt;code&gt;BitMap&lt;/code&gt;  是什么？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;位图，本质就是比特数组，用于存储一些只有两个状态的数据，占用空间小，实际应用：打卡，判断用户登录态（5000 万用户只需要 6MB 空间）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;刚才你提到了 &lt;code&gt;HyperLoglog&lt;/code&gt; ，知道怎么原理吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;HyperLoglog&lt;/code&gt;  是一个基于基数统计（集合中不重复元素的个数）的数据结构，其实底层算法很早之前就有人提出了，但是 &lt;code&gt;Redis&lt;/code&gt;  第一次使用数据结构将其实现。说到应用，我们可以假设一个场景，有个业务需求需要每个网页都统计访问量，同一 IP 多次访问只算做一次访问。如果是在业务端实现，最先想到的就是对每一个网页加一个 &lt;code&gt;Set&lt;/code&gt; ，最后需要统计量时直接获取集合大小即可，如果访问量很大，上百万、千万什么的，就非常消耗内存，不可能为了这么小的业务需求付出这么大的内存，并且这种业务是可以容忍一定误差的，所以就可以使用 &lt;code&gt;Redis&lt;/code&gt;  里的 &lt;code&gt;HyperLoglog&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;至于原理，涉及到统计概率中的伯努利实验，以及后来者引入的桶和加权平均等修正，我还没来得及深入了解。仅仅只知道这确实可以统计去重元素个数，但是存在一点误差，如果可以容忍误差，那么性能是很高的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;GEO&lt;/code&gt;  是什么，有什么用？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;GEO&lt;/code&gt;  并没有设计新的数据结构，而是使用了 &lt;code&gt;Sorted Set&lt;/code&gt; ，使用 &lt;code&gt;GeoHash&lt;/code&gt;  编码方法实现了经纬度到元素权重分数的转换，关键就是【对二维地图做区间划分】和【对区间进行编码】，经纬度落到某个区间，就用这个区间的编码值表示 &lt;code&gt;Sorted Set&lt;/code&gt;  元素的权重分数。&lt;/p&gt;
+&lt;p&gt;实际应用如&lt;strong&gt;滴滴叫车&lt;/strong&gt;：主要使用 &lt;code&gt;GEOADD&lt;/code&gt;  和 &lt;code&gt;GEORADIUS&lt;/code&gt;  两个命令。使用 &lt;code&gt;GEO&lt;/code&gt;  集合保存所有车辆的经纬度，当用户想寻找自己附近的车，LBS（Location Based Services）应用就可以以用户的经纬度为中心指定公里内的车辆信息找到并返回。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的压缩列表了解过吗？&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -325,17 +341,70 @@
 &lt;p&gt;如果有一个查询请求，在哈希表 1 查不到，就会去哈希表 2 查询。在渐进式 &lt;code&gt;rehash&lt;/code&gt;  进行期间，哈希元素的操作都是在两个哈希表进行的。&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvcXB0RTE3MnNsZ182VGwxeXV6ZGJmdw==&#34;&gt;https://mp.weixin.qq.com/s/qptE172slg_6Tl1yuzdbfw&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的整数集合是什么？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;整数集合是实现 &lt;code&gt;set&lt;/code&gt;  的数据结构之一，底层其实就是整数数组&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;intset&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 编码方式&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint32_t&lt;/span&gt; encoding&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 集合包含的元素数量&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint32_t&lt;/span&gt; length&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 保存元素的数组&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;int8_t&lt;/span&gt; contents&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; intset&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;但是数组的元素类型由 &lt;code&gt;encoding&lt;/code&gt;  控制，从 &lt;code&gt;8bit&lt;/code&gt; 、 &lt;code&gt;16bit&lt;/code&gt; 、 &lt;code&gt;32bit&lt;/code&gt; 、 &lt;code&gt;64bit&lt;/code&gt;  增长。不一来就用 &lt;code&gt;64bit&lt;/code&gt;  也是想尽量节省空间。在插入新元素时，会维护有序性和唯一性。如果插入的整数所占用的字节超过了数组 1 个元素的字节，就要先升级再插入&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的跳表了解过吗？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;跳表算是一种很优雅的实现，相较于普通链表，查询效率提升，相较于二叉树，省去了平衡、树退化的问题。比如一个链表节点为： &lt;code&gt;1 2 3 4 5 &lt;/code&gt; 那么从中挑出一半 &lt;code&gt;1 3 5&lt;/code&gt;  形成新的链表，并且将新的链表接到原来的链表上面，如此直到最上面的节点只有 1 个。这种数据结构使得查询效率为 &lt;code&gt;O(logn)&lt;/code&gt; 。但是当插入新节点时，需要调整上面的节点，严重时时间复杂度还是 &lt;code&gt;O(n)&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;所以 &lt;code&gt;Redis&lt;/code&gt;  也是优化了跳表，在每次插入节点时就通过随机数决定其层数，然后提前加入到对应的层数。这样虽然不是严格的 &lt;code&gt;log2N&lt;/code&gt; ，也许要存储的节点会变多，也可能变小，但总的效率依然维持在一个很高的水平。&lt;/p&gt;
+&lt;p&gt;所以 &lt;code&gt;Redis&lt;/code&gt;  也是优化了跳表，在每次插入节点时就通过随机数决定其层数（随机数 r&amp;lt;=0.25 就加一，继续生成，&amp;gt;0.25 就停止），然后提前加入到对应的层数。这样虽然不是严格的 &lt;code&gt;log2N&lt;/code&gt; ，也许要存储的节点会变多，也可能变小，但总的效率依然维持在一个很高的水平。&lt;/p&gt;
 &lt;p&gt;在 &lt;code&gt;Redis&lt;/code&gt;  常用的数据类型中， &lt;code&gt;zset&lt;/code&gt;  就是通过跳表实现的。&lt;/p&gt;
+&lt;p&gt;至于为什么 &lt;code&gt;zset&lt;/code&gt;  使用了跳表而不是平衡树，原因：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;平衡树实现复杂，还要考虑插入删除后树的平衡调整&lt;/li&gt;
+&lt;li&gt;在&lt;strong&gt;范围查找&lt;/strong&gt;时，平衡树比较难实现，而跳表只需要找到最小值然后遍历即可。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvTk9zWGRyTXJXd3E0TlRtMTgwYTZ2dw==&#34;&gt;https://mp.weixin.qq.com/s/NOsXdrMrWwq4NTm180a6vw&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;redis&lt;/code&gt;  的 &lt;code&gt;quicklist&lt;/code&gt;  了解过吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;3.0&lt;/code&gt;  版本之前，列表都是使用 &lt;code&gt;list&lt;/code&gt;  和压缩列表（ &lt;code&gt;ziplist&lt;/code&gt; ）实现的， &lt;code&gt;3.2&lt;/code&gt;  之后就是只使用 &lt;code&gt;quicklist&lt;/code&gt;  实现了。 &lt;code&gt;quicklist&lt;/code&gt;  其实就是 &lt;code&gt;list+ziplist&lt;/code&gt; 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;redis&lt;/code&gt;  的 &lt;code&gt;listpack&lt;/code&gt;  了解过吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;listpack&lt;/code&gt;  也是一种压缩列表的实现，之前提到的 &lt;code&gt;quicklist&lt;/code&gt;  并没有解决连锁更新的问题，就是因为节点记录了前一个节点的长度，为了能后从后向前遍历，所以 &lt;code&gt;listpack&lt;/code&gt;  不再记录前一个节点的长度而是记录当前节点的长度。其实这也能从后向前遍历，是由 &lt;code&gt;lpDecodeBacklen&lt;/code&gt;  函数实现，它会从当前列表项起始位置的指针开始，向左逐个字节解析，得到前一项的  &lt;code&gt;entry-len&lt;/code&gt;  值。&lt;/p&gt;
+&lt;h1 id=&#34;持久化篇&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#持久化篇&#34;&gt;#&lt;/a&gt; 持久化篇&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  如何保证数据持久化？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  为了保证数据高可用，引入了持久化机制， 在早期版本，还有 VM，后来版本不推荐了。现在一般都是使用 &lt;code&gt;RDB&lt;/code&gt; 、 &lt;code&gt;AOF&lt;/code&gt;  或者混合持久化。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;RDB&lt;/code&gt;  通过对内存数据拍摄快照来持久化数据，触发机制是在一定时间内发生一定次数的修改操作。当然也可以使用 &lt;code&gt;save/bgsave&lt;/code&gt;  主动拍摄快照，前者会阻塞线程，后者才会 &lt;code&gt;fork&lt;/code&gt;  一个子线程进行快照拍摄。因为采用了压缩算法，实际占用空间很小。异步存储为了保证数据一致性，借助了操作系统的 &lt;code&gt;Copy on Write&lt;/code&gt;  机制，主线程修改哪个页，就会先将这个页复制出来，再在复制页进行修改。等快照拍摄结束，再将复制的页合并到原始内存中。（&lt;strong&gt;也有博客说复制页是用于 rdb，主进程还是在原地址修改&lt;/strong&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;AOF&lt;/code&gt;  通过存储执行的命令到磁盘中保证数据的持久性，可以配置多种存储方式，比如执行一条命令就存储一条，或者每秒存储一次，或者看系统心情，什么时候有空什么时候就将缓冲区的命令存进去。 &lt;code&gt;AOF&lt;/code&gt;  机制执行久了，就会导致文件保存了很多无效的命令，所以需要重写 &lt;code&gt;AOF&lt;/code&gt;  文件 —— &lt;code&gt;bgrewriteaof&lt;/code&gt; ，过程为：子线程遍历 &lt;code&gt;Redis&lt;/code&gt;  内存生成一系列指令，然后将这些指令序列化到临时文件中，过程中的增量命令会同时写到&lt;strong&gt; aof 缓冲区&lt;/strong&gt;和&lt;strong&gt; aof 重写缓冲区&lt;/strong&gt;，会追加到临时文件中，最后替换 &lt;code&gt;AOF&lt;/code&gt;  文件。这里需要重点说一下，我们将数据写入到文件中时，其实是先写入到内核缓冲区，再到磁盘缓冲区，最后到磁盘，最后一个阶段我们是无法介入的，但是可以调用 &lt;code&gt;fsync()&lt;/code&gt;  强制将数据刷新到磁盘缓冲区。 &lt;code&gt;redis&lt;/code&gt;  默认是每秒调用一次。（有参数控制何时重写，比如文件大小超过多少，增量达到多少）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;混合持久化&lt;/code&gt; ：4.0 版本后还出现了混合持久化（混合持久化工作在 &lt;strong&gt;AOF 日志重写过程&lt;/strong&gt;。），该机制必须打开 &lt;code&gt;AOF&lt;/code&gt; ，（就是重写 aof 文件）隔一段时间拍摄快照，生成 &lt;code&gt;rdb&lt;/code&gt;  数据，两次快照之间的记录使用 &lt;code&gt;AOF&lt;/code&gt;  日志来记录，并追加到 &lt;code&gt;rdb&lt;/code&gt;  数据后面。恢复数据时，先回复 &lt;code&gt;rbd&lt;/code&gt;  数据，再执行 &lt;code&gt;AOF&lt;/code&gt;  日志。这种机制既解决了 &lt;code&gt;rdb&lt;/code&gt;  快照摄时突然断电导致整个快照丢失（因为还在临时文件中），也解决了 &lt;code&gt;AOF&lt;/code&gt;  文件太大，不断重写的性能消耗。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wZGFpLnRlY2gvbWQvZGIvbm9zcWwtcmVkaXMvZGItcmVkaXMteC1yZGItYW9mLmh0bWwjcmRiJUU1JTkyJThDYW9mJUU2JUI3JUI3JUU1JTkwJTg4JUU2JTk2JUI5JUU1JUJDJThGLTQtMCVFNyU4OSU4OCVFNiU5QyVBQw==&#34;&gt;Redis 进阶 - 持久化&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvT19xRGNvNi1EYXN1M1JvbVdJS19JZw==&#34;&gt;https://mp.weixin.qq.com/s/O_qDco6-Dasu3RomWIK_Ig&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的大 &lt;code&gt;key&lt;/code&gt;  对持久化有什么影响？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;首先大 &lt;code&gt;key&lt;/code&gt;  不是指 &lt;code&gt;key&lt;/code&gt;  的长度很大或者字面量很大，而是指对应的 &lt;code&gt;value&lt;/code&gt;  占用内存很大。&lt;/p&gt;
+&lt;p&gt;大 &lt;code&gt;key&lt;/code&gt;  在 &lt;code&gt;aof&lt;/code&gt;  机制写入命令时，如果是 &lt;code&gt;Always&lt;/code&gt;  机制，那么调用 &lt;code&gt;fsync()&lt;/code&gt;  函数，将数据从内核缓冲区写入磁盘时，必须等待写完函数才会返回，如果是大 &lt;code&gt;key&lt;/code&gt; ，数据量很大，自然就会导致长时间阻塞。如果是 &lt;code&gt;Everysec&lt;/code&gt;  机制，因为是创建异步任务调用 &lt;code&gt;fsync&lt;/code&gt; ，所以不会影响主线程。&lt;/p&gt;
+&lt;p&gt;同时，如果 &lt;code&gt;redis&lt;/code&gt;  存储了很多大 &lt;code&gt;key&lt;/code&gt; ，一方面会使 &lt;code&gt;aof&lt;/code&gt;  文件频繁重写，另一方面会导致主线程对应的页表越大， &lt;code&gt;rdb&lt;/code&gt;  异步快照和 &lt;code&gt;aof&lt;/code&gt;  重写都会 &lt;code&gt;fork&lt;/code&gt;  一个子线程，就需要为子线程复制一份页表，页表越大，复制过程就越长，主线程阻塞在 &lt;code&gt;fork&lt;/code&gt;  调用就越久。&lt;/p&gt;
+&lt;h1 id=&#34;高可用篇&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#高可用篇&#34;&gt;#&lt;/a&gt; 高可用篇&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  如何保证数据一致性？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;首先，很难保证缓存和数据库 100% 数据一致，因为我们引入 &lt;code&gt;Redis&lt;/code&gt;  本身是为了性能，花很大代价完全保证数据一致性，有时性能反而还会下降，只能说尽量吧。&lt;/p&gt;
+&lt;p&gt;考虑到并发，面对更新请求，我了解到的解决方案就是：先更新数据库再删除缓存（也有问题，但是相对概率很小）。如果是更新数据库 + 更新缓存，并发问题很大，哪怕是先删除缓存再更新数据库，也存在并发问题，因为从数据库拿数据到缓存中是两步：从数据库读取，写到缓存中。只要不是原子操作，在并发环境就可能导致数据不一致。&lt;/p&gt;
+&lt;p&gt;再考虑到删除缓存操作可能会失败，现在的解决方案一般是使用消息队列或者订阅数据库变更日志再操作缓存（canal）。&lt;/p&gt;
+&lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvRDRJazZsVEFfeVNCT3lEM3dhTmoxdw==&#34;&gt;https://mp.weixin.qq.com/s/D4Ik6lTA_ySBOyD3waNj1w&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  内存淘汰是怎么一回事？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;首先 &lt;code&gt;Redis&lt;/code&gt;  对于过期了的 &lt;code&gt;key&lt;/code&gt;  采用两种策略：惰性删除和定期删除。所以当内存耗尽时， &lt;code&gt;Redis&lt;/code&gt;  存在过期 / 没过期两种键，所以删除策略也有不同，有 8 种：直接返回错误 / 删除 LRU、LFU 最早的过期（所有）key / 随机删除过期（所有）key&lt;/p&gt;
-&lt;p&gt;传统的 &lt;code&gt;LRU&lt;/code&gt;  存在存储、误删的缺点，所以 &lt;code&gt;Redis&lt;/code&gt;  配置文件定义了一个属性，默认为 5，会取出 5 个过期的 &lt;code&gt;key&lt;/code&gt; ，按照 &lt;code&gt;LRU&lt;/code&gt;  算法删除对应 &lt;code&gt;key&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;传统的 &lt;code&gt;LRU&lt;/code&gt;  存在存储、误删的缺点，所以 &lt;code&gt;Redis&lt;/code&gt;  配置文件定义了一个属性，默认为 5，会取出 5 个的 &lt;code&gt;key&lt;/code&gt; ，按照 &lt;code&gt;LRU&lt;/code&gt;  算法删除对应 &lt;code&gt;key&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;至于 &lt;code&gt;LFU&lt;/code&gt; ， &lt;code&gt;Redis&lt;/code&gt;  也是采用了一些随机算法的策略，因为在 &lt;code&gt;RedisObject&lt;/code&gt;  中有个 &lt;code&gt;lru&lt;/code&gt;  属性，前 &lt;code&gt;24bit&lt;/code&gt;  用于记录 &lt;code&gt;LRU&lt;/code&gt; ，后 &lt;code&gt;8bit&lt;/code&gt;  记录 &lt;code&gt;LFU&lt;/code&gt;  的访问热度。 &lt;code&gt;8bit&lt;/code&gt;  最多表示 255，所以不能单纯的访问一次就自增，而是通过比较两个参数：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;从 0~1 随机生成一个随机数 &lt;code&gt;R&lt;/code&gt;&lt;/li&gt;
@@ -344,6 +413,53 @@
 &lt;/ol&gt;
 &lt;p&gt;可以看出，热度越高，那么上升的概率越小。&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvLWNhTVRyT1hRdS1vME80NGU2STlkUQ==&#34;&gt;https://mp.weixin.qq.com/s/-caMTrOXQu-o0O44e6I9dQ&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  主从复制原理是什么？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;主节点和从节点的数据交互方式分为全量复制和增量复制。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全量复制：在从节点与主节点建立连接（tcp 长连接）时，从节点先发送 &lt;code&gt;sync&lt;/code&gt; ，主节点会执行 bgsave 生成 rdb 文件再发送，使得从节点加载并初始化数据。在生成 &lt;code&gt;rdb&lt;/code&gt;  时新来的写命令请求会放在一个缓冲区，等 &lt;code&gt;rdb&lt;/code&gt;  传输完了就会传输这个缓冲区数据到 &lt;code&gt;salve&lt;/code&gt;  中。这个缓冲区就是 &lt;code&gt;replication buffer&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;增量复制：如果从节点（ &lt;code&gt;client&lt;/code&gt; ）和主节点不断开连接，那么就可以一直通过 &lt;code&gt;replication buffer&lt;/code&gt; （如果满了就会断开连接，删除缓存，重连）传输数据，但是如果连接不小心断开了， &lt;code&gt;replication buffer&lt;/code&gt;  就会被释放。此时就需要&lt;strong&gt;增量复制&lt;/strong&gt;。在建立主从连接时，双方会维护一个 &lt;code&gt;offset&lt;/code&gt; ，在主节点将写操作记录到 &lt;code&gt;replication buffer&lt;/code&gt;  时，还会记录到 &lt;code&gt;repl_backlog_buffer&lt;/code&gt;  环形缓冲区，从节点维护的 &lt;code&gt;offset&lt;/code&gt;  就是同步数据的偏移量。主节点维护的 &lt;code&gt;master_repl_offset&lt;/code&gt;  就是环形缓冲区的当前数据的偏移，当从节点重新连接，发现 &lt;code&gt;master&lt;/code&gt;  的 &lt;code&gt;offset&lt;/code&gt;  没有覆盖自己维护的 &lt;code&gt;offset&lt;/code&gt; ，就可以进行增量复制，如果覆盖了，就走全量复制。（ &lt;code&gt;abs(m_offset-s_offset) &amp;lt; len&lt;/code&gt; ）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82OTgxNzQ0NjMxMDAwMDcyMjA1&#34;&gt;https://juejin.cn/post/6981744631000072205&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  集群中如何判断某个节点是否正常工作？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一般是一半以上的主节点 &lt;code&gt;ping&lt;/code&gt;  一个节点都超时时，就会认为该节点挂了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主节点会默认每 &lt;code&gt;10s&lt;/code&gt; （可以通过参数 &lt;code&gt;repl-ping-slave-period&lt;/code&gt;  控制）向从节点发送 &lt;code&gt;ping&lt;/code&gt;  命令，从而判断从节点存活性和连接状态。&lt;/li&gt;
+&lt;li&gt;从节点每 1 秒向主节点发送 &lt;code&gt;replconf ack&lt;/code&gt;  命令，给主节点报告自己的复制偏移量。一方面检测网络状态，另一方面检测数据复制情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的脑裂现象了解过吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在 &lt;code&gt;Redis&lt;/code&gt;  集群中，如果主节点 A 因为网络问题和集群失联了，但是客户端还在不断往主节点 A 写入数据。哨兵发现后选举出新的主节点 B，然后 A 网络恢复后降级为从节点 A，此时需要主从同步，从节点 A 需要先清空数据再获取主节点 B 的 &lt;code&gt;rdb&lt;/code&gt;  文件。这就导致之前客户端写的数据没了，这其实也是一种数据不一致问题。&lt;/p&gt;
+&lt;p&gt;解决方案为：如果主节点的连接的从节点少于 N 个（ &lt;code&gt;min-slaves-to-write&lt;/code&gt; ）或者主从同步的延迟高于 x（ &lt;code&gt;min-slaves-max-lag&lt;/code&gt; ），就禁止客户端写入数据。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的哨兵机制了解过吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;哨兵机制可以检测集群中主节点存活情况，如果主节点挂了，可以选举一个从节点为新的主节点，并把新的主节点的信息通知给客户端和其他从节点。所以哨兵主要负责：监控、选主、通知。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;监控&lt;/strong&gt;：哨兵每隔 1 秒就会向节点发送 &lt;code&gt;ping&lt;/code&gt;  命令，如果节点回复超时（ &lt;code&gt;down-after-milliseconds&lt;/code&gt;  配置选项），就判定该节点&lt;strong&gt;主观下线&lt;/strong&gt;。对于主节点而言，还有&lt;strong&gt;客观下线&lt;/strong&gt;，就是主节点没有挂，因为服务器压力或者网络问题导致回复超时，如果哨兵集群超过一半都回复超时就会判定为&lt;strong&gt;客观下线&lt;/strong&gt;。如果主节点并没有挂，那么超过一半的哨兵都回复超时的概率也比较低，这都是为了减少误判的概率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;选主&lt;/strong&gt;：当哨兵发现主节点挂了，就会问其他哨兵是否觉得主节点挂了，超过一半那么该节点就认为其&lt;strong&gt;客观下线&lt;/strong&gt;，然后该哨兵就会成为候选者，向其他哨兵请求投票，如果票数超过一半并且票数超过 &lt;code&gt;quorum&lt;/code&gt; ，就会作为 &lt;code&gt;leader&lt;/code&gt;  进行主从故障转移，选举出新的主节点。选举主节点的过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从节点中选一个升级为主节点（从节点的网络状态，优先级，复制进度，ID 选出最合适的）&lt;/li&gt;
+&lt;li&gt;让其他从节点修改复制目标，复制新的主节点&lt;/li&gt;
+&lt;li&gt;将新的主节点的 IP 和信息通过发布者 / 订阅者机制通知给客户端&lt;/li&gt;
+&lt;li&gt;继续监控旧主节点，一旦恢复上线，将其降为从节点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;通知&lt;/strong&gt;：客户端通过发布者 / 订阅者机制知道新选举出来的主节点。主从节点切换完后会在 &lt;code&gt;+switch-master&lt;/code&gt;  频道发布新主节点的 IP 地址和信息。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;哨兵集群之间是如何通信的？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在搭建主从集群的哨兵集群时，每个哨兵只需要指定主节点名字、 &lt;code&gt;IP&lt;/code&gt; 、端口以及 &lt;code&gt;quorum&lt;/code&gt; ，哨兵之间就是通过 &lt;code&gt;Redis&lt;/code&gt;  的发布者 / 订阅者机制通信的。主节点有一个 &lt;code&gt;_sentinel_:hello&lt;/code&gt; ，各个哨兵把自己的 IP 和信息发布到 &lt;code&gt;_sentinel_:hello&lt;/code&gt;  频道，其他哨兵就可以获取信息进行通信。&lt;/p&gt;
 </content>
         <category term="八股文" />
         <updated>2023-03-08T09:27:22.000Z</updated>

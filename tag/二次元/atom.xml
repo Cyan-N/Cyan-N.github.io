@@ -4,27 +4,27 @@
     <title>慕青の迷途 • Posts by &#34;二次元&#34; tag</title>
     <link href="https://cecilia.cool" />
     <updated>2023-03-05T14:24:41.000Z</updated>
-    <category term="tools" />
-    <category term="二次元" />
-    <category term="八股文" />
     <category term="Docker" />
     <category term="shell" />
-    <category term="数据结构与算法" />
+    <category term="二次元" />
     <category term="云计算" />
+    <category term="八股文" />
+    <category term="数据结构与算法" />
+    <category term="tools" />
     <category term="网络协议与工具" />
-    <category term="MySQL" />
     <category term="Redis" />
-    <category term="Mybatis" />
-    <category term="日志框架" />
+    <category term="MySQL" />
     <category term="Spring全家桶" />
-    <category term="uni-app" />
-    <category term="Concurrency" />
+    <category term="Mybatis" />
     <category term="JVM" />
-    <category term="Java基础" />
-    <category term="设计模式" />
+    <category term="日志框架" />
     <category term="Java8" />
+    <category term="Concurrency" />
+    <category term="uni-app" />
+    <category term="Java基础" />
     <category term="Web" />
     <category term="网络编程" />
+    <category term="设计模式" />
     <entry>
         <id>https://cecilia.cool/2023/03/05/%E4%BA%8C%E6%AC%A1%E5%85%83/Galgame%E7%9B%AE%E5%BD%95/</id>
         <title>Galgame目录</title>
@@ -35,13 +35,31 @@
 &lt;p&gt;无论是剧情、人物塑造、CG、游戏设计都超级好，甚至部分游戏对鄙人价值观影响较大（积极正面的）&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;《他人世界末》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发的校园爱情 galgame，代入感特别强，不是龙傲天爽文，也不是梦中情节，剧情很真实，我玩 &lt;code&gt;galgame&lt;/code&gt;  一般都是玩完一个就删除一个，但是《他人世界末》我现在还留着，如果别人问我有没有什么 &lt;code&gt;galgame&lt;/code&gt;  游戏推荐，我绝对推荐这部游戏。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;《ATRI  My Dear Moments》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 女主设定仿生机器人，故事背景海平面急剧上升后的生活，主要围绕亚托莉与夏生共同度过的 44 天，算是 good end&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;《鸢之歌》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内游戏，末世生存，背景设定很大，剧情很值得推敲，游戏制作也很精良&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;《电车 X 同级生》&lt;/strong&gt;： Local Love 三部曲第二部，其实三部剧情都挺离谱的，但是女主在田川鳰太戳我 xp 了&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;《可爱的圣诞礼物：泡沫冬景》&lt;/strong&gt;  ：&lt;strong&gt;steam&lt;/strong&gt; - 猫猫社 Nekoday 开发，公司成立在四川成都，四川人打 call！要钱，整个游戏就是纯剧情，无选择。男主在 1988 年从中国到日本谋生展开的故事，跟爱情没关系，出场的人物都很个性鲜明&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;《IRIS》&lt;/strong&gt;：  &lt;strong&gt;TapTap 免费游戏&lt;/strong&gt;，但是 21 年暂停下载了，大家想玩就各凭本事了吧，故事关于战斗机器人 都是女性  在战争后的生活，男主类似于星探，把这些女孩组成一个明星团，当然是纯爱，还面临生死考验，颜值、剧情都 ok&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《他人世界末》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发的校园爱情 galgame，代入感特别强，不是龙傲天爽文，也不是梦中情节，剧情很真实，我玩 &lt;code&gt;galgame&lt;/code&gt;  一般都是玩完一个就删除一个，但是《他人世界末》我现在还留着，如果别人问我有没有什么 &lt;code&gt;galgame&lt;/code&gt;  游戏推荐，我绝对首推这部游戏。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/04/09/8c22bbaafe5e6627.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《ATRI  My Dear Moments》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 女主设定仿生机器人，故事背景海平面急剧上升后的生活，主要围绕亚托莉与夏生共同度过的 44 天，算是 good end。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/04/09/f9d127e070c6372c.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;《鸢之歌》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内游戏，末世生存，背景设定很大，剧情很值得推敲，游戏制作也很精良&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;《电车 X 同级生》&lt;/strong&gt;： Local Love 三部曲第二部，其实三部剧情都挺离谱的，但是女主在田川鳰太戳我 xp 了&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;《可爱的圣诞礼物：泡沫冬景》&lt;/strong&gt;  ：&lt;strong&gt;steam&lt;/strong&gt; - 猫猫社 Nekoday 开发，公司成立在四川成都，四川人打 call！要钱，整个游戏就是纯剧情，无选择。男主在 1988 年从中国到日本谋生展开的故事，跟爱情没关系，出场的人物都很个性鲜明&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;《IRIS》&lt;/strong&gt;：  &lt;strong&gt;TapTap 免费游戏&lt;/strong&gt;，但是 21 年暂停下载了，大家想玩就各凭本事了吧，故事关于战斗机器人 都是女性  在战争后的生活，男主类似于星探，把这些女孩组成一个明星团，当然是纯爱，还面临生死考验，颜值、剧情都 ok&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;《缘之空》&lt;/strong&gt;：人心里的成见是一座大山，但是当事人的情感才是最重要的。在这个人类社会中，我们诚然要依靠他人生活，但我们绝不是为他人生活。尽管这部作品放到现在来说人物绘画不是很高，但是这种评价本来就是不公正的。游戏和番剧的差别是很大的，我更推荐游戏，更能感受到&lt;strong&gt;穹&lt;/strong&gt;和&lt;strong&gt;悠&lt;/strong&gt;的心路历程。整部作品的每个角色其实都是一个个鲜活的灵魂，愿大家能在这样一部禁忌爱恋的作品中收获自己的感动。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/04/09/f9645604b088c978.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 &lt;h1 id=&#34;四星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#四星&#34;&gt;#&lt;/a&gt; 四星&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;没什么毛病，细节处理也很到位，但是还没有那么让人印象深刻，不失为一部佳作&lt;/p&gt;

@@ -7,27 +7,27 @@
         <language>zh-CN</language>
         <pubDate>Thu, 07 Mar 2024 10:14:42 +0800</pubDate>
         <lastBuildDate>Thu, 07 Mar 2024 10:14:42 +0800</lastBuildDate>
-        <category>tools</category>
-        <category>二次元</category>
-        <category>八股文</category>
         <category>Docker</category>
         <category>shell</category>
-        <category>数据结构与算法</category>
+        <category>二次元</category>
         <category>云计算</category>
+        <category>八股文</category>
+        <category>数据结构与算法</category>
+        <category>tools</category>
         <category>网络协议与工具</category>
-        <category>MySQL</category>
         <category>Redis</category>
-        <category>Mybatis</category>
-        <category>日志框架</category>
+        <category>MySQL</category>
         <category>Spring全家桶</category>
-        <category>uni-app</category>
-        <category>Concurrency</category>
+        <category>Mybatis</category>
         <category>JVM</category>
-        <category>Java基础</category>
-        <category>设计模式</category>
+        <category>日志框架</category>
         <category>Java8</category>
+        <category>Concurrency</category>
+        <category>uni-app</category>
+        <category>Java基础</category>
         <category>Web</category>
         <category>网络编程</category>
+        <category>设计模式</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2024/03/07/%E5%85%AB%E8%82%A1%E6%96%87/%E9%9D%A2%E7%BB%8F/</guid>
             <title>面经</title>
@@ -795,7 +795,7 @@
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvclgzQV9GQTE5bjRwSTlIaWNJRXNYZw==&#34;&gt;https://mp.weixin.qq.com/s/rX3A_FA19n4pI9HicIEsXg&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;我们这里默认主动断开连接的是客户端。首先，主动断开连接的那一方才会进入 &lt;code&gt;TIME_WAIT&lt;/code&gt; ，这个时间是 2MSL，在 Linux 中为 60s，而且这个时间是固定的，也就是在内核代码中写死了，无法修改。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;  的出现能够保证被动断开连接方（服务端）可以正常的关闭，从 &lt;code&gt;LAST_ACK&lt;/code&gt;  进入 &lt;code&gt;CLOSED&lt;/code&gt;  状态。&lt;/p&gt;
-&lt;p&gt;MSL 是数据包在网络传输中存活的最长时间， &lt;code&gt;TIME_WAIT&lt;/code&gt;  设置为 2MSL，比较合理的解释为：如果服务端没有没有 ACK，超时重传 &lt;code&gt;FIN&lt;/code&gt;  后再接收 &lt;code&gt;ACK&lt;/code&gt;  的时间在 2MSL 之内。&lt;strong&gt;当客户端重新接收到 &lt;code&gt;FIN&lt;/code&gt;  时，会重置 2MSL 时间&lt;/strong&gt;。同时网络连接中的旧数据包在 2MSL 中能够被清理干净，如果客户端当前端口重新建立连接，不会有旧的数据传到当前端口，造成数据混乱。&lt;/p&gt;
+&lt;p&gt;MSL 是数据包在网络传输中存活的最长时间， &lt;code&gt;TIME_WAIT&lt;/code&gt;  设置为 2MSL，比较合理的解释为：如果服务端没有收到 &lt;code&gt;ACK&lt;/code&gt; ，超时重传 &lt;code&gt;FIN&lt;/code&gt;  后再接收 &lt;code&gt;ACK&lt;/code&gt;  的时间在 2MSL 之内。&lt;strong&gt;当客户端重新接收到 &lt;code&gt;FIN&lt;/code&gt;  时，会重置 2MSL 时间&lt;/strong&gt;。同时网络连接中的旧数据包在 2MSL 中能够被清理干净，如果客户端当前端口重新建立连接，不会有旧的数据传到当前端口，造成数据混乱。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;  出现的原因为：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;保证服务端正常关闭&lt;/li&gt;

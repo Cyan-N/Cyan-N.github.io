@@ -9,25 +9,25 @@
         <lastBuildDate>Mon, 28 Nov 2022 20:34:51 +0800</lastBuildDate>
         <category>Docker</category>
         <category>shell</category>
-        <category>二次元</category>
-        <category>云计算</category>
-        <category>八股文</category>
         <category>数据结构与算法</category>
+        <category>八股文</category>
         <category>tools</category>
+        <category>二次元</category>
         <category>网络协议与工具</category>
+        <category>云计算</category>
+        <category>Concurrency</category>
+        <category>JVM</category>
+        <category>网络编程</category>
+        <category>Web</category>
+        <category>Java基础</category>
+        <category>设计模式</category>
+        <category>Java8</category>
+        <category>uni-app</category>
+        <category>Mybatis</category>
+        <category>Spring全家桶</category>
+        <category>日志框架</category>
         <category>Redis</category>
         <category>MySQL</category>
-        <category>Spring全家桶</category>
-        <category>Mybatis</category>
-        <category>JVM</category>
-        <category>日志框架</category>
-        <category>Java8</category>
-        <category>Concurrency</category>
-        <category>uni-app</category>
-        <category>Java基础</category>
-        <category>Web</category>
-        <category>网络编程</category>
-        <category>设计模式</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2022/11/28/Java/Java%E5%9F%BA%E7%A1%80/Java%E5%9F%BA%E7%A1%80-SPI%E6%9C%BA%E5%88%B6/</guid>
             <title>Java基础--SPI机制</title>

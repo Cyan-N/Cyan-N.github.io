@@ -7,27 +7,27 @@
         <language>zh-CN</language>
         <pubDate>Thu, 07 Mar 2024 10:14:42 +0800</pubDate>
         <lastBuildDate>Thu, 07 Mar 2024 10:14:42 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>shell</category>
-        <category>数据结构与算法</category>
-        <category>八股文</category>
-        <category>tools</category>
         <category>二次元</category>
-        <category>网络协议与工具</category>
         <category>云计算</category>
-        <category>Concurrency</category>
-        <category>JVM</category>
-        <category>网络编程</category>
-        <category>Web</category>
-        <category>Java基础</category>
-        <category>设计模式</category>
-        <category>Java8</category>
+        <category>tools</category>
+        <category>shell</category>
+        <category>网络协议与工具</category>
+        <category>数据结构与算法</category>
+        <category>Docker</category>
+        <category>八股文</category>
         <category>uni-app</category>
+        <category>日志框架</category>
         <category>Mybatis</category>
         <category>Spring全家桶</category>
-        <category>日志框架</category>
-        <category>Redis</category>
+        <category>Concurrency</category>
+        <category>Java基础</category>
+        <category>JVM</category>
+        <category>Java8</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
+        <category>Web</category>
         <category>MySQL</category>
+        <category>Redis</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2024/03/07/%E5%85%AB%E8%82%A1%E6%96%87/%E9%9D%A2%E7%BB%8F/</guid>
             <title>面经</title>
@@ -251,6 +251,28 @@
  ]]></description>
         </item>
         <item>
+            <guid isPermalink="true">https://cecilia.cool/2023/03/26/%E5%85%AB%E8%82%A1%E6%96%87/spring/</guid>
+            <title>spring</title>
+            <link>https://cecilia.cool/2023/03/26/%E5%85%AB%E8%82%A1%E6%96%87/spring/</link>
+            <category>八股文</category>
+            <pubDate>Sun, 26 Mar 2023 17:28:23 +0800</pubDate>
+            <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;spring 事务传播&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;参考：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xNDg1MDQwOTQ=&#34;&gt;https://zhuanlan.zhihu.com/p/148504094&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;spring 事务有七种传播机制：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;reuqired&lt;/code&gt; ：需要以事务运行，如果当前存在能在事务，则在当前事务运行，如果没有则自己开一个事务。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;required_new&lt;/code&gt; ：不管当前事务存不存在，都会新开一个事务，并且这个事务是独立的。也就是说，当前事务的回滚不会影响外部事务。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;supports&lt;/code&gt; ：当前存在事务，则加入当前事务，没有以非事务运行。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;not_supported&lt;/code&gt; ：始终以非事务方式执行，如果当前存在事务，则挂起当前事务。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mandatory&lt;/code&gt; ：强制以事务执行，当前事务不存在则抛出异常。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;never&lt;/code&gt; ：不使用事务，如果当前存在事务，抛出异常。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nested&lt;/code&gt; ：如果当前事务存在，则嵌套在该事务执行，调用方其实可以通过 catch 捕获被调用方的异常，那么当嵌套的子事务回滚时，父事务不会回滚。&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
             <guid isPermalink="true">https://cecilia.cool/2023/03/11/%E5%85%AB%E8%82%A1%E6%96%87/MySQL/</guid>
             <title>MySQL</title>
             <link>https://cecilia.cool/2023/03/11/%E5%85%AB%E8%82%A1%E6%96%87/MySQL/</link>
@@ -279,7 +301,7 @@
 &lt;li&gt;事务： &lt;code&gt;InnoDB&lt;/code&gt;  是事务型的，可以使用 &lt;code&gt;Commit&lt;/code&gt;  和 &lt;code&gt;Rollback&lt;/code&gt; 。而 &lt;code&gt;MyISAM&lt;/code&gt;  不支持事务。&lt;/li&gt;
 &lt;li&gt;并发： &lt;code&gt;InnoDB&lt;/code&gt;  支持行级锁，而 &lt;code&gt;MyISAM&lt;/code&gt;  支持表级锁。&lt;/li&gt;
 &lt;li&gt;外键： &lt;code&gt;InnoDB&lt;/code&gt;  支持外键而 &lt;code&gt;MyISAM&lt;/code&gt;  不支持&lt;/li&gt;
-&lt;li&gt;崩溃恢复： &lt;code&gt;InnoDB&lt;/code&gt;  崩溃恢复后发生损坏的概率比 &lt;code&gt;InnoDB&lt;/code&gt;  高，而且恢复速度也慢。&lt;/li&gt;
+&lt;li&gt;崩溃恢复： &lt;code&gt;InnoDB&lt;/code&gt;  崩溃恢复后发生损坏的概率比 &lt;code&gt;MyISAM&lt;/code&gt;  高，而且恢复速度也慢。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;InnoDB&lt;/code&gt;  更适合处理事务性应用程序，需要支持外键约束和具有高并发和可靠性； &lt;code&gt;MyISAM&lt;/code&gt;  更适合处理只读或只写的应用程序，需要较好的性能和较少的系统资源。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
@@ -568,7 +590,7 @@
 &lt;p&gt;如果有一个查询请求，在哈希表 1 查不到，就会去哈希表 2 查询。在渐进式 &lt;code&gt;rehash&lt;/code&gt;  进行期间，哈希元素的操作都是在两个哈希表进行的。&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvcXB0RTE3MnNsZ182VGwxeXV6ZGJmdw==&#34;&gt;https://mp.weixin.qq.com/s/qptE172slg_6Tl1yuzdbfw&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的 是什么？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  的整数集合是什么？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;整数集合是实现 &lt;code&gt;set&lt;/code&gt;  的数据结构之一，底层其实就是整数数组&lt;/p&gt;
 &lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;intset&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 编码方式&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint32_t&lt;/span&gt; encoding&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 集合包含的元素数量&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;uint32_t&lt;/span&gt; length&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;// 保存元素的数组&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;int8_t&lt;/span&gt; contents&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; intset&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;但是数组的元素类型由 &lt;code&gt;encoding&lt;/code&gt;  控制，从 &lt;code&gt;8bit&lt;/code&gt; 、 &lt;code&gt;16bit&lt;/code&gt; 、 &lt;code&gt;32bit&lt;/code&gt; 、 &lt;code&gt;64bit&lt;/code&gt;  增长。不一来就用 &lt;code&gt;64bit&lt;/code&gt;  也是想尽量节省空间。在插入新元素时，会维护有序性和唯一性。如果插入的整数所占用的字节超过了数组 1 个元素的字节，就要先升级再插入&lt;/p&gt;
@@ -599,7 +621,7 @@
 &lt;p&gt;&lt;code&gt;Redis&lt;/code&gt;  为了保证数据高可用，引入了持久化机制， 在早期版本，还有 VM，后来版本不推荐了。现在一般都是使用 &lt;code&gt;RDB&lt;/code&gt; 、 &lt;code&gt;AOF&lt;/code&gt;  或者混合持久化。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;RDB&lt;/code&gt;  通过对内存数据拍摄快照来持久化数据，触发机制是在一定时间内发生一定次数的修改操作。当然也可以使用 &lt;code&gt;save/bgsave&lt;/code&gt;  主动拍摄快照，前者会阻塞线程，后者才会 &lt;code&gt;fork&lt;/code&gt;  一个子线程进行快照拍摄。因为采用了压缩算法，实际占用空间很小。异步存储为了保证数据一致性，借助了操作系统的 &lt;code&gt;Copy on Write&lt;/code&gt;  机制，主线程修改哪个页，就会先将这个页复制出来，再在复制页进行修改。等快照拍摄结束，再将复制的页合并到原始内存中。（&lt;strong&gt;也有博客说复制页是用于 rdb，主进程还是在原地址修改&lt;/strong&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RDB&lt;/code&gt;  通过对内存数据拍摄快照来持久化数据，触发机制是在一定时间内发生一定次数的修改操作。当然也可以使用 &lt;code&gt;save/bgsave&lt;/code&gt;  主动拍摄快照，前者会阻塞线程，后者才会 &lt;code&gt;fork&lt;/code&gt;  一个子线程进行快照拍摄。因为采用了压缩算法，实际占用空间很小。异步存储为了保证数据一致性，借助了操作系统的 &lt;code&gt;Copy on Write&lt;/code&gt;  机制，主线程修改哪个页，就会先将这个页复制出来，复制页是用于 rdb，主进程还是在原地址修改。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;AOF&lt;/code&gt;  通过存储执行的命令到磁盘中保证数据的持久性，可以配置多种存储方式，比如执行一条命令就存储一条，或者每秒存储一次，或者看系统心情，什么时候有空什么时候就将缓冲区的命令存进去。 &lt;code&gt;AOF&lt;/code&gt;  机制执行久了，就会导致文件保存了很多无效的命令，所以需要重写 &lt;code&gt;AOF&lt;/code&gt;  文件 —— &lt;code&gt;bgrewriteaof&lt;/code&gt; ，过程为：子线程遍历 &lt;code&gt;Redis&lt;/code&gt;  内存生成一系列指令，然后将这些指令序列化到临时文件中，过程中的增量命令会同时写到&lt;strong&gt; aof 缓冲区&lt;/strong&gt;和&lt;strong&gt; aof 重写缓冲区&lt;/strong&gt;，会追加到临时文件中，最后替换 &lt;code&gt;AOF&lt;/code&gt;  文件。这里需要重点说一下，我们将数据写入到文件中时，其实是先写入到内核缓冲区，再到磁盘缓冲区，最后到磁盘，最后一个阶段我们是无法介入的，但是可以调用 &lt;code&gt;fsync()&lt;/code&gt;  强制将数据刷新到磁盘缓冲区。 &lt;code&gt;redis&lt;/code&gt;  默认是每秒调用一次。（有参数控制何时重写，比如文件大小超过多少，增量达到多少）&lt;/p&gt;
@@ -687,6 +709,15 @@
 &lt;p&gt;哨兵集群之间是如何通信的？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在搭建主从集群的哨兵集群时，每个哨兵只需要指定主节点名字、 &lt;code&gt;IP&lt;/code&gt; 、端口以及 &lt;code&gt;quorum&lt;/code&gt; ，哨兵之间就是通过 &lt;code&gt;Redis&lt;/code&gt;  的发布者 / 订阅者机制通信的。主节点有一个 &lt;code&gt;_sentinel_:hello&lt;/code&gt; ，各个哨兵把自己的 IP 和信息发布到 &lt;code&gt;_sentinel_:hello&lt;/code&gt;  频道，其他哨兵就可以获取信息进行通信。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;redis 集群中，为什么是每个主节点分配一系列个槽而不是每个主节点分配一个槽？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个问题涉及到 redis 的设计问题，大家可以开放性回答，但一定要言之有理，因为面试官往往会深问下去，如果你的想法很片面，往往无法回答面试官下一个问题。我谈谈我的理解，不一定全面，也不一定完全正确，大家要有自己的理解。&lt;/p&gt;
+&lt;p&gt;首先，我们搭建 redis 集群往往是为了服务的高可用，比如一个 redis 一般是一秒 10 万的处理级别，但是当一瞬间请求特别高（比如双十一秒杀），一个 redis 也扛不住。所以需要搭建 redis 集群。这就涉及到数据该放到哪一个主节点中，于是就有了分槽的机制。redis 并没有把分槽机制写死，默认的分槽机制就是：每个主节点的槽数 =（总槽数 / 主节点个数）。然后一个请求过来，先看它的 key，将 key 做 CRC 冗余检验并取模看看这个 key 属于哪个槽从而判断这个 key（请求）属于哪个主节点。那么看到这里，其实每个主节点只分一个槽，然后主节点总数作为槽的总数其实也是没问题的。&lt;/p&gt;
+&lt;p&gt;美团二面问我这个，我当时回答的是：一个主节点分配多个槽，&lt;strong&gt;可能&lt;/strong&gt;是为了让请求分布更均匀。这个回答就很浅，所以他就继续问：你能说说这个过程吗，为什么一个节点有多个槽，他就分配均匀？我直接懵逼。&lt;/p&gt;
+&lt;p&gt;// &lt;strong&gt;以下内容付费可见，如果面试被问到了这个题，记得请我吃饭&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我下来自己思考的思路如下：一个节点多个槽比一个节点一个槽，redis 多出来的机制是什么？很显然，槽越多，越好分配。我们可以自己分配每个节点的槽有哪些，这个很重要，如果每个主节点只有一个槽，那么是不可能有自定义分配机制的。那么为什么要自定义分配机制呢？比如我有很多个热点数据 key，我一个 redis 可能可以抗住三四个热点数据的请求，那么如果我所有的热点数据都落在了一个 redis 怎么办？那么我搭建集群不就没有意义了吗？所以我就可以分槽，这些热点数据可能数据槽 A，槽 B，槽 C，我就可以把这些槽分配到不同的 redis 节点中，&lt;strong&gt;这样就使得请求均匀到不同的节点中&lt;/strong&gt;。现在我们假设每个主节点只能分配一个槽，如果这些热点数据取模后都落在了一个主节点上，我们是没有太多手段来解决这个问题的（当然可以增加主节点个数，使得取模的总数不相同，但是一方面解决方法不如自定义槽分配优雅，另一个方面就是集群中节点个数不可能太大，那么热点 key% 总数落到同一个节点的概率也很大）。&lt;/p&gt;
+&lt;p&gt;这就是我个人的理解，回顾我的美团二面，第一个问题是&lt;strong&gt; MySQL 集群中有多个主节点，从节点应该听谁的，或者说多个主节点如何保持数据一致&lt;/strong&gt;，一开始 hr 的问题描述就在带偏我，正确的问法也不是这么问的，但是我太在意这次面试了，根本没有好好冷静思考，导致我越说越混乱，第二个问题就是&lt;strong&gt; redis 的槽分配&lt;/strong&gt;，以前我也注意到槽这个问题的，但是从来没有深究过，我确实没想到会问的这么细，第三个问题就是&lt;strong&gt;从全国身份证号查询一个给定身份证号&lt;/strong&gt;，有什么好的思路，这个也是意难平，因为听到这个问题，我就想到了 redis 的一个最基本的设计机制：我传入 key，redis 是如何&lt;strong&gt;快速&lt;/strong&gt;在&lt;strong&gt;内存&lt;/strong&gt;中找到的？答案是 redis 存储 key 在最底层用了字典，可是我老早就听到了字典这个概念，一直没想着去了解它 (md 就是一棵树)，但是&lt;strong&gt;计算机的知识就是这样，很多你一听就知道，但是没听过就根本无法想象还有这样一种思路&lt;/strong&gt;。最后面试官给了我一个&lt;strong&gt;困难题算法&lt;/strong&gt;，我没写出来，最可气的就是当天晚上我在力扣上搜到这道题，冷静下来后一会就 AC 了。这次面试真的是意难平，我老跟同学、家人说那个 hr 面的太难了，问的都是一些业务、设计类题目，不去实习，不去真正做一下很难知道这些思路，但是现在反思一下，我太在意这次的面试了，如果我冷静一点，就不会像现在这样，叹气说一声，苍天悠悠，何薄于我。&lt;/p&gt;
  ]]></description>
         </item>
         <item>

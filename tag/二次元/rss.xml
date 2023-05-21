@@ -7,27 +7,27 @@
         <language>zh-CN</language>
         <pubDate>Sun, 05 Mar 2023 22:24:41 +0800</pubDate>
         <lastBuildDate>Sun, 05 Mar 2023 22:24:41 +0800</lastBuildDate>
-        <category>Docker</category>
-        <category>shell</category>
-        <category>数据结构与算法</category>
-        <category>八股文</category>
-        <category>tools</category>
         <category>二次元</category>
-        <category>网络协议与工具</category>
         <category>云计算</category>
-        <category>Concurrency</category>
-        <category>JVM</category>
-        <category>网络编程</category>
-        <category>Web</category>
-        <category>Java基础</category>
-        <category>设计模式</category>
-        <category>Java8</category>
+        <category>tools</category>
+        <category>shell</category>
+        <category>网络协议与工具</category>
+        <category>数据结构与算法</category>
+        <category>Docker</category>
+        <category>八股文</category>
         <category>uni-app</category>
+        <category>日志框架</category>
         <category>Mybatis</category>
         <category>Spring全家桶</category>
-        <category>日志框架</category>
-        <category>Redis</category>
+        <category>Concurrency</category>
+        <category>Java基础</category>
+        <category>JVM</category>
+        <category>Java8</category>
+        <category>设计模式</category>
+        <category>网络编程</category>
+        <category>Web</category>
         <category>MySQL</category>
+        <category>Redis</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2023/03/05/%E4%BA%8C%E6%AC%A1%E5%85%83/Galgame%E7%9B%AE%E5%BD%95/</guid>
             <title>Galgame目录</title>
@@ -43,31 +43,22 @@
 &lt;p&gt;无论是剧情、人物塑造、CG、游戏设计都超级好，甚至部分游戏对鄙人价值观影响较大（积极正面的）&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《他人世界末》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发的校园爱情 galgame，代入感特别强，不是龙傲天爽文，也不是梦中情节，剧情很真实，我玩 &lt;code&gt;galgame&lt;/code&gt;  一般都是玩完一个就删除一个，但是《他人世界末》我现在还留着，如果别人问我有没有什么 &lt;code&gt;galgame&lt;/code&gt;  游戏推荐，我绝对首推这部游戏。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《ATRI  My Dear Moments》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 女主设定仿生机器人，故事背景海平面急剧上升后的生活，主要围绕亚托莉与夏生共同度过的 44 天，算是 good end。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《鸢之歌》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内游戏，末世生存，背景设定很大，大概就是陨石坠入地球之后，人们出现一种雪花现象，一开始人们会长黑斑，当达到一定程度就会异变，大多数人都是直接变成像雪花一样的剧情很值得推敲，游戏制作也很精良&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《电车 X 同级生》&lt;/strong&gt;： Local Love 三部曲第二部，其实三部剧情都挺离谱的，但是女主&lt;strong&gt;在田川鳰&lt;/strong&gt;太戳我 xp 了&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《可爱的圣诞礼物：泡沫冬景》&lt;/strong&gt;  ：&lt;strong&gt;steam&lt;/strong&gt; - 猫猫社 Nekoday 开发，公司成立在四川成都，四川人打 call！要钱，整个游戏就是纯剧情，无选择。男主在 1988 年从中国到日本谋生展开的故事，女主很可爱，女主的妹妹更可爱，但是我要说的是，这不是恋爱类型的游戏，出场的人物都很个性鲜明  。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《IRIS》&lt;/strong&gt;：  &lt;strong&gt;TapTap 免费游戏&lt;/strong&gt;，但是 21 年暂停下载了，大家想玩就各凭本事了吧，故事关于战斗机器人 都是女性  在战争后的生活，男主类似于星探，把这些女孩组成一个明星团，当然是纯爱，还面临生死考验，颜值、剧情都 ok&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《缘之空》&lt;/strong&gt;：人心里的成见是一座大山，但是当事人的情感才是最重要的。在这个人类社会中，我们诚然要依靠他人生活，但我们绝不是为他人生活。尽管这部作品放到现在来说人物绘画不是很高，但是这种评价本来就是不公正的。游戏和番剧的差别是很大的，我更推荐游戏，更能感受到&lt;strong&gt;穹&lt;/strong&gt;和&lt;strong&gt;悠&lt;/strong&gt;的心路历程，对于悠和穹的感情，在续作《悠之空》中大家面对悠的坦白，一叶就说了：“&lt;strong&gt;两个人父母双亡，两个人互相支撑。彼此思念的感情应该是不容否定的&lt;/strong&gt;”。平时大大咧咧的瑛和亮平反而心思细腻，理解着悠和穹。亮平赞赏着悠的勇气：“&lt;strong&gt;如果我也能不顾一切的话，现在恐怕已经走上了不同的人数道路。&lt;/strong&gt;” 整部作品的每个角色其实都是一个个鲜活的灵魂，愿大家能在这样一部禁忌爱恋的作品中收获自己的感动。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;《悠之空》&lt;/strong&gt;：如果说给了缘之空五星，那没有理由不给悠之空五星，作为第二部游戏，给的其实就是一些短剧（md 说是短剧，但是每个都贼长），相当于是对第一部的补充吧。比如给了班长仓永梢开了一个短剧，不得不说班长把头发放下来是很好看的。但是本人作为穹党（无妹恨穹不是妹，有妹 hhhh，不必了，我的妹妹也是一个很可爱很乖的女生），在过完穹的路线后，再过班长的线不是很有体验，怎么说呢，我觉得这个游戏的缺点也在这，穹对悠的感情那么执着，那么深刻，突然之间就将悠让给其他人，我不是很能接受，当然，仅仅只是个人观点。当然该部作品还续写了穹线，还等什么？&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《他人世界末》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内开发的校园爱情 galgame，代入感特别强，不是龙傲天爽文，也不是梦中情节，剧情很真实，我玩 &lt;code&gt;galgame&lt;/code&gt;  一般都是玩完一个就删除一个，但是《他人世界末》我现在还留着，如果别人问我有没有什么 &lt;code&gt;galgame&lt;/code&gt;  游戏推荐，我绝对首推这部游戏。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《ATRI  My Dear Moments》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 女主设定仿生机器人，故事背景海平面急剧上升后的生活，主要围绕亚托莉与夏生共同度过的 44 天，算是 good end。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《鸢之歌》&lt;/strong&gt;：&lt;strong&gt;steam&lt;/strong&gt; - 国内游戏，末世生存，背景设定很大，大概就是陨石坠入地球之后，人们出现一种雪花现象，一开始人们会长黑斑，当达到一定程度就会异变，大多数人都是直接变成像雪花一样的剧情很值得推敲，游戏制作也很精良&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《电车 X 同级生》&lt;/strong&gt;： Local Love 三部曲第二部，其实三部剧情都挺离谱的，但是女主&lt;strong&gt;在田川鳰&lt;/strong&gt;太戳我 xp 了&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《可爱的圣诞礼物：泡沫冬景》&lt;/strong&gt;  ：&lt;strong&gt;steam&lt;/strong&gt; - 猫猫社 Nekoday 开发，公司成立在四川成都，四川人打 call！要钱，整个游戏就是纯剧情，无选择。男主在 1988 年从中国到日本谋生展开的故事，女主很可爱，女主的妹妹更可爱，但是我要说的是，这不是恋爱类型的游戏，出场的人物都很个性鲜明  。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《IRIS》&lt;/strong&gt;：  &lt;strong&gt;TapTap 免费游戏&lt;/strong&gt;，但是 21 年暂停下载了，大家想玩就各凭本事了吧，故事关于战斗机器人 都是女性  在战争后的生活，男主类似于星探，把这些女孩组成一个明星团，当然是纯爱，还面临生死考验，颜值、剧情都 ok&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《缘之空》&lt;/strong&gt;：人心里的成见是一座大山，但是当事人的情感才是最重要的。在这个人类社会中，我们诚然要依靠他人生活，但我们绝不是为他人生活。尽管这部作品放到现在来说人物绘画不是很高，但是这种评价本来就是不公正的。游戏和番剧的差别是很大的，我更推荐游戏，更能感受到&lt;strong&gt;穹&lt;/strong&gt;和&lt;strong&gt;悠&lt;/strong&gt;的心路历程，对于悠和穹的感情，在续作《悠之空》中大家面对悠的坦白，一叶就说了：“&lt;strong&gt;两个人父母双亡，两个人互相支撑。彼此思念的感情应该是不容否定的&lt;/strong&gt;”。平时大大咧咧的瑛和亮平反而心思细腻，理解着悠和穹。亮平赞赏着悠的勇气：“&lt;strong&gt;如果我也能不顾一切的话，现在恐怕已经走上了不同的人数道路。&lt;/strong&gt;” 整部作品的每个角色其实都是一个个鲜活的灵魂，愿大家能在这样一部禁忌爱恋的作品中收获自己的感动。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《悠之空》&lt;/strong&gt;：如果说给了缘之空五星，那没有理由不给悠之空五星，作为第二部游戏，给的其实就是一些短剧（md 说是短剧，但是每个都贼长），相当于是对第一部的补充吧。比如给了班长仓永梢开了一个短剧，不得不说班长把头发放下来是很好看的。但是本人作为穹党（无妹恨穹不是妹，有妹 hhhh，不必了，我的妹妹也是一个很可爱很乖的女生），在过完穹的路线后，再过班长的线不是很有体验，怎么说呢，我觉得这个游戏的缺点也在这，穹对悠的感情那么执着，那么深刻，突然之间就将悠让给其他人，我不是很能接受，当然，仅仅只是个人观点。当然该部作品还续写了穹线，还等什么？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《放学后的灰姑娘》&lt;/strong&gt;：这个游戏算是很有特色，在恋爱游戏中称得上一部佳作，乍一看里面的女主不是那种画中仙子一样，但是慢慢玩会发现每个女主都很可爱，温柔，耐看，有性格，而且声优也很有特点，个人比较喜欢筑紫和多乃实的声优，这里面的女主真的都非常有趣，请记住，是有趣。整个游戏过程让人很放松，心情愉悦，当然画风方面也是高质量的。&lt;br /&gt;
+&lt;strong&gt;长崎阳佳&lt;/strong&gt;：青梅竹马，从小其实就喜欢男主，所谓的辣妹风格 + 幼驯染属性结合。&lt;br /&gt;
+&lt;strong&gt;王城茉莉爱&lt;/strong&gt;：富家千金，全程倒贴男主，这一次，信我是秦始皇还是信富婆倒贴。&lt;br /&gt;
+&lt;strong&gt;筑岛筑紫&lt;/strong&gt;：呆萌，贪吃，心思敏感的学妹，喜欢晚辈路线的就可以玩一下。&lt;br /&gt;
+&lt;strong&gt;田寄多乃实&lt;/strong&gt;：不知为何，多乃实的声音莫名很戳我 xp，同辈 + 双马尾属性，算是所有女主中个人最喜欢的。&lt;br /&gt;
+&lt;strong&gt;宇佐川雪子&lt;/strong&gt;：热情，爱开玩笑的前辈，在与男主相处的过程中，有时真心的流露反而会被男主认为在和他开玩笑，真的是有人看乐子，有人照镜子啊。不过该路线是真的漫长。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/05/21/ad9007c73016f674.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 &lt;h1 id=&#34;四星&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#四星&#34;&gt;#&lt;/a&gt; 四星&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;没什么毛病，细节处理也很到位，但是还没有那么让人印象深刻，不失为一部佳作&lt;/p&gt;

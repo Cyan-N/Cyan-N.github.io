@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>慕青の迷途 • Posts by &#34;408&#34; tag</title>
+        <link>https://cecilia.cool</link>
+        <description>时雨病重症患者</description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 24 May 2023 09:11:32 +0800</pubDate>
+        <lastBuildDate>Wed, 24 May 2023 09:11:32 +0800</lastBuildDate>
+        <category>408</category>
+        <category>Docker</category>
+        <category>tools</category>
+        <category>云计算</category>
+        <category>二次元</category>
+        <category>八股文</category>
+        <category>shell</category>
+        <category>数据结构与算法</category>
+        <category>前端</category>
+        <category>MySQL</category>
+        <category>网络协议与工具</category>
+        <category>Redis</category>
+        <category>Mybatis</category>
+        <category>Spring全家桶</category>
+        <category>日志框架</category>
+        <category>uni-app</category>
+        <category>Concurrency</category>
+        <category>Java基础</category>
+        <category>Java8</category>
+        <category>Web</category>
+        <category>网络编程</category>
+        <category>JVM</category>
+        <category>设计模式</category>
+        <item>
+            <guid isPermalink="true">https://cecilia.cool/2023/05/24/408/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+            <title>操作系统从入门到找不到门</title>
+            <link>https://cecilia.cool/2023/05/24/408/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+            <category>408</category>
+            <pubDate>Wed, 24 May 2023 09:11:32 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;操作系统分三大部分：虚拟化、并发、持久化。鉴于并发专门开了一个 tag，所以这里只讲虚拟化和持久化，本文是我看完了《操作系统导论》以及其他各种优秀的文章总结而成。从学习层次来讲，《操作系统导论》更多的是引导读者去思考如何设计一个操作系统，而不是直接给出知识点，这是非常好的，但是这也意味着读者需要多去总结，所以有了本文。&lt;/p&gt;
+&lt;p&gt;目前《操作系统导论》的几种语言翻译在 github 是开源的，大家可以直接查看中文的 pdf 电子书：&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3JlbXppLWFycGFjaWR1c3NlYXUvb3N0ZXAtdHJhbnNsYXRpb25zL3RyZWUvbWFzdGVyL2NoaW5lc2U=&#34;&gt;https://github.com/remzi-arpacidusseau/ostep-translations/tree/master/chinese&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&#34;虚拟化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#虚拟化&#34;&gt;#&lt;/a&gt; 虚拟化&lt;/h1&gt;
+&lt;h2 id=&#34;分段&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分段&#34;&gt;#&lt;/a&gt; 分段&lt;/h2&gt;
+&lt;p&gt;对于一个进程来说，它所看到的内存结构应该是：代码区、堆区、栈区。每个进程都是这种视角，彷佛整个内存就是自己的，连续的。自己可以随便用，但是实际的物理内存，一个进程的数据可能是分散的很开，这就是虚拟化的作用。&lt;/p&gt;
+&lt;p&gt;虚拟化内存的两个约束就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于进程来说，自己占用的内存就是自己的，连续的（就像一个 CPU 通过虚拟化，在进程看来就有很多个 cpu 一样），分配的内存地址始终是从 0 开始的一样。&lt;/li&gt;
+&lt;li&gt;不能访问其他进程的内存，也就是不能越界。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分段机制就是：将代码区、堆区、栈区分成三个段，分开分配内存，但这并不是分段的重点，因为段也可以细分，这种只分三个段的策略比较粗糙。&lt;/p&gt;
+&lt;p&gt;段的重点就是每个段维护了两个值（放在特有的寄存器中）：基地址和界限。基地址保证了虚拟地址到物理地址的转换，界限保证了进程不会越界（否则就停止该进程）。&lt;/p&gt;
+&lt;p&gt;为什么要有分段：假设我们不分段，一开始进程运行我们就分配很大一片连续空间，这个空间只维护一对基地址 / 界限，代码区、堆栈区都在该空间中。堆栈之间的空闲空间没有被使用，但是如果一开始就分配很大的内存，那么这样的虚拟内存会占用物理内存。&lt;/p&gt;
+&lt;p&gt;在 MMU 中引入不止 一个基址和界限寄存器对，而是给地址空间内的每个逻辑段（segment）一对。一个段只是 地址空间里的一个连续定长的区域，在典型的地址空间里有 3 个逻辑不同的段：代码、栈 和堆。分段的机制使得操作系统能够将不同的段放到不同的物理内存区域，从而避免了虚 拟地址空间中的未使用部分占用物理内存。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不同的段该如何区分？有些段是否可以多个进程共享？一般这种解决方案都是利用前面一部分字节来作为标识符，这种解决方案很常见，特别是 MySQL，几乎不放过每一个可用的字节。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因为每个段的大小可能不同，而且不同 os 的分段机制也可能不同，在物理内存上很容易出现&lt;strong&gt;内存碎片&lt;/strong&gt;。（考虑是否会形成碎片，一方面要考虑内存分配出去，另一方面要考虑内存回收）。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/05/24/9e44c794dd1813fb.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;关于空闲内存和内存回收的算法同样也很多，我们重点学习思想，我们要知道这么一句话：&lt;strong&gt;完美才是最大的贪心&lt;/strong&gt;，尽管算法很多，但是我们很难找到一种高效又有用的算法，对于内存回收，我们可以从以下角度考虑：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内存分配影响内存回收，一个好的内存回收算法，往往需要内存分配算法来支持，比如伙伴系统。&lt;/li&gt;
+&lt;li&gt;回收之后内存如何处理，是与其他内存合并还是就放在那不管&lt;/li&gt;
+&lt;li&gt;使用何种数据结构存储空闲内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;页表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#页表&#34;&gt;#&lt;/a&gt; 页表&lt;/h2&gt;
+&lt;p&gt;分段会造成物理内存上的内存碎片，我们一般称为&lt;strong&gt;外部碎片&lt;/strong&gt;，os 运行的越久，外部碎片就越难处理。所以分页机制就出现了。&lt;/p&gt;
+&lt;p&gt;外部碎片主要是段的大小不一样，所以分配内存时固定每次分配的大小，外部碎片的最小值就是页大小，刚好可以分配出去。&lt;/p&gt;
+&lt;p&gt;通过分页虚拟化内存，我们还得看一下那两个要求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个进程都需要维护一个页表来映射虚拟内存（虚拟页号 VPN）到物理内存（物理页号 PFN）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有时我觉得页表也可以不需要，在每个页的前几个字节记录一下该页的 PFN，就可以知道该页映射到哪个物理页。假设 A 进程有一个变量，它的虚拟地址是 addr，首先我们需要知道 addr 属于哪个页：addr = 虚拟页号 + 该页偏移量，如果不用页表，而是在该页的前几个字节存储 PFN，我们直接访问 addr_PFN = 虚拟页号 + 0 即可。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这个我也不知道对不对，或者这种思想有什么错误，如果有同学可以慷慨解惑，请发邮件到：laurensvfevaa@gmail.com&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我自己思考的缺陷：这种分配机制，因为前几个字节用于存储 PFN，所以页之间不连续（但是 mysql 的分页不也用了前几个字节做标识的吗。。），无法知道当前进程有哪些页，不方便管理，比如现在我要分配一个变量，应该分到哪一个页。&lt;/p&gt;
+&lt;p&gt;言归正传，我们继续学习页表。因为每次都要多访问一次页表（还要遍历），从而拿到 PFN，所以这种机制会使程序慢上两倍甚至更多。所以出现了 TLB，它算是一种 cache，CPU 访问起来更快，因为 TLB 更小，遍历也就更快。既然是 cache，也就需要考虑 lru、lfu 之类的算法。&lt;/p&gt;
+&lt;p&gt;页表不应该太大，因为我们不是一来就为进程分配很多页，太大的页既占用内存，又不好查找。&lt;/p&gt;
+&lt;p&gt;解决方案之一：扩大一个页的大小，这样进程需要的页也就变少了，页表也就更小，而现代操作系统往往也会存在大页，但是这并不是考虑页表的大小，而是为了减小 TLB 的压力，页越大，命中概率也就越大&lt;/p&gt;
+&lt;h3 id=&#34;多级页表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#多级页表&#34;&gt;#&lt;/a&gt; 多级页表&lt;/h3&gt;
+&lt;p&gt;将页表分成页大小的单元，然后向上抽象出页目录，通过页目录找到页表所在的页。这样让没有分配的空闲页表不必占用物理内存：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/05/24/6375ab81794d7962.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;上图显示，多级页表不需要管理 PFN202、PFN203，因为都二者没有有效的页。&lt;/p&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 TLB 命中缺失，需要从内存加载两次（一次用于页目录，另一次用于页表项）。&lt;/li&gt;
+&lt;li&gt;复杂，但是总比简单却低效有用得多。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如何根据虚拟地址找到物理地址：虚拟地址 = VPN + 偏移量，VPN = 页目录索引 + 页表索引，然后通过页目录索（PDIndex）引找到&lt;strong&gt;页目录项&lt;/strong&gt;（PDE）地址：PDEAddr = PageDirBase +（PDIndex×sizeof（PDE））。&lt;/p&gt;
+&lt;p&gt;如果页目录无效，则我们知道访问无效，从而引发异常（进程企图访问不是他的内存的地址）。&lt;/p&gt;
+&lt;p&gt;从&lt;strong&gt;页目录项&lt;/strong&gt;指向的页表的页中获取 &lt;strong&gt;页表项&lt;/strong&gt;（PTE）：PTEAddr = (PDE.PFN &amp;lt;&amp;lt; SHIFT) + (PTIndex * sizeof (PTE))&lt;/p&gt;
+&lt;p&gt;如果多级页表不止两级，就需要再把 VPN 多分割一块，好麻烦。&lt;/p&gt;
+&lt;h3 id=&#34;反向页表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#反向页表&#34;&gt;#&lt;/a&gt; 反向页表&lt;/h3&gt;
+&lt;p&gt;这种页表，每一个页表项存储：物理页，该页被哪个进程使用，该进程的哪个虚拟页映射到此物理页。同时取消遍历，在此基础上建立散列表。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;页表只是数据结构。你可 以对数据结构做很多疯狂的事情，让它们更小或更大，使它们变得更慢或更快。多层和反 向页表只是人们可以做的很多事情的两个例子。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;交换空间&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#交换空间&#34;&gt;#&lt;/a&gt; 交换空间&lt;/h3&gt;
+&lt;p&gt;进程多起来，需要的页也就多了，就要用到交换空间，这个交换空间可能是硬盘，磁盘（也可能是其他存储空间），一个进程可能有很多页，但是有一部分（比如不常用）应该放在交换空间中，因为物理内存实在有限，等需要用到这些页，再把它加载到内存中（该过程多半会替换掉内存中其他的页）。&lt;/p&gt;
+&lt;p&gt;当硬件在 PTE 中查找时，可能发现&lt;strong&gt;页不在物理内存中&lt;/strong&gt;。硬件（或操作系统，在软件管理 TLB 时）判断是否在内存中的方法，是通过页表项中的一条新信息，即存在位（present bit）。如果存在位设置为 1，则表示该页存在于物理内存中，并且所有内容都如上所述进行。如果存在位设置为零，则页不在内存中，而在硬盘上。访问不在物理内存中的页，这种行为通常被称为页错误（page fault）。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/05/24/fec5c367a90a545e.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;何时发生交换：大多数操作系统会设置高水位线（High Watermark，HW） 和低水位线（Low Watermark，LW），来帮助决定何时从内存中清除页。原理是这样：当操作系统发现有少于 LW 个页可用时，后台负责释放内存的线程会开始运行，直到有 HW 个 可用的物理页。这个后台线程有时称为交换守护进程（swap daemon）或页守护进程（page daemon）&lt;/p&gt;
+&lt;p&gt;提到页错误，顺便补充：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/05/24/1a9912a857e0a9f0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;交换策略&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#交换策略&#34;&gt;#&lt;/a&gt; 交换策略&lt;/h3&gt;
+&lt;p&gt;之前提出交换空间的概念，这种概念的提出其实是机制，通过交换空间来存储一些内存页，如何交换就是策略。&lt;/p&gt;
+&lt;p&gt;如果交换时，内存足够当然是皆大欢喜，但是如果内存不够，我们就需要替换掉一部分内存页，如果你了解 MySQL 底层的刷脏机制，你就会对交换策略有个较为清晰的认识。&lt;/p&gt;
+&lt;p&gt;大概的策略：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FIFO&lt;/li&gt;
+&lt;li&gt;随机&lt;/li&gt;
+&lt;li&gt;LRU：完美的 LRU 是很浪费时间的，想想遍历那么多页去找（当然可以 Hash + 链表，不过是空间换时间），所以一般用的是近似 LRU 算法。当然有很多优秀的近似 LRU 算法，可以看一下 MySQL 的链表分区和 Redis 随机取样算法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;抖动&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#抖动&#34;&gt;#&lt;/a&gt; 抖动&lt;/h3&gt;
+&lt;p&gt;当内存就是被超额请求时（一般是多个进程请求），系统将 不断地进行换页，这种情况有时被称为抖动（thrashing）。一种应对机制就是：系统决定不运行部分进程，希望减少后的页可以放到内存中，从而取得进展。这种方法被称为&lt;strong&gt;准入控制&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;目前的一些系统采用更严格的方法处理内存过载。例如，当内存超额请求时，某些版本的 Linux 会运行 “内存不足的杀手程序（out-of-memory killer）”。这个守护进程选择一个 内存密集型进程并杀死它，从而以不怎么委婉的方式减少内存。虽然成功地减轻了内存压 力，但这种方法可能会遇到问题，例如，如果它杀死 X 服务器，就会导致所有需要显示的 应用程序不可用。&lt;/p&gt;
+&lt;h1 id=&#34;并发&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#并发&#34;&gt;#&lt;/a&gt; 并发&lt;/h1&gt;
+&lt;p&gt;并发模块请移步 &lt;code&gt;Concurrency&lt;/code&gt;  标签。&lt;/p&gt;
+&lt;h1 id=&#34;持久化&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#持久化&#34;&gt;#&lt;/a&gt; 持久化&lt;/h1&gt;
+&lt;h2 id=&#34;io设备&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#io设备&#34;&gt;#&lt;/a&gt; I/O 设备&lt;/h2&gt;
+&lt;p&gt;高性能总线造价很高，越快的总线越短，所以要求高性能的设备离 CPU 更近一些（显卡），低性能设备离 CPU 更远一些（磁盘、USB 等，他们连接到外围总线）&lt;/p&gt;
+&lt;p&gt;一个标准的硬件设备需要设计：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;上层接口：提供接口让系统软件来控制它，主要有三个寄存器：状态，命令，数据&lt;/li&gt;
+&lt;li&gt;下层内部：硬件的内部结构，包含设备相关的特定实现，&lt;strong&gt;负责具体实现设备展示给系统的抽象接口&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;标准协议：其实就是操作系统与标准设备的交互，以便让设备执行某事，伪代码为&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;While&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;STATUS &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; BUSY&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; &lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// wait until device is not busy&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Write data to DATA &lt;span class=&#34;token keyword&#34;&gt;register&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Write command to COMMAND &lt;span class=&#34;token keyword&#34;&gt;register&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;Doing so starts the device and executes the command&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;While&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;STATUS &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; BUSY&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; &lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// wait until device is done with your request&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;具体步骤可以解释为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;os 反复读取&lt;strong&gt;状态寄存器&lt;/strong&gt;，等待设备进入可以接 收命令的就绪状态，这就是轮询（polling）设备。&lt;/li&gt;
+&lt;li&gt;设备就绪后 os 就可以发数据到&lt;strong&gt;数据寄存器&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;os 将命令写入&lt;strong&gt;命令寄存器&lt;/strong&gt;，然后谁被开始执行命令。&lt;/li&gt;
+&lt;li&gt;os 反复轮询，看设备是否执行完命令（得到一个指示成功或失败的错误码）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;轮询开销太大了，所以出现了中断（interrupt）来减小开销。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;中断对于 os 的本质就是：操作系统可以在等待磁盘操作时做其他的事情。比如：在磁盘处理进程 1 的请求时，操作系统在 CPU 上运行进程 2。磁盘处 理完成后，触发一个中断，然后操作系统唤醒进程 1 继续运行。这样，在这段时间，无论 CPU 还是磁盘都可以有效地利用。&lt;/p&gt;
+&lt;p&gt;处理终端涉及到线程的切换，代价不小，如果设备非常快，那么轮询更好一些。另一个不要使用中断的场景就是网络，每一个数据包都中断一次肯定是不可能的，Web 服务器可以先服务一些用户请求，再回去检查网卡设备是否有更多数据包到达。或者是说将多次中断合并（设备抛出中断前等待一段时间）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DMA&lt;/strong&gt; 设备：负责处理内存和磁盘之间的数据拷贝，如果 CPU 负责处理这个事情，那又是一个性能的损耗。&lt;/p&gt;
+&lt;p&gt;在 os 最下层抽象了&lt;strong&gt;设备驱动程序&lt;/strong&gt;，封装了与硬件交互的所有细节，使得上层文件系统不需要关心使用的存储设备具体是什么，只需要向&lt;strong&gt;通用块设备层&lt;/strong&gt;发送读写请求即可，块设备层会将这些请求路由给对应的设备驱动，然后设备驱动来完成真正的底层操作。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;说是最下层，其实整个操作系统内核的大部分代码都是驱动程序代码，尽管大部分默认不是激活状态。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;磁盘&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#磁盘&#34;&gt;#&lt;/a&gt; 磁盘&lt;/h2&gt;
+&lt;p&gt;因为现在计算机基本都淘汰了磁盘，采用固态硬盘，后者的原理和量子力学有关，效率远超机械硬盘（磁盘），所以本篇不会对磁盘过多讲解，只是简单介绍一下概念。&lt;/p&gt;
+&lt;p&gt;磁盘寻道、扇区，磁头可以读取 / 更改磁性，随机 IO，平均的寻道时间大概是从磁盘一端到另一端的总时间的&lt;strong&gt;三分之一&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;文件和目录&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件和目录&#34;&gt;#&lt;/a&gt; 文件和目录&lt;/h2&gt;
+&lt;p&gt;文件就是 一个&lt;strong&gt;线性字节数组&lt;/strong&gt;，每个字节都可以读取或写入。&lt;/p&gt;
+&lt;p&gt;目录包含一个（用户可读名字，低级名字）对的列表。假设存在一个低级别名称为 “10” 的文件，它的用户可读的名称为 “foo”。“foo” 所在 的目录因此会有条目（“foo”，“10”），将用户可读名称映射到低级名称（通常是&lt;strong&gt; inode 号&lt;/strong&gt;）。文件系统将文件的类型信息保存在 &lt;code&gt;inode&lt;/code&gt;  结构中。目录中的每个条目 都指向文件或其他目录。&lt;/p&gt;
+&lt;p&gt;文件描述符：是一 个整数，是每个进程私有的，在 UNIX 系统中用于访问文件。因此，一旦文件被打开，你 就可以使用文件描述符来读取或写入文件。&lt;/p&gt;
+&lt;p&gt;我们可以通过 strace 看看一个程序是如何访问文件的：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;echo&lt;/span&gt; hello &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; foo&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; foo&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这段代码会显示 &lt;code&gt;hello&lt;/code&gt; ，现在加上 strace 工具：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;strace&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; foo&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;结果大致如下：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/02/40d5c86c1339cb4f.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;第一个 &lt;code&gt;open&lt;/code&gt;  返回的是 3，每个正在运行的进程已经打开了 3 个文件：标准输入（进程可以读取以接收输入），标准输出（进程可以写入以便将信息显示到屏幕），以及标准错误（进程可以写入错误消息）。这些分别由文件描述符 0、1 和 2 表示。因此，当你第一次打开另一个文件时（如上例所示），它几乎肯定是文件描述符 3。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这个 3 不是指有 3 个文件描述符，事实上，当我们打开 foo 时，该进程应该有四个文件描述符，3 只是 0，1，2 分配完了，继续递增分配给 foo 而已。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;删除文件的本质就是删除链接，在 Unix 中， &lt;code&gt;rm&lt;/code&gt;  命令可以删除指定文件，但是该命令底层本质还是调用了 &lt;code&gt;unlink()&lt;/code&gt;  系统调用（你可以自己使用 &lt;code&gt;strace&lt;/code&gt;  试试）。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;echo&lt;/span&gt; hello &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; f1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ln&lt;/span&gt; f1 f2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;上面命令创建了文件 &lt;code&gt;f1&lt;/code&gt; ，使用 &lt;code&gt;ln&lt;/code&gt;  程序创建该文件的&lt;strong&gt;硬链接&lt;/strong&gt;，此后，我们可以通过打开 &lt;code&gt;f1&lt;/code&gt;  和 &lt;code&gt;f2&lt;/code&gt;  来检查文件。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你可以类比：两个指针指向同一个对象。这里就是两个文件名指向同一个 &lt;code&gt;inode&lt;/code&gt;  结构&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 &lt;code&gt;f1&lt;/code&gt;  和 &lt;code&gt;f2&lt;/code&gt;  的 &lt;code&gt;inode&lt;/code&gt;  号都是一样的&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-i&lt;/span&gt; f1 f2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;每多一个硬链接， &lt;code&gt;inode&lt;/code&gt;  结构都会在计数器（内置）加一。所以删除一个文件本质就是解除链接，也就是 &lt;code&gt;unlink()&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;除了硬链接，还有一个&lt;strong&gt;软链接&lt;/strong&gt;（符号链接），通过 &lt;code&gt;-s&lt;/code&gt;  参数来创建：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ln&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-s&lt;/span&gt; f1 f2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; f2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 同样可以访问&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;形成符号链接的方式，即将链接指向文件的路径名作为链 接文件的数据。可以理解为 &lt;code&gt;f2&lt;/code&gt;  指向的就是 &lt;code&gt;f1&lt;/code&gt;  的路径，这就和 windows 中右键文件 &lt;code&gt;-&amp;gt;&lt;/code&gt;  创建快捷方式很像。如果 &lt;code&gt;f1&lt;/code&gt;  被删除了，就会导致 &lt;code&gt;f2&lt;/code&gt;  指向一个无效的路径名。&lt;/p&gt;
+&lt;p&gt;至于目录，其格式被视为文件系统元数据，我们只能简介修改目录。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;mkdir&lt;/span&gt; foo&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这样的目录创建时，它被认为是 “空的”，尽管它实际上包含最少的内容。具体来说， 空目录有两个条目：一个引用自身的条目，一个引用其父目录的条目。前者称为 “.”（点） 目录，后者称为 “..”（点 - 点）目录。你可以通过向程序 ls 传递一个标志（-a）来查看这些 目录：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-a&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 结果：. ..&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;最后，我们需要学习 ** 挂载（mount）** 这个概念，假设本地有一个文件系统类型，它本身就是一棵完整的目录树，现在外部插入 U 盘，U 盘本身也是一颗目录树，就需要通过 &lt;code&gt;mount&lt;/code&gt;  挂载到文件系统中。&lt;/p&gt;
+&lt;p&gt;mount 的作用很简 单：以现有目录作为目标挂载点（mount point），本质上是将新的文件系统粘贴到目录树的 这个点上。&lt;/p&gt;
+&lt;p&gt;有一个未挂载的  &lt;code&gt;ext3&lt;/code&gt;  文件系统，存储在设 备分区 &lt;code&gt;/dev/sda1&lt;/code&gt;  中，它的内容包括：一个根目录，其中包含两个子目录 a 和 b，每个子目录 依次包含一个名为 foo 的文件。假设希望在挂载点 &lt;code&gt;/home/users&lt;/code&gt;  上挂载此文件系统。我们会输 入以下命令：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;mount&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; ext3 /dev/sda1 /home/users&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果成功， &lt;code&gt;mount&lt;/code&gt;  就让这个新的文件系统可用了。但是，请注意现在如何访问新的文件系统。要查看那个根目录的内容，我们将这样使用  &lt;code&gt;ls&lt;/code&gt; ：&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ls&lt;/span&gt; /home/users/ a b&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;路径名 &lt;code&gt;/home/users/&lt;/code&gt;  现在指的是新挂载目录的根。&lt;/p&gt;
+&lt;h2 id=&#34;文件系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件系统&#34;&gt;#&lt;/a&gt; 文件系统&lt;/h2&gt;
+&lt;p&gt;建立一个文件系统，我们需要考虑的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件系统如何存储数据和元数据（&lt;strong&gt;数据结构&lt;/strong&gt;）&lt;/li&gt;
+&lt;li&gt;文件系统如何将进程发出的调用（open，read，write）映射到对应的结构上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;建立自己的心智模型，也就是在学习系统时真正想要发展的东西。对于文件系统，你 的心智模型最终应该包含以下问题的答案：磁盘上的哪些结构存储文件系统的数据和元数据？当一个进 程打开一个文件时会发生什么？在读取或写入期间访问哪些磁盘结构？通过研究和改进心智模型，你可 以对发生的事情有一个抽象的理解，而不是试图理解某些文件系统代码的细节。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;数据结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据结构&#34;&gt;#&lt;/a&gt; 数据结构&lt;/h3&gt;
+&lt;p&gt;我们将磁盘分块，然后定义一下&lt;strong&gt;数据块&lt;/strong&gt;、&lt;strong&gt;inodes&lt;/strong&gt;（用于存储所有 inode）、&lt;strong&gt;inode 位图&lt;/strong&gt;（用于判断某个 inode 是否被使用）、&lt;strong&gt;数据位图&lt;/strong&gt;（同理，数据块是否使用），&lt;strong&gt;超级块&lt;/strong&gt;（S，用于存储特定文件系统信息，比如有多少个 inode，多少个数据块）&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/02/b537477a22cf80f9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在挂载文件系统时，操作系统将首先读取超级块，初始化各种参数，然后将该卷添加到文件系统树中。当卷中的文件被访问时，系统就会知道在哪里查找所需的磁盘上的结构。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;inode&lt;/code&gt;  包含了指向数据块的指针，为了支持更大的文件，文件系统设计者必须在 inode 中引入不同的结构。一个常见的思 路是有一个称为间接指针（indirect pointer）的特殊指针。它不是指向包含用户数据的块， 而是指向包含更多指针的块，每个指针指向用户数据。因此，inode 可以有一些固定数量（例 如 12 个）的直接指针和一个间接指针。如果文件变得足够大，则会分配一个间接块（来自 磁盘的数据块区域），并将 inode 的间接指针设置为指向它。假设一个块是 4KB，磁盘地址 是 4 字节，那就增加了 1024 个指针。文件可以增长到（12 + 1024）×4KB，即 4144KB。&lt;/p&gt;
+&lt;p&gt;至于目录，一个目录基本上只包含一个二 元组（条目名称，inode 号）的列表。对于给定目录中的每个文件或目录，目录的数据块中都有一个字符串和一个数字。&lt;/p&gt;
+&lt;p&gt;删除一个文件（例如调用 unlink ()）会在目录中间留下一段空白空间，因此应该有一些方法来&lt;strong&gt;标记&lt;/strong&gt;它（例如，用一个保留的 inode 号，比如 0）。这种删除是使用记录长度的一个原因：新条目可能会重复使用旧的、更大的条目，从而在其中留有额外的空间。&lt;/p&gt;
+&lt;h3 id=&#34;文件组织&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件组织&#34;&gt;#&lt;/a&gt; 文件组织&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;inode&lt;/code&gt;  大概有这些内容：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/05/30f88d4fb5c3c172.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;一个文件一般会有很多个数据块， &lt;code&gt;inode&lt;/code&gt;  访问这些数据块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最简单的方案： &lt;code&gt;inode&lt;/code&gt;  里面存储所有数据块的指针，这会导致 inode 越来越大（扩容）&lt;/li&gt;
+&lt;li&gt;多级索引： &lt;code&gt;inode&lt;/code&gt;  只保存一个指针，当有数据块 A 分配时，会单独分配一个数据块 B 来存放 A 的指针，这意味着 B 可以存放很多数据块的指针，而 &lt;code&gt;inode&lt;/code&gt;  的指针只需要指向 B 即可。这就很像 mysql 的 B + 树&lt;/li&gt;
+&lt;li&gt;链式存储： &lt;code&gt;inode&lt;/code&gt;  存储一个指针，每个数据块的尾部都存储下一个数据块的地址，从而形成链表。这种方式不适合随机访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;创建文件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#创建文件&#34;&gt;#&lt;/a&gt; 创建文件&lt;/h3&gt;
+&lt;p&gt;操作系统为了创建一个文件，会产生很多昂贵的 IO 成本，最简单的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读取和更新位图用于分配数据块&lt;/li&gt;
+&lt;li&gt;读取和更新 &lt;code&gt;inode&lt;/code&gt;  状态信息&lt;/li&gt;
+&lt;li&gt;写入数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们还需要修改上级目录的 &lt;code&gt;inode&lt;/code&gt;  数据，如果目录的 inode 扩容，还需要再分配数据块和修改位图。&lt;/p&gt;
+&lt;h3 id=&#34;ffs&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ffs&#34;&gt;#&lt;/a&gt; FFS&lt;/h3&gt;
+&lt;p&gt;快速文件系统：Fast File System&lt;/p&gt;
+&lt;p&gt;最初的 Unix 的文件系统性能并不好，伯克利实验室的一个小组为了优化性能，保留了文件系统的 API，但是修改了相关的实现，这就是 FFS 雏形。&lt;/p&gt;
+&lt;p&gt;最开始是把&lt;strong&gt;磁盘分组&lt;/strong&gt;，柱面组，每个组都可以看成是一个小型磁盘（当然，组之间肯定连通的），每个组都有超级快，ib、db 等：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/cbd0bc3ce928ac40.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;尽量使得一个目录中的文件落在一个组中，文件的 &lt;code&gt;inode&lt;/code&gt;  和数据也尽量在一个组中，这些操作都是为了减少随机 IO（将随机 IO 尽量限制在一个组中而不是整个磁盘中，因为顺序访问更快，减少寻道）。&lt;/p&gt;
+&lt;p&gt;但是对于&lt;strong&gt;大文件&lt;/strong&gt;会有例外，因为按照之前的存放方式，大文件会首先占满对应的组，甚至是后面几个组，使得同目录后面的小文件放的比较远（中间隔了大文件，使得随机 IO 增加）。&lt;/p&gt;
+&lt;p&gt;对于大文件，FFS 执行以下操作。在将一定数量的块分配到第一个块组（例如， 12 个块，或 inode 中可用的直接指针的数量）之后，FFS 将文件的下一个 “大” 块（即第一 个间接块指向的那些部分）放在另一个块组中（可能因为它的利用率低而选择）。然后，文 件的下一个块放在另一个不同的块组中，依此类推。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/06/dc9ed116f804b32d.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;每个大块都分到了不同的组，而不是一个超级大的连续块分配给一个文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;崩溃一致性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#崩溃一致性&#34;&gt;#&lt;/a&gt; 崩溃一致性&lt;/h3&gt;
+&lt;p&gt;文件系统面临的一个主要挑战在于，如何在出现断电（power loss）或系统崩溃（system crash）的情况下，更新持久数据结构。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这种挑战并不是说，哪怕突然断电，文件系统也会把正在持久化的数据全部持久化到磁盘中，而是说对于某次持久化，要么全部持久化进去，要么全部都丢失。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;比较老的文件系统采用的方法是&lt;strong&gt; FSCK&lt;/strong&gt;：&lt;strong&gt;File System Checker&lt;/strong&gt;，更好的方法是日志记录。&lt;/p&gt;
+&lt;p&gt;崩溃场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;只有数据块写入磁盘&lt;/strong&gt;：数据在磁盘上，没有指向它的 inode，也没有表示块已分配的位图，这种情况根本不是问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;只有更新的 inode 或者只更新了 inode 和位图写入了磁盘&lt;/strong&gt;：指针更新，而数据没有更新，会读到脏数据&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;只有更新后的位图写入了磁盘&lt;/strong&gt;：位图指示已分配块 5， 但没有指向它的 inode。因此文件系统再次不一致。如果不解决，这种写入将导致 空间泄露（space leak），因为文件系统永远不会使用块 5。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;只写入了位图和数据块，但没有写入 inode&lt;/strong&gt;：同上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;理想的做法是将文件系统从一个一致状态（在文件被追加之前），原子地 （atomically）移动到另一个状态（在 inode、位图和新数据块被写入磁盘之后）。&lt;/p&gt;
+&lt;p&gt;但是这并不容易，因为磁盘一次只提交一次写入，更新之间都可能发生崩溃或断电。&lt;/p&gt;
+&lt;h4 id=&#34;文件系统检查程序&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件系统检查程序&#34;&gt;#&lt;/a&gt; 文件系统检查程序&lt;/h4&gt;
+&lt;p&gt;简单的做法就是 os 允许不一致的事情发生，然后再修复（重启时）。 &lt;code&gt;fsck&lt;/code&gt;  是一个 Unix 工具，用于查找这些不一致并修复它们。但是，&lt;strong&gt;这种方法无法解决所有问题&lt;/strong&gt;，比如上述的情况 2。&lt;/p&gt;
+&lt;p&gt;基本总结：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;超级块&lt;/strong&gt;：fsck 检查超级块是否合理，进行健全性检查，确保文件系统大小大于分配的块数。如果找到可疑的块，os 可以决定使用备用副本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;空闲块&lt;/strong&gt;：fsck 可以扫描 inode、间接块、双重块等，如果位图和 inode 之间存在任何不一致，则通过&lt;strong&gt;信任 &lt;code&gt;inode&lt;/code&gt;  内的信息&lt;/strong&gt;来解决不一致。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;inode 块&lt;/strong&gt;：检查每个 inode 是否存在损坏或其他问题。例如，fsck 确保每个分配 的 inode 具有有效的类型字段（即常规文件、目录、符号链接等）。如果 inode 字 段存在问题，不易修复，则 inode 被认为是可疑的，并被 fsck 清除，inode 位图相 应地更新。fsck 还会验证每个已分配的 inode 的链接数。其实就是遍历整个目录数，构建自己的链接计数进行比对。&lt;/li&gt;
+&lt;li&gt;。。。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还有一些逻辑，但是总结就是遍历，这种逻辑随着磁盘容量上升，性能损耗是无法忍受的。&lt;/p&gt;
+&lt;h4 id=&#34;日志&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#日志&#34;&gt;#&lt;/a&gt; 日志&lt;/h4&gt;
+&lt;p&gt;基本思路如下。更新磁盘时，在覆写结构之前，首先写下一点小注记（在磁盘上的其 他地方，在一个众所周知的位置），描述你将要做的事情。写下这个注记就是 “预写” 部分， 我们把它写入一个结构，并组织成 “日志”。&lt;/p&gt;
+&lt;p&gt;通过将注释写入磁盘，可以保证在更新（覆写）正在更新的结构期间发生崩溃时，能 够返回并查看你所做的注记，然后重试。&lt;/p&gt;
+&lt;p&gt;最基本的一条日志可以看成是一个事务的记录，因为我们需要更新位图、inode、数据块等等，我们希望这些更新都是原子的，这正好的事务的特性之一。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/07/684921f2fab3c108.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;这就是一条日志大致的内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TXB：日志开始，id 就是事务的 id&lt;/li&gt;
+&lt;li&gt;I [v2]：inode 需要更新的信息&lt;/li&gt;
+&lt;li&gt;B [v2]：位图需要更新的信息&lt;/li&gt;
+&lt;li&gt;TxE：日志结尾，表示该事务结束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当日志写入磁盘时，以上述日志为例，需要写入&lt;strong&gt; 5 个块&lt;/strong&gt;。简单的方法是一次发出一个，&lt;strong&gt;等待&lt;/strong&gt;每个完成，然后发出下一个。但是，这很慢。理想情况下，我们希望一次发出所有 5 个块 写入，因为这会将 5 个写入转换为单个顺序写入，因此更快。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你可以看作先把这 5 个块写入缓冲区，然后再一次性发送给写入磁盘的程序。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是我们不能保证这 5 个块是顺序写入磁盘的，如果系统没有崩溃，那么是否顺序写入无所谓，但是如果再这 5 个块写入的过程中出现崩溃，可能会有问题，比如写入顺序为：TxB、I [v2]、B [v2]、TxE。然后发生崩溃导致 Db 块没有写入日志中，但是因为&lt;strong&gt; TxE&lt;/strong&gt; 写入了，恢复时 os 会认为这是一条正确的日志，就出问题了。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/07/1d0c169e5460174e.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们需要一种机制来保证写入的顺序&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/07/dd61b6c0aec4e094.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;当然也可以不用这种机制，因为我们的目的是为了检验一条日志是否完整的写入到磁盘中，我们可以为校验加上另外的规则：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开头和结尾的是否正确写入，上述例子中就是 TxB 和 TxE（这是最开始的校验规则）&lt;/li&gt;
+&lt;li&gt;使用整条日志计算出一个校验和，然后将校验和保存到 TxB 和 TxE 中，在非顺序写入的情况下，如果中间某块没有成功写入，那么恢复时根据这个错误日志生成出来的校验和就会和原有的校验和不一致。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/07/09e156605d585677.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;总结：这种双写（写日志、写数据）的机制保证了数据一致性，本质是因为第一次写我们可以容忍崩溃，说直白点，我们甚至可以写两次数据，第一次写完后在末尾加上一个结束标志，如果第一次崩溃了，那么自然就不需要这些数据，相当于回滚，如果成功写入第一次数据，那么第二次再写入，第二次写入过程如果崩溃了，就用第一次的数据恢复。&lt;/p&gt;
+&lt;h3 id=&#34;lfs&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#lfs&#34;&gt;#&lt;/a&gt; LFS&lt;/h3&gt;
+&lt;p&gt;LFS 是日志结构文件系统的缩写，在 20 世纪 90 年代早期，由 John Ousterhout 教授和研究生 Mendel Rosenblum 领导的伯 克利小组开发了一种新的文件系统。&lt;/p&gt;
+&lt;p&gt;FFS（快速文件系统）执行大量写入时（位图、inode、数据块等），尽管将其尽量凡在一个组，但是 FFS 会导致许多短寻道和随后的旋转延迟（短寻道就是在组中的随机 IO，这是无法避免的），因此性能远远低于峰值顺序带宽。&lt;/p&gt;
+&lt;p&gt;而 LFS 写入磁盘时，LFS 首先将所有更新（包括元数据！）缓冲在内存段中。当段已满时，它会在一次长时间的顺序传输中写入磁盘，并传输到磁盘的未使用部分。LFS 永远不会覆写现有数据，而是 ** 始终将段写入空闲位置。** 由于段很大，因此 可以有效地使用磁盘，并且文件系统的性能接近其峰值。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/d54a2dac50fce3e0.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们要知道，文件系统只能减少写入的随机 IO，读的随机 IO 是无法避免的，因为你无法控制上层传来的读取命令，它要读取哪些你是控制不了的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;段大小&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#段大小&#34;&gt;#&lt;/a&gt; 段大小&lt;/h4&gt;
+&lt;p&gt;我们应该缓冲多少才能得到最大的传输效率或者是希望的理想效率。当然是段越大越好。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算有效的写入效率（想一下工作效率 = 工作总量 / 工作时间）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/c4432acdeac70932.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算段大小 D&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/b832b0e37dbf5c38.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h4 id=&#34;寻找inode&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#寻找inode&#34;&gt;#&lt;/a&gt; 寻找 inode&lt;/h4&gt;
+&lt;p&gt;之前的 Unix 系统中，inode 都被固定在一个位置，现在却在不断变化更新，所以加一个中间层映射 inode 号和 inode 地址即可。&lt;/p&gt;
+&lt;p&gt;imap 需要保持持久（写入磁盘）。这样做允许 LFS 在崩溃时仍能记录 inode 位置，从而按设想运行。因此有一个问题：imap 应该驻留在磁盘上的哪个位置？&lt;/p&gt;
+&lt;p&gt;当然，它可以存在于磁盘的固定部分。遗憾的是，由于它经常更新，因此需要更新文 件结构，然后写入 imap，因此性能会受到影响（每次的更新和 imap 的固定位置之间，会有 更多的磁盘寻道）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;归根到底：文件系统必须在磁盘上有一些固定且已知的位置，才能开始文件查很。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;LFS 在磁盘上只有这样一个固定的位置，称为&lt;strong&gt;检查点区域&lt;/strong&gt;（checkpoint region，CR），它始终位于磁盘的开头，地址为 0）。检查点区域包含指向最新的 inode 映射片段的指针（即地址），因此可以通过首先读取 CR 来很到 inode 映射片段（&lt;strong&gt;一般会将整个 inode 映射缓存在内存中&lt;/strong&gt;）。请注意，检查点区域仅定期更新（例如每 30s 左右），因此性能不会受到 影响。因此，磁盘布局的整体结构包含一个检查点区域（指向内部映射的最新部分），每个 inode 映射块包含 inode 的地址，inode 指向文件（和目录）&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/748ca67768341109.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;显然，CR 又涉及到写入内存，这时又要考虑崩溃恢复等等，大致思想还是前后端写入时间戳来比较是否原子写入磁盘，崩溃回滚等等。&lt;/p&gt;
+&lt;h3 id=&#34;数据完整性和保护&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据完整性和保护&#34;&gt;#&lt;/a&gt; 数据完整性和保护&lt;/h3&gt;
+&lt;p&gt;基于现代存储设备的不可靠性，文件系统需要确保放入存储系统的数据就是存储系统返回的数据。常见的两种单块故障为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;潜在扇区错误（Latent-Sector Errors，LSE）&lt;/strong&gt;：比如磁头碰到表面，导致数据位不可读。宇宙射线导致数据位反转。驱动器可以通过磁盘内纠错码（Error Correcting Code，ECC）确定块中磁盘位是否良好，有时还可以修复。如果它们不好，并且驱动器没有足够的信息来修复错误，则在 发出请求读取它们时，磁盘会返回错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;讹误（Corrupt）&lt;/strong&gt;：磁盘本身无法检测到，比如当一个块通过有故障的总线 从主机传输到磁盘时，它可能会讹误。由此产生的讹误数据会存入磁盘，但它不是客户所希望的。这些类型的故障特别隐蔽，因为它们是无声的故障（silent fault）。返回故障数据时， 磁盘没有报告问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果真的希望建立一个可靠的存储系统，必须包括一些机制来检测和恢复 LSE 并阻止讹误。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;处理lse&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#处理lse&#34;&gt;#&lt;/a&gt; 处理 LSE&lt;/h4&gt;
+&lt;p&gt;当 存储系统尝试访问块，并且磁盘返回错误时，存储系统应该就用它具有的任何冗余机制， 来返回正确的数据。例如，在镜像 RAID 中，系统应该访问备用副本。在基于奇偶校验的 RAID-4 或 RAID-5 系统中，系统应通过奇偶校验组中的其他块重建该块。因此，利用标准 冗余机制，可以容易地恢复诸如 LSE 这样的容易检测到的问题。&lt;/p&gt;
+&lt;h4 id=&#34;检测讹误校验和&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#检测讹误校验和&#34;&gt;#&lt;/a&gt; 检测讹误：校验和&lt;/h4&gt;
+&lt;p&gt;如果一个块出错了，恢复的朴素机制就是通过副本恢复，所以我们只需要将重点放在检测上。从之前的知识来看，判断一个块是否完整，最常用，又高效的机制就是校验和，将一个块变为一个（若干个）数。&lt;/p&gt;
+&lt;p&gt;CRC 冗余校验和 Fletcher 校验和算法。&lt;/p&gt;
+&lt;p&gt;得到校验和，我们就需要将校验和&lt;strong&gt;布局&lt;/strong&gt;到磁盘中，理想状况就是将校验和写到对应的块后面，但是磁盘只能以扇区大小的块或者其倍数写入，单个校验和是无法跟在后面写入的。驱动器制造商采用的一种解决方 案是使用 520 字节扇区格式化驱动器，每个扇区额外的 8 个字节可用于存储校验和。但是不一定每个磁盘都有该功能，文件系统为了适配所有磁盘，就应该提供一种方法来将打包的校验和存储到 512 字节的块中。&lt;/p&gt;
+&lt;p&gt;讹误也可能是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;正确的数据写到了错误的地方&lt;/strong&gt;：我们可以在校验和中加上数据块地址即可。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;丢失的写入&lt;/strong&gt;：那么磁盘上存在的就是旧数据，经典的解决方案是执行写入验证或者写入后立即读取。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于构建容错系统领域感兴趣的人，应该读这篇文章：&amp;quot;Commercial Fault Tolerance: A Tale of Two Systems&amp;quot; Wendy Bartlett, Lisa Spainhower IEEE Transactions on Dependable and Secure Computing, Vol. 1, No. 1, January 2004&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;分布式系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分布式系统&#34;&gt;#&lt;/a&gt; 分布式系统&lt;/h1&gt;
+&lt;h2 id=&#34;nfs&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#nfs&#34;&gt;#&lt;/a&gt; NFS&lt;/h2&gt;
+&lt;p&gt;网络文件系统（Network File System，NFS），最基本的，就是客户端将文件存储在服务器端，通过网络进行数据（文件）的传输。&lt;/p&gt;
+&lt;p&gt;而客户端文件系统的作用如图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/09/7a6a09de0d6cc163.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;最早且相当成功的分布式系统之一是由 Sun Microsystems 开发的，被称为 Sun 网络文件系统（NFS），SUn 开发了一种开放协议（NFS 协议，如 NFSv2 就是版本 2），它只是指定了客户端和服务器用于通信的确切消息格式，而不是构建专有的封闭系统。&lt;/p&gt;
+&lt;p&gt;在 NFSv2 中，协议的主要目标是 “&lt;strong&gt;简单快速的服务器崩溃恢复&lt;/strong&gt;”。而 NFSv2 崩溃恢复的核心就是&lt;strong&gt;无状态&lt;/strong&gt;，服务器不会追踪客户正在做什么，比如服务器不知道哪些客户端正在缓存哪些块，或者哪些文件当前在每个客户端打开，或者文件指针的位置。&lt;/p&gt;
+&lt;p&gt;正因为有状态，所以崩溃恢复才显得困难。想象一下， 一个打开文件然后崩溃的客户端。open () 在服务器上用掉了一个文件描述符，服务器怎么知 道可以关闭给定的文件呢？在正常操作中，客户端最终将调用 close ()，从而通知服务器应该 关闭该文件。但是，当客户端崩溃时，服务器永远不会收到 close ()，因此必须注意到客户端 已崩溃，以便关闭文件。&lt;/p&gt;
+&lt;p&gt;无状态下，要求&lt;strong&gt;每个客户端操作都包含完成请求所需的所有信息&lt;/strong&gt;，如果崩溃了，服务器只是再次开始运行，最糟糕情况下，客户端必须重试请求，这也是 NFS 崩溃恢复另一核心，&lt;strong&gt;大多数操作具有幂等性&lt;/strong&gt;，所以客户端只需要重发即可。当然，有些请求是很难成为幂等的，比如尝试创建目录，如果该目录已经存在，系统会通知你 &lt;code&gt;mkdir&lt;/code&gt;  请求失败。&lt;/p&gt;
+&lt;p&gt;简单强调一下该协议的重要部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件句柄：用于唯一地描 述文件或目录，卷标识符、inode 号、世代号。这三项一起构成客户希望访问的文件或目录的唯一标识符。
+&lt;ul&gt;
+&lt;li&gt;卷标识符通知服务器，请求指向哪个文件系统（NFS 服务器可以导出多个文件系统）&lt;/li&gt;
+&lt;li&gt;inode 号告诉服务器，请求访问该分区中的哪个文件。&lt;/li&gt;
+&lt;li&gt;复用 inode 号时需要世代号。通过在复用 inode 号时递增它，服务器确保具有旧文件句柄的 客户端不会意外地访问新分配的文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LOOKUP 协议消息&lt;/strong&gt;：用于获取文件句柄，然后用于访问文件数据。客户端传递目录文件句柄和要查找的文件的名称，该文件（或目 录）的句柄及其属性将从服务器传递回客户端。比如客户端调用 &lt;code&gt;open(&amp;quot;/dir/test&amp;quot;,...)&lt;/code&gt; ，那么客户端会先发送 LOOKUP 消息，携带根目录文件句柄 &lt;code&gt;&#39;/&#39;&lt;/code&gt; ，要查找的目录名称 &lt;code&gt;dir&lt;/code&gt; ，收到回复后再发送携带 &lt;code&gt;/dir&lt;/code&gt;  的目录文件句柄，要查找的文件 &lt;code&gt;test&lt;/code&gt;  的 LOOKUP 消息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;属性&lt;/strong&gt;：服务端找到对应文件后，会返回该文件的属性给客户端，包括文件创建时间、上次修改时间、大小、 所有权和权限信息等，即对文件调用 stat () 会返回的信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有了文件句柄，客户端可以对一个文件发出 READ 和 WRITE 协议消息，读取和写入该文件。READ 协议消息要求&lt;strong&gt;传递文件句柄，以及文件中的偏移量和要读取的字节数&lt;/strong&gt;。然后，服务器就能发出读取请求（毕竟，该文件句柄告诉了服务器，从哪个卷和哪个 inode 读取，偏移量 和字节数告诉它要读取该文件的哪些字节），并将数据返回给客户端 （如果有故障就返回错误 代码）。&lt;/p&gt;
+&lt;p&gt;NFS 系统为了提升性能，引入了缓存（本质是&lt;strong&gt;缓存块&lt;/strong&gt;），客户端会将请求的数据缓存到本地内存，为了维护缓存一致性，NFS 主要是两种策略：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;关闭时刷新&lt;/strong&gt;：当应用程序写入文件并关闭文件时，客户端将所有脏页都刷新到服务器。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GETATTR 请求&lt;/strong&gt;：每次访问一个文件都看一下它是否被更新（版本号），但是这就导致 NFS 服务器充斥着 GETATTR 请求。所以引入了&lt;strong&gt;缓存属性&lt;/strong&gt;：比如设置缓存时间，3 秒内认为不过期，之后缓存失效然后重新读取&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;afs&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#afs&#34;&gt;#&lt;/a&gt; AFS&lt;/h2&gt;
+&lt;p&gt;Andrew 文件系统由卡内基梅隆大学（CMU）的研究人员于 20 世纪 80 年代引入。该 项目由卡内基梅隆大学著名教授 M. Satyanarayanan（简称为 Satya）领导，主要目标很简单：扩展（scale）。具体来说，如何设计分布式文件系统（如服务器）可以支持尽可能多的客户端？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NFS 中，协议强制客户端定期检查服务器，以确定缓 存的内容是否已更改。因为每次检查都使用服务器资源（包括 CPU 和网络带宽），所以频繁 的检查会限制服务器响应的客户端数量，从而限制可扩展性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;AFS 我们讨论两个版本，所有 AFS 版本的基本原则之一，是在访问文件的客户端计算机的本地磁盘（local disk） 上，进行全文件缓存（whole-file caching）&lt;/p&gt;
+&lt;h3 id=&#34;afsv1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#afsv1&#34;&gt;#&lt;/a&gt; AFSv1&lt;/h3&gt;
+&lt;p&gt;当 open () 文件时，将从服务器获取整个文件（如果存在），并存储在本地磁盘上的文件中。后续应用程序 read () 和 write () 操作被重定向到存储 文件的本地文件系统。因此，这些操作不需要网络通信，速度很快。最后，AFS 客户端完成后检查文件是否已被修改（即它被打开并写入）。如果被修改，它会用 &lt;strong&gt;Store 协议消息&lt;/strong&gt;， 将新版本刷写回服务器，将整个文件和路径名发送到服务器以进行持久存储。&lt;/p&gt;
+&lt;p&gt;补充，客户端程序首次调用 open ()：向服务器发送 &lt;strong&gt;Fetch 协议消息&lt;/strong&gt;。Fetch 协议消息会将所需文件的整个路径名（例如 /home/remzi/notes.txt）传递给文件服务器（它们称为 Vice 的组），然后将沿着路径名，查找所需的文件，并将整个文件发送回客户端。然后，客户端代码将文件缓存在客户端的本地磁盘上（将它写入本地磁盘）。&lt;/p&gt;
+&lt;p&gt;但是&lt;strong&gt; AFSv1&lt;/strong&gt; 存在两个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;路径查找成本过高&lt;/strong&gt;：执行 Fetch 或 Store 协议请求时，客户端将整个路径名（例如 /home/remzi/notes.txt）传递给服务器。为了访问文件，服务器必须执行完整的路径 名遍历，首先查看根目录以查找 home，然后在 home 中查找 remzi，依此类推，一 直沿着路径直到最终定位所需的文件。由于许多客户端同时访问服务器，AFS 的 设计人员发现服务器花费了大量的 CPU 时间，只是在沿着目录路径走。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客户端发出太多 TestAuth 协议消息&lt;/strong&gt;：与 NFS 及其过多的 GETATTR 协议消息非常 相似，AFSv1 用 TestAuth 协议信息，生成大量流量，以检查本地文件（或其状态 信息）是否有效。因此，服务器花费大量时间，告诉客户端是否可以使用文件的 缓存副本。大多数时候，答案是文件没有改变。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这使得每个 AFS 服务器最多个 20 个客户端服务，太少了。&lt;/p&gt;
+&lt;h3 id=&#34;afsv2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#afsv2&#34;&gt;#&lt;/a&gt; AFSv2&lt;/h3&gt;
+&lt;p&gt;v2 引入了回调，当文件发生改变时，服务端将通知客户端，这就解决了 TestAuth 协议消息过多的问题。然后客户端访问文件，假设为 &lt;code&gt;/home/remzi/notes.txt&lt;/code&gt; ，并且 home 是挂载在 / 上的 AFS 目录 （即 / 是本地根目录，但 home 及其子目录在 AFS 中），则客户端将先获取 home 的目录内容， 将它们放在本地磁盘缓存中，然后在 home 上设置回调。然后，客户端将获取目录 remzi， 将其放入本地磁盘缓存，并在服务器上设置 remzi 的回调。最后，客户端将获取 notes.txt， 将此常规文件缓存在本地磁盘中，设置回调，最后将文件描述符返回给调用应用程序。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;与 NFS 的关键区别在于，每次获取目录或文件时，AFS 客户端都会与服务器&lt;strong&gt;建立回调&lt;/strong&gt;，从而确保服务器通知客户端，其缓存状态发生变化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于并发写入，我们讨论一个有趣的场景，也是我们困惑的场景：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/09/cd115e62b8cc8d1a.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;崩溃恢复&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#崩溃恢复&#34;&gt;#&lt;/a&gt; 崩溃恢复&lt;/h3&gt;
+&lt;p&gt;AFS 的崩溃恢复比 NFS 稍微复杂：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;客户端崩溃：崩溃过程中，会丢失服务端发送过来的回调，所以客户端重启后应该不信任自己的缓存副本，所有都要重新请求&lt;/li&gt;
+&lt;li&gt;服务端崩溃：回调都是保存在内存中，崩溃会导致回调消失，所以重启后需要通知所有客户端丢弃自己的缓存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;附录&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#附录&#34;&gt;#&lt;/a&gt; 附录&lt;/h1&gt;
+&lt;h2 id=&#34;虚拟机监视器&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#虚拟机监视器&#34;&gt;#&lt;/a&gt; 虚拟机监视器&lt;/h2&gt;
+&lt;p&gt;虚拟机监视器（Virtual Machine Monitor，VMM），也称管理程序，&lt;strong&gt;hypervisor&lt;/strong&gt;。监视器位于一个或多个操作系统和硬件之间，并为每个运行的操作系统提供控制机器的假象。所以 VMM 是一种运行在操作系统之下的应用，是操作系统的操作系统。我们之前学到操作系统向上提供虚拟化，&lt;strong&gt;欺骗&lt;/strong&gt;应用程序，使其认为自己拥有私有的 CPU 和虚拟内存，如今，VMM 也要做同样的事情。&lt;/p&gt;
+&lt;p&gt;为什么使用 VMM：服务器合并就是一个原因。在许多设置中， 人们在运行不同操作系统（甚至 OS 版本）的不同机器上运行服务，但&lt;strong&gt;每台机器的利用率都不高&lt;/strong&gt;。在这种情况下，虚拟化使管理员能够将多个操作系统合并（consolidate）到更少的硬 件平台上，从而降低成本并简化管理。当然也有很多其他理由。&lt;/p&gt;
+&lt;p&gt;假设我们在单个处理器上运行，切换操作系统本质上和切换进程是一样的，VMM 需要保存整个操作系统的机器状态。&lt;/p&gt;
+&lt;p&gt;如果没有 VMM，单个 OS 的进程发出系统调用，那么步骤如下：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/09/1df4cb3042d067d9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;如果有 VMM：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/09/6c61c885f11f0332.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;VMM 控制机器，其实 VMM 本身不知道如何（how）处理系统调用，毕竟，它不知道正在运行的每个操作系统的细节，因此不知道每个调用应该做什么。当操作系统&lt;strong&gt;启动&lt;/strong&gt;时，试图安装自己的&lt;strong&gt;陷阱处理程序&lt;/strong&gt;，这个操作使得操作系统试图执行特权，因此陷入 VMM 中，此时，VMM 记录了必要的信息（&lt;strong&gt;这个 OS 的陷阱处理程序在内存中的位置&lt;/strong&gt;）。&lt;/p&gt;
+&lt;p&gt;而内存的虚拟化，是 VMM 在操作系统和机器内存中间也加了页表：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/09/b38e36f4298bce68.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;半虚拟化&lt;/strong&gt;：为了操作系统更好的在 VMM 上运行，可以修改操作系统，这就是半虚拟化，因为 VMM 提供的虚拟化不是完整的虚拟化，而是需要操作系统更改才能有效运行的部分虚拟化。一个设计合理的半虚拟化系统，只需要正确的操作系统更改，就可以接近没有 VMM 时的效率。这也是解决信息沟的一种有效方法。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;信息沟指的是，VMM 通常不太了解操作系统正在做什么或想要什么，这种知识缺乏时被称为 VMM 和 OS 之间的信息沟。此时 OS 没有任何东西可以运行，有时会进入空循环，并自旋等待下一个中断。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;致谢&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#致谢&#34;&gt;#&lt;/a&gt; 致谢&lt;/h1&gt;
+&lt;p&gt;本文总结于《操作系统导论》一书，非常感谢作者和译者，使得我在阅读这本书时和作者编写这本书时一样开心。&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

@@ -7,29 +7,30 @@
         <language>zh-CN</language>
         <pubDate>Wed, 24 May 2023 09:11:32 +0800</pubDate>
         <lastBuildDate>Wed, 24 May 2023 09:11:32 +0800</lastBuildDate>
-        <category>408</category>
         <category>Docker</category>
+        <category>Projects</category>
         <category>tools</category>
-        <category>云计算</category>
         <category>二次元</category>
-        <category>八股文</category>
         <category>shell</category>
-        <category>数据结构与算法</category>
-        <category>前端</category>
-        <category>MySQL</category>
+        <category>云计算</category>
+        <category>八股文</category>
         <category>网络协议与工具</category>
+        <category>前端</category>
+        <category>数据结构与算法</category>
+        <category>MySQL</category>
         <category>Redis</category>
         <category>Mybatis</category>
         <category>Spring全家桶</category>
-        <category>日志框架</category>
         <category>uni-app</category>
         <category>Concurrency</category>
-        <category>Java基础</category>
         <category>Java8</category>
-        <category>Web</category>
-        <category>网络编程</category>
         <category>JVM</category>
         <category>设计模式</category>
+        <category>网络编程</category>
+        <category>Java基础</category>
+        <category>Web</category>
+        <category>消息队列</category>
+        <category>408</category>
         <item>
             <guid isPermalink="true">https://cecilia.cool/2023/05/24/408/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
             <title>操作系统从入门到找不到门</title>

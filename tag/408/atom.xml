@@ -5,33 +5,34 @@
     <link href="https://cecilia.cool" />
     <updated>2023-05-24T01:11:32.000Z</updated>
     <category term="Docker" />
-    <category term="Projects" />
+    <category term="shell" />
     <category term="tools" />
     <category term="二次元" />
-    <category term="shell" />
     <category term="云计算" />
     <category term="八股文" />
-    <category term="网络协议与工具" />
     <category term="前端" />
+    <category term="操作系统" />
     <category term="数据结构与算法" />
+    <category term="网络协议与工具" />
     <category term="MySQL" />
     <category term="Redis" />
-    <category term="Mybatis" />
+    <category term="Concurrency" />
     <category term="Spring全家桶" />
     <category term="uni-app" />
-    <category term="Concurrency" />
-    <category term="Java8" />
     <category term="JVM" />
-    <category term="设计模式" />
-    <category term="网络编程" />
+    <category term="Mybatis" />
     <category term="Java基础" />
+    <category term="设计模式" />
+    <category term="Java8" />
     <category term="Web" />
+    <category term="网络编程" />
+    <category term="Projects" />
     <category term="消息队列" />
     <category term="408" />
     <entry>
-        <id>https://cecilia.cool/2023/05/24/408/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</id>
-        <title>操作系统从入门到找不到门</title>
-        <link rel="alternate" href="https://cecilia.cool/2023/05/24/408/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+        <id>https://cecilia.cool/2023/05/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA/</id>
+        <title>《操作系统导论》</title>
+        <link rel="alternate" href="https://cecilia.cool/2023/05/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA/"/>
         <content type="html">&lt;p&gt;操作系统分三大部分：虚拟化、并发、持久化。鉴于并发专门开了一个 tag，所以这里只讲虚拟化和持久化，本文是我看完了《操作系统导论》以及其他各种优秀的文章总结而成。从学习层次来讲，《操作系统导论》更多的是引导读者去思考如何设计一个操作系统，而不是直接给出知识点，这是非常好的，但是这也意味着读者需要多去总结，所以有了本文。&lt;/p&gt;
 &lt;p&gt;目前《操作系统导论》的几种语言翻译在 github 是开源的，大家可以直接查看中文的 pdf 电子书：&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3JlbXppLWFycGFjaWR1c3NlYXUvb3N0ZXAtdHJhbnNsYXRpb25zL3RyZWUvbWFzdGVyL2NoaW5lc2U=&#34;&gt;https://github.com/remzi-arpacidusseau/ostep-translations/tree/master/chinese&lt;/span&gt;&lt;/p&gt;
@@ -176,14 +177,14 @@
 &lt;li&gt;文件系统如何将进程发出的调用（open，read，write）映射到对应的结构上&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;建立自己的心智模型，也就是在学习系统时真正想要发展的东西。对于文件系统，你 的心智模型最终应该包含以下问题的答案：磁盘上的哪些结构存储文件系统的数据和元数据？当一个进 程打开一个文件时会发生什么？在读取或写入期间访问哪些磁盘结构？通过研究和改进心智模型，你可 以对发生的事情有一个抽象的理解，而不是试图理解某些文件系统代码的细节。&lt;/p&gt;
+&lt;p&gt;建立自己的心智模型，也就是在学习系统时真正想要发展的东西。对于文件系统，你的心智模型最终应该包含以下问题的答案：磁盘上的哪些结构存储文件系统的数据和元数据？当一个进程打开一个文件时会发生什么？在读取或写入期间访问哪些磁盘结构？通过研究和改进心智模型，你可以对发生的事情有一个抽象的理解，而不是试图理解某些文件系统代码的细节。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;数据结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据结构&#34;&gt;#&lt;/a&gt; 数据结构&lt;/h3&gt;
 &lt;p&gt;我们将磁盘分块，然后定义一下&lt;strong&gt;数据块&lt;/strong&gt;、&lt;strong&gt;inodes&lt;/strong&gt;（用于存储所有 inode）、&lt;strong&gt;inode 位图&lt;/strong&gt;（用于判断某个 inode 是否被使用）、&lt;strong&gt;数据位图&lt;/strong&gt;（同理，数据块是否使用），&lt;strong&gt;超级块&lt;/strong&gt;（S，用于存储特定文件系统信息，比如有多少个 inode，多少个数据块）&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/02/b537477a22cf80f9.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;在挂载文件系统时，操作系统将首先读取超级块，初始化各种参数，然后将该卷添加到文件系统树中。当卷中的文件被访问时，系统就会知道在哪里查找所需的磁盘上的结构。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;inode&lt;/code&gt;  包含了指向数据块的指针，为了支持更大的文件，文件系统设计者必须在 inode 中引入不同的结构。一个常见的思 路是有一个称为间接指针（indirect pointer）的特殊指针。它不是指向包含用户数据的块， 而是指向包含更多指针的块，每个指针指向用户数据。因此，inode 可以有一些固定数量（例 如 12 个）的直接指针和一个间接指针。如果文件变得足够大，则会分配一个间接块（来自 磁盘的数据块区域），并将 inode 的间接指针设置为指向它。假设一个块是 4KB，磁盘地址 是 4 字节，那就增加了 1024 个指针。文件可以增长到（12 + 1024）×4KB，即 4144KB。&lt;/p&gt;
-&lt;p&gt;至于目录，一个目录基本上只包含一个二 元组（条目名称，inode 号）的列表。对于给定目录中的每个文件或目录，目录的数据块中都有一个字符串和一个数字。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;inode&lt;/code&gt;  包含了指向数据块的指针，为了支持更大的文件，文件系统设计者必须在 inode 中引入不同的结构。一个常见的思路是有一个称为间接指针（indirect 	pointer）的特殊指针。它不是指向包含用户数据的块， 而是指向包含更多指针的块，每个指针指向用户数据。因此，inode 可以有一些固定数量（例 如 12 个）的直接指针和一个间接指针。如果文件变得足够大，则会分配一个间接块（来自 磁盘的数据块区域），并将 inode 的间接指针设置为指向它。假设一个块是 4KB，磁盘地址 是 4 字节，那就增加了 1024 个指针。文件可以增长到（12 + 1024）×4KB，即 4144KB。&lt;/p&gt;
+&lt;p&gt;至于目录，一个目录基本上只包含一个二元组（条目名称，inode 号）的列表。对于给定目录中的每个文件或目录，目录的数据块中都有一个字符串和一个数字。&lt;/p&gt;
 &lt;p&gt;删除一个文件（例如调用 unlink ()）会在目录中间留下一段空白空间，因此应该有一些方法来&lt;strong&gt;标记&lt;/strong&gt;它（例如，用一个保留的 inode 号，比如 0）。这种删除是使用记录长度的一个原因：新条目可能会重复使用旧的、更大的条目，从而在其中留有额外的空间。&lt;/p&gt;
 &lt;h3 id=&#34;文件组织&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件组织&#34;&gt;#&lt;/a&gt; 文件组织&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;inode&lt;/code&gt;  大概有这些内容：&lt;/p&gt;
@@ -289,9 +290,9 @@
 &lt;h4 id=&#34;寻找inode&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#寻找inode&#34;&gt;#&lt;/a&gt; 寻找 inode&lt;/h4&gt;
 &lt;p&gt;之前的 Unix 系统中，inode 都被固定在一个位置，现在却在不断变化更新，所以加一个中间层映射 inode 号和 inode 地址即可。&lt;/p&gt;
 &lt;p&gt;imap 需要保持持久（写入磁盘）。这样做允许 LFS 在崩溃时仍能记录 inode 位置，从而按设想运行。因此有一个问题：imap 应该驻留在磁盘上的哪个位置？&lt;/p&gt;
-&lt;p&gt;当然，它可以存在于磁盘的固定部分。遗憾的是，由于它经常更新，因此需要更新文 件结构，然后写入 imap，因此性能会受到影响（每次的更新和 imap 的固定位置之间，会有 更多的磁盘寻道）。&lt;/p&gt;
+&lt;p&gt;当然，它可以存在于磁盘的固定部分。遗憾的是，由于它经常更新，因此需要更新文件结构，然后写入 imap，因此性能会受到影响（每次的更新和 imap 的固定位置之间，会有 更多的磁盘寻道）。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;归根到底：文件系统必须在磁盘上有一些固定且已知的位置，才能开始文件查很。&lt;/p&gt;
+&lt;p&gt;归根到底：文件系统必须在磁盘上有一些固定且已知的位置，才能开始文件查询。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;LFS 在磁盘上只有这样一个固定的位置，称为&lt;strong&gt;检查点区域&lt;/strong&gt;（checkpoint region，CR），它始终位于磁盘的开头，地址为 0）。检查点区域包含指向最新的 inode 映射片段的指针（即地址），因此可以通过首先读取 CR 来很到 inode 映射片段（&lt;strong&gt;一般会将整个 inode 映射缓存在内存中&lt;/strong&gt;）。请注意，检查点区域仅定期更新（例如每 30s 左右），因此性能不会受到 影响。因此，磁盘布局的整体结构包含一个检查点区域（指向内部映射的最新部分），每个 inode 映射块包含 inode 的地址，inode 指向文件（和目录）&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/06/08/748ca67768341109.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;

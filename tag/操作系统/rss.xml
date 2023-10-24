@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>慕青の迷途 • Posts by &#34;操作系统&#34; tag</title>
+        <link>https://cecilia.cool</link>
+        <description>时雨病重症患者</description>
+        <language>zh-CN</language>
+        <pubDate>Tue, 24 Oct 2023 14:57:08 +0800</pubDate>
+        <lastBuildDate>Tue, 24 Oct 2023 14:57:08 +0800</lastBuildDate>
+        <category>Docker</category>
+        <category>shell</category>
+        <category>tools</category>
+        <category>二次元</category>
+        <category>云计算</category>
+        <category>八股文</category>
+        <category>前端</category>
+        <category>操作系统</category>
+        <category>数据结构与算法</category>
+        <category>网络协议与工具</category>
+        <category>MySQL</category>
+        <category>Redis</category>
+        <category>Concurrency</category>
+        <category>Spring全家桶</category>
+        <category>uni-app</category>
+        <category>JVM</category>
+        <category>Mybatis</category>
+        <category>Java基础</category>
+        <category>设计模式</category>
+        <category>Java8</category>
+        <category>Web</category>
+        <category>网络编程</category>
+        <category>Projects</category>
+        <category>消息队列</category>
+        <category>408</category>
+        <item>
+            <guid isPermalink="true">https://cecilia.cool/2023/10/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</guid>
+            <title>《操作系统概念》</title>
+            <link>https://cecilia.cool/2023/10/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/</link>
+            <category>操作系统</category>
+            <pubDate>Tue, 24 Oct 2023 14:57:08 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;13-io系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#13-io系统&#34;&gt;#&lt;/a&gt; 13-I/O 系统&lt;/h1&gt;
+&lt;h2 id=&#34;132-io硬件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#132-io硬件&#34;&gt;#&lt;/a&gt; 13.2-I/O 硬件&lt;/h2&gt;
+&lt;p&gt;外界设备如键盘，鼠标等都是 I/O 设备，与计算机的通信通过一个连接点或端口。如果设备共享一组通用线路，这种连接称为&lt;strong&gt;总线 bus&lt;/strong&gt;：一组线路和通过线路传输信息的协议。&lt;/p&gt;
+&lt;p&gt;不同设备连接的总线可能不同，比如&lt;strong&gt;磁盘&lt;/strong&gt;连接&lt;strong&gt; SCSI 总线&lt;/strong&gt;，&lt;strong&gt;速度较慢&lt;/strong&gt;的设备（如键盘）连接&lt;strong&gt;扩展总线&lt;/strong&gt;。&lt;strong&gt;快速设备&lt;/strong&gt;连接在&lt;strong&gt; PCI 总线&lt;/strong&gt;（常用的 PC 系统总线）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;控制器&lt;/strong&gt;是可以操作&lt;strong&gt;端口&lt;/strong&gt;、&lt;strong&gt;总线&lt;/strong&gt;、&lt;strong&gt;设备&lt;/strong&gt;的一组电子器件。可以说，设备连接到 PCI 总线上，大都需要先连接到对应的控制器，然后控制器再连接到 PCI 总线上。（有些设备内置控制器）&lt;/p&gt;
+&lt;p&gt;控制器中内置了若干个寄存器（&lt;strong&gt;数据输入寄存器&lt;/strong&gt; - 主机获取数据、&lt;strong&gt;数据输出寄存器&lt;/strong&gt;、&lt;strong&gt;状态寄存器&lt;/strong&gt;、&lt;strong&gt;控制寄存器&lt;/strong&gt;），处理器通过读写这些寄存器来实现对控制器发出命令和数据以便完成 I/O 传输。其中&lt;strong&gt;一种方式&lt;/strong&gt;为：使用特殊的 I/O 指令针对对应端口传输字节，指令触发总线线路，选择合适的设备，并将位移入或移出设备寄存器。&lt;strong&gt;或者&lt;/strong&gt;可以&lt;strong&gt;支持内存映射 I/O&lt;/strong&gt;，设备控制寄存器被映射到处理器的地址空间。也可以两种方法都使用，比如图形控制器，使用 I/O 端口完成基本控制操作，也有较大的内存映射区以支持屏幕内容。&lt;/p&gt;
+&lt;p&gt;主机和控制器交互：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;轮询&lt;/strong&gt;：这里主要体现主机与控制器之间的握手，假设主机需要通过端口输出数据时，握手协议流程如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主机重复获取控制器&lt;strong&gt;忙位&lt;/strong&gt;，直到该位清零。&lt;/li&gt;
+&lt;li&gt;主机设置命令寄存器的写位，并写出&lt;strong&gt;一个字节&lt;/strong&gt;到数据输出寄存器。&lt;/li&gt;
+&lt;li&gt;主机设置命令就绪位。&lt;/li&gt;
+&lt;li&gt;控制器注意到命令就绪位已设置，则设置忙位。&lt;/li&gt;
+&lt;li&gt;控制器读取命令寄存器，看到写命令，从数据输出寄存器读取一个字节为单位，并向设备执行 I/O 操作。&lt;/li&gt;
+&lt;li&gt;控制器清除命令就绪位，清除状态寄存器的故障位表示设备 I/O 成功，清除忙位表示完成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于每个字节都重复这个循环，这种又叫做 PIO，即 Programmed I/O。轮询的缺点是，如果等待的时间过程，主机是应该切换到另一个任务，但是主机不清楚控制器何时空闲，很可能主机会等待很久才会处理另一些设备（而这些设备应该被主机快速响应，不然数据会丢失），则串口或键盘控制器的小缓冲器可能会溢出导致数据丢失。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;中断&lt;/strong&gt;：&lt;strong&gt;设备通知 CPU 的硬件机制&lt;/strong&gt;，CPU 硬件有一条&lt;strong&gt;中断请求线 IRL&lt;/strong&gt;，&lt;strong&gt;CPU 执行完每一条指令后，都会检测 IRL&lt;/strong&gt;。当检测到控制器在 IRL 上发出了一个信号，CPU 执行状态保存并跳到&lt;strong&gt;内存固定位置&lt;/strong&gt;的&lt;strong&gt;中断处理程序&lt;/strong&gt;来处理中断和返回。现代操作系统需要更复杂的中断处理功能：延迟中断处理；快速知道中断该分配到哪个中断处理程序，而不再需要轮询所有设备；多级中断，也就是为中断分配优先级。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CPU 有两条中断请求线，分别是非屏蔽中断线、可屏蔽中断线。&lt;/p&gt;
+&lt;p&gt;为了确定中断该由哪种中断处理程序处理，中断机制接受一个&lt;strong&gt;地址&lt;/strong&gt;，这个地址也叫做&lt;strong&gt;中断向量表&lt;/strong&gt;中的一个偏移量。这个向量（表）包含了地址和中断处理程序的映射。&lt;/p&gt;
+&lt;p&gt;中断不只是用于主机和设备的交互，操作系统还采用中断进行虚拟内存分页，当调用系统调用时，也会产生中断，只不过这个中断是软中断，即 trap 特殊指令。当程序执行陷阱指令时，中断硬件保存用户代码状态，切换到内核模式。&lt;strong&gt;陷阱赋予的中断优先级低于设备赋予的中断优先级&lt;/strong&gt;，因为设备控制器的的缓冲区可能会溢出导致数据丢失，所以更为重要。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;直接内存访问&lt;/strong&gt;，又叫做 DMA（Direct-Memory Access），DMA 的出现，是因为对于大量传输而言，PIO 实在是太慢了。DMA&lt;strong&gt; 命令块&lt;/strong&gt;包含源地址指针、目的地址指针、字节数。CPU 将这个命令块的地址写到 DMA 控制器，然后就继续其他工作。DMA 控制器就直接操作内存总线。&lt;/p&gt;
+&lt;p&gt;DMA 和设备存在握手，通过&lt;strong&gt; DMA 请求&lt;/strong&gt;线路和&lt;strong&gt; DMA 确认&lt;/strong&gt;线路进行。当有数据传输时，&lt;strong&gt;设备控制器发送信号到 DMA 请求路线&lt;/strong&gt;，这个信号让 DMA 控制器占用&lt;strong&gt;内存总线&lt;/strong&gt;（CPU 暂时阻止访问内存），发送所需地址到内存地址的总线，并&lt;strong&gt;发送信号到 DMA 确认线路&lt;/strong&gt;，当设备控制器收到 DMA 确认信号，开始传输数据到内存并请求 DMA 请求信号。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s3.bmp.ovh/imgs/2023/10/08/779d51ca2e17bb2c.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;133-应用程序io接口&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#133-应用程序io接口&#34;&gt;#&lt;/a&gt; 13.3 - 应用程序 I/O 接口&lt;/h2&gt;
+&lt;p&gt;操作系统提供统一的 I/O 接口，以便于按统一的方式来处理 I/O 设备。抽象出统一接口屏蔽差异，其实就是封装&lt;strong&gt;设备驱动程序&lt;/strong&gt;（内核模块），驱动一方面可以定制以适应各种设备，另一方面提供一组标准接口。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;块与字符设备&lt;/strong&gt;：&lt;strong&gt;块设备接口&lt;/strong&gt;是将存储以块为单位，为磁盘驱动器和其他基于块设备的访问定义了所需的各方面，可以看到 &lt;code&gt;read()、write()、seek()&lt;/code&gt;  描述块存储设备的基本行为。而字符设备，比如键盘，就需要通过字符流接口访问，这个接口的基本系统调用能使应用程序 &lt;code&gt;get()、put()&lt;/code&gt;  字符。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络设备&lt;/strong&gt;：网络 I/O 的接口定义为 &lt;code&gt;socket&lt;/code&gt;  接口（套接字接口）。套接字接口的系统调用能使应用程序创建一个套接字、连接本地套接字到远程套地址，并监听远程应用程序，通过连接发送、接收数据。同时提供 select 等系统调用来管理套接字。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时钟与定时器&lt;/strong&gt;：大多数计算机都有硬件时钟和定时器，以便提供三种基本功能（&lt;strong&gt;获取当前时间&lt;/strong&gt;、&lt;strong&gt;获取经过时间&lt;/strong&gt;、&lt;strong&gt;设置定时器，以便在 T 时触发操作 X&lt;/strong&gt;）。测量经过时间和触发操作的硬件被称为&lt;strong&gt;可编程间隔定时器&lt;/strong&gt;，可以设置为等待一定时间，然后触发中断，并且可以设置做一次或多次（周期中断）。这有着广泛应用，比如调度程序采用这种机制&lt;strong&gt;抢占时间片用完的进程&lt;/strong&gt;、磁盘 I/O 定期刷新缓冲到磁盘、网络子系统定时取消由于拥塞，故障而太慢的一些操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;134-内核io子系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#134-内核io子系统&#34;&gt;#&lt;/a&gt; 13.4 - 内核 I/O 子系统&lt;/h2&gt;
+&lt;p&gt;关键词：（调度）等待队列、设备状态表 | （缓冲）双缓冲区、复制语义 | （I/O 保护）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I/O 调度&lt;/strong&gt;：调度一组 I/O 请求意味着确定&lt;strong&gt;好的&lt;/strong&gt;顺序来执行，而应用程序执行系统调用顺序很少是最佳的。一种方法是，为&lt;strong&gt;每个设备维护一个请求等待队列&lt;/strong&gt;，当应用程序发出阻塞 I/O 的系统调用时，该请求被添加到相应设备的队列，&lt;strong&gt;I/O 调度程序重新安排队列顺序&lt;/strong&gt;用于提高系统的总体效率和应用程序的平均响应时间。内核支持&lt;strong&gt;异步 I/O&lt;/strong&gt; 的话，必须能够同时追踪许多 I/O 请求（用于及时通知应用程序请求完成）。一种方法就是将等待队列附加到&lt;strong&gt;设备状态表&lt;/strong&gt;上，内核管理此表。每个条目表示每个 I/O 设备，包含了设备类型、地址、状态等，如果设备忙于一个请求，则请求的类型和其他参数会被保存到该设备的表条目中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缓冲&lt;/strong&gt;：一片内存区域，用于保存&lt;strong&gt;两个设备&lt;/strong&gt;之间或者&lt;strong&gt;设备与应用程序&lt;/strong&gt;之间的传输的数据。双缓冲就是分配两个缓冲区，当 A 缓冲区正在刷新到磁盘，应用程序产生的新数据就保存在 B 缓冲区中。缓冲的用途主要就是&lt;strong&gt;协调双方的速度不一致&lt;/strong&gt;。还有一种就是&lt;strong&gt;支持应用程序 I/O 的复制语义&lt;/strong&gt;，&lt;strong&gt;复制语义就是写到磁盘的数据版本保证是应用程序系统调用时的版本&lt;/strong&gt;。用例子简单来说就是，程序调用 &lt;code&gt;write()&lt;/code&gt;  将数据 A 从&lt;strong&gt;应用程序缓冲区&lt;/strong&gt;写到&lt;strong&gt;内核缓冲区&lt;/strong&gt;，磁盘写入通过内核缓冲区执行，以便程序缓冲区的后续修改（数据修改为 B）不会造成影响。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;缓存&lt;/strong&gt;：缓存更快，比如 cache 就是缓存而不是缓冲，缓冲只是一个临时存储数据的区域，是保存数据项的唯一的现有副本，而缓存只是提供一个位于其他地方的数据项的&lt;strong&gt;更快存储副本&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;I/O 保护&lt;/strong&gt;：为了避免用户程序发出（有意或无意）非法的 I/O 指令，&lt;strong&gt;定义所有 I/O 指令为特权指令&lt;/strong&gt;，因此用户不能直接发出 I/O 指令，必须陷入内核由操作系统检查请求是否合法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;135-io请求转成硬件操作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#135-io请求转成硬件操作&#34;&gt;#&lt;/a&gt; 13.5-I/O 请求转成硬件操作&lt;/h2&gt;
+&lt;p&gt;前面解释了设备驱动程序与设备控制器之间的握手，本小节解释操作系统如何&lt;strong&gt;将应用程序请求连接到网络线路或特定的磁盘扇区&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;以磁盘为例，程序通过文件名称（从而找到 inode）引用数据。inode 中包含了空间分配信息，但是如何建立文件名称到磁盘控制器的连接。&lt;/p&gt;
+&lt;p&gt;MS-DOS 的方法是，对特定地硬件设备用特定的字符串表示，类似于 Windows，是字符串 + 冒号 &lt;code&gt;C:&lt;/code&gt;  来表示一个磁盘，从而通过&lt;strong&gt;设备映射表&lt;/strong&gt;找到特定的端口地址。&lt;/p&gt;
+&lt;p&gt;UNIX 则是将设备名称空间集成到常规文件系统名称空间。UNIX 路径没有明确区分设备部分，但是 UNIX 维护了一个&lt;strong&gt;安装表&lt;/strong&gt; &lt;code&gt;mount table&lt;/code&gt; ，&lt;strong&gt;将路径名称的前缀和特定设备名称关联&lt;/strong&gt;。解析路径名：UNIX 检查安装表内的名称，以查找最长的匹配前缀；从而根据映射找到设备名称；UNIX 在文件系统目录结构中查找此名称，找的是 &lt;code&gt;设备号&amp;lt;主，次&amp;gt;&lt;/code&gt; 。主设备号表示处理这种设备 I/O 的设备驱动程序，次设备号传到设备驱动程序，以检索设备表，找到对应的设备控制器的端口地址或内存映射地址。&lt;/p&gt;
+&lt;p&gt;这个过程有三个映射，分别是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装表 &lt;code&gt;mount table&lt;/code&gt; ： &lt;code&gt;&amp;lt;路径前缀，设备名称&amp;gt;&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;文件系统目录结构： &lt;code&gt;&amp;lt;设备名称，设备号&amp;lt;主，次&amp;gt;&amp;gt;&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;设备表： &lt;code&gt;&amp;lt;主设备号，驱动程序&amp;gt;，&amp;lt;次设备号，控制器端口地址/内存映射地址&amp;gt;&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面我们以阻塞 I/O 流程为例，说明一下 I/O 操作的步骤和消耗 CPU 时间：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;针对以前已经打开的文件描述符，进程调用阻塞系统调用 &lt;code&gt;read()&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;内核系统调用代码检验参数，对于输入，如果数据已经在缓冲区了，则数据返回到进程，并完成 I/O 请求。&lt;/li&gt;
+&lt;li&gt;否则，必须指定物理 I/O 请求，该进程&lt;strong&gt;从运行队列移到设备等待队列&lt;/strong&gt;，并调度 I/O 请求。I/O 子系统发送请求到设备驱动程序。&lt;/li&gt;
+&lt;li&gt;设备驱动程序分配内核缓冲空间，来接收数据并调度 I/O。设备驱动程序向设备控制器的寄存器写入命令。&lt;/li&gt;
+&lt;li&gt;设备控制器控制设备硬件，以便执行数据传输。&lt;/li&gt;
+&lt;li&gt;驱动程序轮询检查状态和数据，或者使用 DMA 传输数据到内核内存。DMA 完成时产生中断。&lt;/li&gt;
+&lt;li&gt;中断处理程序通过中断向量表收到中断，保存必要数据，向内核设备驱动程序发送信号通知，从中断返回。&lt;/li&gt;
+&lt;li&gt;设备驱动接收信号，确定 I/O 请求是否完成，并对内核 I/O 子系统发送信号通知信号已经完成。&lt;/li&gt;
+&lt;li&gt;内核传输数据或返回代码到进程的地址空间，将进程从等待队列移到就绪队列。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;136-流&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#136-流&#34;&gt;#&lt;/a&gt; 13.6 - 流&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;流是在设备驱动程序和用户级进程之间的全双工连接&lt;/strong&gt;，它包括与&lt;strong&gt;用户进程&lt;/strong&gt;相连的&lt;strong&gt;流头&lt;/strong&gt;，控制设备的&lt;strong&gt;驱动程序端&lt;/strong&gt;，位于两者之间的若干个&lt;strong&gt;流模块&lt;/strong&gt;。每个模块都包含一个读队列和写队列。&lt;/p&gt;
+&lt;p&gt;相邻模块队列之间可以交换消息，为了避免队列溢出，队列需要支持&lt;strong&gt;流控制&lt;/strong&gt;，当队列没有足够的缓冲空间就不会接受消息。所以应用程序与流头直接通信，读 / 写操作会阻塞，直到下一个队列有数据 / 有空间。而驱动程序端必须能够触发中断，比如数据准备好用于网络读取时。并且也需要流控制，避免数据丢失（设备缓冲区满了，设备通常取消传入数据）。&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
